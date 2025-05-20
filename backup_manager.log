@@ -6677,3 +6677,88 @@ AssertionError: write() before start_response
 2025-05-21 01:49:25,519 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
 2025-05-21 01:49:40,519 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
 2025-05-21 01:49:40,574 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:49:55,575 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:49:55,635 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:50:10,635 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:50:10,690 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:50:25,691 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:50:25,748 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:50:40,749 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:50:40,808 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:50:55,809 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:50:55,865 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:51:10,865 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:51:10,918 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:51:25,918 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:51:25,972 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:51:40,973 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:51:41,030 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:51:56,030 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:51:56,084 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:52:11,085 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:52:11,230 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:52:26,230 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:52:26,285 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:52:41,285 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:52:41,338 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:52:46,344 - INFO - 145.239.89.63 - - [21/May/2025 01:52:46] "[32mGET /search HTTP/1.1[0m" 302 -
+2025-05-21 01:52:56,338 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:52:56,395 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:53:11,395 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:53:11,451 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:53:25,627 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-21 01:53:25,627 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-21 01:53:26,038 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-21 01:53:26,038 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-21 01:53:26,451 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:53:26,505 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:53:41,505 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:53:41,560 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:53:56,560 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:53:56,615 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:54:11,615 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:54:11,672 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:54:26,673 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:54:26,727 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:54:41,727 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:54:41,781 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:54:56,781 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:54:56,836 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:55:11,837 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:55:11,892 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:55:26,893 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:55:26,949 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:55:41,950 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:55:42,007 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:55:57,007 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:55:57,061 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:56:12,061 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:56:12,117 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:56:27,117 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:56:27,177 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:56:42,177 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:56:42,232 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:56:57,232 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:56:57,285 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:57:12,285 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:57:12,339 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:57:27,339 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:57:27,400 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:57:42,401 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:57:42,459 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:57:57,459 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:57:57,511 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:58:12,511 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:58:12,568 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:58:27,568 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:58:27,622 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:58:42,622 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:58:42,679 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:58:57,679 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:58:57,741 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:59:12,741 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:59:12,800 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:59:27,801 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:59:27,857 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-21 01:59:42,857 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
+2025-05-21 01:59:42,911 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
