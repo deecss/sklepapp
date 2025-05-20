@@ -1,0 +1,801 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Wystawianie produktów do sprzedaży{% endblock %}
+
+{% block admin_content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-6">Wystawianie produktów do sprzedaży</h1>
+    
+    {% if not xml_exists %}
+    <div class="bg-amber-100 border-l-4 border-amber-500 text-amber-700 p-4 mb-6" role="alert">
+        <p>Uwaga: Nie znaleziono pliku XML z produktami. <a href="{{ url_for('admin_settings') }}" class="text-amber-800 underline">Skonfiguruj i pobierz XML</a> aby móc wystawiać produkty.</p>
+    </div>
+    {% endif %}        <!-- Formularz wyszukiwania produktów -->
+    <div class="bg-white shadow rounded-lg p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">Wyszukaj produkty w XML</h2>
+        <div class="flex flex-wrap gap-4 mb-4">
+            <div class="flex-1 min-w-[250px]">
+                <label for="searchQuery" class="block text-sm font-medium text-gray-700 mb-1">Fraza wyszukiwania</label>
+                <input type="text" id="searchQuery" name="searchQuery" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Wpisz frazę...">
+            </div>
+            <div class="w-[200px]">
+                <label for="searchField" class="block text-sm font-medium text-gray-700 mb-1">Szukaj w polu</label>
+                <select id="searchField" name="searchField" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="any">Wszystkie pola</option>
+                    <option value="name">Nazwa</option>
+                    <option value="id">ID produktu</option>
+                    <option value="EAN">Kod EAN</option>
+                </select>
+            </div>
+            <div class="w-[200px]">
+                <label for="categoryFilter" class="block text-sm font-medium text-gray-700 mb-1">Kategoria</label>
+                <select id="categoryFilter" name="categoryFilter" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="">Wszystkie kategorie</option>
+                    <!-- Kategorie zostaną dodane przez JavaScript -->
+                </select>
+            </div>
+            <div class="flex items-end">
+                <button id="searchButton" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Szukaj
+                </button>
+            </div>
+        </div>
+        
+        <!-- Formularz narzutu -->
+        <div class="flex flex-wrap gap-4 mb-4 border-t pt-4 mt-4">
+            <div class="w-[200px]">
+                <label for="globalMarkupPercent" class="block text-sm font-medium text-gray-700 mb-1">Narzut cenowy (%)</label>
+                <input type="number" id="globalMarkupPercent" name="globalMarkupPercent" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="0" min="0" step="0.1">
+            </div>
+            <div class="flex items-end">
+                <button id="applyMarkupButton" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    Zastosuj narzut
+                </button>
+            </div>
+        </div>
+        
+        <!-- Lista i zapisywanie -->
+        <div class="flex flex-wrap gap-4 mb-4 border-t pt-4 mt-4">
+            <div class="flex-1 min-w-[250px]">
+                <label for="listName" class="block text-sm font-medium text-gray-700 mb-1">Nazwa listy produktów</label>
+                <input type="text" id="listName" name="listName" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Nazwa listy...">
+            </div>
+            <div class="flex-1 min-w-[250px]">
+                <label for="listDescription" class="block text-sm font-medium text-gray-700 mb-1">Opis listy</label>
+                <input type="text" id="listDescription" name="listDescription" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Opis...">
+            </div>
+            <div class="flex items-end">
+                <button id="saveListButton" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Zapisz listę
+                </button>
+            </div>
+        </div>
+        
+        <!-- Przycisk do wystawiania produktów -->
+        <div class="flex justify-end border-t pt-4 mt-4">
+            <button id="listSelectedButton" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mr-2">
+                Wystaw zaznaczone produkty
+            </button>
+            <button id="selectAllButton" class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                Zaznacz wszystkie
+            </button>
+        </div>
+    </div>
+    
+    <!-- Wyniki wyszukiwania -->
+    <div id="searchResults" class="bg-white shadow rounded-lg p-6 mb-6 hidden">
+        <h2 class="text-xl font-semibold mb-4">Wyniki wyszukiwania</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <input type="checkbox" id="selectAll" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            ID
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Zdjęcie
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Nazwa
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            EAN
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Kategoria
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Ilość
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Cena oryginalna
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Cena z narzutem
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Dostępność
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Akcje
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="resultsTableBody" class="bg-white divide-y divide-gray-200">
+                    <!-- Tu będą wstawiane wiersze z wynikami -->
+                </tbody>
+            </table>
+        </div>
+        <div id="pagination" class="mt-4 flex justify-between items-center">
+            <div class="text-sm text-gray-700">
+                Pokazuję <span id="currentRange">1-20</span> z <span id="totalResults">0</span> produktów
+            </div>
+            <div class="flex space-x-2">
+                <button id="prevPage" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Poprzednia
+                </button>
+                <button id="nextPage" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Następna
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lista zapisanych list produktów -->
+    <div class="bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Zapisane listy produktów</h2>
+        {% if product_lists %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            ID
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Nazwa
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Opis
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Ilość produktów
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Narzut (%)
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Data utworzenia
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Akcje
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for list in product_lists %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ list.id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ list.name }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-500">{{ list.description }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ list.products_ids|length }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ list.markup_percent }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ list.created_at }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a href="{{ url_for('product_list_detail', list_id=list.id) }}" class="text-blue-600 hover:text-blue-900 mr-3">Edytuj</a>
+                            <button class="text-indigo-600 hover:text-indigo-900 add-from-list" data-list-id="{{ list.id }}">Wystaw produkty</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-gray-500 text-center py-4">
+            Brak zapisanych list produktów.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Template wiersza tabeli -->
+<template id="productRowTemplate">
+    <tr class="product-row">
+        <td class="px-6 py-4 whitespace-nowrap">
+            <input type="checkbox" class="product-checkbox h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" data-product-id="">
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 product-id"></td>
+        <td class="px-6 py-4 whitespace-nowrap">
+            <img class="product-image h-10 w-10 rounded-full" src="" alt="">
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 product-name"></td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 product-ean"></td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 product-category"></td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 product-stock"></td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 product-original-price"></td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 product-price">
+            <div class="flex items-center space-x-2">
+                <span class="product-price-value"></span>
+                <input type="number" class="product-markup-input w-16 h-8 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" min="0" step="0.1" value="0">
+                <button class="apply-product-markup bg-green-100 text-green-800 text-xs px-2 py-1 rounded hover:bg-green-200">Zastosuj</button>
+            </div>
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 product-available"></td>
+        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+            <button class="text-indigo-600 hover:text-indigo-900 add-product-btn">Wystaw</button>
+        </td>
+    </tr>
+</template>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Admin product listing page loaded');
+    
+    // Zmienne dla paginacji
+    let currentPage = 1;
+    let totalPages = 1;
+    let totalResults = 0;
+    let currentResults = [];
+    const perPage = 20;
+    let globalMarkupPercent = 0;
+    let allCategories = new Set();
+    let filteredCategory = '';
+    
+    // Elementy DOM
+    const searchButton = document.getElementById('searchButton');
+    const searchQuery = document.getElementById('searchQuery');
+    const searchField = document.getElementById('searchField');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const searchResults = document.getElementById('searchResults');
+    const resultsTableBody = document.getElementById('resultsTableBody');
+    const pagination = document.getElementById('pagination');
+    const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
+    const currentRangeSpan = document.getElementById('currentRange');
+    const totalResultsSpan = document.getElementById('totalResults');
+    const selectAllCheckbox = document.getElementById('selectAll');
+    const saveListButton = document.getElementById('saveListButton');
+    const listNameInput = document.getElementById('listName');
+    const listDescriptionInput = document.getElementById('listDescription');
+    const globalMarkupInput = document.getElementById('globalMarkupPercent');
+    const applyMarkupButton = document.getElementById('applyMarkupButton');
+    const listSelectedButton = document.getElementById('listSelectedButton');
+    const selectAllButton = document.getElementById('selectAllButton');
+    
+    // Handlers
+    searchButton.addEventListener('click', performSearch);
+    prevPageBtn.addEventListener('click', () => changePage(currentPage - 1));
+    nextPageBtn.addEventListener('click', () => changePage(currentPage + 1));
+    selectAllCheckbox.addEventListener('change', toggleSelectAll);
+    saveListButton.addEventListener('click', saveProductList);
+    applyMarkupButton.addEventListener('click', applyGlobalMarkup);
+    listSelectedButton.addEventListener('click', listSelectedProducts);
+    selectAllButton.addEventListener('click', selectAllProducts);
+    categoryFilter.addEventListener('change', function() {
+        filteredCategory = this.value;
+        if (currentResults.length > 0) {
+            filterResultsByCategory();
+        }
+    });
+    
+    // Dodaj listenery dla przycisków w istniejących listach
+    document.querySelectorAll('.add-from-list').forEach(button => {
+        button.addEventListener('click', function() {
+            const listId = parseInt(this.getAttribute('data-list-id'));
+            addProductsFromList(listId);
+        });
+    });
+    
+    // Obsługa klawisza Enter w polu wyszukiwania
+    searchQuery.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
+    // Funkcja wyszukiwania produktów
+    function performSearch() {
+        const query = searchQuery.value.trim();
+        const field = searchField.value;
+        
+        if (query === '') {
+            alert('Wprowadź frazę do wyszukania');
+            return;
+        }
+        
+        currentPage = 1;
+        fetchSearchResults(query, field, currentPage);
+    }
+    
+    // Funkcja pobierania wyników wyszukiwania
+    function fetchSearchResults(query, field, page) {
+        const url = `/admin/search-xml-products?query=${encodeURIComponent(query)}&field=${field}&page=${page}`;
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    currentResults = data.products;
+                    totalResults = data.pagination.total_results;
+                    totalPages = data.pagination.total_pages;
+                    currentPage = data.pagination.page;
+                    
+                    // Zbierz wszystkie kategorie
+                    allCategories.clear();
+                    data.products.forEach(product => {
+                        if (product.category) {
+                            allCategories.add(product.category);
+                        }
+                        // Dodaj również kategorie z całej ścieżki
+                        if (product.category_path && Array.isArray(product.category_path)) {
+                            product.category_path.forEach(cat => {
+                                allCategories.add(cat);
+                            });
+                        }
+                    });
+                    
+                    // Aktualizuj filtr kategorii
+                    updateCategoryFilter();
+                    
+                    // Wyświetl wyniki
+                    if (filteredCategory) {
+                        filterResultsByCategory();
+                    } else {
+                        displaySearchResults(data.products);
+                    }
+                    
+                    updatePagination();
+                    
+                    // Pokaż sekcję wyników
+                    searchResults.classList.remove('hidden');
+                } else {
+                    alert('Błąd podczas wyszukiwania produktów');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Wystąpił błąd podczas komunikacji z serwerem');
+            });
+    }
+    
+    // Funkcja wyświetlania wyników wyszukiwania
+    function displaySearchResults(products) {
+        resultsTableBody.innerHTML = '';
+        
+        if (products.length === 0) {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td colspan="10" class="px-6 py-4 text-center text-gray-500">Nie znaleziono produktów</td>`;
+            resultsTableBody.appendChild(row);
+            return;
+        }
+        
+        const template = document.getElementById('productRowTemplate');
+        
+        products.forEach(product => {
+            const clone = document.importNode(template.content, true);
+            
+            // Wypełnij dane produktu
+            clone.querySelector('.product-checkbox').setAttribute('data-product-id', product.id);
+            clone.querySelector('.product-id').textContent = product.id;
+            
+            const imageElement = clone.querySelector('.product-image');
+            if (product.image) {
+                imageElement.src = product.image;
+            } else {
+                imageElement.src = '/static/placeholder.png';
+                imageElement.alt = 'Brak zdjęcia';
+            }
+            
+            clone.querySelector('.product-name').textContent = product.name;
+            clone.querySelector('.product-ean').textContent = product.EAN || '-';
+            
+            // Kategoria z pełną ścieżką jako tooltip
+            const categoryElement = clone.querySelector('.product-category');
+            categoryElement.textContent = product.category || 'Bez kategorii';
+            if (product.category_path && product.category_path.length > 0) {
+                // Popraw wyświetlanie ścieżki kategorii
+                const formattedPath = product.category_path.join(' > ');
+                categoryElement.setAttribute('title', formattedPath);
+                
+                // Dodaj pełną ścieżkę kategorii jako tooltip dla lepszej czytelności
+                const pathSpan = document.createElement('span');
+                pathSpan.classList.add('text-xs', 'text-gray-400', 'block', 'truncate', 'max-w-xs');
+                pathSpan.textContent = formattedPath;
+                categoryElement.appendChild(pathSpan);
+            }
+            
+            // Dodaj informację o stanie magazynowym
+            const stockElement = clone.querySelector('.product-stock');
+            if (product.stock !== undefined) {
+                stockElement.textContent = product.stock;
+                
+                // Dodaj kolorowanie stanu magazynowego
+                if (product.stock > 10) {
+                    stockElement.classList.add('text-green-600');
+                } else if (product.stock > 0) {
+                    stockElement.classList.add('text-yellow-600');
+                } else {
+                    stockElement.classList.add('text-red-600');
+                }
+            } else {
+                stockElement.textContent = 'Nieznany';
+                stockElement.classList.add('text-gray-400');
+            }
+            
+            // Ceny
+            globalMarkupPercent = parseFloat(globalMarkupInput.value) || 0;
+            const originalPrice = product.discounted_price || product.price || 0;
+            const markupMultiplier = 1 + (globalMarkupPercent / 100);
+            const calculatedPrice = (originalPrice * markupMultiplier).toFixed(2);
+            
+            clone.querySelector('.product-original-price').textContent = originalPrice.toFixed(2) + ' zł';
+            clone.querySelector('.product-price-value').textContent = calculatedPrice + ' zł';
+            clone.querySelector('.product-price-value').setAttribute('data-original-price', originalPrice);
+            clone.querySelector('.product-price-value').setAttribute('data-markup', globalMarkupPercent);
+            
+            // Ustaw wartość indywidualnego narzutu
+            const markupInput = clone.querySelector('.product-markup-input');
+            markupInput.value = globalMarkupPercent;
+            markupInput.setAttribute('data-product-id', product.id);
+            
+            // Dodaj listener do przycisku narzutu dla konkretnego produktu
+            const applyProductMarkupBtn = clone.querySelector('.apply-product-markup');
+            applyProductMarkupBtn.addEventListener('click', function() {
+                const markup = parseFloat(markupInput.value) || 0;
+                applyProductMarkup(product.id, markup);
+            });
+            
+            // Status dostępności
+            const availableCell = clone.querySelector('.product-available');
+            if (product.is_in_shop) {
+                availableCell.textContent = 'W sklepie';
+                availableCell.classList.add('text-green-600');
+            } else {
+                availableCell.textContent = 'Niewystaw.';
+                availableCell.classList.add('text-red-600');
+            }
+            
+            // Przycisk dodawania produktu
+            const addButton = clone.querySelector('.add-product-btn');
+            addButton.setAttribute('data-product-id', product.id);
+            addButton.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                const markupInput = document.querySelector(`.product-markup-input[data-product-id="${productId}"]`);
+                const markup = parseFloat(markupInput.value) || 0;
+                addProductToShop(productId, markup);
+            });
+            
+            resultsTableBody.appendChild(clone);
+        });
+    }
+    
+    // Aktualizacja paginacji
+    function updatePagination() {
+        prevPageBtn.disabled = currentPage <= 1;
+        nextPageBtn.disabled = currentPage >= totalPages;
+        
+        const start = (currentPage - 1) * perPage + 1;
+        const end = Math.min(currentPage * perPage, totalResults);
+        currentRangeSpan.textContent = `${start}-${end}`;
+        totalResultsSpan.textContent = totalResults;
+    }
+    
+    // Zmiana strony
+    function changePage(page) {
+        if (page < 1 || page > totalPages) return;
+        
+        const query = searchQuery.value.trim();
+        const field = searchField.value;
+        
+        fetchSearchResults(query, field, page);
+    }
+    
+    // Zaznaczanie/odznaczanie wszystkich produktów
+    function toggleSelectAll() {
+        const checkboxes = document.querySelectorAll('.product-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+    }
+    
+    // Zaznaczanie wszystkich produktów (przycisk)
+    function selectAllProducts() {
+        const checkboxes = document.querySelectorAll('.product-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = true;
+        });
+        selectAllCheckbox.checked = true;
+    }
+    
+    // Aplikowanie globalnego narzutu
+    function applyGlobalMarkup() {
+        globalMarkupPercent = parseFloat(globalMarkupInput.value) || 0;
+        
+        // Aktualizuj wszystkie indywidualne pola narzutu
+        document.querySelectorAll('.product-markup-input').forEach(input => {
+            input.value = globalMarkupPercent;
+        });
+        
+        // Aktualizuj ceny na podstawie oryginalnych cen
+        const priceElements = document.querySelectorAll('.product-price-value');
+        priceElements.forEach(element => {
+            const originalPrice = parseFloat(element.getAttribute('data-original-price')) || 0;
+            const markupMultiplier = 1 + (globalMarkupPercent / 100);
+            const calculatedPrice = (originalPrice * markupMultiplier).toFixed(2);
+            
+            element.textContent = calculatedPrice + ' zł';
+            element.setAttribute('data-markup', globalMarkupPercent);
+        });
+    }
+    
+    // Aplikowanie narzutu dla pojedynczego produktu
+    function applyProductMarkup(productId, markup) {
+        const priceElement = document.querySelector(`.product-markup-input[data-product-id="${productId}"]`).closest('td').querySelector('.product-price-value');
+        const originalPrice = parseFloat(priceElement.getAttribute('data-original-price')) || 0;
+        const markupMultiplier = 1 + (markup / 100);
+        const calculatedPrice = (originalPrice * markupMultiplier).toFixed(2);
+        
+        priceElement.textContent = calculatedPrice + ' zł';
+        priceElement.setAttribute('data-markup', markup);
+    }
+    
+    // Aktualizacja filtra kategorii
+    function updateCategoryFilter() {
+        // Zachowaj aktualną wartość
+        const currentSelection = categoryFilter.value;
+        
+        // Wyczyść obecne opcje kategorii (oprócz domyślnej)
+        while (categoryFilter.options.length > 1) {
+            categoryFilter.remove(1);
+        }
+        
+        // Sanityzuj kategorie przed sortowaniem (usuń &gt; i &amp;gt;)
+        const sanitizedCategories = new Set();
+        allCategories.forEach(category => {
+            sanitizedCategories.add(category.replace(/&gt;/g, '>').replace(/&amp;gt;/g, '>'));
+        });
+        
+        // Dodaj kategorie posortowane alfabetycznie
+        [...sanitizedCategories].sort().forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = category;
+            categoryFilter.appendChild(option);
+        });
+        
+        // Przywróć poprzednią selekcję jeśli kategoria nadal istnieje
+        if (currentSelection && [...sanitizedCategories].includes(currentSelection)) {
+            categoryFilter.value = currentSelection;
+        }
+    }
+    
+    // Filtrowanie wyników po kategorii
+    function filterResultsByCategory() {
+        if (!filteredCategory) {
+            displaySearchResults(currentResults);
+            return;
+        }
+        
+        const filteredResults = currentResults.filter(product => {
+            // Sprawdzamy czy kategoria główna pasuje
+            if (product.category === filteredCategory) {
+                return true;
+            }
+            
+            // Sprawdzamy czy kategoria znajduje się w ścieżce kategorii
+            if (product.category_path && Array.isArray(product.category_path)) {
+                // Przekształcamy ścieżkę, aby uniknąć problemów z &gt;
+                const sanitizedPaths = product.category_path.map(cat => 
+                    cat.replace(/&gt;/g, '>').replace(/&amp;gt;/g, '>')
+                );
+                return sanitizedPaths.includes(filteredCategory);
+            }
+            
+            return false;
+        });
+        
+        displaySearchResults(filteredResults);
+    }
+    
+    // Zapisywanie listy produktów
+    function saveProductList() {
+        const name = listNameInput.value.trim();
+        const description = listDescriptionInput.value.trim();
+        globalMarkupPercent = parseFloat(globalMarkupInput.value) || 0;
+        
+        if (name === '') {
+            alert('Wprowadź nazwę listy');
+            return;
+        }
+        
+        const checkedProducts = document.querySelectorAll('.product-checkbox:checked');
+        if (checkedProducts.length === 0) {
+            alert('Zaznacz przynajmniej jeden produkt');
+            return;
+        }
+        
+        const productIds = [];
+        const productMarkups = {};
+        
+        // Zbierz zaznaczone produkty i ich indywidualne narzuty
+        checkedProducts.forEach(checkbox => {
+            const productId = checkbox.getAttribute('data-product-id');
+            productIds.push(productId);
+            
+            // Pobierz indywidualny narzut dla produktu
+            const markupInput = document.querySelector(`.product-markup-input[data-product-id="${productId}"]`);
+            if (markupInput) {
+                const markup = parseFloat(markupInput.value) || 0;
+                productMarkups[productId] = markup;
+            }
+        });
+        
+        const data = {
+            name: name,
+            description: description,
+            products_ids: productIds,
+            markup_percent: globalMarkupPercent,
+            product_markups: productMarkups
+        };
+        
+        fetch('/admin/save-product-list', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                // Odśwież stronę aby zobaczyć nową listę
+                window.location.reload();
+            } else {
+                alert('Błąd: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Wystąpił błąd podczas zapisywania listy');
+        });
+    }
+    
+    // Dodawanie produktu do sklepu
+    function addProductToShop(productId, markup) {
+        const data = {
+            product_id: productId,
+            markup_percent: markup,
+            available_for_sale: true
+        };
+        
+        fetch('/admin/add-product-from-xml', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                // Aktualizuj status w tabeli
+                updateProductStatus(productId, true);
+            } else {
+                alert('Błąd: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Wystąpił błąd podczas dodawania produktu');
+        });
+    }
+    
+    // Wystawianie zaznaczonych produktów
+    function listSelectedProducts() {
+        const checkedProducts = document.querySelectorAll('.product-checkbox:checked');
+        if (checkedProducts.length === 0) {
+            alert('Zaznacz przynajmniej jeden produkt');
+            return;
+        }
+        
+        let processed = 0;
+        let successful = 0;
+        
+        checkedProducts.forEach(checkbox => {
+            const productId = checkbox.getAttribute('data-product-id');
+            // Pobierz indywidualny narzut dla produktu
+            const markupInput = document.querySelector(`.product-markup-input[data-product-id="${productId}"]`);
+            const markup = parseFloat(markupInput.value) || 0;
+            
+            const data = {
+                product_id: productId,
+                markup_percent: markup,
+                available_for_sale: true
+            };
+            
+            fetch('/admin/add-product-from-xml', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                processed++;
+                if (data.success) {
+                    successful++;
+                    // Aktualizuj status w tabeli
+                    updateProductStatus(productId, true);
+                }
+                
+                // Gdy wszystkie zostały przetworzone, pokaż podsumowanie
+                if (processed === checkedProducts.length) {
+                    alert(`Wystawiono ${successful} z ${processed} produktów do sprzedaży`);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                processed++;
+                
+                // Gdy wszystkie zostały przetworzone, pokaż podsumowanie
+                if (processed === checkedProducts.length) {
+                    alert(`Wystawiono ${successful} z ${processed} produktów do sprzedaży`);
+                }
+            });
+        });
+    }
+    
+    // Dodawanie produktów z zapisanej listy
+    function addProductsFromList(listId) {
+        if (!confirm('Czy na pewno chcesz wystawić wszystkie produkty z tej listy?')) {
+            return;
+        }
+        
+        fetch('/admin/add-products-from-list', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ list_id: listId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+            } else {
+                alert('Błąd: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Wystąpił błąd podczas dodawania produktów z listy');
+        });
+    }
+    
+    // Aktualizacja statusu produktu w tabeli
+    function updateProductStatus(productId, available) {
+        const rows = document.querySelectorAll(`.product-checkbox[data-product-id="${productId}"]`);
+        rows.forEach(checkbox => {
+            const row = checkbox.closest('tr');
+            const statusCell = row.querySelector('.product-available');
+            
+            if (available) {
+                statusCell.textContent = 'W sklepie';
+                statusCell.classList.remove('text-red-600');
+                statusCell.classList.add('text-green-600');
+            } else {
+                statusCell.textContent = 'Niewystaw.';
+                statusCell.classList.remove('text-green-600');
+                statusCell.classList.add('text-red-600');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

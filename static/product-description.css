@@ -1,0 +1,94 @@
+/* Style dla wyświetlania opisu produktu z janshop.pl */
+.product-description, .description-preview {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Style specyficzne dla panelu administratora - podgląd */
+.description-preview img {
+    display: none; /* Ukryj obrazy w podglądzie */
+}
+
+.description-preview h1, 
+.description-preview h2, 
+.description-preview h3 {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.product-description h1,
+.product-description h2,
+.product-description h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.product-description h1 {
+    font-size: 1.8rem;
+}
+
+.product-description h2 {
+    font-size: 1.5rem;
+}
+
+.product-description h3 {
+    font-size: 1.25rem;
+}
+
+.product-description p {
+    margin-bottom: 1rem;
+}
+
+.product-description ul,
+.product-description ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.product-description li {
+    margin-bottom: 0.5rem;
+}
+
+.product-description ul li {
+    list-style-type: disc;
+}
+
+.product-description ol li {
+    list-style-type: decimal;
+}
+
+.product-description img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+}
+
+/* Style dla struktury strony janshop */
+.product-description .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+    gap: 1.5rem;
+}
+
+.product-description .full {
+    width: 100%;
+}
+
+.product-description .half {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .product-description .half {
+        width: calc(50% - 0.75rem);
+    }
+}
+
+.product-description strong {
+    font-weight: 700;
+}

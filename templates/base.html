@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sklep Internetowy</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Style dla opisu produktu -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='product-description.css') }}">
+    <!-- Skrypt dla wyszukiwarki produktów -->
+    <script src="{{ url_for('static', filename='search-enhanced.js') }}" defer></script>
+    <!-- Skrypt dla powiadomień -->
+    <script src="{{ url_for('static', filename='notifications.js') }}" defer></script>
+    <style>
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Dropdown transition */
+        .dropdown-transition {
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        
+        /* Line clamp utilities for truncating text */
+        .line-clamp-1 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Tailwind animation classes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.2s ease-out forwards;
+        }
+        
+        .animate-scaleIn {
+            animation: scaleIn 0.2s ease-out forwards;
+        }
+        
+        .origin-top-left {
+            transform-origin: top left;
+        }
+        
+        .origin-top {
+            transform-origin: top;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+    <!-- Obszar powiadomień - pointer-events-none na całym obszarze, ale pointer-events-auto na samych powiadomieniach -->
+    <div id="notification-area" class="fixed top-0 right-0 p-4 z-50 flex flex-col items-end space-y-2 pointer-events-none">
+        <!-- Powiadomienia będą dodawane tutaj dynamicznie i będą miały pointer-events-auto -->
+    </div>
+
+    <header class="bg-blue-700 text-white py-2 px-6">
+        <div class="max-w-6xl mx-auto text-sm flex justify-between">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                </svg>
+                Darmowa dostawa od 300 zł
+            </div>
+            <div class="flex gap-4">
+                <a href="/kontakt" class="hover:text-blue-200 transition">Kontakt</a>
+                <a href="/regulamin" class="hover:text-blue-200 transition">Regulamin</a>
+                <a href="/polityka-prywatnosci" class="hover:text-blue-200 transition">Polityka prywatności</a>
+            </div>
+        </div>
+    </header>
+    <nav class="bg-white shadow-md px-6 py-4 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">                <div class="flex items-center gap-8">
+                <a href="/" class="font-extrabold text-2xl text-blue-700 tracking-tight">Sklep</a>
+                
+                <!-- Wyszukiwarka produktów -->
+                <div class="relative hidden lg:block w-full lg:max-w-xl xl:max-w-2xl">
+                    <form id="search-form" action="/search" method="get" class="relative">
+                        <div class="flex items-center bg-white rounded-full overflow-hidden border border-gray-200 hover:border-blue-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition-all shadow-sm hover:shadow-md">
+                            <div class="flex-shrink-0 pl-4 text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                            <input type="text" id="search-input" name="q" placeholder="Szukaj produktów..." 
+                                   class="w-full bg-transparent border-0 py-3 px-3 focus:outline-none focus:ring-0 text-sm" 
+                                   autocomplete="off"
+                                   aria-label="Szukaj produktów">
+                            <button type="button" id="search-clear" class="text-gray-400 hover:text-gray-600 px-1 hidden"
+                                    aria-label="Wyczyść wyszukiwanie">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                            <button type="submit" id="search-button" class="bg-blue-600 text-white h-full px-5 hover:bg-blue-700 transition flex items-center"
+                                    aria-label="Szukaj">
+                                <span class="hidden sm:inline-block">Szukaj</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <!-- Kontener dla podpowiedzi -->
+                        <div id="search-suggestions" class="absolute left-0 right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 z-50 hidden overflow-hidden max-h-[450px] overflow-y-auto animate-fadeIn">
+                            <!-- Podpowiedzi będą dodawane dynamicznie przez JS -->
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <!-- Desktop Categories Dropdown -->
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-blue-700 font-medium transition flex items-center bg-blue-50 px-4 py-2.5 rounded-lg hover:bg-blue-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                            </svg>
+                            Kategorie
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 text-blue-600 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="absolute left-0 mt-2 bg-white rounded-lg shadow-xl py-2 z-50 hidden group-hover:block dropdown-transition min-w-[280px] border border-gray-100 transform origin-top scale-95 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition duration-200">
+                            <a href="/" class="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-100 font-medium">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                                Wszystkie produkty
+                            </a>
+                            {% if main_categories %}
+                                <div class="max-h-96 overflow-y-auto">
+                                {% for category in main_categories %}
+                                <div class="nav-category-dropdown relative group/subcategory">
+                                    <a href="{{ url_for('category', category_path=category) }}" class="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 flex justify-between items-center">
+                                        <span class="font-medium">{{ category }}</span>
+                                        {% if category_tree and category in category_tree %}
+                                        <div class="flex items-center">
+                                            <span class="text-xs bg-blue-50 text-blue-700 rounded-full px-2 py-0.5 mr-2 font-medium">{{ category_tree[category]|length }}</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 transition-transform duration-200 group-hover/subcategory:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                        {% endif %}
+                                    </a>
+                                    {% if category_tree and category in category_tree %}
+                                    <div class="absolute left-full top-0 bg-white rounded-lg shadow-xl py-2 z-50 hidden group-hover/subcategory:block dropdown-transition min-w-[280px] border border-gray-100 transform origin-top-left scale-95 group-hover/subcategory:scale-100 opacity-0 group-hover/subcategory:opacity-100 transition duration-200">
+                                        {% for subcategory in category_tree[category] %}
+                                        <div class="nav-subcategory-dropdown relative group/subsubcategory">
+                                            <a href="{{ url_for('category', category_path=category+'/'+subcategory) }}" class="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700 flex justify-between items-center">
+                                                <span>{{ subcategory }}</span>
+                                                {% if category_tree[category][subcategory] %}
+                                                <div class="flex items-center">
+                                                    <span class="text-xs bg-gray-100 text-gray-600 rounded-full px-2 py-0.5 mr-2">{{ category_tree[category][subcategory]|length }}</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 transition-transform duration-200 group-hover/subsubcategory:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                </div>
+                                                {% endif %}
+                                            </a>
+                                            {% if category_tree[category][subcategory] %}
+                                            <div class="absolute left-full top-0 bg-white rounded-lg shadow-xl py-2 z-50 hidden group-hover/subsubcategory:block dropdown-transition min-w-[280px] border border-gray-100 transform origin-top-left scale-95 group-hover/subsubcategory:scale-100 opacity-0 group-hover/subsubcategory:opacity-100 transition duration-200">
+                                                {% for subsubcategory in category_tree[category][subcategory] %}
+                                                <a href="{{ url_for('category', category_path=category+'/'+subcategory+'/'+subsubcategory) }}" class="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-700">
+                                                    {{ subsubcategory }}
+                                                </a>
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <a href="/promocje" class="text-gray-700 hover:text-blue-700 font-medium transition">Promocje</a>
+                    <a href="/nowosci" class="text-gray-700 hover:text-blue-700 font-medium transition">Nowości</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 md:gap-6">
+                <!-- Mobile menu button -->
+                <button id="mobileMenuBtn" class="md:hidden text-gray-700 hover:text-blue-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                
+                <a href="/koszyk" class="relative flex items-center text-gray-700 hover:text-blue-700 font-medium transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7A1 1 0 007.5 17h9a1 1 0 00.85-1.53L17 13M7 13V6a1 1 0 011-1h5a1 1 0 011 1v7" /></svg>
+                    Koszyk
+                    <span id="cart-count" class="ml-1 inline-block min-w-[1.5em] px-2 py-0.5 rounded-full text-xs font-bold bg-blue-600 text-white align-top">{{ session['cart']|length if session.get('cart') else 0 }}</span>
+                </a>
+                <span class="text-gray-500 font-semibold hidden md:inline-block">Suma: <span id="cart-sum">{{ session['cart']|sum(attribute='price') if session.get('cart') else 0 }}</span> zł</span>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobileMenu" class="md:hidden hidden mt-4 border-t border-gray-200 pt-4">
+            <!-- Mobile Search -->
+            <div class="mb-4">
+                <form id="mobile-search-form" action="/search" method="get" class="relative">
+                    <div class="flex items-center bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:border-blue-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                        <div class="flex-shrink-0 pl-4 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <input type="text" id="mobile-search-input" name="q" placeholder="Szukaj produktów..." 
+                              class="w-full bg-transparent border-0 py-3 px-3 focus:outline-none focus:ring-0 text-sm"
+                              autocomplete="off"
+                              aria-label="Szukaj produktów">
+                        <button type="button" id="mobile-search-clear" class="text-gray-400 hover:text-gray-600 px-1 hidden"
+                               aria-label="Wyczyść wyszukiwanie">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                        <button type="submit" class="bg-blue-600 text-white h-full px-4 hover:bg-blue-700 transition flex items-center justify-center"
+                               aria-label="Szukaj">
+                            <span>Szukaj</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Kontener dla podpowiedzi mobilnych -->
+                    <div id="mobile-search-suggestions" class="absolute left-0 right-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 z-50 hidden overflow-hidden max-h-[450px] overflow-y-auto animate-fadeIn">
+                        <!-- Podpowiedzi będą dodawane dynamicznie przez JS -->
+                    </div>
+                </form>
+            </div>
+            
+            <div class="flex flex-col space-y-2">
+                <a href="/" class="py-2 text-gray-700 hover:text-blue-700 font-medium">Wszystkie produkty</a>
+                
+                <!-- Mobile Categories Navigation -->
+                <div class="mobile-dropdown border-t border-b border-gray-100 py-3">
+                    <div class="flex justify-between items-center mb-2 font-medium">
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                            </svg>
+                            Kategorie
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mobile-dropdown-main-icon transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="mobile-categories-menu hidden pl-2">
+                        {% for category in main_categories %}
+                        <div class="category-item mb-2">
+                            <div class="flex justify-between items-center py-2 hover:text-blue-700 cursor-pointer mobile-category-toggle rounded-md px-2 hover:bg-gray-50">
+                                <a href="{{ url_for('category', category_path=category) }}" class="block font-medium">{{ category }}</a>
+                                {% if category in category_tree %}
+                                <div class="flex items-center">
+                                    <span class="text-xs bg-blue-50 text-blue-700 rounded-full px-2 py-0.5 mr-2 font-medium">{{ category_tree[category]|length }}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mobile-dropdown-icon transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="pl-4 hidden mobile-subcategory-menu animate-fadeIn">
+                                {% if category in category_tree %}
+                                    {% for subcategory in category_tree[category] %}
+                                    <div class="subcategory-item border-l border-blue-100 pl-2 ml-1">
+                                        <div class="flex justify-between items-center py-2 hover:text-blue-700 cursor-pointer mobile-subcategory-toggle rounded-md px-2 hover:bg-gray-50">
+                                            <a href="{{ url_for('category', category_path=category+'/'+subcategory) }}" class="block text-sm">{{ subcategory }}</a>
+                                            {% if category_tree[category][subcategory] %}
+                                            <div class="flex items-center">
+                                                <span class="text-xs bg-gray-100 text-gray-700 rounded-full px-2 py-0.5 mr-2">{{ category_tree[category][subcategory]|length }}</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mobile-dropdown-icon transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        {% if category_tree[category][subcategory] %}
+                                        <div class="pl-4 hidden mobile-subsubcategory-menu animate-fadeIn border-l border-gray-100 ml-1">
+                                            {% for subsubcategory in category_tree[category][subcategory] %}
+                                            <a href="{{ url_for('category', category_path=category+'/'+subcategory+'/'+subsubcategory) }}" class="block py-1.5 hover:text-blue-700 hover:bg-gray-50 rounded-md px-2 text-xs">
+                                                {{ subsubcategory }}
+                                            </a>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <a href="/promocje" class="py-2 text-gray-700 hover:text-blue-700 font-medium">Promocje</a>
+                <a href="/nowosci" class="py-2 text-gray-700 hover:text-blue-700 font-medium">Nowości</a>
+                <a href="/kontakt" class="py-2 text-gray-700 hover:text-blue-700 font-medium">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+    <main class="flex-1 max-w-6xl mx-auto p-4 w-full">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="max-w-6xl mx-auto px-4 py-2 mt-4">
+                    {% for category, message in messages %}
+                        <div class="p-4 mb-2 rounded-lg {% if category == 'error' %}bg-red-100 text-red-800{% elif category == 'success' %}bg-green-100 text-green-800{% elif category == 'warning' %}bg-yellow-100 text-yellow-800{% else %}bg-blue-100 text-blue-800{% endif %} flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 {% if category == 'error' %}text-red-500{% elif category == 'success' %}text-green-500{% elif category == 'warning' %}text-yellow-500{% else %}text-blue-500{% endif %}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                {% if category == 'error' %}
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                {% elif category == 'success' %}
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                {% elif category == 'warning' %}
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                {% else %}
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                {% endif %}
+                            </svg>
+                            <div>{{ message }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="bg-gray-800 text-white mt-12 relative">
+        <!-- Wskaźnik statusu połączenia WebSocket -->
+        <div class="absolute top-3 right-3 flex items-center">
+            <span id="socket-status" class="w-2 h-2 rounded-full bg-yellow-500" title="Łączenie..."></span>
+        </div>
+        
+        <div class="max-w-6xl mx-auto py-8 px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Sklep</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="hover:text-blue-300 transition">Strona główna</a></li>
+                        <li><a href="/promocje" class="hover:text-blue-300 transition">Promocje</a></li>
+                        <li><a href="/nowosci" class="hover:text-blue-300 transition">Nowości</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Informacje</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/kontakt" class="hover:text-blue-300 transition">Kontakt</a></li>
+                        <li><a href="/regulamin" class="hover:text-blue-300 transition">Regulamin</a></li>
+                        <li><a href="/polityka-prywatnosci" class="hover:text-blue-300 transition">Polityka prywatności</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Kontakt</h3>
+                    <p class="flex items-center mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        Email: kontakt@sklep.pl
+                    </p>
+                    <p class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        Tel: +48 123 456 789
+                    </p>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-4 text-center text-sm">
+                <p>© {{ now.year if now else 2025 }} Sklep Internetowy. Wszystkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+    <div id="notification-area" class="fixed bottom-4 right-4 z-50 flex flex-col gap-3 max-w-md transition-all duration-300 pointer-events-none">
+        <!-- Powiadomienia będą dodawane dynamicznie przez JS -->
+    </div>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/static/notifications.js"></script>
+    <script src="/static/socket-enhanced.js"></script>
+    <script src="/static/category-dropdown.js"></script>
+    
+    <script>
+        // Globalna funkcja do pokazywania powiadomień
+        function showNotification(message, type = 'success', duration = 5000) {
+            const notificationArea = document.getElementById('notification-area');
+            if (!notificationArea) return;
+            
+            const notification = document.createElement('div');
+            notification.className = `p-4 rounded-lg flex items-center shadow-lg transition transform translate-x-0 
+                                    ${type === 'success' ? 'bg-green-100 text-green-800 border-l-4 border-green-500' : 
+                                    type === 'error' ? 'bg-red-100 text-red-800 border-l-4 border-red-500' :
+                                    type === 'warning' ? 'bg-yellow-100 text-yellow-800 border-l-4 border-yellow-500' :
+                                    'bg-blue-100 text-blue-800 border-l-4 border-blue-500'}`;
+                                    
+            notification.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 
+                    ${type === 'success' ? 'text-green-500' : 
+                    type === 'error' ? 'text-red-500' : 
+                    type === 'warning' ? 'text-yellow-500' :
+                    'text-blue-500'}" 
+                    viewBox="0 0 20 20" fill="currentColor">
+                    ${type === 'success' ? 
+                    '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />' : 
+                    type === 'error' ? 
+                    '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />' :
+                    type === 'warning' ?
+                    '<path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />' :
+                    '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />'}
+                </svg>
+                <div class="flex-grow">${message}</div>
+                <button class="text-gray-500 hover:text-gray-700 focus:outline-none ml-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            `;
+            
+            // Dodanie obsługi zamknięcia powiadomienia
+            notification.querySelector('button').addEventListener('click', () => {
+                closeNotification(notification);
+            });
+            
+            // Dodanie do obszaru powiadomień z animacją wejścia
+            notification.style.transform = 'translateX(100%)';
+            notification.style.opacity = '0';
+            notificationArea.appendChild(notification);
+            
+            // Trigger reflow to enable animation
+            notification.offsetHeight;
+            
+            // Animate in
+            notification.style.transform = 'translateX(0)';
+            notification.style.opacity = '1';
+            notification.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+            
+            // Automatyczne usunięcie po określonym czasie
+            if (duration > 0) {
+                setTimeout(() => {
+                    closeNotification(notification);
+                }, duration);
+            }
+            
+            return notification;
+        }
+        
+        // Funkcja zamykająca powiadomienie z animacją
+        function closeNotification(notification) {
+            notification.style.transform = 'translateX(100%)';
+            notification.style.opacity = '0';
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }
+    </script>
+    
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

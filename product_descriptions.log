@@ -1,0 +1,370 @@
+2025-05-20 19:54:43,974 - test_description - INFO - Testing product description fetch for product ID: 1
+2025-05-20 19:54:43,974 - test_description - INFO - Initializing ProductManager
+2025-05-20 19:54:44,004 - product_manager - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-20 19:54:44,004 - test_description - INFO - Getting product 1 from XML
+2025-05-20 19:54:44,331 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 19:54:44,332 - product_manager - INFO - Pomyślnie sparsowano plik XML data/products_latest.xml, znaleziono 3708 produktów
+2025-05-20 19:54:44,346 - product_manager - ERROR - Błąd podczas pobierania produktu z XML 1: 'ProductManager' object has no attribute 'xml_products'
+2025-05-20 19:54:44,346 - test_description - ERROR - Product ID: 1 not found in XML
+2025-05-20 19:56:11,396 - test_description - INFO - Testing product description fetch for product ID: 1
+2025-05-20 19:56:11,396 - test_description - INFO - Initializing ProductManager
+2025-05-20 19:56:11,426 - product_manager - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-20 19:56:11,426 - test_description - INFO - Getting product 1 from XML
+2025-05-20 19:56:11,757 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 19:56:11,757 - product_manager - INFO - Pomyślnie sparsowano plik XML data/products_latest.xml, znaleziono 3708 produktów
+2025-05-20 19:56:11,772 - product_manager - WARNING - Nie znaleziono produktu o ID 1 w XML
+2025-05-20 19:56:11,772 - test_description - ERROR - Product ID: 1 not found in XML
+2025-05-20 20:06:16,742 - product_test - INFO - Starting test for product ID: 529200
+2025-05-20 20:06:16,771 - product_manager - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-20 20:06:16,772 - product_test - INFO - ProductManager initialized
+2025-05-20 20:06:16,772 - product_test - INFO - Checking if product exists in XML...
+2025-05-20 20:06:17,099 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 20:06:17,099 - product_manager - INFO - Pomyślnie sparsowano plik XML data/products_latest.xml, znaleziono 3708 produktów
+2025-05-20 20:06:17,113 - product_test - INFO - Product found in XML: Spawarka do plastiku 50 W Humberg HM-292
+2025-05-20 20:06:17,113 - product_test - INFO - Product URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 20:06:17,113 - product_test - INFO - Fetching description from URL...
+2025-05-20 20:06:17,113 - product_descriptions - INFO - Rozpoczynam pobieranie opisu dla produktu ID: 529200
+2025-05-20 20:06:17,113 - product_descriptions - INFO - Pobieranie strony z URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 20:06:17,996 - product_descriptions - INFO - Strona pobrana pomyślnie, status: 200
+2025-05-20 20:06:17,996 - product_descriptions - INFO - Rozpoczynam parsowanie HTML dla produktu ID: 529200
+2025-05-20 20:06:18,099 - product_descriptions - INFO - Szukam elementu div z id='opis-import' w HTML (długość: 163252 znaków)
+2025-05-20 20:06:18,102 - product_descriptions - INFO - Znaleziono opis dla produktu ID: 529200, długość HTML: 4475 znaków
+2025-05-20 20:06:18,102 - product_descriptions - INFO - Rozpoczynam pobieranie i zamianę obrazków dla produktu ID: 529200
+2025-05-20 20:06:18,105 - product_descriptions - INFO - Znaleziono 9 obrazków do pobrania dla produktu ID: 529200
+2025-05-20 20:06:18,106 - product_descriptions - INFO - Zakończono generowanie opisu dla produktu ID: 529200
+2025-05-20 20:06:18,107 - product_test - INFO - Description fetched successfully
+2025-05-20 20:06:18,107 - product_test - INFO - Description length: 4475 characters
+2025-05-20 20:06:18,107 - product_test - INFO - Description saved to description_529200.html
+2025-05-20 20:06:18,107 - product_manager - ERROR - Błąd podczas aktualizacji opisu produktu 529200: 'ProductManager' object has no attribute '_save_products'
+2025-05-20 20:06:18,107 - product_test - INFO - Update success: False
+2025-05-20 20:06:18,107 - product_test - ERROR - Failed to update product description
+2025-05-20 20:06:35,952 - product_test - INFO - Starting test for product ID: 529200
+2025-05-20 20:06:35,982 - product_manager - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-20 20:06:35,982 - product_test - INFO - ProductManager initialized
+2025-05-20 20:06:35,982 - product_test - INFO - Checking if product exists in XML...
+2025-05-20 20:06:36,310 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 20:06:36,310 - product_manager - INFO - Pomyślnie sparsowano plik XML data/products_latest.xml, znaleziono 3708 produktów
+2025-05-20 20:06:36,325 - product_test - INFO - Product found in XML: Spawarka do plastiku 50 W Humberg HM-292
+2025-05-20 20:06:36,325 - product_test - INFO - Product URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 20:06:36,325 - product_test - INFO - Fetching description from URL...
+2025-05-20 20:06:36,325 - product_descriptions - INFO - Rozpoczynam pobieranie opisu dla produktu ID: 529200
+2025-05-20 20:06:36,326 - product_descriptions - INFO - Pobieranie strony z URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 20:06:37,296 - product_descriptions - INFO - Strona pobrana pomyślnie, status: 200
+2025-05-20 20:06:37,296 - product_descriptions - INFO - Rozpoczynam parsowanie HTML dla produktu ID: 529200
+2025-05-20 20:06:37,380 - product_descriptions - INFO - Szukam elementu div z id='opis-import' w HTML (długość: 164002 znaków)
+2025-05-20 20:06:37,382 - product_descriptions - INFO - Znaleziono opis dla produktu ID: 529200, długość HTML: 4475 znaków
+2025-05-20 20:06:37,382 - product_descriptions - INFO - Rozpoczynam pobieranie i zamianę obrazków dla produktu ID: 529200
+2025-05-20 20:06:37,385 - product_descriptions - INFO - Znaleziono 9 obrazków do pobrania dla produktu ID: 529200
+2025-05-20 20:06:37,387 - product_descriptions - INFO - Zakończono generowanie opisu dla produktu ID: 529200
+2025-05-20 20:06:37,387 - product_test - INFO - Description fetched successfully
+2025-05-20 20:06:37,387 - product_test - INFO - Description length: 4475 characters
+2025-05-20 20:06:37,396 - product_test - INFO - Description saved to description_529200.html
+2025-05-20 20:06:37,396 - product_manager - ERROR - Błąd podczas aktualizacji opisu produktu 529200: 'ProductManager' object has no attribute '_save_products'
+2025-05-20 20:06:37,396 - product_test - INFO - Update success: False
+2025-05-20 20:06:37,396 - product_test - ERROR - Failed to update product description
+2025-05-20 20:15:40,597 - product_test - INFO - Starting test for product ID: 529200
+2025-05-20 20:15:40,627 - product_manager - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-20 20:15:40,627 - product_test - INFO - ProductManager initialized
+2025-05-20 20:15:40,627 - product_test - INFO - Checking if product exists in XML...
+2025-05-20 20:15:40,955 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 20:15:40,955 - product_manager - INFO - Pomyślnie sparsowano plik XML data/products_latest.xml, znaleziono 3708 produktów
+2025-05-20 20:15:40,970 - product_test - INFO - Product found in XML: Spawarka do plastiku 50 W Humberg HM-292
+2025-05-20 20:15:40,970 - product_test - INFO - Product URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 20:15:40,970 - product_test - INFO - Fetching description from URL...
+2025-05-20 20:15:40,970 - product_descriptions - INFO - Rozpoczynam pobieranie opisu dla produktu ID: 529200
+2025-05-20 20:15:40,970 - product_descriptions - INFO - Pobieranie strony z URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 20:15:41,849 - product_descriptions - INFO - Strona pobrana pomyślnie, status: 200
+2025-05-20 20:15:41,849 - product_descriptions - INFO - Rozpoczynam parsowanie HTML dla produktu ID: 529200
+2025-05-20 20:15:41,937 - product_descriptions - INFO - Szukam elementu div z id='opis-import' w HTML (długość: 163253 znaków)
+2025-05-20 20:15:41,939 - product_descriptions - INFO - Znaleziono opis dla produktu ID: 529200, długość HTML: 4475 znaków
+2025-05-20 20:15:41,939 - product_descriptions - INFO - Rozpoczynam pobieranie i zamianę obrazków dla produktu ID: 529200
+2025-05-20 20:15:41,943 - product_descriptions - INFO - Znaleziono 9 obrazków do pobrania dla produktu ID: 529200
+2025-05-20 20:15:41,944 - product_descriptions - INFO - Zakończono generowanie opisu dla produktu ID: 529200
+2025-05-20 20:15:41,944 - product_test - INFO - Description fetched successfully
+2025-05-20 20:15:41,944 - product_test - INFO - Description length: 4475 characters
+2025-05-20 20:15:41,953 - product_test - INFO - Description saved to description_529200.html
+2025-05-20 20:15:42,039 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 20:15:42,040 - product_manager - INFO - Zaktualizowano opis produktu o ID: 529200
+2025-05-20 20:15:42,040 - product_test - INFO - Update success: True
+2025-05-20 22:41:28,797 - product_test - INFO - Starting test for product ID: 529200
+2025-05-20 22:41:28,826 - product_manager - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-20 22:41:28,826 - product_test - INFO - ProductManager initialized
+2025-05-20 22:41:28,826 - product_test - INFO - Checking if product exists in XML...
+2025-05-20 22:41:29,154 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 22:41:29,154 - product_manager - INFO - Pomyślnie sparsowano plik XML data/products_latest.xml, znaleziono 3708 produktów
+2025-05-20 22:41:29,170 - product_test - INFO - Product found in XML: Spawarka do plastiku 50 W Humberg HM-292
+2025-05-20 22:41:29,170 - product_test - INFO - Product URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 22:41:29,170 - product_test - INFO - Fetching description from URL...
+2025-05-20 22:41:29,170 - product_descriptions - INFO - Rozpoczynam pobieranie opisu dla produktu ID: 529200
+2025-05-20 22:41:29,171 - product_descriptions - INFO - Pobieranie strony z URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 22:41:29,970 - product_descriptions - INFO - Strona pobrana pomyślnie, status: 200
+2025-05-20 22:41:29,971 - product_descriptions - INFO - Rozpoczynam parsowanie HTML dla produktu ID: 529200
+2025-05-20 22:41:30,056 - product_descriptions - INFO - Szukam elementu div z id='opis-import' w HTML (długość: 163134 znaków)
+2025-05-20 22:41:30,059 - product_descriptions - INFO - Znaleziono opis dla produktu ID: 529200, długość HTML: 4475 znaków
+2025-05-20 22:41:30,059 - product_descriptions - INFO - Rozpoczynam pobieranie i zamianę obrazków dla produktu ID: 529200
+2025-05-20 22:41:30,061 - product_descriptions - INFO - Znaleziono 9 obrazków do pobrania dla produktu ID: 529200
+2025-05-20 22:41:30,061 - product_descriptions - INFO - Obraz 1: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/0.jpg'}
+2025-05-20 22:41:30,061 - product_descriptions - INFO - Obraz 2: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/1.jpg'}
+2025-05-20 22:41:30,061 - product_descriptions - INFO - Obraz 3: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/2.jpg'}
+2025-05-20 22:41:30,061 - product_descriptions - INFO - Obraz 4: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/3.jpg'}
+2025-05-20 22:41:30,061 - product_descriptions - INFO - Obraz 5: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/4.jpg'}
+2025-05-20 22:41:30,062 - product_descriptions - INFO - Obraz 6: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/5.jpg'}
+2025-05-20 22:41:30,062 - product_descriptions - INFO - Obraz 7: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/6.jpg'}
+2025-05-20 22:41:30,062 - product_descriptions - INFO - Obraz 8: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/7.jpg'}
+2025-05-20 22:41:30,062 - product_descriptions - INFO - Obraz 9: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/8.jpg'}
+2025-05-20 22:41:30,062 - product_descriptions - INFO - Katalog roboczy: /home/dee/sklepapp
+2025-05-20 22:41:30,062 - product_descriptions - INFO - Utworzono/sprawdzono główny katalog obrazów: /home/dee/sklepapp/static/uploads/products
+2025-05-20 22:41:30,062 - product_descriptions - INFO - Utworzono/sprawdzono katalog dla produktu: /home/dee/sklepapp/static/uploads/products/529200
+2025-05-20 22:41:30,062 - product_descriptions - INFO - Zakończono przetwarzanie obrazów dla produktu 529200
+2025-05-20 22:41:30,063 - product_descriptions - INFO - Zakończono generowanie opisu dla produktu ID: 529200
+2025-05-20 22:41:30,063 - product_test - INFO - Description fetched successfully
+2025-05-20 22:41:30,063 - product_test - INFO - Description length: 4475 characters
+2025-05-20 22:41:30,063 - product_test - INFO - Description saved to description_529200.html
+2025-05-20 22:41:30,140 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 22:41:30,140 - product_manager - INFO - Zaktualizowano opis produktu o ID: 529200
+2025-05-20 22:41:30,140 - product_test - INFO - Update success: True
+2025-05-20 22:42:23,200 - product_test - INFO - Starting test for product ID: 529200
+2025-05-20 22:42:23,229 - product_manager - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-20 22:42:23,229 - product_test - INFO - ProductManager initialized
+2025-05-20 22:42:23,229 - product_test - INFO - Checking if product exists in XML...
+2025-05-20 22:42:23,568 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 22:42:23,568 - product_manager - INFO - Pomyślnie sparsowano plik XML data/products_latest.xml, znaleziono 3708 produktów
+2025-05-20 22:42:23,582 - product_test - INFO - Product found in XML: Spawarka do plastiku 50 W Humberg HM-292
+2025-05-20 22:42:23,582 - product_test - INFO - Product URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 22:42:23,582 - product_test - INFO - Fetching description from URL...
+2025-05-20 22:42:23,582 - product_descriptions - INFO - Rozpoczynam pobieranie opisu dla produktu ID: 529200
+2025-05-20 22:42:23,582 - product_descriptions - INFO - Pobieranie strony z URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 22:42:24,336 - product_descriptions - INFO - Strona pobrana pomyślnie, status: 200
+2025-05-20 22:42:24,336 - product_descriptions - INFO - Rozpoczynam parsowanie HTML dla produktu ID: 529200
+2025-05-20 22:42:24,420 - product_descriptions - INFO - Szukam elementu div z id='opis-import' w HTML (długość: 163292 znaków)
+2025-05-20 22:42:24,422 - product_descriptions - INFO - Znaleziono opis dla produktu ID: 529200, długość HTML: 4475 znaków
+2025-05-20 22:42:24,422 - product_descriptions - INFO - Rozpoczynam pobieranie i zamianę obrazków dla produktu ID: 529200
+2025-05-20 22:42:24,425 - product_descriptions - INFO - Znaleziono 9 obrazków do pobrania dla produktu ID: 529200
+2025-05-20 22:42:24,425 - product_descriptions - INFO - Obraz 1: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/0.jpg'}
+2025-05-20 22:42:24,425 - product_descriptions - INFO - Obraz 2: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/1.jpg'}
+2025-05-20 22:42:24,425 - product_descriptions - INFO - Obraz 3: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/2.jpg'}
+2025-05-20 22:42:24,425 - product_descriptions - INFO - Obraz 4: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/3.jpg'}
+2025-05-20 22:42:24,425 - product_descriptions - INFO - Obraz 5: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/4.jpg'}
+2025-05-20 22:42:24,425 - product_descriptions - INFO - Obraz 6: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/5.jpg'}
+2025-05-20 22:42:24,426 - product_descriptions - INFO - Obraz 7: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/6.jpg'}
+2025-05-20 22:42:24,426 - product_descriptions - INFO - Obraz 8: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/7.jpg'}
+2025-05-20 22:42:24,426 - product_descriptions - INFO - Obraz 9: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/8.jpg'}
+2025-05-20 22:42:24,426 - product_descriptions - INFO - Katalog roboczy: /home/dee/sklepapp
+2025-05-20 22:42:24,426 - product_descriptions - INFO - Utworzono/sprawdzono główny katalog obrazów: /home/dee/sklepapp/static/uploads/products
+2025-05-20 22:42:24,426 - product_descriptions - INFO - Utworzono/sprawdzono katalog dla produktu: /home/dee/sklepapp/static/uploads/products/529200
+2025-05-20 22:42:24,426 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/0.jpg
+2025-05-20 22:42:24,426 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/0.jpg
+2025-05-20 22:42:24,426 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/0.jpg
+2025-05-20 22:42:24,679 - product_descriptions - INFO - Obraz pobrany pomyślnie: 80190 bajtów
+2025-05-20 22:42:24,679 - product_descriptions - INFO - Oryginalna nazwa pliku: 0.jpg
+2025-05-20 22:42:24,679 - product_descriptions - INFO - Nowa nazwa pliku: 0_1747773744.jpg
+2025-05-20 22:42:24,679 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/0_1747773744.jpg
+2025-05-20 22:42:24,679 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 80190 bajtów
+2025-05-20 22:42:24,680 - product_descriptions - ERROR - Nieoczekiwany błąd podczas przetwarzania obrazu https://janshop.pl/galerie_import/529200/0.jpg: 'src'
+2025-05-20 22:42:24,680 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/1.jpg
+2025-05-20 22:42:24,680 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/1.jpg
+2025-05-20 22:42:24,680 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/1.jpg
+2025-05-20 22:42:24,937 - product_descriptions - INFO - Obraz pobrany pomyślnie: 93845 bajtów
+2025-05-20 22:42:24,938 - product_descriptions - INFO - Oryginalna nazwa pliku: 1.jpg
+2025-05-20 22:42:24,938 - product_descriptions - INFO - Nowa nazwa pliku: 1_1747773744.jpg
+2025-05-20 22:42:24,938 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/1_1747773744.jpg
+2025-05-20 22:42:24,938 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 93845 bajtów
+2025-05-20 22:42:24,938 - product_descriptions - ERROR - Nieoczekiwany błąd podczas przetwarzania obrazu https://janshop.pl/galerie_import/529200/1.jpg: 'src'
+2025-05-20 22:42:24,938 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/2.jpg
+2025-05-20 22:42:24,938 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/2.jpg
+2025-05-20 22:42:24,938 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/2.jpg
+2025-05-20 22:42:25,278 - product_descriptions - INFO - Obraz pobrany pomyślnie: 161028 bajtów
+2025-05-20 22:42:25,278 - product_descriptions - INFO - Oryginalna nazwa pliku: 2.jpg
+2025-05-20 22:42:25,278 - product_descriptions - INFO - Nowa nazwa pliku: 2_1747773745.jpg
+2025-05-20 22:42:25,278 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/2_1747773745.jpg
+2025-05-20 22:42:25,278 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 161028 bajtów
+2025-05-20 22:42:25,279 - product_descriptions - ERROR - Nieoczekiwany błąd podczas przetwarzania obrazu https://janshop.pl/galerie_import/529200/2.jpg: 'src'
+2025-05-20 22:42:25,279 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/3.jpg
+2025-05-20 22:42:25,279 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/3.jpg
+2025-05-20 22:42:25,279 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/3.jpg
+2025-05-20 22:42:25,612 - product_descriptions - INFO - Obraz pobrany pomyślnie: 235392 bajtów
+2025-05-20 22:42:25,612 - product_descriptions - INFO - Oryginalna nazwa pliku: 3.jpg
+2025-05-20 22:42:25,612 - product_descriptions - INFO - Nowa nazwa pliku: 3_1747773745.jpg
+2025-05-20 22:42:25,613 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/3_1747773745.jpg
+2025-05-20 22:42:25,613 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 235392 bajtów
+2025-05-20 22:42:25,613 - product_descriptions - ERROR - Nieoczekiwany błąd podczas przetwarzania obrazu https://janshop.pl/galerie_import/529200/3.jpg: 'src'
+2025-05-20 22:42:25,613 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/4.jpg
+2025-05-20 22:42:25,613 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/4.jpg
+2025-05-20 22:42:25,613 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/4.jpg
+2025-05-20 22:42:25,870 - product_descriptions - INFO - Obraz pobrany pomyślnie: 99847 bajtów
+2025-05-20 22:42:25,870 - product_descriptions - INFO - Oryginalna nazwa pliku: 4.jpg
+2025-05-20 22:42:25,870 - product_descriptions - INFO - Nowa nazwa pliku: 4_1747773745.jpg
+2025-05-20 22:42:25,870 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/4_1747773745.jpg
+2025-05-20 22:42:25,871 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 99847 bajtów
+2025-05-20 22:42:25,871 - product_descriptions - ERROR - Nieoczekiwany błąd podczas przetwarzania obrazu https://janshop.pl/galerie_import/529200/4.jpg: 'src'
+2025-05-20 22:42:25,871 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/5.jpg
+2025-05-20 22:42:25,871 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/5.jpg
+2025-05-20 22:42:25,871 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/5.jpg
+2025-05-20 22:42:26,125 - product_descriptions - INFO - Obraz pobrany pomyślnie: 69935 bajtów
+2025-05-20 22:42:26,125 - product_descriptions - INFO - Oryginalna nazwa pliku: 5.jpg
+2025-05-20 22:42:26,125 - product_descriptions - INFO - Nowa nazwa pliku: 5_1747773746.jpg
+2025-05-20 22:42:26,125 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/5_1747773746.jpg
+2025-05-20 22:42:26,125 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 69935 bajtów
+2025-05-20 22:42:26,126 - product_descriptions - ERROR - Nieoczekiwany błąd podczas przetwarzania obrazu https://janshop.pl/galerie_import/529200/5.jpg: 'src'
+2025-05-20 22:42:26,126 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/6.jpg
+2025-05-20 22:42:26,126 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/6.jpg
+2025-05-20 22:42:26,126 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/6.jpg
+2025-05-20 22:42:26,460 - product_descriptions - INFO - Obraz pobrany pomyślnie: 248272 bajtów
+2025-05-20 22:42:26,460 - product_descriptions - INFO - Oryginalna nazwa pliku: 6.jpg
+2025-05-20 22:42:26,460 - product_descriptions - INFO - Nowa nazwa pliku: 6_1747773746.jpg
+2025-05-20 22:42:26,460 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/6_1747773746.jpg
+2025-05-20 22:42:26,461 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 248272 bajtów
+2025-05-20 22:42:26,461 - product_descriptions - ERROR - Nieoczekiwany błąd podczas przetwarzania obrazu https://janshop.pl/galerie_import/529200/6.jpg: 'src'
+2025-05-20 22:42:26,461 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/7.jpg
+2025-05-20 22:42:26,461 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/7.jpg
+2025-05-20 22:42:26,461 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/7.jpg
+2025-05-20 22:42:26,716 - product_descriptions - INFO - Obraz pobrany pomyślnie: 72606 bajtów
+2025-05-20 22:42:26,716 - product_descriptions - INFO - Oryginalna nazwa pliku: 7.jpg
+2025-05-20 22:42:26,716 - product_descriptions - INFO - Nowa nazwa pliku: 7_1747773746.jpg
+2025-05-20 22:42:26,716 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/7_1747773746.jpg
+2025-05-20 22:42:26,717 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 72606 bajtów
+2025-05-20 22:42:26,717 - product_descriptions - ERROR - Nieoczekiwany błąd podczas przetwarzania obrazu https://janshop.pl/galerie_import/529200/7.jpg: 'src'
+2025-05-20 22:42:26,717 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/8.jpg
+2025-05-20 22:42:26,717 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/8.jpg
+2025-05-20 22:42:26,717 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/8.jpg
+2025-05-20 22:42:26,971 - product_descriptions - INFO - Obraz pobrany pomyślnie: 68667 bajtów
+2025-05-20 22:42:26,971 - product_descriptions - INFO - Oryginalna nazwa pliku: 8.jpg
+2025-05-20 22:42:26,972 - product_descriptions - INFO - Nowa nazwa pliku: 8_1747773746.jpg
+2025-05-20 22:42:26,972 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/8_1747773746.jpg
+2025-05-20 22:42:26,972 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 68667 bajtów
+2025-05-20 22:42:26,972 - product_descriptions - ERROR - Nieoczekiwany błąd podczas przetwarzania obrazu https://janshop.pl/galerie_import/529200/8.jpg: 'src'
+2025-05-20 22:42:26,972 - product_descriptions - INFO - Zakończono przetwarzanie obrazów dla produktu 529200
+2025-05-20 22:42:26,974 - product_descriptions - INFO - Zakończono generowanie opisu dla produktu ID: 529200
+2025-05-20 22:42:26,975 - product_test - INFO - Description fetched successfully
+2025-05-20 22:42:26,975 - product_test - INFO - Description length: 4475 characters
+2025-05-20 22:42:26,987 - product_test - INFO - Description saved to description_529200.html
+2025-05-20 22:42:27,102 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 22:42:27,102 - product_manager - INFO - Zaktualizowano opis produktu o ID: 529200
+2025-05-20 22:42:27,102 - product_test - INFO - Update success: True
+2025-05-20 22:43:14,477 - product_test - INFO - Starting test for product ID: 529200
+2025-05-20 22:43:14,509 - product_manager - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-20 22:43:14,509 - product_test - INFO - ProductManager initialized
+2025-05-20 22:43:14,509 - product_test - INFO - Checking if product exists in XML...
+2025-05-20 22:43:14,847 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 22:43:14,847 - product_manager - INFO - Pomyślnie sparsowano plik XML data/products_latest.xml, znaleziono 3708 produktów
+2025-05-20 22:43:14,861 - product_test - INFO - Product found in XML: Spawarka do plastiku 50 W Humberg HM-292
+2025-05-20 22:43:14,862 - product_test - INFO - Product URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 22:43:14,862 - product_test - INFO - Fetching description from URL...
+2025-05-20 22:43:14,862 - product_descriptions - INFO - Rozpoczynam pobieranie opisu dla produktu ID: 529200
+2025-05-20 22:43:14,862 - product_descriptions - INFO - Pobieranie strony z URL: https://janshop.pl/p7158,spawarka-do-plastiku-50-w-humberg-hm292.html
+2025-05-20 22:43:15,699 - product_descriptions - INFO - Strona pobrana pomyślnie, status: 200
+2025-05-20 22:43:15,699 - product_descriptions - INFO - Rozpoczynam parsowanie HTML dla produktu ID: 529200
+2025-05-20 22:43:15,785 - product_descriptions - INFO - Szukam elementu div z id='opis-import' w HTML (długość: 162863 znaków)
+2025-05-20 22:43:15,788 - product_descriptions - INFO - Znaleziono opis dla produktu ID: 529200, długość HTML: 4475 znaków
+2025-05-20 22:43:15,788 - product_descriptions - INFO - Rozpoczynam pobieranie i zamianę obrazków dla produktu ID: 529200
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Znaleziono 9 obrazków do pobrania dla produktu ID: 529200
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Obraz 1: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/0.jpg'}
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Obraz 2: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/1.jpg'}
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Obraz 3: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/2.jpg'}
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Obraz 4: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/3.jpg'}
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Obraz 5: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/4.jpg'}
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Obraz 6: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/5.jpg'}
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Obraz 7: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/6.jpg'}
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Obraz 8: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/7.jpg'}
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Obraz 9: atrybuty = {'alt': '529200', 'class': ['lazyload'], 'data-src': '/galerie_import/529200/8.jpg'}
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Katalog roboczy: /home/dee/sklepapp
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Utworzono/sprawdzono główny katalog obrazów: /home/dee/sklepapp/static/uploads/products
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Utworzono/sprawdzono katalog dla produktu: /home/dee/sklepapp/static/uploads/products/529200
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/0.jpg
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/0.jpg
+2025-05-20 22:43:15,791 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/0.jpg
+2025-05-20 22:43:16,044 - product_descriptions - INFO - Obraz pobrany pomyślnie: 80190 bajtów
+2025-05-20 22:43:16,044 - product_descriptions - INFO - Oryginalna nazwa pliku: 0.jpg
+2025-05-20 22:43:16,044 - product_descriptions - INFO - Nowa nazwa pliku: 0_1747773796.jpg
+2025-05-20 22:43:16,044 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/0_1747773796.jpg
+2025-05-20 22:43:16,045 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 80190 bajtów
+2025-05-20 22:43:16,045 - product_descriptions - INFO - Aktualizuję atrybut data-src z '/galerie_import/529200/0.jpg' na '/static/uploads/products/529200/0_1747773796.jpg'
+2025-05-20 22:43:16,045 - product_descriptions - INFO - Przetworzono obraz pomyślnie: 0_1747773796.jpg
+2025-05-20 22:43:16,045 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/1.jpg
+2025-05-20 22:43:16,045 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/1.jpg
+2025-05-20 22:43:16,045 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/1.jpg
+2025-05-20 22:43:16,302 - product_descriptions - INFO - Obraz pobrany pomyślnie: 93845 bajtów
+2025-05-20 22:43:16,303 - product_descriptions - INFO - Oryginalna nazwa pliku: 1.jpg
+2025-05-20 22:43:16,303 - product_descriptions - INFO - Nowa nazwa pliku: 1_1747773796.jpg
+2025-05-20 22:43:16,303 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/1_1747773796.jpg
+2025-05-20 22:43:16,303 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 93845 bajtów
+2025-05-20 22:43:16,303 - product_descriptions - INFO - Aktualizuję atrybut data-src z '/galerie_import/529200/1.jpg' na '/static/uploads/products/529200/1_1747773796.jpg'
+2025-05-20 22:43:16,303 - product_descriptions - INFO - Przetworzono obraz pomyślnie: 1_1747773796.jpg
+2025-05-20 22:43:16,303 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/2.jpg
+2025-05-20 22:43:16,303 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/2.jpg
+2025-05-20 22:43:16,303 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/2.jpg
+2025-05-20 22:43:16,613 - product_descriptions - INFO - Obraz pobrany pomyślnie: 161028 bajtów
+2025-05-20 22:43:16,613 - product_descriptions - INFO - Oryginalna nazwa pliku: 2.jpg
+2025-05-20 22:43:16,613 - product_descriptions - INFO - Nowa nazwa pliku: 2_1747773796.jpg
+2025-05-20 22:43:16,613 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/2_1747773796.jpg
+2025-05-20 22:43:16,613 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 161028 bajtów
+2025-05-20 22:43:16,613 - product_descriptions - INFO - Aktualizuję atrybut data-src z '/galerie_import/529200/2.jpg' na '/static/uploads/products/529200/2_1747773796.jpg'
+2025-05-20 22:43:16,613 - product_descriptions - INFO - Przetworzono obraz pomyślnie: 2_1747773796.jpg
+2025-05-20 22:43:16,613 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/3.jpg
+2025-05-20 22:43:16,614 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/3.jpg
+2025-05-20 22:43:16,614 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/3.jpg
+2025-05-20 22:43:16,945 - product_descriptions - INFO - Obraz pobrany pomyślnie: 235392 bajtów
+2025-05-20 22:43:16,945 - product_descriptions - INFO - Oryginalna nazwa pliku: 3.jpg
+2025-05-20 22:43:16,945 - product_descriptions - INFO - Nowa nazwa pliku: 3_1747773796.jpg
+2025-05-20 22:43:16,945 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/3_1747773796.jpg
+2025-05-20 22:43:16,946 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 235392 bajtów
+2025-05-20 22:43:16,946 - product_descriptions - INFO - Aktualizuję atrybut data-src z '/galerie_import/529200/3.jpg' na '/static/uploads/products/529200/3_1747773796.jpg'
+2025-05-20 22:43:16,946 - product_descriptions - INFO - Przetworzono obraz pomyślnie: 3_1747773796.jpg
+2025-05-20 22:43:16,946 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/4.jpg
+2025-05-20 22:43:16,946 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/4.jpg
+2025-05-20 22:43:16,946 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/4.jpg
+2025-05-20 22:43:17,201 - product_descriptions - INFO - Obraz pobrany pomyślnie: 99847 bajtów
+2025-05-20 22:43:17,201 - product_descriptions - INFO - Oryginalna nazwa pliku: 4.jpg
+2025-05-20 22:43:17,201 - product_descriptions - INFO - Nowa nazwa pliku: 4_1747773797.jpg
+2025-05-20 22:43:17,201 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/4_1747773797.jpg
+2025-05-20 22:43:17,201 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 99847 bajtów
+2025-05-20 22:43:17,201 - product_descriptions - INFO - Aktualizuję atrybut data-src z '/galerie_import/529200/4.jpg' na '/static/uploads/products/529200/4_1747773797.jpg'
+2025-05-20 22:43:17,202 - product_descriptions - INFO - Przetworzono obraz pomyślnie: 4_1747773797.jpg
+2025-05-20 22:43:17,202 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/5.jpg
+2025-05-20 22:43:17,202 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/5.jpg
+2025-05-20 22:43:17,202 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/5.jpg
+2025-05-20 22:43:17,456 - product_descriptions - INFO - Obraz pobrany pomyślnie: 69935 bajtów
+2025-05-20 22:43:17,456 - product_descriptions - INFO - Oryginalna nazwa pliku: 5.jpg
+2025-05-20 22:43:17,457 - product_descriptions - INFO - Nowa nazwa pliku: 5_1747773797.jpg
+2025-05-20 22:43:17,457 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/5_1747773797.jpg
+2025-05-20 22:43:17,457 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 69935 bajtów
+2025-05-20 22:43:17,457 - product_descriptions - INFO - Aktualizuję atrybut data-src z '/galerie_import/529200/5.jpg' na '/static/uploads/products/529200/5_1747773797.jpg'
+2025-05-20 22:43:17,457 - product_descriptions - INFO - Przetworzono obraz pomyślnie: 5_1747773797.jpg
+2025-05-20 22:43:17,457 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/6.jpg
+2025-05-20 22:43:17,457 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/6.jpg
+2025-05-20 22:43:17,457 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/6.jpg
+2025-05-20 22:43:17,791 - product_descriptions - INFO - Obraz pobrany pomyślnie: 248272 bajtów
+2025-05-20 22:43:17,791 - product_descriptions - INFO - Oryginalna nazwa pliku: 6.jpg
+2025-05-20 22:43:17,791 - product_descriptions - INFO - Nowa nazwa pliku: 6_1747773797.jpg
+2025-05-20 22:43:17,792 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/6_1747773797.jpg
+2025-05-20 22:43:17,792 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 248272 bajtów
+2025-05-20 22:43:17,792 - product_descriptions - INFO - Aktualizuję atrybut data-src z '/galerie_import/529200/6.jpg' na '/static/uploads/products/529200/6_1747773797.jpg'
+2025-05-20 22:43:17,792 - product_descriptions - INFO - Przetworzono obraz pomyślnie: 6_1747773797.jpg
+2025-05-20 22:43:17,792 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/7.jpg
+2025-05-20 22:43:17,792 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/7.jpg
+2025-05-20 22:43:17,792 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/7.jpg
+2025-05-20 22:43:18,045 - product_descriptions - INFO - Obraz pobrany pomyślnie: 72606 bajtów
+2025-05-20 22:43:18,045 - product_descriptions - INFO - Oryginalna nazwa pliku: 7.jpg
+2025-05-20 22:43:18,045 - product_descriptions - INFO - Nowa nazwa pliku: 7_1747773798.jpg
+2025-05-20 22:43:18,045 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/7_1747773798.jpg
+2025-05-20 22:43:18,045 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 72606 bajtów
+2025-05-20 22:43:18,045 - product_descriptions - INFO - Aktualizuję atrybut data-src z '/galerie_import/529200/7.jpg' na '/static/uploads/products/529200/7_1747773798.jpg'
+2025-05-20 22:43:18,045 - product_descriptions - INFO - Przetworzono obraz pomyślnie: 7_1747773798.jpg
+2025-05-20 22:43:18,045 - product_descriptions - INFO - Przetwarzanie obrazu: /galerie_import/529200/8.jpg
+2025-05-20 22:43:18,046 - product_descriptions - INFO - Przekształcony URL względny na bezwzględny: https://janshop.pl/galerie_import/529200/8.jpg
+2025-05-20 22:43:18,046 - product_descriptions - INFO - Próba pobrania obrazu z URL: https://janshop.pl/galerie_import/529200/8.jpg
+2025-05-20 22:43:18,297 - product_descriptions - INFO - Obraz pobrany pomyślnie: 68667 bajtów
+2025-05-20 22:43:18,297 - product_descriptions - INFO - Oryginalna nazwa pliku: 8.jpg
+2025-05-20 22:43:18,297 - product_descriptions - INFO - Nowa nazwa pliku: 8_1747773798.jpg
+2025-05-20 22:43:18,298 - product_descriptions - INFO - Zapisuję obraz do: /home/dee/sklepapp/static/uploads/products/529200/8_1747773798.jpg
+2025-05-20 22:43:18,298 - product_descriptions - INFO - Obraz zapisany pomyślnie: True, rozmiar: 68667 bajtów
+2025-05-20 22:43:18,298 - product_descriptions - INFO - Aktualizuję atrybut data-src z '/galerie_import/529200/8.jpg' na '/static/uploads/products/529200/8_1747773798.jpg'
+2025-05-20 22:43:18,298 - product_descriptions - INFO - Przetworzono obraz pomyślnie: 8_1747773798.jpg
+2025-05-20 22:43:18,298 - product_descriptions - INFO - Zakończono przetwarzanie obrazów dla produktu 529200
+2025-05-20 22:43:18,300 - product_descriptions - INFO - Zakończono generowanie opisu dla produktu ID: 529200
+2025-05-20 22:43:18,300 - product_test - INFO - Description fetched successfully
+2025-05-20 22:43:18,301 - product_test - INFO - Description length: 4745 characters
+2025-05-20 22:43:18,313 - product_test - INFO - Description saved to description_529200.html
+2025-05-20 22:43:18,418 - product_manager - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-20 22:43:18,419 - product_manager - INFO - Zaktualizowano opis produktu o ID: 529200
+2025-05-20 22:43:18,419 - product_test - INFO - Update success: True

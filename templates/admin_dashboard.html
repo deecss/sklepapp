@@ -1,0 +1,121 @@
+{% extends 'admin_base.html' %}
+{% block admin_content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
+    <p class="text-gray-600">Przegląd statystyk sklepu</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-gray-500 uppercase text-sm font-semibold">Zamówienia</h2>
+        <p class="text-3xl font-bold text-gray-800 mt-2">{{ stats.total_orders }}</p>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-gray-500 uppercase text-sm font-semibold">Przychód</h2>
+        <p class="text-3xl font-bold text-gray-800 mt-2">{{ stats.total_revenue }} zł</p>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-gray-500 uppercase text-sm font-semibold">Produkty w ofercie</h2>
+        <p class="text-3xl font-bold text-gray-800 mt-2">{{ stats.product_stats.total }}</p>
+        <div class="mt-1 flex justify-between items-center text-sm">
+            <span class="text-green-600">Dostępne: {{ stats.product_stats.available }}</span>
+            <span class="text-red-600">Ukryte: {{ stats.product_stats.unavailable }}</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+            <div class="bg-green-600 h-2.5 rounded-full" style="width: {{ stats.product_stats.availability_percentage }}%"></div>
+        </div>
+        <div class="mt-1 text-xs text-gray-500 text-right">
+            {{ stats.product_stats.availability_percentage }}% widocznych dla klientów
+        </div>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-gray-500 uppercase text-sm font-semibold">Najpopularniejszy produkt</h2>
+        <p class="text-xl font-bold text-gray-800 mt-2">
+            {% if stats.most_popular_product %}
+                {% for p in products %}
+                    {% if p.id == stats.most_popular_product %}
+                        {{ p.name }}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                Brak danych
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<div class="mb-8">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Ostatnie zamówienia</h2>
+    <div class="bg-white rounded-lg shadow">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Klient</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kwota</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Akcje</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for order in recent_orders %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ order.id }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.created_at|timestamp_to_date }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {% if order.customer_data and order.customer_data.name %}
+                            {{ order.customer_data.name }}
+                        {% else %}
+                            Nieznany
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.total_amount|default(0) }} zł</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            {% if order.status == 'new' %}bg-yellow-100 text-yellow-800
+                            {% elif order.status == 'processing' %}bg-blue-100 text-blue-800
+                            {% elif order.status == 'completed' %}bg-green-100 text-green-800
+                            {% elif order.status == 'cancelled' %}bg-red-100 text-red-800
+                            {% else %}bg-gray-100 text-gray-800{% endif %}">
+                            {% if order.status == 'new' %}Nowe
+                            {% elif order.status == 'processing' %}W realizacji
+                            {% elif order.status == 'completed' %}Zrealizowane
+                            {% elif order.status == 'cancelled' %}Anulowane
+                            {% else %}{{ order.status }}{% endif %}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="{{ url_for('admin_order_detail', order_id=order.id) }}" class="text-blue-600 hover:text-blue-900">Szczegóły</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500">Brak zamówień</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="flex justify-between">
+    <div class="bg-white p-6 rounded-lg shadow w-full mr-4">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Szybkie akcje</h2>
+        <div class="space-y-4">
+            <a href="{{ url_for('refresh_xml') }}" class="block w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-center text-white bg-blue-600 hover:bg-blue-700">
+                Aktualizuj dane XML
+            </a>
+            <a href="{{ url_for('admin_products') }}" class="block w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-center text-white bg-green-600 hover:bg-green-700">
+                Zarządzaj produktami
+            </a>
+            <a href="{{ url_for('product_availability') }}" class="block w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-center text-white bg-indigo-600 hover:bg-indigo-700">
+                Zarządzaj dostępnością
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

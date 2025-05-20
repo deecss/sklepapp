@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-8">
+    <h1 class="text-2xl font-extrabold mb-6 text-gray-800">Twój koszyk</h1>
+    
+    {% if cart %}
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 mb-6">
+            <thead>
+                <tr>
+                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Produkt</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Dostawa</th>
+                    <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Cena</th>
+                    <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Akcje</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200" id="cart-items">
+                {% for p in cart %}
+                <tr id="cart-item-{{ p.id }}">
+                    <td class="px-4 py-4 whitespace-nowrap">
+                        <div class="text-gray-700 font-medium">{{ p.name }}</div>
+                        <div class="text-gray-500 text-sm">ID: {{ p.id }}</div>
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap">
+                        <div class="text-gray-600 text-sm">
+                            <div>Czas: {{ p.delivery_time|default('2-3 dni roboczych') }}</div>
+                            <div>Koszt: {{ p.delivery_cost|default(0) }} zł</div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-right">
+                        <span class="font-bold text-green-600">{{ p.price }} zł</span>
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-right">
+                        <button onclick="removeFromCart('{{ p.id }}')" class="text-red-500 hover:text-red-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="bg-gray-50">
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500 font-semibold">Wartość produktów</td>
+                    <td></td>
+                    <td class="px-4 py-3 whitespace-nowrap text-right">
+                        <span class="font-bold text-gray-700" id="cart-subtotal">{{ cart|sum(attribute='price') }} zł</span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr class="bg-gray-50">
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500 font-semibold">Koszt dostawy</td>
+                    <td></td>
+                    <td class="px-4 py-3 whitespace-nowrap text-right">
+                        <span class="font-bold text-gray-700" id="cart-delivery">
+                            {% set delivery_costs = namespace(value=0) %}
+                            {% for p in cart %}
+                                {% set delivery_costs.value = delivery_costs.value + (p.delivery_cost|default(0)|float) %}
+                            {% endfor %}
+                            {{ delivery_costs.value }} zł
+                        </span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr class="bg-gray-100">
+                    <td class="px-4 py-4 whitespace-nowrap text-gray-800 font-bold">Łącznie do zapłaty</td>
+                    <td></td>
+                    <td class="px-4 py-4 whitespace-nowrap text-right">
+                        <span class="font-bold text-green-600 text-lg" id="cart-total">
+                            {% set total = namespace(value=0) %}
+                            {% for p in cart %}
+                                {% set total.value = total.value + p.price + (p.delivery_cost|default(0)|float) %}
+                            {% endfor %}
+                            {{ total.value }} zł
+                        </span>
+                    </td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+    <div class="flex flex-col gap-4 md:flex-row md:justify-between">
+        <a href="/" class="order-2 md:order-1 text-center py-3 px-6 rounded bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition">Kontynuuj zakupy</a>
+        <a href="/zamowienie" class="order-1 md:order-2 text-center py-3 px-6 rounded bg-green-600 text-white font-semibold hover:bg-green-700 transition">Przejdź do zamówienia</a>
+    </div>
+    {% else %}
+    <div class="py-10 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <p class="text-gray-500 mb-6">Twój koszyk jest pusty.</p>
+        <a href="/" class="inline-block py-3 px-6 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Przejdź do sklepu</a>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    // Usuwanie produktu z koszyka
+    function removeFromCart(productId) {
+        fetch(`/api/usun/${productId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Usunięcie elementu z tabeli
+                    const item = document.getElementById(`cart-item-${productId}`);
+                    if (item) item.remove();
+                    
+                    // Aktualizacja sum
+                    if (data.subtotal !== undefined) {
+                        document.getElementById('cart-subtotal').textContent = `${data.subtotal} zł`;
+                    }
+                    if (data.delivery_cost !== undefined) {
+                        document.getElementById('cart-delivery').textContent = `${data.delivery_cost} zł`;
+                    }
+                    document.getElementById('cart-total').textContent = `${data.cart_sum} zł`;
+                    
+                    // Aktualizacja licznika koszyka w nagłówku
+                    document.getElementById('cart-count').textContent = data.cart_count;
+                    document.getElementById('cart-sum').textContent = data.cart_sum;
+                    
+                    // Jeśli koszyk jest pusty, odśwież stronę
+                    if (data.cart_count === 0) {
+                        location.reload();
+                    }
+                    
+                    // Emitowanie informacji do WebSocketa
+                    socket.emit('cart_updated', { 
+                        count: data.cart_count, 
+                        sum: data.cart_sum 
+                    });
+                }
+            });
+    }
+</script>
+{% endblock %}

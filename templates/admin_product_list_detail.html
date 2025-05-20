@@ -1,0 +1,434 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Edycja listy produktów{% endblock %}
+
+{% block admin_content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">Edycja listy produktów</h1>
+        <a href="{{ url_for('product_listing') }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+            Powrót do list
+        </a>
+    </div>
+    
+    <!-- Panel informacji o liście -->
+    <div class="bg-white shadow rounded-lg p-6 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h2 class="text-lg font-semibold mb-4">Informacje o liście</h2>
+                <div class="mb-4">
+                    <label for="list-name" class="block text-sm font-medium text-gray-700 mb-1">Nazwa listy</label>
+                    <input type="text" id="list-name" value="{{ product_list.name }}" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="list-description" class="block text-sm font-medium text-gray-700 mb-1">Opis</label>
+                    <textarea id="list-description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">{{ product_list.description }}</textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="markup-percent" class="block text-sm font-medium text-gray-700 mb-1">Domyślny narzut (%)</label>
+                    <input type="number" id="markup-percent" value="{{ product_list.markup_percent }}" min="0" step="0.1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+            </div>
+            
+            <div>
+                <h2 class="text-lg font-semibold mb-4">Statystyki</h2>
+                <p><strong>ID listy:</strong> {{ product_list.id }}</p>
+                <p><strong>Data utworzenia:</strong> {{ product_list.created_at }}</p>
+                <p><strong>Liczba produktów:</strong> {{ product_list.products_ids|length }}</p>
+                
+                <div class="mt-6 flex space-x-3">
+                    <button id="save-list-button" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                        Zapisz zmiany
+                    </button>
+                    <button id="publish-list-button" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+                        Wystaw produkty
+                    </button>
+                    <button id="delete-list-button" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                        Usuń listę
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Opcje filtrowania produktów -->
+    <div class="bg-white shadow rounded-lg p-6 mb-6">
+        <div class="flex flex-wrap gap-4 items-end">
+            <div class="flex-1 min-w-[250px]">
+                <label for="product-filter" class="block text-sm font-medium text-gray-700 mb-1">Filtruj po nazwie</label>
+                <input type="text" id="product-filter" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Wpisz nazwę produktu...">
+            </div>
+            
+            <div class="w-[200px]">
+                <label for="category-filter" class="block text-sm font-medium text-gray-700 mb-1">Kategoria</label>
+                <select id="category-filter" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="">Wszystkie kategorie</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="w-[200px]">
+                <label for="global-markup" class="block text-sm font-medium text-gray-700 mb-1">Narzut dla wszystkich (%)</label>
+                <input type="number" id="global-markup" value="{{ product_list.markup_percent }}" min="0" step="0.1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            
+            <div>
+                <button id="apply-global-markup" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700">
+                    Zastosuj narzut
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lista produktów -->
+    <div class="bg-white shadow rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">Produkty w liście ({{ products|length }})</h2>
+        
+        {% if products %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Zdjęcie</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nazwa</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategoria</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stan</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cena oryginalna</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Narzut (%)</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cena końcowa</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Akcje</th>
+                    </tr>
+                </thead>
+                <tbody id="products-tbody" class="bg-white divide-y divide-gray-200">
+                    {% for product in products %}
+                    <tr class="product-row" data-product-id="{{ product.id }}" data-category="{{ product.category }}">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if product.image %}
+                            <img src="{{ product.image }}" alt="{{ product.name }}" class="h-10 w-10 rounded-full object-cover">
+                            {% else %}
+                            <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                                <span class="text-gray-500 text-xs">Brak</span>
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ product.name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ product.category }}
+                            {% if product.category_path %}
+                            <span class="block text-xs text-gray-400 truncate max-w-xs">{{ product.category_path|join(' > ') }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {% if product.stock > 10 %}
+                            <span class="text-green-600">{{ product.stock }}</span>
+                            {% elif product.stock > 0 %}
+                            <span class="text-yellow-600">{{ product.stock }}</span>
+                            {% else %}
+                            <span class="text-red-600">{{ product.stock }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 original-price" data-value="{{ product.discounted_price or product.price }}">
+                            {{ (product.discounted_price or product.price)|round(2) }} zł
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <input type="number" class="markup-input w-20 px-2 py-1 border border-gray-300 rounded-sm" 
+                                   value="{{ product_list.product_markups.get(product.id, product_list.markup_percent) }}" 
+                                   min="0" step="0.1" data-product-id="{{ product.id }}">
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600 calculated-price">
+                            {% set markup = product_list.product_markups.get(product.id, product_list.markup_percent) %}
+                            {% set base_price = product.discounted_price or product.price %}
+                            {% set final_price = base_price * (1 + markup/100) %}
+                            {{ final_price|round(2) }} zł
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            {% if product.is_in_shop %}
+                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">W sklepie</span>
+                            {% else %}
+                            <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Do wystawienia</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <button class="text-red-600 hover:text-red-900 remove-product" data-product-id="{{ product.id }}">Usuń</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center p-8 text-gray-500">
+            Lista nie zawiera produktów lub wybrane produkty nie są już dostępne w pliku XML.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Product list detail page loaded');
+    
+    // Elementy DOM
+    const listNameInput = document.getElementById('list-name');
+    const listDescriptionInput = document.getElementById('list-description');
+    const markupPercentInput = document.getElementById('markup-percent');
+    const saveListButton = document.getElementById('save-list-button');
+    const publishListButton = document.getElementById('publish-list-button');
+    const deleteListButton = document.getElementById('delete-list-button');
+    const productFilter = document.getElementById('product-filter');
+    const categoryFilter = document.getElementById('category-filter');
+    const globalMarkupInput = document.getElementById('global-markup');
+    const applyGlobalMarkupBtn = document.getElementById('apply-global-markup');
+    const productsTbody = document.getElementById('products-tbody');
+    
+    // Przechowuj indywidualne narzuty dla produktów
+    let productMarkups = {{ product_list.product_markups|tojson }};
+    // Lista ID produktów
+    let productIds = {{ product_list.products_ids|tojson }};
+    
+    // Filtrowanie produktów
+    if (productFilter) {
+        productFilter.addEventListener('input', filterProducts);
+    }
+    
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', filterProducts);
+    }
+    
+    // Funkcja filtrowania produktów
+    function filterProducts() {
+        const filterText = productFilter.value.toLowerCase();
+        const filterCategory = categoryFilter.value;
+        
+        document.querySelectorAll('.product-row').forEach(row => {
+            const productName = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+            const productCategory = row.getAttribute('data-category');
+            
+            const matchesText = !filterText || productName.includes(filterText);
+            const matchesCategory = !filterCategory || productCategory === filterCategory;
+            
+            if (matchesText && matchesCategory) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+    
+    // Aktualizacja ceny na podstawie narzutu
+    document.querySelectorAll('.markup-input').forEach(input => {
+        input.addEventListener('change', function() {
+            updateProductPrice(this);
+        });
+    });
+    
+    // Funkcja aktualizująca cenę pojedynczego produktu
+    function updateProductPrice(input) {
+        const productId = input.getAttribute('data-product-id');
+        const markup = parseFloat(input.value) || 0;
+        
+        // Zachowaj w pamięci
+        productMarkups[productId] = markup;
+        
+        const row = input.closest('tr');
+        const originalPriceCell = row.querySelector('.original-price');
+        const calculatedPriceCell = row.querySelector('.calculated-price');
+        const originalPrice = parseFloat(originalPriceCell.getAttribute('data-value')) || 0;
+        
+        const markupMultiplier = 1 + (markup / 100);
+        const calculatedPrice = (originalPrice * markupMultiplier).toFixed(2);
+        
+        calculatedPriceCell.textContent = calculatedPrice + ' zł';
+    }
+    
+    // Zastosowanie globalnego narzutu
+    if (applyGlobalMarkupBtn) {
+        applyGlobalMarkupBtn.addEventListener('click', function() {
+            const globalMarkup = parseFloat(globalMarkupInput.value) || 0;
+            
+            // Aktualizuj narzut dla wszystkich produktów
+            document.querySelectorAll('.markup-input').forEach(input => {
+                input.value = globalMarkup;
+                updateProductPrice(input);
+            });
+            
+            // Aktualizuj też domyślny narzut dla listy
+            markupPercentInput.value = globalMarkup;
+        });
+    }
+    
+    // Zapisywanie zmian w liście
+    if (saveListButton) {
+        saveListButton.addEventListener('click', function() {
+            const name = listNameInput.value.trim();
+            const description = listDescriptionInput.value.trim();
+            const markup_percent = parseFloat(markupPercentInput.value) || 0;
+            
+            if (!name) {
+                alert('Nazwa listy jest wymagana');
+                return;
+            }
+            
+            const data = {
+                name: name,
+                description: description,
+                markup_percent: markup_percent,
+                products_ids: productIds,
+                product_markups: productMarkups
+            };
+            
+            // Wyślij dane do serwera
+            fetch(`/admin/update-product-list/{{ product_list.id }}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                } else {
+                    alert('Błąd: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Wystąpił błąd podczas zapisywania zmian');
+            });
+        });
+    }
+    
+    // Wystawianie produktów z listy
+    if (publishListButton) {
+        publishListButton.addEventListener('click', function() {
+            if (!confirm('Czy na pewno chcesz wystawić wszystkie produkty z tej listy?')) {
+                return;
+            }
+            
+            fetch('/admin/add-products-from-list', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ list_id: {{ product_list.id }} })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    
+                    // Aktualizuj status produktów w tabeli
+                    document.querySelectorAll('.product-row').forEach(row => {
+                        const statusCell = row.querySelector('td:nth-child(9)');
+                        if (statusCell) {
+                            statusCell.innerHTML = '<span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">W sklepie</span>';
+                        }
+                    });
+                } else {
+                    alert('Błąd: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Wystąpił błąd podczas wystawiania produktów');
+            });
+        });
+    }
+    
+    // Usuwanie listy
+    if (deleteListButton) {
+        deleteListButton.addEventListener('click', function() {
+            if (!confirm('Czy na pewno chcesz usunąć tę listę produktów? Ta operacja jest nieodwracalna.')) {
+                return;
+            }
+            
+            fetch(`/admin/delete-product-list/{{ product_list.id }}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    window.location.href = '{{ url_for("product_listing") }}';
+                } else {
+                    alert('Błąd: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Wystąpił błąd podczas usuwania listy');
+            });
+        });
+    }
+    
+    // Usuwanie produktu z listy
+    document.querySelectorAll('.remove-product').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            if (!confirm(`Czy na pewno chcesz usunąć produkt o ID ${productId} z listy?`)) {
+                return;
+            }
+            
+            // Usuń z lokalnej listy ID
+            productIds = productIds.filter(id => id !== productId);
+            
+            // Usuń z indywidualnych narzutów
+            if (productId in productMarkups) {
+                delete productMarkups[productId];
+            }
+            
+            // Usuń wiersz z tabeli
+            this.closest('tr').remove();
+            
+            // Automatycznie zapisz zmiany
+            saveChanges();
+        });
+    });
+    
+    // Pomocnicza funkcja do zapisywania zmian
+    function saveChanges() {
+        const name = listNameInput.value.trim();
+        const description = listDescriptionInput.value.trim();
+        const markup_percent = parseFloat(markupPercentInput.value) || 0;
+        
+        const data = {
+            name: name,
+            description: description,
+            markup_percent: markup_percent,
+            products_ids: productIds,
+            product_markups: productMarkups
+        };
+        
+        // Wyślij dane do serwera
+        fetch(`/admin/update-product-list/{{ product_list.id }}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                console.error('Błąd podczas zapisywania zmian:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+});
+</script>
+{% endblock %}

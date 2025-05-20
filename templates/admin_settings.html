@@ -1,0 +1,335 @@
+{% extends 'admin_base.html' %}
+{% block admin_content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Ustawienia</h1>
+    <p class="text-gray-600">Zarządzaj ustawieniami panelu administracyjnego</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Zmiana hasła -->
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Zmiana hasła</h2>
+        <form action="{{ url_for('admin_change_password') }}" method="post">
+            <div class="mb-4">
+                <label for="current_password" class="block text-sm font-medium text-gray-700 mb-1">Aktualne hasło</label>
+                <input type="password" id="current_password" name="current_password" required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            
+            <div class="mb-4">
+                <label for="new_password" class="block text-sm font-medium text-gray-700 mb-1">Nowe hasło</label>
+                <input type="password" id="new_password" name="new_password" required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            
+            <div class="mb-4">
+                <label for="confirm_password" class="block text-sm font-medium text-gray-700 mb-1">Potwierdź hasło</label>
+                <input type="password" id="confirm_password" name="confirm_password" required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            
+            <button type="submit" 
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Zmień hasło
+            </button>
+        </form>
+    </div>
+    
+    <!-- Popularne kategorie -->
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Wyróżnione kategorie</h2>
+        <p class="text-sm text-gray-600 mb-4">Wybierz kategorie, które będą wyświetlane w sekcji "Popularne kategorie" na stronie głównej (max. 6)</p>
+        
+        <form action="{{ url_for('update_featured_categories') }}" method="post">
+            <div class="space-y-3 mb-4 max-h-60 overflow-y-auto p-2 border border-gray-200 rounded-md">
+                {% for category in main_categories %}
+                <div class="flex items-center">
+                    <input 
+                        type="checkbox" 
+                        id="cat-{{ loop.index }}" 
+                        name="featured_categories" 
+                        value="{{ category }}"
+                        {% if category in featured_categories %}checked{% endif %}
+                        class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                    <label for="cat-{{ loop.index }}" class="ml-2 block text-sm text-gray-700">
+                        {{ category }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <button type="submit" 
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Zapisz wyróżnione kategorie
+            </button>
+        </form>
+    </div>
+    
+    <!-- Ustawienia XML -->
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Pobieranie XML</h2>
+        <div class="mb-4">
+            <div class="p-3 bg-blue-50 border border-blue-200 rounded-md mb-4">
+                <p class="text-sm text-blue-800">
+                    <strong>Uwaga:</strong> System używa tylko jednego pliku XML (products_latest.xml), który jest aktualizowany przy każdym pobraniu.
+                </p>
+            </div>
+            <p class="text-sm text-gray-600 mb-2">Aktualne ustawienia:</p>
+            <ul class="list-disc pl-5 text-sm text-gray-600">
+                <li>Źródło XML: <span id="xml-url">{{ xml_config.url|default('https://ergo.enode.ovh/products.xml') }}</span></li>
+                <li>Częstotliwość pobierania: co <span id="xml-interval">{{ xml_config.interval_minutes|default('10') }}</span> minut</li>
+                <li>Ostatnie pobieranie: <span id="last-download">{{ xml_config.last_download|default('Brak') }}</span></li>
+                <li>Status harmonogramu: <span id="scheduler-status" class="font-medium {{ 'text-green-600' if xml_config.auto_start else 'text-red-600' }}">
+                    {{ 'Aktywny' if xml_config.auto_start else 'Nieaktywny' }}</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="mb-4">
+            <form id="xml-config-form" action="{{ url_for('update_xml_config') }}" method="post">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="xml-url-input" class="block text-sm font-medium text-gray-700 mb-1">URL pliku XML</label>
+                        <input type="url" id="xml-url-input" name="url" value="{{ xml_config.url|default('https://ergo.enode.ovh/products.xml') }}" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="xml-interval-input" class="block text-sm font-medium text-gray-700 mb-1">Interwał (minuty)</label>
+                        <input type="number" id="xml-interval-input" name="interval_minutes" value="{{ xml_config.interval_minutes|default('10') }}" min="1" max="1440" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                <button type="submit" 
+                    class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-2">
+                    Zapisz ustawienia
+                </button>
+            </form>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+            <button id="refresh-xml-btn" 
+                class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                Pobierz XML teraz
+            </button>
+            <button id="toggle-scheduler-btn" 
+                class="{{ 'bg-red-600 hover:bg-red-700' if xml_config.auto_start else 'bg-green-600 hover:bg-green-700' }} text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 {{ 'focus:ring-red-500' if xml_config.auto_start else 'focus:ring-green-500' }}">
+                {{ 'Zatrzymaj harmonogram' if xml_config.auto_start else 'Uruchom harmonogram' }}
+            </button>
+        </div>
+    </div>
+    
+    <!-- Backup bazy danych -->
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Backup danych</h2>
+        <p class="text-sm text-gray-600 mb-4">Pobierz kopię zapasową danych sklepu</p>
+        
+        <form action="{{ url_for('create_backup') }}" method="post" class="mb-4">
+            <button type="submit" 
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-2">
+                Utwórz teraz kopię zapasową danych
+            </button>
+        </form>
+        
+        <button id="backup-orders-btn" 
+            class="w-full bg-gray-600 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 mb-2">
+            Pobierz bazę zamówień
+        </button>
+        
+        <button id="backup-products-btn" 
+            class="w-full bg-gray-600 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+            Pobierz bazę produktów
+        </button>
+    </div>
+    
+    <!-- Zarządzanie użytkownikami -->
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Zarządzanie użytkownikami</h2>
+        <p class="text-sm text-gray-600 mb-4">Aktualnie aktywni administatorzy: 1</p>
+        
+        <button id="add-user-btn" 
+            class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Dodaj nowego administratora
+        </button>
+    </div>
+</div>
+
+<!-- Modal for adding new admin user -->
+<div id="user-modal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <form id="user-form">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Dodaj administratora</h3>
+                    <div class="mt-4">
+                        <div class="mb-4">
+                            <label for="user-name" class="block text-sm font-medium text-gray-700 mb-1">Nazwa użytkownika</label>
+                            <input type="text" id="user-name" name="username" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="user-password" class="block text-sm font-medium text-gray-700 mb-1">Hasło</label>
+                            <input type="password" id="user-password" name="password" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="user-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Potwierdź hasło</label>
+                            <input type="password" id="user-confirm-password" name="confirm_password" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="submit"
+                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        Dodaj
+                    </button>
+                    <button type="button" id="close-user-modal"
+                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Anuluj
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Refresh XML button
+        const refreshXmlBtn = document.getElementById('refresh-xml-btn');
+        refreshXmlBtn.addEventListener('click', function() {
+            refreshXmlBtn.disabled = true;
+            refreshXmlBtn.innerText = 'Pobieranie...';
+            
+            fetch('/admin/refresh-xml')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('last-download').innerText = new Date().toLocaleString();
+                        alert('XML został pobrany pomyślnie!');
+                    } else {
+                        alert('Błąd: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Wystąpił błąd podczas pobierania XML');
+                    console.error(error);
+                })
+                .finally(() => {
+                    refreshXmlBtn.disabled = false;
+                    refreshXmlBtn.innerText = 'Pobierz XML teraz';
+                });
+        });
+        
+        // Add User Modal
+        const addUserBtn = document.getElementById('add-user-btn');
+        const userModal = document.getElementById('user-modal');
+        const closeUserModal = document.getElementById('close-user-modal');
+        
+        addUserBtn.addEventListener('click', function() {
+            userModal.classList.remove('hidden');
+        });
+        
+        closeUserModal.addEventListener('click', function() {
+            userModal.classList.add('hidden');
+        });
+        
+        // User Form Submission
+        const userForm = document.getElementById('user-form');
+        userForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('user-password').value;
+            const confirmPassword = document.getElementById('user-confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Hasła nie są identyczne!');
+                return;
+            }
+            
+            // Tutaj można dodać faktyczną implementację dodawania nowego użytkownika
+            alert('Funkcja dodawania nowego administratora będzie dostępna w przyszłej wersji.');
+            userModal.classList.add('hidden');
+        });
+        
+        // Backup buttons
+        document.getElementById('backup-orders-btn').addEventListener('click', function() {
+            alert('Funkcja eksportu zamówień będzie dostępna w przyszłej wersji.');
+        });
+        
+        document.getElementById('backup-products-btn').addEventListener('click', function() {
+            alert('Funkcja eksportu produktów będzie dostępna w przyszłej wersji.');
+        });
+        
+        // Featured categories checkbox handling
+        const categoryCheckboxes = document.querySelectorAll('input[name="featured_categories"]');
+        const MAX_CATEGORIES = 6;
+        
+        categoryCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checkedBoxes = document.querySelectorAll('input[name="featured_categories"]:checked');
+                
+                if (checkedBoxes.length > MAX_CATEGORIES) {
+                    this.checked = false;
+                    alert(`Możesz wybrać maksymalnie ${MAX_CATEGORIES} kategorii.`);
+                }
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Refresh XML button
+        const refreshXmlBtn = document.getElementById('refresh-xml-btn');
+        if (refreshXmlBtn) {
+            refreshXmlBtn.addEventListener('click', function() {
+                this.disabled = true;
+                this.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 inline-block text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Trwa pobieranie...';
+                
+                fetch('/admin/refresh-xml')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Plik XML został pomyślnie pobrany i przetworzony');
+                            document.getElementById('last-download').textContent = new Date().toLocaleString();
+                        } else {
+                            alert('Wystąpił błąd: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        alert('Wystąpił błąd: ' + error);
+                    })
+                    .finally(() => {
+                        this.disabled = false;
+                        this.innerHTML = 'Pobierz XML teraz';
+                    });
+            });
+        }
+        
+        // Toggle scheduler button
+        const toggleSchedulerBtn = document.getElementById('toggle-scheduler-btn');
+        if (toggleSchedulerBtn) {
+            toggleSchedulerBtn.addEventListener('click', function() {
+                this.disabled = true;
+                
+                fetch('/admin/toggle-xml-scheduler', {
+                    method: 'POST'
+                })
+                .then(() => {
+                    window.location.reload();
+                })
+                .catch(error => {
+                    alert('Wystąpił błąd: ' + error);
+                    this.disabled = false;
+                });
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-8">
+    <h1 class="text-2xl font-extrabold mb-4 text-gray-800">Promocje</h1>
+    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
+        <p>Specjalne oferty dostępne tylko przez ograniczony czas!</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for p in [
+            {"id": 1, "name": "Smartfon XYZ", "price": 1299, "discount_price": 999},
+            {"id": 2, "name": "Słuchawki bezprzewodowe", "price": 299, "discount_price": 199}
+        ] %}
+        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <div class="flex justify-between items-start">
+                <h2 class="font-bold text-lg">{{ p.name }}</h2>
+                <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">-{{ ((p.price - p.discount_price) / p.price * 100)|int }}%</span>
+            </div>
+            <div class="mt-2">
+                <span class="line-through text-gray-500">{{ p.price }} zł</span>
+                <span class="font-bold text-red-600 ml-2">{{ p.discount_price }} zł</span>
+            </div>
+            <a href="/produkt/{{ p.id }}" class="mt-4 block text-center py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Zobacz produkt</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

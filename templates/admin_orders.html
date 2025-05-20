@@ -1,0 +1,104 @@
+{% extends 'admin_base.html' %}
+{% block admin_content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Zamówienia</h1>
+    <p class="text-gray-600">Przegląd i zarządzanie zamówieniami klientów</p>
+</div>
+
+<div class="mb-4 flex justify-between items-center">
+    <input type="text" id="search-orders" placeholder="Szukaj zamówień..." class="px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+    <div class="flex">
+        <select id="status-filter" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm mr-2">
+            <option value="">Wszystkie statusy</option>
+            <option value="nowe">Nowe</option>
+            <option value="w realizacji">W realizacji</option>
+            <option value="zrealizowane">Zrealizowane</option>
+            <option value="anulowane">Anulowane</option>
+        </select>
+    </div>
+</div>
+
+<div class="bg-white rounded-lg shadow overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Klient</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kwota</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Akcje</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200" id="orders-table">
+            {% for order in orders|reverse %}
+            <tr data-status="{{ order.status }}">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ order.id }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.data.date }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.data.customer.name }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.data.total }} zł</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                        {% if order.status == 'nowe' %}bg-yellow-100 text-yellow-800
+                        {% elif order.status == 'w realizacji' %}bg-blue-100 text-blue-800
+                        {% elif order.status == 'zrealizowane' %}bg-green-100 text-green-800
+                        {% elif order.status == 'anulowane' %}bg-red-100 text-red-800
+                        {% else %}bg-gray-100 text-gray-800{% endif %}">
+                        {{ order.status }}
+                    </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <a href="{{ url_for('admin_order_detail', order_id=order.id) }}" class="text-blue-600 hover:text-blue-900">Szczegóły</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500">Brak zamówień</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Filter orders by text
+    document.getElementById('search-orders').addEventListener('input', function(e) {
+        filterOrders();
+    });
+    
+    // Filter orders by status
+    document.getElementById('status-filter').addEventListener('change', function(e) {
+        filterOrders();
+    });
+    
+    function filterOrders() {
+        const searchText = document.getElementById('search-orders').value.toLowerCase();
+        const statusFilter = document.getElementById('status-filter').value;
+        const rows = document.querySelectorAll('#orders-table tr[data-status]');
+        
+        rows.forEach(row => {
+            const idCell = row.querySelector('td:nth-child(1)');
+            const customerCell = row.querySelector('td:nth-child(3)');
+            const rowStatus = row.getAttribute('data-status');
+            
+            let matchesText = true;
+            let matchesStatus = true;
+            
+            if (searchText) {
+                matchesText = (idCell && idCell.textContent.includes(searchText)) || 
+                              (customerCell && customerCell.textContent.toLowerCase().includes(searchText));
+            }
+            
+            if (statusFilter) {
+                matchesStatus = rowStatus === statusFilter;
+            }
+            
+            if (matchesText && matchesStatus) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>
+{% endblock %}

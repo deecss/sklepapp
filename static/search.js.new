@@ -1,0 +1,355 @@
+/**
+ * Obsługa wyszukiwarki produktów
+ * Ten skrypt implementuje interaktywną wyszukiwarkę produktów z podpowiedziami
+ * Obsługuje zarówno wersję desktopową jak i mobilną
+ * @version 1.1.0
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Desktop search elements
+    const searchForm = document.getElementById('search-form');
+    const searchInput = document.getElementById('search-input');
+    const searchSuggestions = document.getElementById('search-suggestions');
+    const searchButton = document.getElementById('search-button');
+    const clearButton = document.getElementById('search-clear');
+    
+    // Mobile search elements
+    const mobileSearchForm = document.getElementById('mobile-search-form');
+    const mobileSearchInput = document.getElementById('mobile-search-input');
+    const mobileSearchSuggestions = document.getElementById('mobile-search-suggestions');
+    const mobileSearchClear = document.getElementById('mobile-search-clear');
+    
+    // Cache dla wyników wyszukiwania - ograniczenie zapytań sieciowych
+    const searchCache = new Map();
+    let debounceTimer;
+    
+    // Obsługa wyszukiwania
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            if (!searchInput.value.trim()) {
+                e.preventDefault();
+            }
+        });
+    }
+    
+    if (mobileSearchForm) {
+        mobileSearchForm.addEventListener('submit', function(e) {
+            if (!mobileSearchInput.value.trim()) {
+                e.preventDefault();
+            }
+        });
+    }
+    
+    // Funkcja do konfiguracji wyszukiwarki
+    function setupSearch(input, clear, suggestions, form) {
+        if (!input) return;
+        
+        // Wyświetlanie/ukrywanie przycisku czyszczenia
+        input.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                if (clear) clear.classList.remove('hidden');
+            } else {
+                if (clear) clear.classList.add('hidden');
+                hideSearchSuggestions(suggestions);
+            }
+            
+            // Debounce - opóźnienie wyszukiwania
+            clearTimeout(debounceTimer);
+            if (this.value.length < 2) {
+                hideSearchSuggestions(suggestions);
+                return;
+            }
+            
+            debounceTimer = setTimeout(() => {
+                fetchSuggestions(this.value.trim(), suggestions);
+            }, 300);
+        });
+        
+        // Obsługa przycisku czyszczenia
+        if (clear) {
+            clear.addEventListener('click', function() {
+                input.value = '';
+                input.focus();
+                clear.classList.add('hidden');
+                hideSearchSuggestions(suggestions);
+            });
+        }
+        
+        // Ukrywanie podpowiedzi po kliknięciu poza wyszukiwarką
+        if (form) {
+            document.addEventListener('click', function(e) {
+                if (!form.contains(e.target)) {
+                    hideSearchSuggestions(suggestions);
+                }
+            });
+        }
+        
+        // Obsługa nawigacji klawiaturą
+        input.addEventListener('keydown', function(e) {
+            if (suggestions.classList.contains('hidden')) return;
+            
+            // Strzałka w dół - przejdź do pierwszej podpowiedzi
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                const firstSuggestion = suggestions.querySelector('a');
+                if (firstSuggestion) firstSuggestion.focus();
+            }
+            
+            // Escape - ukryj podpowiedzi
+            if (e.key === 'Escape') {
+                hideSearchSuggestions(suggestions);
+            }
+        });
+        
+        // Nawigacja po podpowiedziach
+        if (suggestions) {
+            suggestions.addEventListener('keydown', function(e) {
+                const suggestionLinks = suggestions.querySelectorAll('a');
+                const currentIndex = Array.from(suggestionLinks).indexOf(document.activeElement);
+                
+                // Strzałka w dół - przejście do następnej podpowiedzi
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (currentIndex < suggestionLinks.length - 1) {
+                        suggestionLinks[currentIndex + 1].focus();
+                    }
+                }
+                
+                // Strzałka w górę - przejście do poprzedniej podpowiedzi lub pola wyszukiwania
+                if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (currentIndex > 0) {
+                        suggestionLinks[currentIndex - 1].focus();
+                    } else {
+                        input.focus();
+                    }
+                }
+                
+                // Escape - ukryj podpowiedzi i wróć do pola wyszukiwania
+                if (e.key === 'Escape') {
+                    hideSearchSuggestions(suggestions);
+                    input.focus();
+                }
+            });
+        }
+    }
+    
+    // Konfiguracja wyszukiwarki na pulpicie
+    setupSearch(searchInput, clearButton, searchSuggestions, searchForm);
+    
+    // Konfiguracja wyszukiwarki mobilnej
+    setupSearch(mobileSearchInput, mobileSearchClear, mobileSearchSuggestions, mobileSearchForm);
+    
+    // Pobieranie podpowiedzi z serwera z wykorzystaniem cache
+    function fetchSuggestions(query, suggestionsContainer) {
+        // Sprawdź czy mamy już te wyniki w cache (ograniczenie liczby zapytań)
+        if (searchCache.has(query)) {
+            const cachedData = searchCache.get(query);
+            if (cachedData.length > 0) {
+                displaySuggestions(cachedData, query, suggestionsContainer);
+            } else {
+                hideSearchSuggestions(suggestionsContainer);
+            }
+            return;
+        }
+        
+        // Pokazanie wskaźnika ładowania
+        suggestionsContainer.innerHTML = `
+            <div class="flex justify-center items-center p-4">
+                <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+                <span class="ml-2 text-sm text-gray-600">Wyszukiwanie...</span>
+            </div>
+        `;
+        showSearchSuggestions(suggestionsContainer);
+        
+        // Pobierz dane z serwera
+        fetch(`/api/search?q=${encodeURIComponent(query)}&limit=6`)
+            .then(response => response.json())
+            .then(data => {
+                // Zapisz wyniki w cache aby uniknąć ponownych zapytań
+                searchCache.set(query, data);
+                
+                if (data.length > 0) {
+                    displaySuggestions(data, query, suggestionsContainer);
+                } else {
+                    // Pokaż komunikat o braku wyników
+                    suggestionsContainer.innerHTML = `
+                        <div class="p-4 text-center text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <p>Brak wyników dla zapytania "${query}"</p>
+                            <a href="/search?q=${encodeURIComponent(query)}" class="text-blue-600 hover:underline mt-2 inline-block">Przejdź do pełnego wyszukiwania</a>
+                        </div>
+                    `;
+                    showSearchSuggestions(suggestionsContainer);
+                }
+            })
+            .catch(err => {
+                console.error('Błąd podczas pobierania podpowiedzi:', err);
+                hideSearchSuggestions(suggestionsContainer);
+                
+                // Opcjonalnie: pokazanie informacji o błędzie
+                if (window.showNotification) {
+                    window.showNotification('Wystąpił błąd podczas wyszukiwania', 'error', 3000);
+                }
+            });
+    }
+    
+    // Wyświetlanie podpowiedzi
+    function displaySuggestions(products, query, suggestionsContainer) {
+        if (!suggestionsContainer) return;
+        
+        // Wyczyść poprzednie podpowiedzi
+        suggestionsContainer.innerHTML = '';
+        
+        // Limit wyświetlanych produktów
+        const maxProducts = 6;
+        const productsToShow = products.slice(0, maxProducts);
+        
+        // Dodaj nagłówek podpowiedzi z liczbą znalezionych produktów
+        const suggestionHeader = document.createElement('div');
+        suggestionHeader.className = 'text-xs uppercase font-bold text-gray-500 px-4 py-2 border-b border-gray-200 flex justify-between items-center';
+        suggestionHeader.innerHTML = `
+            <span>Sugerowane produkty</span>
+            <span class="text-blue-600">${products.length} znalezionych</span>
+        `;
+        suggestionsContainer.appendChild(suggestionHeader);
+        
+        // Dodaj podpowiedzi
+        productsToShow.forEach(product => {
+            const item = document.createElement('a');
+            item.href = `/produkt/${product.id}`;
+            item.className = 'flex items-center px-4 py-3 hover:bg-blue-50 transition-colors duration-200';
+            
+            // Wyróżnienie wyszukiwanej frazy
+            const highlightedName = product.name.replace(
+                new RegExp(query, 'gi'),
+                match => `<span class="bg-yellow-100 font-semibold">${match}</span>`
+            );
+            
+            // Tworzenie HTML dla podpowiedzi
+            let imageHtml = '';
+            if (product.image) {
+                imageHtml = `
+                    <div class="w-14 h-14 flex-shrink-0 bg-white overflow-hidden rounded border border-gray-200 mr-3 p-1">
+                        <img src="${product.image}" class="w-full h-full object-contain" alt="${product.name}" loading="lazy">
+                    </div>
+                `;
+            } else {
+                imageHtml = `
+                    <div class="w-14 h-14 flex-shrink-0 bg-gray-100 flex items-center justify-center rounded mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                `;
+            }
+            
+            // Formatowanie ceny z przecinkiem zamiast kropki
+            const formattedPrice = typeof product.price === 'number' ? 
+                product.price.toFixed(2).replace('.', ',') : 
+                product.price;
+            
+            item.innerHTML = `
+                ${imageHtml}
+                <div class="flex-grow overflow-hidden">
+                    <div class="text-sm text-gray-800 line-clamp-2">${highlightedName}</div>
+                    <div class="flex items-center mt-1">
+                        <span class="font-semibold text-blue-700 text-sm">${formattedPrice} zł</span>
+                        <span class="mx-2 text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">${product.category || 'Ogólna'}</span>
+                    </div>
+                </div>
+            `;
+            
+            suggestionsContainer.appendChild(item);
+        });
+        
+        // Dodaj link "Pokaż wszystkie wyniki"
+        if (products.length > 0) {
+            const viewAllItem = document.createElement('a');
+            viewAllItem.href = `/search?q=${encodeURIComponent(query)}`;
+            viewAllItem.className = 'block text-center py-3 text-blue-600 hover:text-blue-800 border-t border-gray-200 font-medium text-sm';
+            
+            // Wybieramy odpowiedni tekst w zależności od liczby wyników
+            let viewAllText = '';
+            if (products.length <= maxProducts) {
+                viewAllText = `Przejdź do strony wyników (${products.length})`;
+            } else {
+                viewAllText = `Pokaż wszystkie wyniki (${products.length})`;
+            }
+            
+            viewAllItem.innerHTML = viewAllText;
+            suggestionsContainer.appendChild(viewAllItem);
+        }
+        
+        // Pokaż podpowiedzi
+        showSearchSuggestions(suggestionsContainer);
+    }
+    
+    // Pokazywanie kontenerа podpowiedzi
+    function showSearchSuggestions(container) {
+        if (!container) return;
+        container.classList.remove('hidden');
+        container.classList.add('animate-fadeIn');
+    }
+    
+    // Ukrywanie kontenerа podpowiedzi
+    function hideSearchSuggestions(container) {
+        if (!container) return;
+        container.classList.add('hidden');
+        container.classList.remove('animate-fadeIn');
+    }
+    
+    // Dodaj obsługę powiadomień jeśli nie istnieje
+    if (!window.showNotification) {
+        window.showNotification = function(message, type = 'info', duration = 5000) {
+            const notificationArea = document.getElementById('notification-area');
+            if (!notificationArea) return;
+            
+            const notification = document.createElement('div');
+            notification.className = `p-4 mb-3 rounded-lg flex items-center shadow-lg transition transform translate-x-0 
+                                    ${type === 'success' ? 'bg-green-100 text-green-800 border-l-4 border-green-500' : 
+                                      type === 'error' ? 'bg-red-100 text-red-800 border-l-4 border-red-500' : 
+                                      'bg-blue-100 text-blue-800 border-l-4 border-blue-500'}`;
+            
+            let iconPath = '';
+            if (type === 'success') {
+                iconPath = '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />';
+            } else if (type === 'error') {
+                iconPath = '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />';
+            } else {
+                iconPath = '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />';
+            }
+                              
+            notification.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 ${type === 'success' ? 'text-green-500' : type === 'error' ? 'text-red-500' : 'text-blue-500'}" viewBox="0 0 20 20" fill="currentColor">
+                    ${iconPath}
+                </svg>
+                <div class="flex-grow">${message}</div>
+                <button class="text-gray-500 hover:text-gray-700 focus:outline-none ml-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            `;
+            
+            // Dodanie obsługi zamknięcia powiadomienia
+            notification.querySelector('button').addEventListener('click', function() {
+                notification.classList.add('opacity-0', 'translate-x-full');
+                setTimeout(() => notification.remove(), 300);
+            });
+            
+            // Dodanie do obszaru powiadomień
+            notificationArea.appendChild(notification);
+            
+            // Automatyczne usunięcie po określonym czasie
+            if (duration > 0) {
+                setTimeout(() => {
+                    notification.classList.add('opacity-0', 'translate-x-full');
+                    setTimeout(() => notification.remove(), 300);
+                }, duration);
+            }
+        };
+    }
+});

@@ -1,0 +1,259 @@
+{% extends 'admin_base.html' %}
+{% block admin_content %}
+<div class="mb-8">
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">Zamówienie #{{ order.id }}</h1>
+            <p class="text-gray-600">Data: {{ order.data.date }}</p>
+        </div>
+        <a href="{{ url_for('admin_orders') }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+            Powrót do listy
+        </a>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-lg shadow md:col-span-2">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Szczegóły zamówienia</h2>
+        
+        <div class="mb-6">
+            <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Status zamówienia</h3>
+            <div class="flex items-center">
+                <span class="px-2 py-1 mr-4 inline-flex text-xs leading-5 font-semibold rounded-full 
+                    {% if order.status == 'nowe' %}bg-yellow-100 text-yellow-800
+                    {% elif order.status == 'w realizacji' %}bg-blue-100 text-blue-800
+                    {% elif order.status == 'zrealizowane' %}bg-green-100 text-green-800
+                    {% elif order.status == 'anulowane' %}bg-red-100 text-red-800
+                    {% else %}bg-gray-100 text-gray-800{% endif %}">
+                    {{ order.status }}
+                </span>
+                
+                <form action="{{ url_for('admin_update_order_status', order_id=order.id) }}" method="post" class="flex items-center">
+                    <select name="status" class="mr-2 border border-gray-300 rounded-md shadow-sm py-1 px-2 text-sm">
+                        <option value="nowe" {% if order.status == 'nowe' %}selected{% endif %}>Nowe</option>
+                        <option value="w realizacji" {% if order.status == 'w realizacji' %}selected{% endif %}>W realizacji</option>
+                        <option value="zrealizowane" {% if order.status == 'zrealizowane' %}selected{% endif %}>Zrealizowane</option>
+                        <option value="anulowane" {% if order.status == 'anulowane' %}selected{% endif %}>Anulowane</option>
+                    </select>
+                    <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700">
+                        Aktualizuj
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Produkty</h3>
+            <div class="border rounded-md overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produkt</th>
+                            <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Cena</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for item in order.data.items %}
+                        <tr>
+                            <td class="px-4 py-3 text-sm text-gray-900">{{ item.name }}</td>
+                            <td class="px-4 py-3 text-sm text-gray-900 text-right">{{ item.price }} zł</td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="bg-gray-50">
+                            <td class="px-4 py-3 text-sm font-bold text-gray-900">SUMA</td>
+                            <td class="px-4 py-3 text-sm font-bold text-gray-900 text-right">{{ order.data.total }} zł</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div>
+            <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Metoda płatności</h3>
+            <p class="text-sm text-gray-900">
+                {% if order.data.payment == 'przelew' %}
+                    Przelew bankowy
+                {% elif order.data.payment == 'pobranie' %}
+                    Płatność za pobraniem
+                {% else %}
+                    {{ order.data.payment }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Dane klienta</h2>
+        
+        <div class="space-y-4">
+            <div>
+                <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Imię i nazwisko</h3>
+                <p class="text-sm text-gray-900">{{ order.data.customer.name }}</p>
+            </div>
+            
+            <div>
+                <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Email</h3>
+                <p class="text-sm text-gray-900">{{ order.data.customer.email }}</p>
+            </div>
+            
+            <div>
+                <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Telefon</h3>
+                <p class="text-sm text-gray-900">{{ order.data.customer.phone }}</p>
+            </div>
+            
+            <div>
+                <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Adres</h3>
+                <p class="text-sm text-gray-900">{{ order.data.customer.address }}</p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Kod pocztowy</h3>
+                    <p class="text-sm text-gray-900">{{ order.data.customer.postcode }}</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Miasto</h3>
+                    <p class="text-sm text-gray-900">{{ order.data.customer.city }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Płatność</h2>
+        
+        {% if payment %}
+        <div class="mb-6">
+            <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Status płatności</h3>
+            <div class="flex items-center">
+                <span class="px-2 py-1 mr-4 inline-flex text-xs leading-5 font-semibold rounded-full 
+                    {% if payment.status == 'pending' %}bg-yellow-100 text-yellow-800
+                    {% elif payment.status == 'paid' %}bg-green-100 text-green-800
+                    {% elif payment.status == 'failed' %}bg-red-100 text-red-800
+                    {% elif payment.status == 'refunded' %}bg-purple-100 text-purple-800
+                    {% else %}bg-gray-100 text-gray-800{% endif %}">
+                    {% if payment.status == 'pending' %}Oczekująca
+                    {% elif payment.status == 'paid' %}Opłacona
+                    {% elif payment.status == 'failed' %}Nieudana
+                    {% elif payment.status == 'refunded' %}Zwrócona
+                    {% else %}{{ payment.status }}{% endif %}
+                </span>
+                
+                <form action="{{ url_for('admin_update_payment_status', payment_id=payment.id) }}" method="post" class="flex items-center">
+                    <select name="status" class="mr-2 border border-gray-300 rounded-md shadow-sm py-1 px-2 text-sm">
+                        <option value="pending" {% if payment.status == 'pending' %}selected{% endif %}>Oczekująca</option>
+                        <option value="paid" {% if payment.status == 'paid' %}selected{% endif %}>Opłacona</option>
+                        <option value="failed" {% if payment.status == 'failed' %}selected{% endif %}>Nieudana</option>
+                        <option value="refunded" {% if payment.status == 'refunded' %}selected{% endif %}>Zwrócona</option>
+                    </select>
+                    <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700">
+                        Aktualizuj
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Szczegóły płatności</h3>
+            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 text-sm">
+                <div class="sm:col-span-2">
+                    <dt class="font-medium text-gray-500">Metoda płatności</dt>
+                    <dd>
+                        {% if payment.payment_method == 'bank_transfer' %}
+                        Przelew bankowy
+                        {% elif payment.payment_method == 'cash_on_delivery' %}
+                        Płatność za pobraniem
+                        {% else %}
+                        {{ payment.payment_method }}
+                        {% endif %}
+                    </dd>
+                </div>
+                <div>
+                    <dt class="font-medium text-gray-500">Kwota</dt>
+                    <dd>{{ payment.amount }} zł</dd>
+                </div>
+                <div>
+                    <dt class="font-medium text-gray-500">Data utworzenia</dt>
+                    <dd>{{ payment.created_at }}</dd>
+                </div>
+                
+                {% if payment.payment_method == 'bank_transfer' %}
+                <div class="sm:col-span-2 mt-2 p-3 bg-blue-50 border border-blue-100 rounded-md">
+                    <p class="font-medium text-blue-800 mb-1">Dane do przelewu:</p>
+                    <p class="text-blue-700"><span class="font-medium">Nr konta:</span> {{ payment.payment_details.account_number }}</p>
+                    <p class="text-blue-700"><span class="font-medium">Odbiorca:</span> {{ payment.payment_details.account_owner }}</p>
+                    <p class="text-blue-700"><span class="font-medium">Tytuł:</span> {{ payment.payment_details.title }}</p>
+                </div>
+                {% elif payment.payment_method == 'cash_on_delivery' %}
+                <div class="sm:col-span-2 mt-2 p-3 bg-blue-50 border border-blue-100 rounded-md">
+                    <p class="font-medium text-blue-800 mb-1">Płatność za pobraniem:</p>
+                    <p class="text-blue-700"><span class="font-medium">Opłata:</span> {{ payment.payment_details.fee }} zł</p>
+                    <p class="text-blue-700"><span class="font-medium">Łączna kwota:</span> {{ payment.payment_details.total_amount }} zł</p>
+                </div>
+                {% endif %}
+            </dl>
+        </div>
+        
+        <div class="mb-4">
+            <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Historia płatności</h3>
+            <div class="border rounded-md overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Data</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Notatka</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for entry in payment.history %}
+                        <tr>
+                            <td class="px-4 py-2 text-sm text-gray-500">{{ entry.timestamp }}</td>
+                            <td class="px-4 py-2 text-sm">
+                                <span class="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    {% if entry.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                    {% elif entry.status == 'paid' %}bg-green-100 text-green-800
+                                    {% elif entry.status == 'failed' %}bg-red-100 text-red-800
+                                    {% elif entry.status == 'refunded' %}bg-purple-100 text-purple-800
+                                    {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                    {{ entry.status }}
+                                </span>
+                            </td>
+                            <td class="px-4 py-2 text-sm text-gray-500">{{ entry.note|default('-') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-gray-500">Brak informacji o płatności</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="flex justify-end space-x-4">
+    <button id="print-order" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+        Drukuj zamówienie
+    </button>
+    
+    <button id="send-confirmation" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+        Wyślij potwierdzenie
+    </button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Print order button
+        document.getElementById('print-order').addEventListener('click', function() {
+            window.print();
+        });
+        
+        // Send confirmation button
+        document.getElementById('send-confirmation').addEventListener('click', function() {
+            alert('Funkcja wysyłania potwierdzenia będzie dostępna w przyszłej wersji.');
+        });
+    });
+</script>
+{% endblock %}

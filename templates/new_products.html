@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-8">
+    <h1 class="text-2xl font-extrabold mb-4 text-gray-800">Nowości w naszym sklepie</h1>
+    
+    <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6" role="alert">
+        <p>Najnowsze produkty, które niedawno pojawiły się w naszej ofercie!</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for p in [
+            {"id": 5, "name": "Laptop 15.6\"", "price": 3499, "date": "2025-05-15"},
+            {"id": 6, "name": "Tablet 10\"", "price": 899, "date": "2025-05-12"}
+        ] %}
+        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <div class="flex justify-between items-start">
+                <h2 class="font-bold text-lg">{{ p.name }}</h2>
+                <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Nowość</span>
+            </div>
+            <div class="mt-2">
+                <span class="font-bold text-green-600">{{ p.price }} zł</span>
+                <div class="text-xs text-gray-500 mt-1">Dodano: {{ p.date }}</div>
+            </div>
+            <a href="/produkt/{{ p.id }}" class="mt-4 block text-center py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Zobacz produkt</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,847 @@
+{% extends 'admin_base.html' %}
+{% block admin_content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Zarządzanie produktami</h1>
+    <p class="text-gray-600">Dodawaj, edytuj i usuwaj produkty z oferty sklepu</p>
+</div>
+
+<div class="mb-4 flex justify-between items-center">
+    <div>
+        <input type="text" id="search-products" placeholder="Szukaj produktów..." class="px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+        <select id="category-filter" class="ml-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+            <option value="">Wszystkie kategorie</option>
+            {% for category in categories %}
+            <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select>
+        <select id="availability-filter" class="ml-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm">
+            <option value="">Wszystkie produkty</option>
+            <option value="available">Tylko dostępne</option>
+            <option value="unavailable">Tylko niedostępne</option>
+        </select>
+    </div>
+    <div class="flex">
+        <a href="{{ url_for('admin_products_xml') }}" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 mr-2">
+            Wystawianie XML
+        </a>
+        <button id="refresh-xml-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 mr-2">
+            Odśwież z XML
+        </button>
+        <button id="add-product-btn" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
+            Dodaj produkt
+        </button>
+    </div>
+</div>
+
+<div class="bg-white rounded-lg shadow overflow-hidden mb-4">
+    <div class="p-4 bg-gray-50 border-b border-gray-200">
+        <div class="flex justify-between items-center">
+            <p class="text-sm text-gray-600">
+                <span class="font-medium">Razem produktów:</span> {{ products|length }}
+            </p>
+            <p class="text-sm text-gray-600">
+                <span class="font-medium">Ostatnia aktualizacja:</span> {{ last_update }}
+            </p>
+        </div>
+    </div>
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nazwa</th>                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cena</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategoria</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stan</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dostępność</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Akcje</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200" id="products-table">
+            {% for product in products %}
+            <tr data-category="{{ product.category }}" data-available="{{ product.available_for_sale|default(false)|tojson }}" class="product-row">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ product.id }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div class="flex items-center">
+                        {% if product.image %}
+                        <img src="{{ product.image }}" alt="{{ product.name }}" class="h-8 w-8 rounded-full object-cover mr-3">
+                        {% endif %}
+                        <span class="{% if product.description %}cursor-pointer hover:text-blue-600 tooltip-trigger{% endif %}">
+                            {{ product.name }}
+                            {% if product.description %}
+                            <div class="tooltip hidden absolute z-10 w-64 p-4 mt-2 bg-white rounded-lg shadow-lg border border-gray-200">
+                                <div class="text-sm text-gray-600 description-preview">
+                                    {% if product.description|length > 150 %}
+                                        {{ (product.description[:150] + "...")|safe }}
+                                    {% else %}
+                                        {{ product.description|safe }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </span>
+                    </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.price }} zł</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.category }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {% if product.stock is defined %}
+                    <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                        {% if product.stock > 10 %}bg-green-100 text-green-800
+                        {% elif product.stock > 0 %}bg-yellow-100 text-yellow-800
+                        {% else %}bg-red-100 text-red-800{% endif %}">
+                        {% if product.stock > 10 %}W magazynie ({{ product.stock }})
+                        {% elif product.stock > 0 %}Kończący się ({{ product.stock }})
+                        {% else %}Niedostępny{% endif %}
+                    </span>
+                    {% else %}
+                    <span class="text-gray-400">Nieznany</span>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                        {% if product.available_for_sale %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                        {% if product.available_for_sale %}Dostępny do sprzedaży{% else %}Niedostępny do sprzedaży{% endif %}
+                    </span>
+                    <button class="toggle-availability ml-2 text-sm text-blue-600 hover:text-blue-800" 
+                            data-id="{{ product.id }}" 
+                            data-available="{{ product.available_for_sale|default(false)|tojson }}">
+                        {% if product.available_for_sale %}Ukryj{% else %}Pokaż{% endif %}
+                    </button>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button class="edit-product text-indigo-600 hover:text-indigo-900" data-id="{{ product.id }}">Edytuj</button>
+                    <button class="delete-product text-red-600 hover:text-red-900 ml-4" data-id="{{ product.id }}">Usuń</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal for add/edit product -->
+<div id="product-modal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <form id="product-form">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                Dodaj produkt
+                            </h3>
+                            <div class="mt-2 space-y-4">
+                                <input type="hidden" id="product-id">
+                                
+                                <div>
+                                    <label for="product-name" class="block text-sm font-medium text-gray-700">Nazwa produktu</label>
+                                    <input type="text" id="product-name" name="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+                                </div>
+                                
+                                <div>
+                                    <label for="product-price" class="block text-sm font-medium text-gray-700">Cena (zł)</label>
+                                    <input type="number" id="product-price" name="price" required min="0" step="0.01" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+                                </div>
+                                
+                                <div>
+                                    <label for="product-category" class="block text-sm font-medium text-gray-700">Kategoria</label>
+                                    <select id="product-category" name="category" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+                                        <option value="Elektronika">Elektronika</option>
+                                        <option value="Odzież">Odzież</option>
+                                        <option value="Obuwie">Obuwie</option>
+                                        <option value="Akcesoria">Akcesoria</option>
+                                        <option value="Inne">Inne</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        Zapisz
+                    </button>
+                    <button type="button" id="close-modal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Anuluj
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // XML Refresh button
+        const refreshXmlBtn = document.getElementById('refresh-xml-btn');
+        
+        refreshXmlBtn.addEventListener('click', function() {
+            refreshXmlBtn.disabled = true;
+            refreshXmlBtn.innerText = 'Pobieranie...';
+            
+            fetch('/admin/refresh-xml')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(`XML został pobrany i sparsowany pomyślnie! Znaleziono ${data.products_count} produktów.`);
+                        window.location.reload(); // Odśwież stronę aby pokazać nowe produkty
+                    } else {
+                        alert('Błąd: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Wystąpił błąd podczas odświeżania XML');
+                    console.error(error);
+                })
+                .finally(() => {
+                    refreshXmlBtn.disabled = false;
+                    refreshXmlBtn.innerText = 'Odśwież z XML';
+                });
+        });
+        
+        // Wyszukiwanie produktów
+        const searchInput = document.getElementById('search-products');
+        const categoryFilter = document.getElementById('category-filter');
+        const availabilityFilter = document.getElementById('availability-filter');
+        const productRows = document.querySelectorAll('.product-row');
+        
+        function filterProducts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const categoryValue = categoryFilter.value;
+            const availabilityValue = availabilityFilter.value;
+            
+            productRows.forEach(row => {
+                const name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                const category = row.getAttribute('data-category');
+                const isAvailable = row.getAttribute('data-available') === 'true';
+                
+                const matchesSearch = name.includes(searchTerm);
+                const matchesCategory = !categoryValue || category === categoryValue;
+                const matchesAvailability = 
+                    availabilityValue === '' || 
+                    (availabilityValue === 'available' && isAvailable) || 
+                    (availabilityValue === 'unavailable' && !isAvailable);
+                
+                if (matchesSearch && matchesCategory && matchesAvailability) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+        
+        searchInput.addEventListener('input', filterProducts);
+        categoryFilter.addEventListener('change', filterProducts);
+        availabilityFilter.addEventListener('change', filterProducts);
+        
+        // Tooltips for product descriptions
+        const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+        
+        tooltipTriggers.forEach(trigger => {
+            const tooltip = trigger.querySelector('.tooltip');
+            if (tooltip) {
+                trigger.addEventListener('mouseenter', () => {
+                    tooltip.classList.remove('hidden');
+                });
+                
+                trigger.addEventListener('mouseleave', () => {
+                    tooltip.classList.add('hidden');
+                });
+            }
+        });
+
+        // Obsługa przycisku przełączania dostępności
+        const toggleAvailabilityButtons = document.querySelectorAll('.toggle-availability');
+        
+        toggleAvailabilityButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                const currentAvailable = this.getAttribute('data-available') === 'true';
+                const newAvailable = !currentAvailable;
+                
+                // Wyłącz przycisk podczas oczekiwania
+                this.disabled = true;
+                
+                fetch('/admin/toggle-product-availability', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        available: newAvailable
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Aktualizacja UI bez przeładowania strony
+                        const row = this.closest('tr');
+                        row.setAttribute('data-available', newAvailable);
+                        
+                        const availabilityIndicator = row.querySelector('td:nth-child(6) span');
+                        
+                        if (newAvailable) {
+                            availabilityIndicator.classList.remove('bg-red-100', 'text-red-800');
+                            availabilityIndicator.classList.add('bg-green-100', 'text-green-800');
+                            availabilityIndicator.textContent = 'Dostępny do sprzedaży';
+                            
+                            this.textContent = 'Ukryj';
+                        } else {
+                            availabilityIndicator.classList.remove('bg-green-100', 'text-green-800');
+                            availabilityIndicator.classList.add('bg-red-100', 'text-red-800');
+                            availabilityIndicator.textContent = 'Niedostępny do sprzedaży';
+                            
+                            this.textContent = 'Pokaż';
+                        }
+                        
+                        this.setAttribute('data-available', newAvailable);
+                    } else {
+                        alert('Błąd: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Wystąpił błąd podczas przełączania dostępności produktu');
+                })
+                .finally(() => {
+                    this.disabled = false;
+                });
+            });
+        });
+    });
+
+    // Modal functionality
+    const modal = document.getElementById('product-modal');
+    const addBtn = document.getElementById('add-product-btn');
+    const closeBtn = document.getElementById('close-modal');
+    const form = document.getElementById('product-form');
+    
+    // Open modal for new product
+    addBtn.addEventListener('click', function() {
+        document.getElementById('modal-title').textContent = 'Dodaj produkt';
+        document.getElementById('product-id').value = '';
+        document.getElementById('product-name').value = '';
+        document.getElementById('product-price').value = '';
+        document.getElementById('product-category').value = 'Elektronika';
+        modal.classList.remove('hidden');
+    });
+    
+    // Open modal for editing
+    document.querySelectorAll('.edit-product').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            // In a real application, you would fetch product data from server
+            // For demo, we'll use the data from the table
+            const row = this.closest('tr');
+            const name = row.querySelector('td:nth-child(2)').textContent;
+            const price = row.querySelector('td:nth-child(3)').textContent.replace(' zł', '');
+            const category = row.querySelector('td:nth-child(4)').textContent;
+            
+            document.getElementById('modal-title').textContent = 'Edytuj produkt';
+            document.getElementById('product-id').value = id;
+            document.getElementById('product-name').value = name;
+            document.getElementById('product-price').value = price;
+            document.getElementById('product-category').value = category;
+            modal.classList.remove('hidden');
+        });
+    });
+    
+    // Close modal
+    closeBtn.addEventListener('click', function() {
+        modal.classList.add('hidden');
+    });
+    
+    // Submit form
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // In a real application, you would send data to server
+        // For demo, we'll just show an alert
+        alert('Ta funkcja będzie dostępna w pełnej wersji aplikacji.');
+        modal.classList.add('hidden');
+    });
+    
+    // Delete product
+    document.querySelectorAll('.delete-product').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            if (confirm('Czy na pewno chcesz usunąć ten produkt?')) {
+                // In a real application, you would send delete request to server
+                // For demo, we'll just show an alert
+                alert('Ta funkcja będzie dostępna w pełnej wersji aplikacji.');
+            }
+        });
+    });
+</script>
+<!-- Modal for XML product search -->
+<div id="xml-search-modal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Wyszukaj produkty w XML
+                        </h3>
+                        <div class="mt-4 flex justify-between items-center">
+                            <div class="flex-1">
+                                <input type="text" id="xml-search-input" placeholder="Wpisz nazwę, ID, UUID lub EAN" 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div class="ml-2">
+                                <select id="xml-search-field" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="any">Wszystkie pola</option>
+                                    <option value="name">Nazwa</option>
+                                    <option value="id">ID</option>
+                                    <option value="uuid">UUID</option>
+                                    <option value="EAN">EAN</option>
+                                </select>
+                            </div>
+                            <div class="ml-2">
+                                <button id="xml-search-btn-modal" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                    Szukaj
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 overflow-hidden">
+                            <div id="xml-search-loading" class="hidden text-center py-10">
+                                <svg class="animate-spin h-10 w-10 mx-auto text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <p class="mt-2 text-gray-600">Wyszukiwanie produktów...</p>
+                            </div>
+                            
+                            <div id="xml-search-results" class="hidden">
+                                <div class="border-b border-gray-200 overflow-x-auto">
+                                    <table class="min-w-full divide-y divide-gray-200">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nazwa</th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cena</th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stan</th>
+                                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Akcje</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white divide-y divide-gray-200" id="xml-results-table">
+                                            <!-- Tutaj będą wyniki wyszukiwania -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div id="xml-pagination" class="mt-4 flex justify-between items-center">
+                                    <div class="text-sm text-gray-500">
+                                        Znaleziono <span id="xml-total-results">0</span> produktów
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <button id="xml-prev-page" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                                            &laquo; Poprzednia
+                                        </button>
+                                        <span id="xml-current-page" class="text-sm">Strona 1 z 1</span>
+                                        <button id="xml-next-page" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                                            Następna &raquo;
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="xml-search-empty" class="hidden text-center py-10">
+                                <svg class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="mt-2 text-gray-600">Nie znaleziono produktów</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button type="button" id="close-xml-modal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Zamknij
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for adding product from XML -->
+<div id="add-xml-product-modal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <form id="add-xml-form">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="add-xml-modal-title">
+                                Dodaj produkt do sklepu
+                            </h3>
+                            <div class="mt-2">
+                                <div id="xml-product-preview" class="mb-4">
+                                    <div class="flex items-center mb-2">
+                                        <img id="preview-image" src="" alt="Product Image" class="h-24 w-24 object-cover rounded-md mr-3 border border-gray-200">
+                                        <div>
+                                            <p id="preview-name" class="font-medium text-gray-800 text-lg"></p>
+                                            <p id="preview-id" class="text-sm text-gray-500"></p>
+                                            <p id="preview-category" class="text-sm text-gray-500"></p>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p class="text-sm text-gray-600">Cena oryginalna:</p>
+                                            <p id="preview-price" class="font-medium"></p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-600">Stan magazynowy:</p>
+                                            <p id="preview-stock" class="font-medium"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <input type="hidden" id="xml-product-id">
+                                
+                                <div class="mb-4">
+                                    <label for="markup-percent" class="block text-sm font-medium text-gray-700 mb-1">Narzut procentowy</label>
+                                    <div class="flex items-center">
+                                        <input type="number" id="markup-percent" min="0" max="500" value="15" 
+                                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <span class="ml-2">%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="calculated-price" class="block text-sm font-medium text-gray-700 mb-1">Cena końcowa</label>
+                                    <p id="calculated-price" class="font-medium text-lg text-green-600">0.00 zł</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        Dodaj do sklepu
+                    </button>
+                    <button type="button" id="close-add-xml-modal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Anuluj
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // XML Search functionality
+        const xmlSearchBtn = document.getElementById('xml-search-btn');
+        const xmlSearchModal = document.getElementById('xml-search-modal');
+        const closeXmlModal = document.getElementById('close-xml-modal');
+        const xmlSearchBtnModal = document.getElementById('xml-search-btn-modal');
+        const xmlSearchInput = document.getElementById('xml-search-input');
+        const xmlSearchField = document.getElementById('xml-search-field');
+        const xmlSearchLoading = document.getElementById('xml-search-loading');
+        const xmlSearchResults = document.getElementById('xml-search-results');
+        const xmlSearchEmpty = document.getElementById('xml-search-empty');
+        const xmlResultsTable = document.getElementById('xml-results-table');
+        const xmlTotalResults = document.getElementById('xml-total-results');
+        const xmlCurrentPage = document.getElementById('xml-current-page');
+        const xmlPrevPage = document.getElementById('xml-prev-page');
+        const xmlNextPage = document.getElementById('xml-next-page');
+        
+        // Modal do dodawania produktu z XML
+        const addXmlProductModal = document.getElementById('add-xml-product-modal');
+        const closeAddXmlModal = document.getElementById('close-add-xml-modal');
+        const addXmlForm = document.getElementById('add-xml-form');
+        const markupPercent = document.getElementById('markup-percent');
+        const calculatedPrice = document.getElementById('calculated-price');
+        
+        // Zmienne do przechowywania aktualnego stanu wyszukiwania
+        let currentXmlSearchResults = [];
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentProductData = null;
+        
+        // Otwieranie modalu wyszukiwania XML
+        xmlSearchBtn.addEventListener('click', function() {
+            xmlSearchModal.classList.remove('hidden');
+            xmlSearchInput.focus();
+        });
+        
+        // Zamykanie modalu wyszukiwania XML
+        closeXmlModal.addEventListener('click', function() {
+            xmlSearchModal.classList.add('hidden');
+        });
+        
+        // Wyszukiwanie produktów XML
+        xmlSearchBtnModal.addEventListener('click', searchXmlProducts);
+        xmlSearchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchXmlProducts();
+            }
+        });
+        
+        // Funkcja wyszukiwania produktów XML
+        function searchXmlProducts() {
+            const query = xmlSearchInput.value.trim();
+            if (!query) return;
+            
+            const field = xmlSearchField.value;
+            
+            // Pokazujemy loader
+            xmlSearchLoading.classList.remove('hidden');
+            xmlSearchResults.classList.add('hidden');
+            xmlSearchEmpty.classList.add('hidden');
+            
+            // Wyszukujemy produkty
+            fetch(`/admin/search-xml-products?query=${encodeURIComponent(query)}&field=${field}&page=${currentPage}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentXmlSearchResults = data.products;
+                        totalPages = data.pagination.total_pages;
+                        
+                        // Aktualizujemy paginację
+                        xmlTotalResults.textContent = data.pagination.total_results;
+                        xmlCurrentPage.textContent = `Strona ${data.pagination.page} z ${totalPages}`;
+                        xmlPrevPage.disabled = data.pagination.page <= 1;
+                        xmlNextPage.disabled = data.pagination.page >= totalPages;
+                        
+                        // Renderujemy wyniki
+                        renderXmlSearchResults(data.products);
+                        
+                        if (data.products.length > 0) {
+                            xmlSearchResults.classList.remove('hidden');
+                            xmlSearchEmpty.classList.add('hidden');
+                        } else {
+                            xmlSearchResults.classList.add('hidden');
+                            xmlSearchEmpty.classList.remove('hidden');
+                        }
+                    } else {
+                        xmlSearchResults.classList.add('hidden');
+                        xmlSearchEmpty.classList.remove('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    xmlSearchResults.classList.add('hidden');
+                    xmlSearchEmpty.classList.remove('hidden');
+                })
+                .finally(() => {
+                    xmlSearchLoading.classList.add('hidden');
+                });
+        }
+        
+        // Renderowanie wyników wyszukiwania XML
+        function renderXmlSearchResults(products) {
+            xmlResultsTable.innerHTML = '';
+            
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                
+                // Kolumna ID
+                const idCell = document.createElement('td');
+                idCell.className = 'px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900';
+                idCell.textContent = product.id;
+                row.appendChild(idCell);
+                
+                // Kolumna nazwy
+                const nameCell = document.createElement('td');
+                nameCell.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-500';
+                
+                const nameContainer = document.createElement('div');
+                nameContainer.className = 'flex items-center';
+                
+                if (product.image) {
+                    const img = document.createElement('img');
+                    img.src = product.image;
+                    img.alt = product.name;
+                    img.className = 'h-8 w-8 rounded-full object-cover mr-3';
+                    nameContainer.appendChild(img);
+                }
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = product.name;
+                nameContainer.appendChild(nameSpan);
+                
+                nameCell.appendChild(nameContainer);
+                row.appendChild(nameCell);
+                
+                // Kolumna ceny
+                const priceCell = document.createElement('td');
+                priceCell.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-500';
+                priceCell.textContent = `${product.discounted_price} zł`;
+                row.appendChild(priceCell);
+                
+                // Kolumna stanu
+                const stockCell = document.createElement('td');
+                stockCell.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-500';
+                
+                const stockSpan = document.createElement('span');
+                stockSpan.className = 'px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full';
+                
+                if (product.stock > 10) {
+                    stockSpan.classList.add('bg-green-100', 'text-green-800');
+                    stockSpan.textContent = `W magazynie (${product.stock})`;
+                } else if (product.stock > 0) {
+                    stockSpan.classList.add('bg-yellow-100', 'text-yellow-800');
+                    stockSpan.textContent = `Kończący się (${product.stock})`;
+                } else {
+                    stockSpan.classList.add('bg-red-100', 'text-red-800');
+                    stockSpan.textContent = 'Niedostępny';
+                }
+                
+                stockCell.appendChild(stockSpan);
+                row.appendChild(stockCell);
+                
+                // Kolumna akcji
+                const actionsCell = document.createElement('td');
+                actionsCell.className = 'px-6 py-4 whitespace-nowrap text-right text-sm font-medium';
+                
+                const addButton = document.createElement('button');
+                addButton.className = 'text-green-600 hover:text-green-900';
+                addButton.textContent = 'Dodaj do sklepu';
+                addButton.addEventListener('click', function() {
+                    openAddProductModal(product);
+                });
+                
+                actionsCell.appendChild(addButton);
+                row.appendChild(actionsCell);
+                
+                xmlResultsTable.appendChild(row);
+            });
+        }
+        
+        // Paginacja XML
+        xmlPrevPage.addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                searchXmlProducts();
+            }
+        });
+        
+        xmlNextPage.addEventListener('click', function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                searchXmlProducts();
+            }
+        });
+        
+        // Otwieranie modalu dodawania produktu z XML
+        function openAddProductModal(product) {
+            currentProductData = product;
+            
+            // Aktualizujemy podgląd produktu
+            document.getElementById('preview-name').textContent = product.name;
+            document.getElementById('preview-id').textContent = `ID: ${product.id}`;
+            document.getElementById('preview-category').textContent = product.category || 'Bez kategorii';
+            document.getElementById('preview-price').textContent = `${product.discounted_price} zł`;
+            document.getElementById('preview-stock').textContent = product.stock;
+            
+            if (product.image) {
+                document.getElementById('preview-image').src = product.image;
+                document.getElementById('preview-image').classList.remove('hidden');
+            } else {
+                document.getElementById('preview-image').classList.add('hidden');
+            }
+            
+            document.getElementById('xml-product-id').value = product.id;
+            
+            // Obliczymy cenę z narzutem
+            updateCalculatedPrice();
+            
+            // Otwieramy modal
+            addXmlProductModal.classList.remove('hidden');
+        }
+        
+        // Zamykanie modalu dodawania produktu z XML
+        closeAddXmlModal.addEventListener('click', function() {
+            addXmlProductModal.classList.add('hidden');
+        });
+        
+        // Aktualizacja ceny z narzutem
+        markupPercent.addEventListener('input', updateCalculatedPrice);
+        
+        function updateCalculatedPrice() {
+            if (!currentProductData) return;
+            
+            const percent = parseFloat(markupPercent.value) || 0;
+            const basePrice = parseFloat(currentProductData.discounted_price) || 0;
+            const markup = basePrice * (percent / 100);
+            const finalPrice = basePrice + markup;
+            
+            calculatedPrice.textContent = `${finalPrice.toFixed(2)} zł`;
+        }
+        
+        // Dodawanie produktu z XML do sklepu
+        addXmlForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const productId = document.getElementById('xml-product-id').value;
+            const markup = parseFloat(markupPercent.value) || 0;
+            
+            fetch('/admin/add-product-from-xml', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    markup_percent: markup
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    addXmlProductModal.classList.add('hidden');
+                    
+                    // Opcjonalnie odświeżamy stronę
+                    window.location.reload();
+                } else {
+                    alert('Błąd: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Wystąpił błąd podczas dodawania produktu');
+            });
+        });
+        
+        // XML Refresh button
+        const refreshXmlBtn = document.getElementById('refresh-xml-btn');
+        
+        refreshXmlBtn.addEventListener('click', function() {
+            refreshXmlBtn.disabled = true;
+            refreshXmlBtn.innerText = 'Pobieranie...';
+            
+            fetch('/admin/refresh-xml')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(`XML został pobrany i sparsowany pomyślnie! Znaleziono ${data.products_count} produktów.`);
+                        window.location.reload(); // Odśwież stronę aby pokazać nowe produkty
+                    } else {
+                        alert('Błąd: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Wystąpił błąd podczas odświeżania XML');
+                    console.error(error);
+                })
+                .finally(() => {
+                    refreshXmlBtn.disabled = false;
+                    refreshXmlBtn.innerText = 'Odśwież z XML';
+                });
+        });
+{% endblock %}

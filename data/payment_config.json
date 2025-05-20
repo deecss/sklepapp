@@ -1,0 +1,13 @@
+{
+  "bank_transfer": {
+    "enabled": true,
+    "account_number": "12 3456 7890 1234 5678 9012 3456",
+    "account_owner": "Sklep Internetowy Sp. z o.o.",
+    "title_prefix": "Zamówienie "
+  },
+  "cash_on_delivery": {
+    "enabled": true,
+    "fee": 12.99
+  },
+  "admin_email": "admin@sklep.pl"
+}

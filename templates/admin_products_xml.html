@@ -1,0 +1,678 @@
+{% extends 'admin_base.html' %}
+{% block admin_content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Zarządzanie produktami z XML</h1>
+    <p class="text-gray-600">Wyszukaj i wybierz produkty z pliku XML do dodania do sklepu</p>
+</div>
+
+<div class="flex mb-4">
+    <a href="{{ url_for('admin_products') }}" class="px-4 py-2 mr-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+        &laquo; Powrót do produktów
+    </a>
+    <button id="refresh-xml-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+        Odśwież plik XML
+    </button>
+</div>
+
+<!-- Formularze zarządzania produktami XML -->
+<div class="bg-white rounded-lg shadow mb-6">
+    <div class="p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Wyszukaj produkty w XML</h2>
+        
+        <div class="mb-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <input type="text" id="xml-search-input" placeholder="Wpisz nazwę, ID lub EAN" 
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div class="ml-2">
+                    <select id="xml-search-field" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="any">Wszystkie pola</option>
+                        <option value="name">Nazwa</option>
+                        <option value="id">ID</option>
+                        <option value="EAN">EAN</option>
+                    </select>
+                </div>
+                <div class="ml-2">
+                    <button id="xml-search-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                        Szukaj
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="xml-search-loading" class="hidden text-center py-10">
+            <svg class="animate-spin h-10 w-10 mx-auto text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="mt-2 text-gray-600">Wyszukiwanie produktów...</p>
+        </div>
+        
+        <div id="xml-search-results" class="hidden">
+            <div class="mb-4 flex justify-between items-center">
+                <div class="text-sm text-gray-500">
+                    Znaleziono <span id="xml-total-results">0</span> produktów
+                </div>
+                <div class="flex items-center">
+                    <div class="mr-4">
+                        <label for="global-markup" class="block text-sm font-medium text-gray-700 mr-2">Globalny narzut (%)</label>
+                        <input type="number" id="global-markup" min="0" max="500" value="15" class="w-20 px-2 py-1 border border-gray-300 rounded-md shadow-sm">
+                    </div>
+                    <button id="select-all-btn" class="px-3 py-1 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 mr-2">
+                        Zaznacz wszystkie
+                    </button>
+                    <button id="save-selection-btn" class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600">
+                        Zapisz zaznaczone
+                    </button>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto border border-gray-200 rounded-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-10">
+                                <input type="checkbox" id="select-all-checkbox" class="h-4 w-4 text-blue-600 rounded border-gray-300">
+                            </th>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nazwa</th>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">EAN</th>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cena</th>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stan</th>
+                            <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategoria</th>
+                            <th scope="col" class="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="xml-results-table">
+                        <!-- Tutaj będą wyniki wyszukiwania -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="xml-pagination" class="mt-4 flex justify-between items-center">
+                <div class="text-xs text-gray-500">
+                    Strona <span id="xml-current-page-num">1</span> z <span id="xml-total-pages">1</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button id="xml-prev-page" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                        &laquo; Poprzednia
+                    </button>
+                    <span id="xml-current-page" class="text-sm">Strona 1 z 1</span>
+                    <button id="xml-next-page" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Następna &raquo;
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="xml-search-empty" class="hidden text-center py-10">
+            <svg class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="mt-2 text-gray-600">Nie znaleziono produktów</p>
+        </div>
+    </div>
+</div>
+
+<!-- Lista zapisanych list produktowych -->
+<div class="bg-white rounded-lg shadow">
+    <div class="p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Zapisane listy produktów</h2>
+        
+        <div id="product-lists-loading" class="hidden text-center py-4">
+            <svg class="animate-spin h-6 w-6 mx-auto text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </div>
+        
+        <div id="product-lists-empty" class="{% if lists and lists|length > 0 %}hidden{% endif %} text-center py-6">
+            <p class="text-gray-600">Brak zapisanych list produktów</p>
+        </div>
+        
+        <div id="product-lists" class="{% if not lists or lists|length == 0 %}hidden{% endif %}">
+            <div class="overflow-x-auto border border-gray-200 rounded-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nazwa</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Opis</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produkty</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Narzut</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                            <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for list in lists %}
+                        <tr>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">{{ list.name }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{{ list.description }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{{ list.products_ids|length }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{{ list.markup_percent }}%</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{{ list.created_at }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="add-list-products text-green-600 hover:text-green-900" data-id="{{ list.id }}">Dodaj do sklepu</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for saving product list -->
+<div id="save-list-modal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <form id="save-list-form">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                Zapisz listę produktów
+                            </h3>
+                            <div class="mt-2 space-y-4">
+                                <div>
+                                    <label for="list-name" class="block text-sm font-medium text-gray-700">Nazwa listy</label>
+                                    <input type="text" id="list-name" required
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                
+                                <div>
+                                    <label for="list-description" class="block text-sm font-medium text-gray-700">Opis (opcjonalnie)</label>
+                                    <textarea id="list-description" rows="2"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                                </div>
+                                
+                                <div>
+                                    <label for="list-markup" class="block text-sm font-medium text-gray-700">Narzut procentowy</label>
+                                    <div class="flex items-center">
+                                        <input type="number" id="list-markup" min="0" max="500" value="15" 
+                                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <span class="ml-2">%</span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <p class="block text-sm font-medium text-gray-700">Wybrane produkty: <span id="selected-count">0</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        Zapisz listę
+                    </button>
+                    <button type="button" id="close-save-list-modal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Anuluj
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Zmienne do przechowywania aktualnego stanu wyszukiwania
+        let currentXmlSearchResults = [];
+        let currentPage = 1;
+        let totalPages = 1;
+        let selectedProducts = new Set();
+        
+        // Elementy DOM
+        const xmlSearchInput = document.getElementById('xml-search-input');
+        const xmlSearchField = document.getElementById('xml-search-field');
+        const xmlSearchBtn = document.getElementById('xml-search-btn');
+        const xmlSearchLoading = document.getElementById('xml-search-loading');
+        const xmlSearchResults = document.getElementById('xml-search-results');
+        const xmlSearchEmpty = document.getElementById('xml-search-empty');
+        const xmlResultsTable = document.getElementById('xml-results-table');
+        const xmlTotalResults = document.getElementById('xml-total-results');
+        const xmlCurrentPage = document.getElementById('xml-current-page');
+        const xmlCurrentPageNum = document.getElementById('xml-current-page-num');
+        const xmlTotalPages = document.getElementById('xml-total-pages');
+        const xmlPrevPage = document.getElementById('xml-prev-page');
+        const xmlNextPage = document.getElementById('xml-next-page');
+        
+        // Przyciski akcji
+        const selectAllBtn = document.getElementById('select-all-btn');
+        const selectAllCheckbox = document.getElementById('select-all-checkbox');
+        const globalMarkup = document.getElementById('global-markup');
+        const saveSelectionBtn = document.getElementById('save-selection-btn');
+        const refreshXmlBtn = document.getElementById('refresh-xml-btn');
+        
+        // Modal zapisywania listy
+        const saveListModal = document.getElementById('save-list-modal');
+        const saveListForm = document.getElementById('save-list-form');
+        const listName = document.getElementById('list-name');
+        const listDescription = document.getElementById('list-description');
+        const listMarkup = document.getElementById('list-markup');
+        const selectedCount = document.getElementById('selected-count');
+        const closeSaveListModal = document.getElementById('close-save-list-modal');
+        
+        // Lista produktów
+        const productListsLoading = document.getElementById('product-lists-loading');
+        const productListsEmpty = document.getElementById('product-lists-empty');
+        const productLists = document.getElementById('product-lists');
+        
+        // Wyszukiwanie produktów
+        xmlSearchBtn.addEventListener('click', searchXmlProducts);
+        xmlSearchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchXmlProducts();
+            }
+        });
+        
+        // Odświeżanie XML
+        refreshXmlBtn.addEventListener('click', function() {
+            refreshXmlBtn.disabled = true;
+            refreshXmlBtn.innerText = 'Pobieranie...';
+            
+            fetch('/admin/refresh-xml')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(`XML został pobrany i sparsowany pomyślnie! Znaleziono ${data.products_count} produktów.`);
+                    } else {
+                        alert('Błąd: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Wystąpił błąd podczas odświeżania XML');
+                    console.error(error);
+                })
+                .finally(() => {
+                    refreshXmlBtn.disabled = false;
+                    refreshXmlBtn.innerText = 'Odśwież plik XML';
+                });
+        });
+        
+        // Funkcja wyszukiwania produktów XML
+        function searchXmlProducts() {
+            const query = xmlSearchInput.value.trim();
+            if (!query) return;
+            
+            const field = xmlSearchField.value;
+            
+            // Pokazujemy loader
+            xmlSearchLoading.classList.remove('hidden');
+            xmlSearchResults.classList.add('hidden');
+            xmlSearchEmpty.classList.add('hidden');
+            
+            // Wyszukujemy produkty
+            fetch(`/admin/search-xml-products?query=${encodeURIComponent(query)}&field=${field}&page=${currentPage}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentXmlSearchResults = data.products;
+                        totalPages = data.pagination.total_pages;
+                        
+                        // Aktualizujemy paginację
+                        xmlTotalResults.textContent = data.pagination.total_results;
+                        xmlCurrentPage.textContent = `Strona ${data.pagination.page} z ${totalPages}`;
+                        xmlCurrentPageNum.textContent = data.pagination.page;
+                        xmlTotalPages.textContent = totalPages;
+                        xmlPrevPage.disabled = data.pagination.page <= 1;
+                        xmlNextPage.disabled = data.pagination.page >= totalPages;
+                        
+                        // Renderujemy wyniki
+                        renderXmlSearchResults(data.products);
+                        
+                        if (data.products.length > 0) {
+                            xmlSearchResults.classList.remove('hidden');
+                            xmlSearchEmpty.classList.add('hidden');
+                        } else {
+                            xmlSearchResults.classList.add('hidden');
+                            xmlSearchEmpty.classList.remove('hidden');
+                        }
+                    } else {
+                        xmlSearchResults.classList.add('hidden');
+                        xmlSearchEmpty.classList.remove('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    xmlSearchResults.classList.add('hidden');
+                    xmlSearchEmpty.classList.remove('hidden');
+                })
+                .finally(() => {
+                    xmlSearchLoading.classList.add('hidden');
+                });
+        }
+        
+        // Renderowanie wyników wyszukiwania XML
+        function renderXmlSearchResults(products) {
+            xmlResultsTable.innerHTML = '';
+            
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                
+                // Checkbox do zaznaczania
+                const checkboxCell = document.createElement('td');
+                checkboxCell.className = 'px-3 py-4 whitespace-nowrap';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'product-checkbox h-4 w-4 text-blue-600 rounded border-gray-300';
+                checkbox.dataset.id = product.id;
+                checkbox.checked = selectedProducts.has(product.id);
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        selectedProducts.add(product.id);
+                    } else {
+                        selectedProducts.delete(product.id);
+                    }
+                    updateSelectedCount();
+                });
+                
+                checkboxCell.appendChild(checkbox);
+                row.appendChild(checkboxCell);
+                
+                // Kolumna ID
+                const idCell = document.createElement('td');
+                idCell.className = 'px-3 py-4 whitespace-nowrap text-sm text-gray-900';
+                idCell.textContent = product.id;
+                row.appendChild(idCell);
+                
+                // Kolumna nazwy
+                const nameCell = document.createElement('td');
+                nameCell.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-900';
+                
+                const nameContainer = document.createElement('div');
+                nameContainer.className = 'flex items-center';
+                
+                if (product.image) {
+                    const img = document.createElement('img');
+                    img.src = product.image;
+                    img.alt = product.name;
+                    img.className = 'h-8 w-8 rounded-full object-cover mr-3';
+                    nameContainer.appendChild(img);
+                }
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = product.name;
+                nameContainer.appendChild(nameSpan);
+                
+                nameCell.appendChild(nameContainer);
+                row.appendChild(nameCell);
+                
+                // Kolumna EAN
+                const eanCell = document.createElement('td');
+                eanCell.className = 'px-3 py-4 whitespace-nowrap text-sm text-gray-500';
+                eanCell.textContent = product.EAN || '-';
+                row.appendChild(eanCell);
+                
+                // Kolumna ceny
+                const priceCell = document.createElement('td');
+                priceCell.className = 'px-3 py-4 whitespace-nowrap text-sm text-gray-500';
+                priceCell.textContent = `${product.discounted_price} zł`;
+                row.appendChild(priceCell);
+                
+                // Kolumna stanu
+                const stockCell = document.createElement('td');
+                stockCell.className = 'px-3 py-4 whitespace-nowrap text-sm text-gray-500';
+                
+                const stockSpan = document.createElement('span');
+                stockSpan.className = 'px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full';
+                
+                if (product.stock > 10) {
+                    stockSpan.classList.add('bg-green-100', 'text-green-800');
+                    stockSpan.textContent = `${product.stock}`;
+                } else if (product.stock > 0) {
+                    stockSpan.classList.add('bg-yellow-100', 'text-yellow-800');
+                    stockSpan.textContent = `${product.stock}`;
+                } else {
+                    stockSpan.classList.add('bg-red-100', 'text-red-800');
+                    stockSpan.textContent = '0';
+                }
+                
+                stockCell.appendChild(stockSpan);
+                row.appendChild(stockCell);
+                
+                // Kolumna kategorii
+                const categoryCell = document.createElement('td');
+                categoryCell.className = 'px-3 py-4 whitespace-nowrap text-sm text-gray-500';
+                categoryCell.textContent = product.category || '-';
+                row.appendChild(categoryCell);
+                
+                // Kolumna akcji
+                const actionsCell = document.createElement('td');
+                actionsCell.className = 'px-3 py-4 whitespace-nowrap text-right text-sm font-medium';
+                
+                // Przycisk do pojedynczego dodawania
+                const addButton = document.createElement('button');
+                addButton.className = 'text-green-600 hover:text-green-900';
+                addButton.textContent = product.is_in_shop ? 'Już dodano' : 'Dodaj';
+                addButton.disabled = product.is_in_shop;
+                
+                if (!product.is_in_shop) {
+                    addButton.addEventListener('click', function() {
+                        addProductToShop(product.id);
+                    });
+                } else {
+                    addButton.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+                
+                actionsCell.appendChild(addButton);
+                row.appendChild(actionsCell);
+                
+                xmlResultsTable.appendChild(row);
+            });
+            
+            updateSelectedCount();
+        }
+        
+        // Funkcja dodająca produkt do sklepu
+        function addProductToShop(productId) {
+            const markup = parseFloat(globalMarkup.value) || 0;
+            
+            fetch('/admin/add-product-from-xml', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    markup_percent: markup
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    
+                    // Oznacz produkt jako dodany
+                    const button = document.querySelector(`button[data-id="${productId}"]`);
+                    if (button) {
+                        button.textContent = 'Już dodano';
+                        button.disabled = true;
+                        button.classList.add('opacity-50', 'cursor-not-allowed');
+                    }
+                    
+                    // Zaktualizuj wyniki wyszukiwania
+                    for (let i = 0; i < currentXmlSearchResults.length; i++) {
+                        if (currentXmlSearchResults[i].id === productId) {
+                            currentXmlSearchResults[i].is_in_shop = true;
+                            break;
+                        }
+                    }
+                } else {
+                    alert('Błąd: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Wystąpił błąd podczas dodawania produktu');
+            });
+        }
+        
+        // Paginacja XML
+        xmlPrevPage.addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                searchXmlProducts();
+            }
+        });
+        
+        xmlNextPage.addEventListener('click', function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                searchXmlProducts();
+            }
+        });
+        
+        // Zaznaczanie wszystkich produktów
+        selectAllBtn.addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('.product-checkbox');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = !allChecked;
+                
+                if (!allChecked) {
+                    selectedProducts.add(checkbox.dataset.id);
+                } else {
+                    selectedProducts.delete(checkbox.dataset.id);
+                }
+            });
+            
+            updateSelectedCount();
+        });
+        
+        // Checkbox zaznaczania wszystkich
+        selectAllCheckbox.addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.product-checkbox');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+                
+                if (this.checked) {
+                    selectedProducts.add(checkbox.dataset.id);
+                } else {
+                    selectedProducts.delete(checkbox.dataset.id);
+                }
+            });
+            
+            updateSelectedCount();
+        });
+        
+        // Aktualizacja licznika zaznaczonych produktów
+        function updateSelectedCount() {
+            selectedCount.textContent = selectedProducts.size;
+        }
+        
+        // Zapisywanie wybranych produktów
+        saveSelectionBtn.addEventListener('click', function() {
+            if (selectedProducts.size === 0) {
+                alert('Nie wybrano żadnych produktów');
+                return;
+            }
+            
+            // Ustaw wartość narzutu w modalu na wartość globalną
+            listMarkup.value = globalMarkup.value;
+            
+            // Aktualizuj licznik w modalu
+            selectedCount.textContent = selectedProducts.size;
+            
+            // Pokaż modal zapisywania
+            saveListModal.classList.remove('hidden');
+        });
+        
+        // Zamykanie modalu zapisywania
+        closeSaveListModal.addEventListener('click', function() {
+            saveListModal.classList.add('hidden');
+        });
+        
+        // Zapisywanie listy produktów
+        saveListForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = listName.value.trim();
+            const description = listDescription.value.trim();
+            const markup = parseFloat(listMarkup.value) || 0;
+            
+            if (!name) {
+                alert('Podaj nazwę listy');
+                return;
+            }
+            
+            fetch('/admin/save-product-list', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    description: description,
+                    markup_percent: markup,
+                    products_ids: Array.from(selectedProducts)
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    saveListModal.classList.add('hidden');
+                    
+                    // Odśwież stronę, aby pokazać nową listę
+                    window.location.reload();
+                } else {
+                    alert('Błąd: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Wystąpił błąd podczas zapisywania listy');
+            });
+        });
+        
+        // Dodawanie produktów z listy
+        document.querySelectorAll('.add-list-products').forEach(button => {
+            button.addEventListener('click', function() {
+                const listId = this.dataset.id;
+                
+                if (confirm('Czy na pewno chcesz dodać wszystkie produkty z tej listy do sklepu?')) {
+                    this.disabled = true;
+                    this.textContent = 'Dodawanie...';
+                    
+                    fetch('/admin/add-products-from-list', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            list_id: listId
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                        } else {
+                            alert('Błąd: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Wystąpił błąd podczas dodawania produktów');
+                    })
+                    .finally(() => {
+                        this.disabled = false;
+                        this.textContent = 'Dodaj do sklepu';
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

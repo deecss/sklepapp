@@ -1,0 +1,676 @@
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash
+from flask_socketio import SocketIO
+import os
+import datetime
+import time
+import uuid
+from xml_downloader_module import XmlDownloader
+from admin_auth import AdminAuth
+from product_manager import ProductManager
+from payment_manager import PaymentManager
+
+# Initialize Flask app
+app = Flask(__name__)
+app.secret_key = os.urandom(24)
+socketio = SocketIO(app)
+
+# Inicjalizacja modułu pobierania XML
+xml_downloader = XmlDownloader(interval_minutes=10)
+
+# Inicjalizacja modułu autoryzacji administratora
+admin_auth = AdminAuth(app)
+
+# Inicjalizacja menedżera produktów
+product_manager = ProductManager()
+
+# Inicjalizacja menedżera płatności
+payment_manager = PaymentManager()
+
+# Wczytaj produkty z XML jeśli istnieje
+product_manager.parse_xml()
+
+# Dummy products
+PRODUCTS = [
+    {"id": 1, "name": "Smartfon XYZ", "price": 1299, "category": "Elektronika"},
+    {"id": 2, "name": "Słuchawki bezprzewodowe", "price": 299, "category": "Elektronika"},
+    {"id": 3, "name": "Koszulka sportowa", "price": 89, "category": "Odzież"},
+    {"id": 4, "name": "Buty do biegania", "price": 249, "category": "Obuwie"},
+    {"id": 5, "name": "Laptop 15.6\"", "price": 3499, "category": "Elektronika"},
+    {"id": 6, "name": "Tablet 10\"", "price": 899, "category": "Elektronika"},
+]
+
+# Add custom timestamp to date filter
+@app.template_filter('timestamp_to_date')
+def timestamp_to_date(timestamp):
+    if not timestamp:
+        return "Nieznana"
+    return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(timestamp))
+
+@app.route('/admin/products-xml', methods=['GET'])
+@admin_auth.login_required
+def admin_products_xml():
+    # Sprawdzenie czy istnieje najnowszy plik XML
+    xml_exists = os.path.exists(product_manager.xml_path)
+    lists = product_manager.get_product_lists()
+    
+    return render_template('admin_products_xml.html', 
+                          xml_exists=xml_exists,
+                          lists=lists)
+
+@app.route('/admin/save-product-list', methods=['POST'])
+@admin_auth.login_required
+def save_product_list():
+    data = request.get_json()
+    
+    if not data or 'name' not in data or 'products_ids' not in data:
+        return jsonify({'success': False, 'message': 'Brak wymaganych pól'})
+    
+    name = data.get('name')
+    description = data.get('description', '')
+    products_ids = data.get('products_ids')
+    markup_percent = float(data.get('markup_percent', 0))
+    
+    # Zapisz listę produktów
+    product_list = product_manager.save_product_list(name, description, products_ids, markup_percent)
+    
+    if product_list:
+        return jsonify({
+            'success': True, 
+            'message': f'Lista produktów "{name}" została zapisana',
+            'product_list': product_list
+        })
+    else:
+        return jsonify({
+            'success': False, 
+            'message': 'Wystąpił błąd podczas zapisywania listy produktów'
+        })
+
+@app.route('/admin/get-product-lists', methods=['GET'])
+@admin_auth.login_required
+def get_product_lists():
+    lists = product_manager.get_product_lists()
+    return jsonify({
+        'success': True,
+        'lists': lists
+    })
+
+@app.route('/admin/add-products-from-list', methods=['POST'])
+@admin_auth.login_required
+def add_products_from_list():
+    data = request.get_json()
+    
+    if not data or 'list_id' not in data:
+        return jsonify({'success': False, 'message': 'Brak wymaganego pola list_id'})
+    
+    list_id = int(data.get('list_id'))
+    
+    # Dodaj produkty z listy
+    products = product_manager.add_products_from_list(list_id)
+    
+    if products is not None:
+        return jsonify({
+            'success': True, 
+            'message': f'Dodano {len(products)} produktów do sklepu',
+            'products_count': len(products)
+        })
+    else:
+        return jsonify({
+            'success': False, 
+            'message': 'Wystąpił błąd podczas dodawania produktów'
+        })
+
+# Endpoint do ręcznego odświeżenia produktów z XML
+@app.route('/admin/refresh-xml', methods=['GET'])
+@admin_auth.login_required
+def refresh_xml():
+    try:
+        xml_file = xml_downloader.download_xml()
+        if xml_file:
+            # Parsuj XML po pobraniu
+            if product_manager.parse_xml(xml_file):
+                return jsonify({
+                    'success': True, 
+                    'message': f'Plik XML został pobrany i sparsowany: {xml_file}',
+                    'products_count': len(product_manager.get_all_products())
+                })
+            else:
+                return jsonify({'success': False, 'message': 'Plik XML został pobrany, ale wystąpił błąd podczas parsowania'})
+        else:
+            return jsonify({'success': False, 'message': 'Wystąpił błąd podczas pobierania XML'})
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'Błąd: {str(e)}'})
+
+@app.route('/')
+def home():
+    products = product_manager.get_all_products()
+    categories = product_manager.get_categories()
+    return render_template('home.html', products=products, categories=categories)
+
+@app.route('/kategoria/<category>')
+def category(category):
+    products = product_manager.get_products_by_category(category)
+    categories = product_manager.get_categories()
+    return render_template('category.html', products=products, category=category, categories=categories)
+
+@app.route('/produkt/<int:pid>')
+def product(pid):
+    product = product_manager.get_product_by_id(pid)
+    if not product:
+        flash('Produkt nie został znaleziony')
+        return redirect(url_for('home'))
+    return render_template('product.html', product=product)
+
+@app.route('/koszyk')
+def cart():
+    cart = session.get('cart', [])
+    # Aktualizacja cen w koszyku z aktualnej bazy produktów
+    for item in cart:
+        product = product_manager.get_product_by_id(item['id'])
+        if product:
+            item.update(product)
+    return render_template('cart.html', cart=cart)
+
+@app.route('/dodaj/<int:pid>')
+def add_to_cart(pid):
+    cart = session.get('cart', [])
+    product = product_manager.get_product_by_id(pid)
+    if product:
+        cart.append(product)
+        session['cart'] = cart
+    return redirect(url_for('cart'))
+
+# API endpoint do dodawania produktów do koszyka
+@app.route('/api/dodaj/<int:pid>')
+def api_add_to_cart(pid):
+    cart = session.get('cart', [])
+    product = product_manager.get_product_by_id(pid)
+    if product:
+        cart.append(product)
+        session['cart'] = cart
+        
+        # Emit WebSocket event
+        socketio.emit('cart_update', {
+            'count': len(cart),
+            'sum': sum(item['price'] for item in cart)
+        })
+        
+        return jsonify({
+            'success': True,
+            'cart_count': len(cart),
+            'cart_sum': sum(item['price'] for item in cart)
+        })
+    return jsonify({'success': False})
+
+# API endpoint do usuwania produktów z koszyka
+@app.route('/api/usun/<int:pid>')
+def api_remove_from_cart(pid):
+    cart = session.get('cart', [])
+    
+    # Znajdź i usuń pierwszy produkt o podanym ID
+    for i, item in enumerate(cart):
+        if item['id'] == pid:
+            del cart[i]
+            break
+            
+    session['cart'] = cart
+    
+    # Emit WebSocket event
+    socketio.emit('cart_update', {
+        'count': len(cart),
+        'sum': sum(item['price'] for item in cart)
+    })
+    
+    return jsonify({
+        'success': True,
+        'cart_count': len(cart),
+        'cart_sum': sum(item['price'] for item in cart)
+    })
+
+# API endpoint dla polecanych produktów
+@app.route('/api/polecane-produkty')
+def api_recommended_products():
+    # W rzeczywistej aplikacji można by używać algorytmu rekomendacji
+    # Na potrzeby demo zwracamy losowe 3 produkty
+    import random
+    products = product_manager.get_all_products()
+    if products:
+        recommended = random.sample(products, min(3, len(products)))
+        return jsonify({'products': recommended})
+    return jsonify({'products': []})
+
+@app.route('/promocje')
+def promotions():
+    # Przykładowa strona promocji
+    return render_template('promotions.html')
+
+@app.route('/nowosci')
+def new_products():
+    # Przykładowa strona nowości
+    return render_template('new_products.html')
+
+@app.route('/zamowienie', methods=['GET', 'POST'])
+def order():
+    cart = session.get('cart', [])
+    
+    if request.method == 'POST':
+        if not cart:
+            flash('Twój koszyk jest pusty. Dodaj produkty przed złożeniem zamówienia.')
+            return redirect(url_for('cart'))
+        
+        # Pobranie danych z formularza
+        customer_data = {
+            'name': request.form.get('name'),
+            'email': request.form.get('email'),
+            'phone': request.form.get('phone'),
+            'address': request.form.get('address'),
+            'postcode': request.form.get('postcode'),
+            'city': request.form.get('city')
+        }
+        
+        payment_method = request.form.get('payment_method')
+        
+        # Wyliczenie kwoty zamówienia
+        total_amount = sum(float(item.get('price', 0)) for item in cart)
+        
+        # Generowanie ID zamówienia
+        order_id = f"ORD-{int(time.time())}"
+        
+        # Utworzenie zamówienia i zapisanie go w bazie administratora
+        order_data = {
+            'id': order_id,
+            'customer_data': customer_data,
+            'payment_method': payment_method,
+            'total_amount': total_amount,
+            'products': cart,
+            'status': 'new',
+            'created_at': time.time()
+        }
+        
+        admin_auth.add_order(order_data)
+        
+        # Utworzenie płatności
+        payment = payment_manager.create_payment(
+            order_id=order_id,
+            amount=total_amount,
+            payment_method=payment_method,
+            customer_data=customer_data
+        )
+        
+        # Wyczyszczenie koszyka
+        session['cart'] = []
+        
+        # Przekierowanie do strony potwierdzenia
+        return redirect(url_for('confirmation', order_id=order_id))
+    
+    # Renderowanie strony zamówienia
+    return render_template('order.html', 
+                          cart=cart, 
+                          payment_config=payment_manager.config)
+
+@app.route('/potwierdzenie/<order_id>')
+def confirmation(order_id):
+    # Pobierz dane zamówienia
+    order = None
+    for o in admin_auth.orders:
+        if o.get('id') == order_id:
+            order = o
+            break
+    
+    if not order:
+        flash('Zamówienie nie zostało znalezione')
+        return redirect(url_for('home'))
+    
+    # Pobierz dane płatności
+    payment = payment_manager.get_payment_by_order_id(order_id)
+    
+    # Określ nazwę metody płatności
+    payment_method_name = 'Nieznana'
+    if payment:
+        if payment['payment_method'] == 'bank_transfer':
+            payment_method_name = 'Przelew bankowy'
+        elif payment['payment_method'] == 'cash_on_delivery':
+            payment_method_name = 'Płatność za pobraniem'
+    
+    return render_template('confirmation.html', 
+                          order=order, 
+                          payment=payment,
+                          payment_method_name=payment_method_name)
+
+@app.route('/regulamin')
+def terms():
+    return render_template('terms.html')
+
+@app.route('/polityka-prywatnosci')
+def privacy():
+    return render_template('privacy.html')
+
+@app.route('/kontakt')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/admin')
+def admin_panel():
+    if 'admin_logged_in' in session and session['admin_logged_in']:
+        return redirect(url_for('admin_dashboard'))
+    return render_template('admin.html')
+
+# Zarządzanie panelem administracyjnym
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    error = None
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if admin_auth.verify_password(username, password):
+            session['admin_logged_in'] = True
+            session['admin_username'] = username
+            next_page = request.args.get('next')
+            return redirect(next_page or url_for('admin_dashboard'))
+        else:
+            error = 'Nieprawidłowa nazwa użytkownika lub hasło'
+    
+    return render_template('admin_login.html', error=error)
+
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('admin_logged_in', None)
+    session.pop('admin_username', None)
+    flash('Wylogowano pomyślnie')
+    return redirect(url_for('admin_login'))
+
+@app.route('/admin/dashboard')
+@admin_auth.login_required
+def admin_dashboard():
+    stats = admin_auth.get_stats()
+    products = product_manager.get_all_products()
+    # Pobierz ostatnie 5 zamówień
+    recent_orders = admin_auth.get_all_orders()[-5:] if len(admin_auth.get_all_orders()) > 0 else []
+    recent_orders.reverse()  # Odwróć kolejność, aby najnowsze były na górze
+    return render_template('admin_dashboard.html', stats=stats, products=products, recent_orders=recent_orders)
+
+@app.route('/admin/products')
+@admin_auth.login_required
+def admin_products():
+    products = product_manager.get_all_products()
+    categories = product_manager.get_categories()
+    last_update = product_manager.get_last_update()
+    
+    # Sprawdzenie czy istnieje najnowszy plik XML
+    xml_exists = os.path.exists(product_manager.xml_path)
+    
+    return render_template('admin_products.html', 
+                          products=products, 
+                          categories=categories,
+                          last_update=last_update,
+                          xml_exists=xml_exists)
+
+@app.route('/admin/search-xml-products', methods=['GET'])
+@admin_auth.login_required
+def search_xml_products():
+    query = request.args.get('query', '')
+    field = request.args.get('field', 'any')
+    page = int(request.args.get('page', 1))
+    per_page = 20  # Produktów na stronę
+    
+    # Wyszukaj produkty w XML
+    results = product_manager.search_xml_products(query, field)
+    
+    # Oblicz dane do paginacji
+    total_results = len(results)
+    total_pages = (total_results + per_page - 1) // per_page
+    
+    # Wytnij odpowiedni fragment wyników
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    paged_results = results[start_idx:end_idx]
+    
+    return jsonify({
+        'success': True,
+        'products': paged_results,
+        'pagination': {
+            'page': page,
+            'per_page': per_page,
+            'total_results': total_results,
+            'total_pages': total_pages
+        }
+    })
+
+@app.route('/admin/add-product-from-xml', methods=['POST'])
+@admin_auth.login_required
+def add_product_from_xml():
+    data = request.get_json()
+    
+    if not data or 'product_id' not in data:
+        return jsonify({'success': False, 'message': 'Brak wymaganego pola product_id'})
+    
+    product_id = data.get('product_id')
+    markup_percent = float(data.get('markup_percent', 0))
+    
+    # Dodaj produkt z XML do sklepu
+    product = product_manager.add_product_from_xml(product_id, markup_percent)
+    
+    if product:
+        return jsonify({
+            'success': True, 
+            'message': f'Produkt "{product["name"]}" został dodany do sklepu',
+            'product': product
+        })
+    else:
+        return jsonify({
+            'success': False, 
+            'message': 'Wystąpił błąd podczas dodawania produktu'
+        })
+
+@app.route('/admin/orders')
+@admin_auth.login_required
+def admin_orders():
+    orders = admin_auth.get_all_orders()
+    return render_template('admin_orders.html', orders=orders)
+
+@app.route('/admin/order/<order_id>')
+@admin_auth.login_required
+def admin_order_detail(order_id):
+    # Próba pobrania zamówienia po ID
+    order = admin_auth.get_order(order_id)
+    
+    # Jeśli nie znaleziono, spróbuj znaleźć w liście zamówień
+    if not order:
+        for o in admin_auth.orders:
+            if str(o.get('id')) == str(order_id):
+                order = o
+                break
+    
+    if not order:
+        flash('Zamówienie nie zostało znalezione')
+        return redirect(url_for('admin_orders'))
+    
+    # Pobierz dane płatności
+    payment = payment_manager.get_payment_by_order_id(order_id)
+    
+    return render_template('admin_order_detail.html', order=order, payment=payment)
+
+@app.route('/admin/order/<order_id>/update-status', methods=['POST'])
+@admin_auth.login_required
+def admin_update_order_status(order_id):
+    new_status = request.form.get('status')
+    if not new_status:
+        flash('Nie podano nowego statusu')
+        return redirect(url_for('admin_order_detail', order_id=order_id))
+    
+    # Próba aktualizacji przez metody AdminAuth
+    if hasattr(admin_auth, 'update_order_status') and callable(getattr(admin_auth, 'update_order_status')):
+        if admin_auth.update_order_status(order_id, new_status):
+            flash('Status zamówienia został zaktualizowany')
+        else:
+            # Jeśli metoda nie zadziałała, użyj bezpośredniej aktualizacji
+            for order in admin_auth.orders:
+                if str(order.get('id')) == str(order_id):
+                    order['status'] = new_status
+                    admin_auth._save_data()
+                    flash('Status zamówienia został zaktualizowany')
+                    break
+    else:
+        # Bezpośrednia aktualizacja jeśli metoda nie istnieje
+        for order in admin_auth.orders:
+            if str(order.get('id')) == str(order_id):
+                order['status'] = new_status
+                admin_auth._save_data()
+                flash('Status zamówienia został zaktualizowany')
+                break
+    
+    return redirect(url_for('admin_order_detail', order_id=order_id))
+
+@app.route('/admin/payment/<payment_id>/update-status', methods=['POST'])
+@admin_auth.login_required
+def admin_update_payment_status(payment_id):
+    new_status = request.form.get('status')
+    note = request.form.get('note', 'Status zmieniony przez administratora')
+    
+    if not new_status:
+        flash('Nie podano nowego statusu')
+        return redirect(url_for('admin_orders'))
+    
+    # Pobierz płatność
+    payment = payment_manager.get_payment(payment_id)
+    if not payment:
+        flash('Płatność nie została znaleziona')
+        return redirect(url_for('admin_orders'))
+    
+    # Aktualizuj status płatności
+    if payment_manager.update_payment_status(payment_id, new_status, note):
+        flash('Status płatności został zaktualizowany')
+    else:
+        flash('Wystąpił błąd podczas aktualizacji statusu płatności')
+    
+    return redirect(url_for('admin_order_detail', order_id=payment['order_id']))
+
+@app.route('/admin/settings')
+@admin_auth.login_required
+def admin_settings():
+    xml_status = xml_downloader.get_status()
+    return render_template('admin_settings.html', 
+                          xml_config=xml_status['config'], 
+                          last_update=xml_status['last_download'])
+
+@app.route('/admin/update-xml-config', methods=['POST'])
+@admin_auth.login_required
+def update_xml_config():
+    if request.method == 'POST':
+        new_config = {
+            'url': request.form.get('url', 'https://ergo.enode.ovh/products.xml'),
+            'interval_minutes': int(request.form.get('interval_minutes', 10)),
+            'auto_start': request.form.get('auto_start') == 'on'
+        }
+        
+        xml_downloader.update_config(new_config)
+        flash('Konfiguracja XML została zaktualizowana')
+    
+    return redirect(url_for('admin_settings'))
+
+@app.route('/admin/toggle-xml-scheduler', methods=['POST'])
+@admin_auth.login_required
+def toggle_xml_scheduler():
+    status = xml_downloader.get_status()
+    
+    if status['running']:
+        xml_downloader.stop_scheduler()
+        flash('Harmonogram pobierania XML został zatrzymany')
+    else:
+        xml_downloader.start_scheduler()
+        flash('Harmonogram pobierania XML został uruchomiony')
+    
+    return redirect(url_for('admin_settings'))
+
+@app.route('/admin/settings/password', methods=['POST'])
+@admin_auth.login_required
+def admin_change_password():
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
+    
+    # Get the current username from session
+    username = session.get('admin_username', 'admin')
+    
+    # Verify current password
+    if not admin_auth.verify_password(username, current_password):
+        flash('Aktualne hasło jest nieprawidłowe')
+        return redirect(url_for('admin_settings'))
+    
+    if new_password != confirm_password:
+        flash('Hasła nie są identyczne')
+        return redirect(url_for('admin_settings'))
+    
+    if len(new_password) < 6:
+        flash('Hasło musi mieć co najmniej 6 znaków')
+        return redirect(url_for('admin_settings'))
+    
+    if admin_auth.change_password(username, new_password):
+        flash('Hasło zostało zmienione pomyślnie')
+    else:
+        flash('Wystąpił błąd podczas zmiany hasła')
+    
+    return redirect(url_for('admin_settings'))
+
+@app.route('/admin/users')
+@admin_auth.login_required
+def admin_users():
+    users = admin_auth.get_users()
+    return render_template('admin_users.html', users=users)
+
+@app.route('/admin/users/add', methods=['POST'])
+@admin_auth.login_required
+def admin_add_user():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    confirm_password = request.form.get('confirm_password')
+    role = request.form.get('role', 'user')
+    
+    if password != confirm_password:
+        flash('Hasła nie są identyczne')
+        return redirect(url_for('admin_users'))
+    
+    if len(password) < 6:
+        flash('Hasło musi mieć co najmniej 6 znaków')
+        return redirect(url_for('admin_users'))
+    
+    if admin_auth.add_user(username, password, role):
+        flash('Użytkownik został dodany pomyślnie')
+    else:
+        flash('Użytkownik o takiej nazwie już istnieje')
+    
+    return redirect(url_for('admin_users'))
+
+@app.route('/admin/users/delete/<username>')
+@admin_auth.login_required
+def admin_delete_user(username):
+    # Don't allow deleting your own account
+    if username == session.get('admin_username', 'admin'):
+        flash('Nie można usunąć własnego konta')
+        return redirect(url_for('admin_users'))
+    
+    if admin_auth.delete_user(username):
+        flash(f'Użytkownik {username} został usunięty')
+    else:
+        flash('Nie można usunąć ostatniego administratora')
+    
+    return redirect(url_for('admin_users'))
+
+# Przykład emitowania powiadomienia o nowym produkcie (możesz wywołać to np. po dodaniu produktu z XML w przyszłości)
+@socketio.on('announce_new_product')
+def handle_new_product(data):
+    socketio.emit('new_product', data)
+
+# WebSocket event dla aktualizacji koszyka
+@socketio.on('cart_updated')
+def handle_cart_update(data):
+    # Broadcast do wszystkich podłączonych klientów (symulacja synchronizacji koszyka)
+    socketio.emit('cart_update', data, broadcast=True)
+
+if __name__ == '__main__':
+    # Uruchomienie pobierania XML w tle
+    xml_downloader.start()
+    
+    # Uruchomienie aplikacji Flask
+    socketio.run(app, host='0.0.0.0', port=5454, debug=True)

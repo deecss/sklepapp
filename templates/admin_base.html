@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administracyjny - Sklep</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="bg-gray-800 text-white w-64 py-4 px-6 fixed h-full">
+        <div class="mb-8">
+            <h1 class="text-xl font-bold">Panel Administracyjny</h1>
+        </div>
+        
+        <nav class="space-y-2">
+            <a href="{{ url_for('admin_dashboard') }}" class="block py-2.5 px-4 rounded transition {% if request.endpoint == 'admin_dashboard' %}bg-blue-600{% else %}hover:bg-gray-700{% endif %}">
+                Dashboard
+            </a>
+            <a href="{{ url_for('admin_products') }}" class="block py-2.5 px-4 rounded transition {% if request.endpoint == 'admin_products' %}bg-blue-600{% else %}hover:bg-gray-700{% endif %}">
+                Produkty
+            </a>
+            <a href="{{ url_for('product_listing') }}" class="block py-2.5 px-4 rounded transition {% if request.endpoint == 'product_listing' %}bg-blue-600{% else %}hover:bg-gray-700{% endif %}">
+                Import produktów
+            </a>
+            <a href="{{ url_for('create_listing') }}" class="block py-2.5 px-4 rounded transition {% if request.endpoint == 'create_listing' %}bg-blue-600{% else %}hover:bg-gray-700{% endif %}">
+                Wystawianie ofert
+            </a>
+            <a href="{{ url_for('published_products') }}" class="block py-2.5 px-4 rounded transition {% if request.endpoint == 'published_products' %}bg-blue-600{% else %}hover:bg-gray-700{% endif %}">
+                Wystawione produkty
+            </a>
+            <a href="{{ url_for('product_availability') }}" class="block py-2.5 px-4 rounded transition {% if request.endpoint == 'product_availability' %}bg-blue-600{% else %}hover:bg-gray-700{% endif %}">
+                Zarządzanie dostępnością
+            </a>
+            <a href="{{ url_for('admin_orders') }}" class="block py-2.5 px-4 rounded transition {% if request.endpoint == 'admin_orders' %}bg-blue-600{% else %}hover:bg-gray-700{% endif %}">
+                Zamówienia
+            </a>
+            <a href="{{ url_for('admin_users') }}" class="block py-2.5 px-4 rounded transition {% if request.endpoint == 'admin_users' %}bg-blue-600{% else %}hover:bg-gray-700{% endif %}">
+                Użytkownicy
+            </a>
+            <a href="{{ url_for('admin_settings') }}" class="block py-2.5 px-4 rounded transition {% if request.endpoint == 'admin_settings' %}bg-blue-600{% else %}hover:bg-gray-700{% endif %}">
+                Ustawienia
+            </a>
+            <a href="{{ url_for('admin_logout') }}" class="block py-2.5 px-4 rounded transition hover:bg-gray-700 mt-12 border-t border-gray-700 pt-4">
+                Wyloguj
+            </a>
+        </nav>
+        
+        <div class="mt-auto pt-8 text-sm text-gray-400">
+            <p>Zalogowany jako: {{ session.get('admin_username', 'admin') }}</p>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="ml-64 p-8 w-full">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block admin_content %}{% endblock %}
+    </main>
+    
+    <script>
+        // Globalna obsługa błędów JavaScript
+        window.addEventListener('error', function(event) {
+            console.error('Błąd JavaScript:', event.message, 'w:', event.filename, 'linia:', event.lineno);
+            // Możemy tutaj dodać kod do wyświetlania błędów użytkownikowi
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'fixed top-0 left-0 right-0 bg-red-600 text-white p-4 text-center z-50';
+            errorDiv.textContent = 'Wystąpił błąd JavaScript: ' + event.message;
+            document.body.appendChild(errorDiv);
+            
+            // Usuń po 5 sekundach
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+            
+            return false; // Zapobiega domyślnej obsłudze błędu w przeglądarce
+        });
+    </script>
+</body>
+</html>

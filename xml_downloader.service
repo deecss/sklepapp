@@ -1,0 +1,13 @@
+[Unit]
+Description=XML Downloader Service
+After=network.target
+
+[Service]
+User=dee
+WorkingDirectory=/home/dee/sklepapp
+ExecStart=/home/dee/sklepapp/venv/bin/python /home/dee/sklepapp/xml_downloader.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

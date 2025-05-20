@@ -1,0 +1,968 @@
+{% extends 'admin_base.html' %}
+{% block admin_content %}
+<!-- Tymczasowy div do wyświetlania błędów -->
+<div id="debug-info" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 hidden">
+    <p>Informacje debugowania:</p>
+    <pre id="debug-content" class="whitespace-pre-wrap mt-2 text-xs"></pre>
+    <button onclick="document.getElementById('debug-info').classList.add('hidden')" class="mt-2 px-3 py-1 bg-yellow-200 text-yellow-800 rounded">Zamknij</button>
+</div>
+
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Wystawianie ofert</h1>
+    <p class="text-gray-600">Dodawaj nowe produkty i twórz oferty</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Panel formularza dodawania produktu -->
+    <div class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-lg font-semibold mb-4">Dodaj nowy produkt</h2>
+            
+            <form id="new-product-form" class="space-y-4" enctype="multipart/form-data">
+                <div>
+                    <label for="product-name" class="block text-sm font-medium text-gray-700 mb-1">Nazwa produktu*</label>
+                    <input type="text" id="product-name" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                
+                <div>
+                    <label for="product-category" class="block text-sm font-medium text-gray-700 mb-1">Kategoria*</label>
+                    <select id="product-category" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Wybierz kategorię</option>
+                        {% for category in categories %}
+                        <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="product-description" class="block text-sm font-medium text-gray-700 mb-1">Opis</label>
+                    <textarea id="product-description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="product-price" class="block text-sm font-medium text-gray-700 mb-1">Cena (zł)*</label>
+                        <input type="number" id="product-price" min="0" step="0.01" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="product-stock" class="block text-sm font-medium text-gray-700 mb-1">Stan magazynowy*</label>
+                        <input type="number" id="product-stock" min="0" step="1" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="product-original-price" class="block text-sm font-medium text-gray-700 mb-1">Cena zakupu (zł)</label>
+                        <input type="number" id="product-original-price" min="0" step="0.01" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="product-markup" class="block text-sm font-medium text-gray-700 mb-1">Narzut (%)</label>
+                        <div class="flex items-center">
+                            <input type="number" id="product-markup" min="0" max="500" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <span class="ml-2">%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="product-calculated-price" class="block text-sm font-medium text-gray-700 mb-1">Cena kalkulowana</label>
+                    <p id="product-calculated-price" class="font-medium text-lg text-green-600 mb-4">0.00 zł</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="product-shipping-time" class="block text-sm font-medium text-gray-700 mb-1">Czas wysyłki</label>
+                        <input type="text" id="product-shipping-time" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="np. 24h, 2-3 dni">
+                    </div>
+                    <div>
+                        <label for="product-shipping-cost" class="block text-sm font-medium text-gray-700 mb-1">Koszt wysyłki (zł)</label>
+                        <input type="number" id="product-shipping-cost" min="0" step="0.01" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="product-image" class="block text-sm font-medium text-gray-700 mb-1">Zdjęcie produktu</label>
+                    <input type="file" id="product-image" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <p class="mt-1 text-xs text-gray-500">Maksymalny rozmiar: 2MB, formaty: JPG, PNG, WebP</p>
+                </div>
+                
+                <div class="mt-4">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="product-available" class="h-4 w-4 text-blue-600 border-gray-300 rounded" checked>
+                        <label for="product-available" class="ml-2 block text-sm text-gray-900">
+                            Dostępny do sprzedaży
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="pt-4">
+                    <button type="submit" id="add-product-btn" class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Dodaj produkt
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Panel listy ostatnio dodanych produktów -->
+    <div class="lg:col-span-2">
+        <div class="bg-white rounded-lg shadow">
+            <div class="p-4 bg-gray-50 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-lg font-semibold">Ostatnio dodane produkty</h2>
+                    <div class="flex space-x-2">
+                        <input type="text" id="search-recent" placeholder="Szukaj..." class="px-3 py-1 border border-gray-300 rounded-md shadow-sm">
+                        <select id="category-filter" class="px-3 py-1 border border-gray-300 rounded-md shadow-sm">
+                            <option value="">Wszystkie kategorie</option>
+                            {% for category in categories %}
+                            <option value="{{ category }}">{{ category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="max-h-[800px] overflow-y-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50 sticky top-0">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nazwa</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cena</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategoria</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stan</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dostępność</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="recent-products">
+                        {% for product in recent_products %}
+                        <tr data-category="{{ product.category }}" data-product-id="{{ product.id }}" class="product-row">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ product.id }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <div class="flex items-center">
+                                    {% if product.image %}
+                                    <img src="{{ product.image }}" alt="{{ product.name }}" class="h-8 w-8 rounded-full object-cover mr-3">
+                                    {% endif %}
+                                    <span>{{ product.name }}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.price }} zł</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ product.category }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {% if product.stock is defined %}
+                                <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    {% if product.stock > 10 %}bg-green-100 text-green-800
+                                    {% elif product.stock > 0 %}bg-yellow-100 text-yellow-800
+                                    {% else %}bg-red-100 text-red-800{% endif %}">
+                                    {% if product.stock > 10 %}W magazynie ({{ product.stock }})
+                                    {% elif product.stock > 0 %}Kończący się ({{ product.stock }})
+                                    {% else %}Niedostępny{% endif %}
+                                </span>
+                                {% else %}
+                                <span class="text-gray-400">Nieznany</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    {% if product.available_for_sale %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                                    {% if product.available_for_sale %}Dostępny do sprzedaży{% else %}Niedostępny do sprzedaży{% endif %}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                <button class="toggle-availability px-3 py-1 rounded-md
+                                    {% if product.available_for_sale %}bg-red-100 text-red-800 hover:bg-red-200{% else %}bg-green-100 text-green-800 hover:bg-green-200{% endif %}" 
+                                        data-id="{{ product.id }}" 
+                                        data-available="{{ product.available_for_sale|default(false)|tojson }}">
+                                    {% if product.available_for_sale %}Ukryj{% else %}Pokaż{% endif %}
+                                </button>
+                                <button class="edit-product ml-2 px-3 py-1 rounded-md bg-blue-100 text-blue-800 hover:bg-blue-200"
+                                        data-id="{{ product.id }}"
+                                        data-name="{{ product.name }}"
+                                        data-price="{{ product.price }}"
+                                        data-stock="{{ product.stock|default(0) }}"
+                                        data-description="{{ product.description|default('') }}"
+                                        data-markup="{{ product.markup_percent|default(0) }}"
+                                        data-original-price="{{ product.original_price|default(0) }}"
+                                        data-shipping-time="{{ product.shipping_time|default('') }}"
+                                        data-shipping-cost="{{ product.shipping_cost|default(0) }}">
+                                    Edytuj
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <div id="no-products" class="p-8 text-center text-gray-500 {% if recent_products %}hidden{% endif %}">
+                    <p>Brak ostatnio dodanych produktów</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal do edycji produktu -->
+<div id="edit-product-modal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="edit-product-title">
+                            Edycja produktu <span id="edit-product-name" class="font-bold"></span>
+                        </h3>
+                        <div class="mt-4">
+                            <form id="edit-product-form">
+                                <input type="hidden" id="edit-product-id">
+                                
+                                <div class="mb-4">
+                                    <label for="edit-product-name-input" class="block text-sm font-medium text-gray-700 mb-1">Nazwa produktu</label>
+                                    <input type="text" id="edit-product-name-input" 
+                                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="edit-category" class="block text-sm font-medium text-gray-700 mb-1">Kategoria</label>
+                                    <select id="edit-category" 
+                                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        {% for category in categories %}
+                                        <option value="{{ category }}">{{ category }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="edit-description" class="block text-sm font-medium text-gray-700 mb-1">Opis</label>
+                                    <textarea id="edit-description" rows="3" 
+                                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <label for="edit-price" class="block text-sm font-medium text-gray-700 mb-1">Cena sprzedaży (zł)</label>
+                                        <input type="number" id="edit-price" min="0" step="0.01" 
+                                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                    <div>
+                                        <label for="edit-stock" class="block text-sm font-medium text-gray-700 mb-1">Stan magazynowy</label>
+                                        <input type="number" id="edit-stock" min="0" step="1" 
+                                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <label for="edit-markup" class="block text-sm font-medium text-gray-700 mb-1">Narzut (%)</label>
+                                        <div class="flex items-center">
+                                            <input type="number" id="edit-markup" min="0" max="500" 
+                                                class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <span class="ml-2">%</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="edit-calculated-price" class="block text-sm font-medium text-gray-700 mb-1">Cena kalkulowana</label>
+                                        <p id="edit-calculated-price" class="font-medium text-lg text-green-600 mt-1 pt-1">0.00 zł</p>
+                                        <input type="hidden" id="edit-original-price">
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <label for="edit-shipping-time" class="block text-sm font-medium text-gray-700 mb-1">Czas wysyłki</label>
+                                        <input type="text" id="edit-shipping-time" 
+                                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                            placeholder="np. 24h, 2-3 dni">
+                                    </div>
+                                    <div>
+                                        <label for="edit-shipping-cost" class="block text-sm font-medium text-gray-700 mb-1">Koszt wysyłki (zł)</label>
+                                        <input type="number" id="edit-shipping-cost" min="0" step="0.01" 
+                                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="edit-available" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                        <label for="edit-available" class="ml-2 block text-sm text-gray-900">
+                                            Dostępny do sprzedaży
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button type="button" id="save-product-edit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    Zapisz zmiany
+                </button>
+                <button type="button" id="close-edit-modal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Anuluj
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Funkcja pomocnicza do sprawdzania, czy elementy istnieją
+    function safeGetElement(id) {
+        const element = document.getElementById(id);
+        if (!element) {
+            console.warn(`Element o ID ${id} nie istnieje w dokumencie`);
+        }
+        return element;
+    }
+    
+    // Funkcja pomocnicza do debugowania
+    function showDebugInfo(message, data = null) {
+        const debugInfo = document.getElementById('debug-info');
+        const debugContent = document.getElementById('debug-content');
+        
+        if (debugInfo && debugContent) {
+            let content = message;
+            if (data) {
+                content += '\n' + JSON.stringify(data, null, 2);
+            }
+            debugContent.textContent = content;
+            debugInfo.classList.remove('hidden');
+        } else {
+            console.warn('Nie można wyświetlić informacji debugujących, brak elementów DOM');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM załadowany - inicjalizacja skryptu');
+        try {
+            // Elementy formularza dodawania produktu
+            const newProductForm = document.getElementById('new-product-form');
+            const productName = document.getElementById('product-name');
+            const productCategory = document.getElementById('product-category');
+            const productDescription = document.getElementById('product-description');
+            const productPrice = document.getElementById('product-price');
+            const productStock = document.getElementById('product-stock');
+            const productOriginalPrice = document.getElementById('product-original-price');
+            const productMarkup = document.getElementById('product-markup');
+            const productCalculatedPrice = document.getElementById('product-calculated-price');
+            const productShippingTime = document.getElementById('product-shipping-time');
+            const productShippingCost = document.getElementById('product-shipping-cost');
+            const productImage = document.getElementById('product-image');
+            const productAvailable = document.getElementById('product-available');
+            const addProductBtn = document.getElementById('add-product-btn');
+            
+            // Elementy wyszukiwania i filtrowania
+            const searchRecent = document.getElementById('search-recent');
+            const categoryFilter = document.getElementById('category-filter');
+            const recentProducts = document.getElementById('recent-products');
+            const noProducts = document.getElementById('no-products');
+            
+            // Elementy modalu edycji
+            const editProductModal = document.getElementById('edit-product-modal');
+            const editProductId = document.getElementById('edit-product-id');
+            const editProductName = document.getElementById('edit-product-name');
+            const editProductNameInput = document.getElementById('edit-product-name-input');
+            const editCategory = document.getElementById('edit-category');
+            const editDescription = document.getElementById('edit-description');
+            const editPrice = document.getElementById('edit-price');
+            const editStock = document.getElementById('edit-stock');
+            const editMarkup = document.getElementById('edit-markup');
+            const editCalculatedPrice = document.getElementById('edit-calculated-price');
+            const editOriginalPrice = document.getElementById('edit-original-price');
+            const editShippingTime = document.getElementById('edit-shipping-time');
+            const editShippingCost = document.getElementById('edit-shipping-cost');
+            const editAvailable = document.getElementById('edit-available');
+            const saveProductEdit = document.getElementById('save-product-edit');
+            const closeEditModal = document.getElementById('close-edit-modal');
+            
+            // Przyciski akcji w tabeli
+            const toggleButtons = document.querySelectorAll('.toggle-availability');
+            const editButtons = document.querySelectorAll('.edit-product');
+            
+            // Obsługa kalkulacji ceny w formularzu dodawania
+            function updateCalculatedPrice() {
+                const originalPrice = parseFloat(productOriginalPrice.value) || 0;
+                const markup = parseFloat(productMarkup.value) || 0;
+                
+                if (originalPrice > 0) {
+                    const markupMultiplier = 1 + (markup / 100);
+                    const calculatedPrice = (originalPrice * markupMultiplier).toFixed(2);
+                    productCalculatedPrice.textContent = calculatedPrice + ' zł';
+                    
+                    // Opcjonalnie: zaktualizuj pole ceny sprzedaży
+                    productPrice.value = calculatedPrice;
+                } else {
+                    productCalculatedPrice.textContent = '0.00 zł';
+                }
+            }
+            
+            if (productOriginalPrice && productMarkup) {
+                productOriginalPrice.addEventListener('input', updateCalculatedPrice);
+                productMarkup.addEventListener('input', updateCalculatedPrice);
+            }
+            
+            // Obsługa kalkulacji ceny w modalu edycji
+            function updateEditCalculatedPrice() {
+                const originalPrice = parseFloat(editOriginalPrice.value) || 0;
+                const markup = parseFloat(editMarkup.value) || 0;
+                
+                if (originalPrice > 0) {
+                    const markupMultiplier = 1 + (markup / 100);
+                    const calculatedPrice = (originalPrice * markupMultiplier).toFixed(2);
+                    editCalculatedPrice.textContent = calculatedPrice + ' zł';
+                    
+                    // Opcjonalnie: zaktualizuj pole ceny sprzedaży
+                    editPrice.value = calculatedPrice;
+                } else {
+                    editCalculatedPrice.textContent = '0.00 zł';
+                }
+            }
+            
+            if (editOriginalPrice && editMarkup) {
+                editOriginalPrice.addEventListener('input', updateEditCalculatedPrice);
+                editMarkup.addEventListener('input', updateEditCalculatedPrice);
+            }
+            
+            // Obsługa wyszukiwania i filtrowania produktów
+            function filterProducts() {
+                const searchTerm = searchRecent.value.toLowerCase();
+                const categoryValue = categoryFilter.value;
+                
+                const rows = document.querySelectorAll('#recent-products tr');
+                let visibleCount = 0;
+                
+                rows.forEach(row => {
+                    const nameCell = row.querySelector('td:nth-child(2)');
+                    if (!nameCell) return;
+                    
+                    const name = nameCell.textContent.toLowerCase();
+                    const category = row.getAttribute('data-category');
+                    
+                    const matchesSearch = name.includes(searchTerm);
+                    const matchesCategory = !categoryValue || category === categoryValue;
+                    
+                    if (matchesSearch && matchesCategory) {
+                        row.style.display = '';
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+                
+                // Pokaż lub ukryj komunikat o braku produktów
+                if (visibleCount === 0) {
+                    noProducts.classList.remove('hidden');
+                } else {
+                    noProducts.classList.add('hidden');
+                }
+            }
+            
+            if (searchRecent) searchRecent.addEventListener('input', filterProducts);
+            if (categoryFilter) categoryFilter.addEventListener('change', filterProducts);
+            
+            // Dodawanie nowego produktu
+            if (newProductForm) {
+                newProductForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Walidacja formularza
+                    if (!productName.value.trim()) {
+                        alert('Podaj nazwę produktu');
+                        return;
+                    }
+                    
+                    if (!productCategory.value) {
+                        alert('Wybierz kategorię produktu');
+                        return;
+                    }
+                    
+                    if (isNaN(parseFloat(productPrice.value)) || parseFloat(productPrice.value) <= 0) {
+                        alert('Podaj poprawną cenę produktu');
+                        return;
+                    }
+                    
+                    if (isNaN(parseInt(productStock.value)) || parseInt(productStock.value) < 0) {
+                        alert('Podaj poprawną ilość produktu');
+                        return;
+                    }
+                    
+                    // Przygotowanie formularza z danymi
+                    const formData = new FormData();
+                    formData.append('name', productName.value.trim());
+                    formData.append('category', productCategory.value);
+                    formData.append('description', productDescription.value.trim());
+                    formData.append('price', parseFloat(productPrice.value));
+                    formData.append('stock', parseInt(productStock.value));
+                    
+                    if (productOriginalPrice.value) {
+                        formData.append('original_price', parseFloat(productOriginalPrice.value));
+                    }
+                    
+                    if (productMarkup.value) {
+                        formData.append('markup_percent', parseFloat(productMarkup.value));
+                    }
+                    
+                    if (productShippingTime.value) {
+                        formData.append('shipping_time', productShippingTime.value.trim());
+                    }
+                    
+                    if (productShippingCost.value) {
+                        formData.append('shipping_cost', parseFloat(productShippingCost.value));
+                    }
+                    
+                    formData.append('available_for_sale', productAvailable.checked);
+                    
+                    if (productImage.files.length > 0) {
+                        formData.append('image', productImage.files[0]);
+                    }
+                    
+                    // Wyłącz przycisk podczas wysyłania
+                    addProductBtn.disabled = true;
+                    addProductBtn.textContent = 'Dodawanie...';
+                    
+                    // Wyślij dane do serwera
+                    fetch('/admin/add-product', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Błąd HTTP: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            // Dodaj nowy produkt do tabeli
+                            const newRow = createProductRow(data.product);
+                            recentProducts.prepend(newRow);
+                            
+                            // Ukryj komunikat o braku produktów jeśli był widoczny
+                            if (noProducts) {
+                                noProducts.classList.add('hidden');
+                            }
+                            
+                            // Wyczyść formularz
+                            newProductForm.reset();
+                            productCalculatedPrice.textContent = '0.00 zł';
+                            
+                            // Pokaż komunikat
+                            alert(data.message || 'Produkt został dodany');
+                        } else {
+                            alert('Błąd: ' + (data.message || 'Nieznany błąd podczas dodawania produktu'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Błąd:', error);
+                        alert('Wystąpił błąd podczas dodawania produktu: ' + error.message);
+                    })
+                    .finally(() => {
+                        addProductBtn.disabled = false;
+                        addProductBtn.textContent = 'Dodaj produkt';
+                    });
+                });
+            }
+            
+            // Funkcja tworząca wiersz tabeli dla nowego produktu
+            function createProductRow(product) {
+                const row = document.createElement('tr');
+                row.setAttribute('data-category', product.category);
+                row.setAttribute('data-product-id', product.id);
+                row.className = 'product-row';
+                
+                // Status magazynowy
+                let stockStatus = '';
+                let stockClass = '';
+                
+                if (product.stock > 10) {
+                    stockStatus = `W magazynie (${product.stock})`;
+                    stockClass = 'bg-green-100 text-green-800';
+                } else if (product.stock > 0) {
+                    stockStatus = `Kończący się (${product.stock})`;
+                    stockClass = 'bg-yellow-100 text-yellow-800';
+                } else {
+                    stockStatus = 'Niedostępny';
+                    stockClass = 'bg-red-100 text-red-800';
+                }
+                
+                // Status dostępności
+                const isAvailable = product.available_for_sale;
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${product.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <div class="flex items-center">
+                            ${product.image ? `<img src="${product.image}" alt="${product.name}" class="h-8 w-8 rounded-full object-cover mr-3">` : ''}
+                            <span>${product.name}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${product.price} zł</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${product.category}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${stockClass}">
+                            ${stockStatus}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            ${isAvailable ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                            ${isAvailable ? 'Dostępny do sprzedaży' : 'Niedostępny do sprzedaży'}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                        <button class="toggle-availability px-3 py-1 rounded-md
+                            ${isAvailable ? 'bg-red-100 text-red-800 hover:bg-red-200' : 'bg-green-100 text-green-800 hover:bg-green-200'}" 
+                                data-id="${product.id}" 
+                                data-available="${isAvailable}">
+                            ${isAvailable ? 'Ukryj' : 'Pokaż'}
+                        </button>
+                        <button class="edit-product ml-2 px-3 py-1 rounded-md bg-blue-100 text-blue-800 hover:bg-blue-200"
+                                data-id="${product.id}"
+                                data-name="${product.name}"
+                                data-price="${product.price}"
+                                data-stock="${product.stock || 0}"
+                                data-description="${product.description || ''}"
+                                data-markup="${product.markup_percent || 0}"
+                                data-original-price="${product.original_price || 0}"
+                                data-shipping-time="${product.shipping_time || ''}"
+                                data-shipping-cost="${product.shipping_cost || 0}">
+                            Edytuj
+                        </button>
+                    </td>
+                `;
+                
+                // Dodaj obsługę zdarzeń do nowych przycisków
+                const toggleButton = row.querySelector('.toggle-availability');
+                const editButton = row.querySelector('.edit-product');
+                
+                if (toggleButton) {
+                    toggleButton.addEventListener('click', handleToggleAvailability);
+                }
+                
+                if (editButton) {
+                    editButton.addEventListener('click', handleEditProduct);
+                }
+                
+                return row;
+            }
+            
+            // Obsługa przełączania dostępności produktu
+            function handleToggleAvailability() {
+                const productId = this.getAttribute('data-id');
+                const currentAvailable = this.getAttribute('data-available') === 'true';
+                const newAvailable = !currentAvailable;
+                
+                // Wyłącz przycisk podczas oczekiwania
+                this.disabled = true;
+                
+                fetch('/admin/toggle-product-availability', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        available: newAvailable
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Błąd HTTP: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Aktualizacja UI bez przeładowania strony
+                        const row = this.closest('tr');
+                        
+                        if (!row) {
+                            console.error('Nie można znaleźć wiersza dla przycisku');
+                            return;
+                        }
+                        
+                        row.setAttribute('data-available', newAvailable);
+                        
+                        const availabilityIndicator = row.querySelector('td:nth-child(6) span');
+                        
+                        if (availabilityIndicator) {
+                            if (newAvailable) {
+                                availabilityIndicator.classList.remove('bg-red-100', 'text-red-800');
+                                availabilityIndicator.classList.add('bg-green-100', 'text-green-800');
+                                availabilityIndicator.textContent = 'Dostępny do sprzedaży';
+                                
+                                this.classList.remove('bg-green-100', 'text-green-800', 'hover:bg-green-200');
+                                this.classList.add('bg-red-100', 'text-red-800', 'hover:bg-red-200');
+                                this.textContent = 'Ukryj';
+                            } else {
+                                availabilityIndicator.classList.remove('bg-green-100', 'text-green-800');
+                                availabilityIndicator.classList.add('bg-red-100', 'text-red-800');
+                                availabilityIndicator.textContent = 'Niedostępny do sprzedaży';
+                                
+                                this.classList.remove('bg-red-100', 'text-red-800', 'hover:bg-red-200');
+                                this.classList.add('bg-green-100', 'text-green-800', 'hover:bg-green-200');
+                                this.textContent = 'Pokaż';
+                            }
+                            
+                            this.setAttribute('data-available', newAvailable);
+                        }
+                    } else {
+                        alert('Błąd: ' + (data.message || 'Nieznany błąd serwera'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Błąd:', error);
+                    alert('Wystąpił błąd podczas przełączania dostępności produktu: ' + error.message);
+                })
+                .finally(() => {
+                    this.disabled = false;
+                });
+            }
+            
+            // Dodaj obsługę przełączania dostępności dla istniejących przycisków
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', handleToggleAvailability);
+            });
+            
+            // Obsługa otwierania modalu edycji
+            function handleEditProduct() {
+                const productId = this.getAttribute('data-id');
+                const productName = this.getAttribute('data-name');
+                const description = this.getAttribute('data-description') || '';
+                const price = parseFloat(this.getAttribute('data-price') || 0);
+                const stock = parseInt(this.getAttribute('data-stock') || 0);
+                const markup = parseFloat(this.getAttribute('data-markup') || 0);
+                const originalPrice = parseFloat(this.getAttribute('data-original-price') || 0);
+                const shippingTime = this.getAttribute('data-shipping-time') || '';
+                const shippingCost = parseFloat(this.getAttribute('data-shipping-cost') || 0);
+                const category = this.closest('tr').getAttribute('data-category') || '';
+                const isAvailable = this.closest('tr').getAttribute('data-available') === 'true';
+                
+                // Wypełnij formularz danymi
+                editProductId.value = productId;
+                editProductName.textContent = productName;
+                editProductNameInput.value = productName;
+                editDescription.value = description;
+                editPrice.value = price.toFixed(2);
+                editStock.value = stock;
+                editMarkup.value = markup;
+                editOriginalPrice.value = originalPrice;
+                editShippingTime.value = shippingTime;
+                editShippingCost.value = shippingCost.toFixed(2);
+                editAvailable.checked = isAvailable;
+                
+                // Ustaw kategorię
+                for (let i = 0; i < editCategory.options.length; i++) {
+                    if (editCategory.options[i].value === category) {
+                        editCategory.selectedIndex = i;
+                        break;
+                    }
+                }
+                
+                // Aktualizuj kalkulowaną cenę
+                updateEditCalculatedPrice();
+                
+                // Pokaż modal
+                editProductModal.classList.remove('hidden');
+            }
+            
+            // Dodaj obsługę otwierania modalu dla istniejących przycisków
+            editButtons.forEach(button => {
+                button.addEventListener('click', handleEditProduct);
+            });
+            
+            // Zamknięcie modalu
+            if (closeEditModal) {
+                closeEditModal.addEventListener('click', function() {
+                    editProductModal.classList.add('hidden');
+                });
+            }
+            
+            // Obsługa zapisywania zmian w produkcie
+            if (saveProductEdit) {
+                saveProductEdit.addEventListener('click', function() {
+                    const productId = editProductId.value;
+                    
+                    if (!productId) {
+                        alert('Brak ID produktu');
+                        return;
+                    }
+                    
+                    const productName = editProductNameInput.value.trim();
+                    if (!productName) {
+                        alert('Podaj nazwę produktu');
+                        return;
+                    }
+                    
+                    const price = parseFloat(editPrice.value);
+                    if (isNaN(price) || price <= 0) {
+                        alert('Podaj poprawną cenę produktu');
+                        return;
+                    }
+                    
+                    const stock = parseInt(editStock.value);
+                    if (isNaN(stock) || stock < 0) {
+                        alert('Podaj poprawną ilość produktu');
+                        return;
+                    }
+                    
+                    // Przygotuj dane do wysłania
+                    const productData = {
+                        product_id: parseInt(productId),
+                        name: productName,
+                        category: editCategory.value,
+                        description: editDescription.value.trim(),
+                        price: price,
+                        stock: stock,
+                        markup_percent: parseFloat(editMarkup.value) || 0,
+                        original_price: parseFloat(editOriginalPrice.value) || 0,
+                        shipping_time: editShippingTime.value.trim(),
+                        shipping_cost: parseFloat(editShippingCost.value) || 0,
+                        available_for_sale: editAvailable.checked
+                    };
+                    
+                    // Wyłącz przycisk podczas zapisywania
+                    this.disabled = true;
+                    this.textContent = 'Zapisywanie...';
+                    
+                    // Wyślij dane do serwera
+                    fetch('/admin/update-product', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(productData)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Błąd HTTP: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            // Aktualizuj UI produktu
+                            updateProductUI(productId, data.product);
+                            
+                            // Zamknij modal
+                            editProductModal.classList.add('hidden');
+                            
+                            // Pokaż komunikat
+                            alert(data.message || 'Produkt został zaktualizowany');
+                        } else {
+                            alert('Błąd: ' + (data.message || 'Nieznany błąd serwera'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Błąd:', error);
+                        alert('Wystąpił błąd podczas aktualizacji produktu: ' + error.message);
+                    })
+                    .finally(() => {
+                        this.disabled = false;
+                        this.textContent = 'Zapisz zmiany';
+                    });
+                });
+            }
+            
+            // Funkcja aktualizująca UI produktu po edycji
+            function updateProductUI(productId, product) {
+                const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+                
+                if (!row) {
+                    console.error('Nie znaleziono wiersza dla produktu ID:', productId);
+                    return;
+                }
+                
+                // Aktualizacja kategorii
+                row.setAttribute('data-category', product.category);
+                
+                // Aktualizacja nazwy
+                const nameCell = row.querySelector('td:nth-child(2) span');
+                if (nameCell) {
+                    nameCell.textContent = product.name;
+                }
+                
+                // Aktualizacja ceny
+                const priceCell = row.querySelector('td:nth-child(3)');
+                if (priceCell) {
+                    priceCell.textContent = product.price + ' zł';
+                }
+                
+                // Aktualizacja kategorii w tabeli
+                const categoryCell = row.querySelector('td:nth-child(4)');
+                if (categoryCell) {
+                    categoryCell.textContent = product.category;
+                }
+                
+                // Aktualizacja stanu magazynowego
+                const stockCell = row.querySelector('td:nth-child(5) span');
+                if (stockCell) {
+                    if (product.stock > 10) {
+                        stockCell.className = 'px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800';
+                        stockCell.textContent = `W magazynie (${product.stock})`;
+                    } else if (product.stock > 0) {
+                        stockCell.className = 'px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800';
+                        stockCell.textContent = `Kończący się (${product.stock})`;
+                    } else {
+                        stockCell.className = 'px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800';
+                        stockCell.textContent = 'Niedostępny';
+                    }
+                }
+                
+                // Aktualizacja dostępności
+                const isAvailable = product.available_for_sale;
+                row.setAttribute('data-available', isAvailable);
+                
+                const availabilityIndicator = row.querySelector('td:nth-child(6) span');
+                const toggleButton = row.querySelector('.toggle-availability');
+                
+                if (availabilityIndicator) {
+                    if (isAvailable) {
+                        availabilityIndicator.classList.remove('bg-red-100', 'text-red-800');
+                        availabilityIndicator.classList.add('bg-green-100', 'text-green-800');
+                        availabilityIndicator.textContent = 'Dostępny do sprzedaży';
+                    } else {
+                        availabilityIndicator.classList.remove('bg-green-100', 'text-green-800');
+                        availabilityIndicator.classList.add('bg-red-100', 'text-red-800');
+                        availabilityIndicator.textContent = 'Niedostępny do sprzedaży';
+                    }
+                }
+                
+                if (toggleButton) {
+                    if (isAvailable) {
+                        toggleButton.classList.remove('bg-green-100', 'text-green-800', 'hover:bg-green-200');
+                        toggleButton.classList.add('bg-red-100', 'text-red-800', 'hover:bg-red-200');
+                        toggleButton.textContent = 'Ukryj';
+                    } else {
+                        toggleButton.classList.remove('bg-red-100', 'text-red-800', 'hover:bg-red-200');
+                        toggleButton.classList.add('bg-green-100', 'text-green-800', 'hover:bg-green-200');
+                        toggleButton.textContent = 'Pokaż';
+                    }
+                    
+                    toggleButton.setAttribute('data-available', isAvailable);
+                }
+                
+                // Aktualizuj dane przycisków
+                const editButton = row.querySelector('.edit-product');
+                if (editButton) {
+                    editButton.setAttribute('data-name', product.name);
+                    editButton.setAttribute('data-price', product.price);
+                    editButton.setAttribute('data-stock', product.stock || 0);
+                    editButton.setAttribute('data-description', product.description || '');
+                    editButton.setAttribute('data-markup', product.markup_percent || 0);
+                    editButton.setAttribute('data-original-price', product.original_price || 0);
+                    editButton.setAttribute('data-shipping-time', product.shipping_time || '');
+                    editButton.setAttribute('data-shipping-cost', product.shipping_cost || 0);
+                }
+            }
+        } catch (error) {
+            console.error('Błąd podczas inicjalizacji skryptu:', error);
+            showDebugInfo('Błąd podczas inicjalizacji skryptu: ' + error.message);
+        }
+    });
+</script>
+
+{% endblock %}

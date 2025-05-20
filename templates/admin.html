@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-8">
+    <h1 class="text-2xl font-extrabold mb-4 text-gray-800">Panel administratora</h1>
+    
+    <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6" role="alert">
+        <p>Ten panel umożliwia zarządzanie sklepem i jego funkcjami.</p>
+    </div>
+    
+    <div class="space-y-6">
+        <div class="border border-gray-200 rounded-lg p-6">
+            <h2 class="text-xl font-bold mb-3 text-gray-700">Zarządzanie plikiem XML</h2>
+            <p class="mb-4 text-gray-600">Aktualizacja pliku XML z produktami. Plik jest automatycznie pobierany co 10 minut.</p>
+            <button id="refresh-xml-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Pobierz teraz</button>
+            <div id="refresh-result" class="mt-3 hidden"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('refresh-xml-btn').addEventListener('click', function() {
+        this.disabled = true;
+        this.textContent = 'Pobieranie...';
+        
+        fetch('/admin/refresh-xml')
+            .then(response => response.json())
+            .then(data => {
+                const resultElem = document.getElementById('refresh-result');
+                resultElem.classList.remove('hidden');
+                
+                if (data.success) {
+                    resultElem.className = 'mt-3 p-2 bg-green-100 text-green-700 rounded';
+                    resultElem.textContent = data.message;
+                } else {
+                    resultElem.className = 'mt-3 p-2 bg-red-100 text-red-700 rounded';
+                    resultElem.textContent = data.message;
+                }
+                
+                this.disabled = false;
+                this.textContent = 'Pobierz teraz';
+            })
+            .catch(error => {
+                const resultElem = document.getElementById('refresh-result');
+                resultElem.classList.remove('hidden');
+                resultElem.className = 'mt-3 p-2 bg-red-100 text-red-700 rounded';
+                resultElem.textContent = 'Wystąpił błąd podczas komunikacji z serwerem.';
+                
+                this.disabled = false;
+                this.textContent = 'Pobierz teraz';
+            });
+    });
+</script>
+{% endblock %}

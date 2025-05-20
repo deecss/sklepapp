@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Strony</title>
+</head>
+<body>
+    <h1>Test Strony - Dostępność Produktów</h1>
+    <p>Jeśli widzisz ten tekst, strona HTML ładuje się poprawnie.</p>
+    
+    <h2>Lista produktów:</h2>
+    <ul>
+        {% for product in products %}
+        <li>{{ product.id }} - {{ product.name }} - {{ product.price }} zł</li>
+        {% endfor %}
+    </ul>
+    
+    <script>
+        console.log('Strona testowa załadowana');
+    </script>
+</body>
+</html>
