@@ -1753,6 +1753,36 @@ def ajax_add_to_cart():
         'cart_sum': "{:.2f}".format(total)
     })
 
+# Demo route dla testowania powiadomień WebSocket
+@app.route('/demo/toggle-availability/<int:product_id>')
+def demo_toggle_availability(product_id):
+    try:
+        # Pobierz bieżący status produktu
+        product = product_manager.get_product_by_id(product_id)
+        
+        if not product:
+            return jsonify({'error': 'Produkt nie istnieje'}), 404
+            
+        # Odwróć status
+        current_status = product.get('available_for_sale', False)
+        new_status = not current_status
+        
+        # Aktualizuj status
+        success = product_manager.set_product_availability(product_id, new_status)
+        
+        if success:
+            return jsonify({
+                'success': True,
+                'product_id': product_id,
+                'product_name': product.get('name'),
+                'new_status': 'available' if new_status else 'unavailable'
+            })
+        else:
+            return jsonify({'error': 'Nie udało się zaktualizować statusu produktu'}), 500
+            
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     # Uruchomienie pobierania XML w tle
     xml_downloader.start()
