@@ -113,7 +113,36 @@ class PaymentManager:
         except Exception as e:
             self.logger.error(f"Błąd podczas aktualizacji konfiguracji płatności: {str(e)}")
             return False
-    
+
+    def get_bank_transfer_details(self):
+        """Zwraca aktualne dane do przelewu bankowego."""
+        return self.config.get('bank_transfer', {})
+
+    def update_bank_transfer_details(self, account_number=None, recipient_name=None, recipient_address=None):
+        """Aktualizuje dane do przelewu bankowego w konfiguracji."""
+        updated = False
+        if 'bank_transfer' not in self.config:
+            self.config['bank_transfer'] = {}
+
+        if account_number is not None:
+            self.config['bank_transfer']['account_number'] = account_number
+            # For consistency with how it was previously named in config, let's use BANK_TRANSFER_ACCOUNT_NUMBER
+            self.config['bank_transfer']['BANK_TRANSFER_ACCOUNT_NUMBER'] = account_number
+            updated = True
+        if recipient_name is not None:
+            self.config['bank_transfer']['account_owner'] = recipient_name # Legacy key
+            self.config['bank_transfer']['BANK_TRANSFER_RECIPIENT_NAME'] = recipient_name
+            updated = True
+        if recipient_address is not None:
+            # Assuming a new key for address as it wasn't in the original default config structure for bank_transfer
+            self.config['bank_transfer']['BANK_TRANSFER_RECIPIENT_ADDRESS'] = recipient_address
+            updated = True
+        
+        if updated:
+            self.logger.info(f"Aktualizacja danych do przelewu: Konto: {account_number}, Odbiorca: {recipient_name}, Adres: {recipient_address}")
+            return self._save_config()
+        return False
+
     def create_payment(self, order_id, amount, payment_method, customer_data=None):
         """
         Tworzy nową płatność

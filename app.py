@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import time
 import uuid
 import json
-from xml_downloader_module import XmlDownloader
+from xml_downloader_module import get_xml_downloader_instance
 from admin_auth import AdminAuth
 from product_manager import ProductManager
 from payment_manager import PaymentManager
@@ -21,7 +21,7 @@ socketio = SocketIO(app)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=24)
 
 # Inicjalizacja modułu pobierania XML
-xml_downloader = XmlDownloader(interval_minutes=10)
+xml_downloader = get_xml_downloader_instance()
 
 # Inicjalizacja modułu autoryzacji administratora
 admin_auth = AdminAuth(app)
@@ -1178,41 +1178,91 @@ def admin_update_payment_status(payment_id):
     
     return redirect(url_for('admin_order_detail', order_id=payment['order_id']))
 
-@app.route('/admin/settings')
+@app.route('/admin/settings', methods=['GET', 'POST'])
 @admin_auth.login_required
 def admin_settings():
     xml_status = xml_downloader.get_status()
     main_categories = product_manager.get_main_categories()
     featured_categories = product_manager.get_featured_categories()
     
-    return render_template('admin_settings.html', 
-                          xml_config=xml_status['config'],
-                          last_update=xml_status['last_download'],
-                          main_categories=main_categories,
-                          featured_categories=featured_categories)
-
-@app.route('/admin/update-xml-config', methods=['POST'])
-@admin_auth.login_required
-def update_xml_config():
     if request.method == 'POST':
-        new_config = {
-            'url': request.form.get('url', 'https://ergo.enode.ovh/products.xml'),
-            'interval_minutes': int(request.form.get('interval_minutes', 10)),
-            'auto_start': request.form.get('auto_start') == 'on'
-        }
+        # Obsługa formularza danych bankowych
+        if 'bank_account_number' in request.form:
+            payment_manager.update_bank_transfer_details(
+                account_number=request.form.get('bank_account_number'),
+                recipient_name=request.form.get('bank_recipient_name'),
+                recipient_address=request.form.get('bank_recipient_address')
+            )
+            flash('Dane do przelewu zostały zaktualizowane.', 'success')
+            return redirect(url_for('admin_settings'))
+
+    bank_details = payment_manager.get_bank_transfer_details()
+    xml_config = xml_downloader.load_config() # Load current XML config
+    return render_template('admin_settings.html', 
+                           xml_config=xml_config, 
+                           main_categories=main_categories, 
+                           featured_categories=featured_categories,
+                           bank_details=bank_details)
+
+@app.route('/admin/update_xml_config', methods=['POST'])
+@admin_auth.login_required
+def update_xml_config_route(): # Renamed to avoid conflict if 'update_xml_config' is a var
+    if request.method == 'POST':
+        url = request.form.get('url')
+        interval_minutes = request.form.get('interval_minutes')
+        auto_start = 'auto_start' in request.form # Checkbox value
+
+        if not url or not interval_minutes:
+            flash('URL pliku XML oraz interwał są wymagane.', 'danger')
+            return redirect(url_for('admin_settings'))
         
-        xml_downloader.update_config(new_config)
-        flash('Konfiguracja XML została zaktualizowana')
-    
+        try:
+            interval_minutes = int(interval_minutes)
+            if interval_minutes <= 0:
+                flash('Interwał musi być liczbą dodatnią.', 'danger')
+                return redirect(url_for('admin_settings'))
+        except ValueError:
+            flash('Interwał musi być liczbą.', 'danger')
+            return redirect(url_for('admin_settings'))
+
+        xml_downloader.update_config(url, interval_minutes, auto_start)
+        flash('Konfiguracja XML została zaktualizowana.', 'success')
+        return redirect(url_for('admin_settings'))
     return redirect(url_for('admin_settings'))
 
-@app.route('/admin/toggle-xml-scheduler', methods=['POST'])
+@app.route('/admin/download_xml_now', methods=['POST'])
 @admin_auth.login_required
-def toggle_xml_scheduler():
-    xml_downloader.toggle_auto_start()
-    return '', 204
+def download_xml_now_route():
+    if xml_downloader.download_xml_file():
+        flash('Pobieranie XML zakończone sukcesem.', 'success')
+    else:
+        flash('Wystąpił błąd podczas pobierania XML.', 'danger')
+    return redirect(url_for('admin_settings'))
 
-@app.route('/admin/featured-categories', methods=['POST'])
+@app.route('/admin/change_password', methods=['POST'])
+@admin_auth.login_required
+def admin_change_password():
+    if request.method == 'POST':
+        current_password = request.form.get('current_password')
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
+
+        if not current_password or not new_password or not confirm_password:
+            flash('Wszystkie pola są wymagane.', 'danger')
+            return redirect(url_for('admin_settings'))
+
+        if new_password != confirm_password:
+            flash('Nowe hasła nie są zgodne.', 'danger')
+            return redirect(url_for('admin_settings'))
+
+        if admin_auth.change_password(session['admin_user'], current_password, new_password):
+            flash('Hasło zostało zmienione.', 'success')
+        else:
+            flash('Nie udało się zmienić hasła. Sprawdź aktualne hasło.', 'danger')
+        return redirect(url_for('admin_settings'))
+    return redirect(url_for('admin_settings'))
+
+@app.route('/admin/update_featured_categories', methods=['POST'])
 @admin_auth.login_required
 def update_featured_categories():
     try:

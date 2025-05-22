@@ -1,219 +1,167 @@
-import requests
+import json
 import os
 import logging
+from datetime import datetime
+import schedule
 import threading
 import time
-import schedule
-import json
-from datetime import datetime
+import requests
 
-class XmlDownloader:
-    """Klasa do pobierania plików XML z produktami"""
+logger = logging.getLogger('xml_downloader_module')
 
-    def __init__(self, interval_minutes=10):
-        """Inicjalizacja z ustawionym interwałem w minutach"""
-        self.interval = interval_minutes
-        self.running = False
-        self.thread = None
-        self.config_path = os.path.join('data', 'xml_config.json')
-        
-        # Konfiguracja logowania
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            filename='xml_downloader.log',
-            filemode='a'
-        )
-        self.logger = logging.getLogger('xml_downloader')
-        
-        # Wczytaj konfigurację
-        self._load_config()
-        
-        # Automatyczne uruchomienie harmonogramu, jeśli jest włączone
-        if self.config.get('auto_start', False):
-            self.start_scheduler()
-
-    def _load_config(self):
-        """Ładuje konfigurację z pliku JSON"""
-        self.config = {
-            'url': "https://ergo.enode.ovh/products.xml",
-            'interval_minutes': self.interval,
-            'auto_start': False,
-            'last_download': None,
-            'download_history': []
-        }
-        
-        try:
-            if os.path.exists(self.config_path):
-                with open(self.config_path, 'r', encoding='utf-8') as f:
-                    saved_config = json.load(f)
-                    self.config.update(saved_config)
-                    self.interval = self.config['interval_minutes']
-                    self.logger.info(f"Załadowano konfigurację z {self.config_path}")
-            else:
-                self._save_config()
-                self.logger.info(f"Utworzono domyślną konfigurację w {self.config_path}")
-        except Exception as e:
-            self.logger.error(f"Błąd podczas ładowania konfiguracji: {str(e)}")
-            self._save_config()
+class XMLDownloaderModule:
+    CONFIG_FILE = os.path.join('data', 'xml_config.json')
+    DEFAULT_XML_PATH = os.path.join('data', 'products_latest.xml')
     
-    def _save_config(self):
-        """Zapisuje konfigurację do pliku JSON"""
+    def __init__(self):
+        self.config = self.load_config()
+        self.scheduler_thread = None
+        self.stop_scheduler_event = threading.Event()
+
+    def load_config(self):
         try:
-            os.makedirs(os.path.dirname(self.config_path), exist_ok=True)
-            with open(self.config_path, 'w', encoding='utf-8') as f:
-                json.dump(self.config, f, ensure_ascii=False, indent=2)
-            self.logger.info(f"Zapisano konfigurację do {self.config_path}")
+            if os.path.exists(self.CONFIG_FILE):
+                with open(self.CONFIG_FILE, 'r') as f:
+                    loaded_config = json.load(f)
+                    # Ensure all expected keys are present
+                    default_config = {'url': 'https://ergo.enode.ovh/products.xml', 'interval_minutes': 10, 'auto_start': True, 'last_download': 'N/A', 'download_on_start': True}
+                    default_config.update(loaded_config)
+                    return default_config
         except Exception as e:
-            self.logger.error(f"Błąd podczas zapisywania konfiguracji: {str(e)}")
-    
-    def update_config(self, new_config):
-        """Aktualizuje konfigurację i zapisuje zmiany"""
-        self.config.update(new_config)
-        self.interval = self.config['interval_minutes']
-        self._save_config()
+            logger.error(f"Error loading XML config: {e}")
+        return {'url': 'https://ergo.enode.ovh/products.xml', 'interval_minutes': 10, 'auto_start': True, 'last_download': 'N/A', 'download_on_start': True}
+
+    def save_config(self):
+        try:
+            os.makedirs(os.path.dirname(self.CONFIG_FILE), exist_ok=True)
+            with open(self.CONFIG_FILE, 'w') as f:
+                json.dump(self.config, f, indent=2)
+            logger.info("XML config saved.")
+        except Exception as e:
+            logger.error(f"Error saving XML config: {e}")
+
+    def update_config(self, new_url, new_interval_minutes, auto_start):
+        self.config['url'] = new_url
+        self.config['interval_minutes'] = int(new_interval_minutes)
+        self.config['auto_start'] = auto_start
+        self.save_config()
+        logger.info(f"XML config updated: URL={new_url}, Interval={new_interval_minutes}min, AutoStart={auto_start}")
         
-        # Restart harmonogramu jeśli jest aktywny
-        if self.running:
+        # Stop current scheduler if running
+        if self.scheduler_thread and self.scheduler_thread.is_alive():
             self.stop_scheduler()
+        
+        # Restart scheduler if auto_start is true
+        if auto_start:
             self.start_scheduler()
-        elif self.config.get('auto_start', False):
-            self.start_scheduler()
-            
         return self.config
 
-    def download_xml(self):
-        """Pobiera plik XML z produktami i zapisuje go na dysku"""
-        url = self.config.get('url', "https://ergo.enode.ovh/products.xml")
-        xml_dir = "data"
+    def download_xml_file(self):
+        url = self.config.get('url')
+        if not url:
+            logger.error("XML URL not configured.")
+            return False
         
-        # Upewnij się, że katalog istnieje
-        if not os.path.exists(xml_dir):
-            os.makedirs(xml_dir)
-            self.logger.info(f"Utworzono katalog {xml_dir}")
+        xml_dir = os.path.dirname(self.DEFAULT_XML_PATH)
+        os.makedirs(xml_dir, exist_ok=True)
         
-        # Nazwa stałego pliku XML
-        xml_filename = os.path.join(xml_dir, "products_latest.xml")
-        
-        # Aktualizacja czasu ostatniego pobrania
-        self.config['last_download'] = datetime.now().isoformat()
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        archive_filename = os.path.join(xml_dir, f"products_{timestamp}.xml")
         
         try:
-            # Pobieranie pliku
-            response = requests.get(url)
-            response.raise_for_status()  # Sprawdza, czy nie ma błędu HTTP
+            logger.info(f"Attempting to download XML from {url}")
+            response = requests.get(url, timeout=30)
+            response.raise_for_status()
             
-            # Zapisywanie pliku (nadpisywanie istniejącego)
-            with open(xml_filename, 'wb') as f:
+            with open(archive_filename, 'wb') as f:
                 f.write(response.content)
-                
-            # Dodanie do historii pobrań
-            self.config['download_history'].append({
-                'timestamp': datetime.now().isoformat(),
-                'filename': xml_filename,
-                'success': True,
-                'size_bytes': len(response.content)
-            })
+            logger.info(f"XML downloaded and saved to {archive_filename}")
+
+            with open(self.DEFAULT_XML_PATH, 'wb') as f:
+                f.write(response.content)
+            logger.info(f"XML saved as latest to {self.DEFAULT_XML_PATH}")
             
-            # Ograniczenie historii do 100 ostatnich wpisów
-            if len(self.config['download_history']) > 100:
-                self.config['download_history'] = self.config['download_history'][-100:]
-                
-            # Zapisanie zaktualizowanej konfiguracji
-            self._save_config()
-                
-            self.logger.info(f"Pomyślnie pobrano i zapisano plik XML: {xml_filename}")
-            print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Pobrano i zaktualizowano plik XML")
-            
-            return xml_filename
-            
+            self.config['last_download'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            self.save_config()
+            self.cleanup_old_files(xml_dir)
+            return True
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error downloading XML: {e}")
         except Exception as e:
-            error_msg = f"Błąd podczas pobierania pliku XML: {str(e)}"
-            
-            # Dodanie do historii pobrań informacji o błędzie
-            self.config['download_history'].append({
-                'timestamp': datetime.now().isoformat(),
-                'success': False,
-                'error': str(e)
-            })
-            
-            # Zapisanie zaktualizowanej konfiguracji
-            self._save_config()
-            
-            self.logger.error(error_msg)
-            print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Błąd: {str(e)}")
-            return None
+            logger.error(f"An unexpected error occurred during XML download: {e}")
+        return False
 
-    def _scheduler_thread(self):
-        """Wątek harmonogramu"""
-        self.download_xml()  # Pobierz XML od razu
+    def cleanup_old_files(self, directory, keep_last=24):
+        try:
+            files = [os.path.join(directory, f) for f in os.listdir(directory) 
+                     if f.startswith("products_") and f.endswith(".xml") and not f == os.path.basename(self.DEFAULT_XML_PATH)]
+            files.sort(key=lambda x: os.path.getmtime(x))
+            
+            for old_file in files[:-keep_last]:
+                os.remove(old_file)
+                logger.info(f"Removed old XML file: {old_file}")
+        except Exception as e:
+            logger.error(f"Error cleaning up old XML files: {e}")
+
+    def _scheduler_loop(self):
+        interval = self.config.get('interval_minutes', 10)
+        logger.info(f"Scheduler started. Interval: {interval} minutes.")
         
-        # Zaplanuj pobieranie co X minut
-        schedule.every(self.interval).minutes.do(self.download_xml)
-        
-        self.logger.info(f"Uruchomiono harmonogram pobierania XML co {self.interval} minut")
-        
-        # Pętla główna
-        while self.running:
+        # Initial download if configured
+        if self.config.get('download_on_start', True):
+             logger.info("Performing initial XML download on start.")
+             self.download_xml_file()
+
+        # Clear any existing jobs before scheduling a new one
+        schedule.clear()
+        schedule.every(interval).minutes.do(self.download_xml_file)
+
+        while not self.stop_scheduler_event.is_set():
             schedule.run_pending()
-            time.sleep(1)
+            time.sleep(1) # Check every second
+        
+        logger.info("Scheduler loop stopped.")
+        schedule.clear() # Clear schedules when stopping
 
-    def start(self):
-        """Uruchamia pobieranie XML w osobnym wątku"""
-        if not self.running:
-            self.running = True
-            self.thread = threading.Thread(target=self._scheduler_thread)
-            self.thread.daemon = True  # Wątek zostanie zamknięty, gdy główny wątek się zakończy
-            self.thread.start()
-            print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Uruchomiono pobieranie XML w tle co {self.interval} minut")
-            return True
-        return False
-
-    def stop(self):
-        """Zatrzymuje pobieranie XML"""
-        if self.running:
-            self.running = False
-            if self.thread:
-                self.thread.join(timeout=1)
-            self.logger.info("Zatrzymano harmonogram pobierania XML")
-            return True
-        return False
 
     def start_scheduler(self):
-        """Uruchamia harmonogram pobierania XML"""
-        if not self.running:
-            self.running = True
-            self.config['auto_start'] = True
-            self._save_config()
-            
-            self.thread = threading.Thread(target=self._scheduler_thread)
-            self.thread.daemon = True
-            self.thread.start()
-            
-            self.logger.info(f"Uruchomiono harmonogram pobierania XML co {self.interval} minut")
-            return True
-        return False
-    
+        if self.config.get('auto_start', False):
+            if self.scheduler_thread is None or not self.scheduler_thread.is_alive():
+                self.stop_scheduler_event.clear()
+                self.scheduler_thread = threading.Thread(target=self._scheduler_loop, daemon=True)
+                self.scheduler_thread.start()
+                logger.info("XML Download scheduler thread started.")
+            else:
+                logger.info("Scheduler already running.")
+        else:
+            logger.info("Auto-start for XML scheduler is disabled in config.")
+
     def stop_scheduler(self):
-        """Zatrzymuje harmonogram pobierania XML"""
-        if self.running:
-            self.running = False
-            self.config['auto_start'] = False
-            self._save_config()
-            
-            if self.thread:
-                self.thread.join(timeout=1)
-                
-            self.logger.info("Zatrzymano harmonogram pobierania XML")
-            return True
-        return False
-    
+        if self.scheduler_thread and self.scheduler_thread.is_alive():
+            logger.info("Attempting to stop scheduler thread...")
+            self.stop_scheduler_event.set()
+            self.scheduler_thread.join(timeout=5) 
+            if self.scheduler_thread.is_alive():
+                logger.warning("Scheduler thread did not stop gracefully.")
+            else:
+                logger.info("XML Download scheduler thread stopped.")
+            self.scheduler_thread = None
+        else:
+            logger.info("Scheduler not running or already stopped.")
+
     def get_status(self):
-        """Zwraca aktualny status modułu pobierania XML"""
         return {
-            'running': self.running,
-            'interval_minutes': self.interval,
+            'running': self.scheduler_thread is not None and self.scheduler_thread.is_alive(),
             'config': self.config,
-            'last_download': self.config.get('last_download'),
-            'download_history': self.config.get('download_history', [])[-10:] # Ostatnie 10 wpisów
+            'next_run': str(schedule.next_run()) if schedule.jobs else 'Not scheduled'
         }
+
+# Global instance
+xml_downloader_instance = XMLDownloaderModule() # Renamed for clarity
+
+def initialize_xml_downloader():
+    logger.info("Initializing XML Downloader Module...")
+    xml_downloader_instance.start_scheduler()
+
+def get_xml_downloader_instance():
+    return xml_downloader_instance
