@@ -320,6 +320,33 @@
         overflow-x: auto;
         border-radius: var(--radius-lg);
         box-shadow: var(--shadow-md);
+        background-color: white;
+    }
+    
+    .products-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    
+    .products-table th,
+    .products-table td {
+        padding: 1rem 0.75rem;
+        vertical-align: middle;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .products-table th {
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+    
+    .products-table tr:last-child td {
+        border-bottom: none;
     }
     
     /* Animation for save button */
@@ -758,6 +785,48 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Toast notification system
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast-notification ${type}`;
+        
+        let bgColor = 'bg-green-500';
+        let icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>`;
+        
+        if (type === 'error') {
+            bgColor = 'bg-red-500';
+            icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>`;
+        } else if (type === 'warning') {
+            bgColor = 'bg-yellow-500';
+            icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>`;
+        } else if (type === 'info') {
+            bgColor = 'bg-blue-500';
+            icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>`;
+        }
+        
+        toast.className += ` ${bgColor}`;
+        toast.innerHTML = `<div class="flex items-center">${icon}<span>${message}</span></div>`;
+        
+        document.body.appendChild(toast);
+        
+        // Add the show class to trigger animation
+        setTimeout(() => toast.classList.add('show'), 10);
+        
+        // Automatically remove the toast after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+    
     // Filtrowanie produktów
     const searchInput = document.getElementById('searchQuery');
     const categorySelect = document.getElementById('categoryFilter');
@@ -767,6 +836,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterProducts() {
         const searchQuery = searchInput.value.toLowerCase();
         const categoryFilter = categorySelect.value;
+        let matchCount = 0;
         
         productRows.forEach(row => {
             const productName = row.getAttribute('data-name').toLowerCase();
@@ -779,8 +849,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             const matchesCategory = !categoryFilter || productCategory === categoryFilter;
             
-            row.style.display = (matchesSearch && matchesCategory) ? '' : 'none';
+            if (matchesSearch && matchesCategory) {
+                row.style.display = '';
+                matchCount++;
+            } else {
+                row.style.display = 'none';
+            }
         });
+        
+        // Show a message with filter results
+        if (searchQuery || categoryFilter) {
+            showToast(`Znaleziono ${matchCount} produktów pasujących do filtrów`, 'info');
+        }
     }
     
     // Dodaj obsługę filtrów, sprawdzając czy elementy istnieją
@@ -839,9 +919,19 @@ document.addEventListener('DOMContentLoaded', function() {
     if (selectAllCheckbox) {
         selectAllCheckbox.addEventListener('change', function() {
             const isChecked = this.checked;
+            let checkedCount = 0;
+            
             productCheckboxes.forEach(checkbox => {
-                checkbox.checked = isChecked;
+                const row = checkbox.closest('.product-row');
+                if (row.style.display !== 'none') {
+                    checkbox.checked = isChecked;
+                    if (isChecked) checkedCount++;
+                }
             });
+            
+            if (isChecked && checkedCount > 0) {
+                showToast(`Zaznaczono ${checkedCount} produktów`, 'info');
+            }
         });
     }
     
@@ -859,9 +949,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 .map(checkbox => parseInt(checkbox.getAttribute('data-id')));
                 
             if (selectedIds.length === 0) {
-                alert('Nie zaznaczono żadnych produktów');
+                showToast('Nie zaznaczono żadnych produktów', 'warning');
                 return;
             }
+            
+            // Add loader effect to button
+            const originalText = toggleAllBtn.innerHTML;
+            toggleAllBtn.innerHTML = '<span class="loading-spinner mr-2"></span>Wycofywanie...';
+            toggleAllBtn.disabled = true;
             
             // Wyślij żądanie do API
             fetch('/admin/bulk-toggle-availability', {
@@ -877,15 +972,19 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert(data.message);
-                    location.reload();
+                    showToast(data.message || 'Produkty zostały wycofane ze sprzedaży', 'success');
+                    setTimeout(() => location.reload(), 1500);
                 } else {
-                    alert('Wystąpił błąd: ' + data.message);
+                    showToast(data.message || 'Wystąpił błąd podczas wycofywania produktów', 'error');
+                    toggleAllBtn.innerHTML = originalText;
+                    toggleAllBtn.disabled = false;
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Wystąpił błąd podczas komunikacji z serwerem');
+                showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
+                toggleAllBtn.innerHTML = originalText;
+                toggleAllBtn.disabled = false;
             });
         });
     }
@@ -903,6 +1002,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 
+                // Add loader effect to button
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span class="loading-spinner mr-2"></span>Przetwarzanie...';
+                btn.disabled = true;
+                
                 // Wyślij żądanie do API
                 fetch('/admin/toggle-product-availability', {
                     method: 'POST',
@@ -917,15 +1021,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert(data.message);
-                        location.reload();
+                        showToast(data.message || 'Status produktu został zmieniony', 'success');
+                        setTimeout(() => location.reload(), 1500);
                     } else {
-                        alert('Wystąpił błąd: ' + data.message);
+                        showToast(data.message || 'Wystąpił błąd podczas zmiany statusu produktu', 'error');
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Wystąpił błąd podczas komunikacji z serwerem');
+                    showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
                 });
             });
         });
@@ -949,17 +1057,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Walidacja danych
                 if (!price || isNaN(parseFloat(price)) || parseFloat(price) < 0) {
-                    alert('Podaj poprawną cenę!');
+                    showToast('Podaj poprawną cenę!', 'error');
                     return;
                 }
                 if (!markup || isNaN(parseFloat(markup)) || parseFloat(markup) < 0) {
-                    alert('Podaj poprawny narzut!');
+                    showToast('Podaj poprawny narzut!', 'error');
                     return;
                 }
                 if (!deliveryCost || isNaN(parseFloat(deliveryCost)) || parseFloat(deliveryCost) < 0) {
-                    alert('Podaj poprawny koszt dostawy!');
+                    showToast('Podaj poprawny koszt dostawy!', 'error');
                     return;
                 }
+                
+                // Add loader effect to button
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span class="loading-spinner mr-2"></span>Zapisywanie...';
+                btn.disabled = true;
                 
                 // Wyślij żądanie do API
                 fetch('/admin/update-product', {
@@ -980,33 +1093,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     if (data.success) {
                         // Pokaż powiadomienie o powodzeniu
-                        const notification = document.createElement('div');
-                        notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
-                        notification.innerText = 'Zmiany zostały zapisane!';
-                        document.body.appendChild(notification);
-                        
-                        // Usuń powiadomienie po 3 sekundach
-                        setTimeout(() => {
-                            notification.remove();
-                        }, 3000);
+                        showToast('Zmiany zostały zapisane!', 'success');
                         
                         // Usuń klasę wskazującą na niezapisane zmiany
                         productRow.classList.remove('bg-yellow-50');
                         productRow.classList.remove('unsaved-changes');
                         
                         // Usuń podświetlenie przycisku zapisu
-                        const saveButton = productRow.querySelector('.save-product-changes');
-                        if (saveButton) {
-                            saveButton.classList.remove('font-bold');
-                            saveButton.classList.remove('animate-pulse');
-                        }
+                        btn.classList.remove('font-bold');
+                        btn.classList.remove('animate-pulse');
+                        
+                        // Restore button text
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.disabled = false;
+                        }, 500);
                     } else {
-                        alert('Wystąpił błąd: ' + data.message);
+                        showToast(data.message || 'Wystąpił błąd podczas zapisywania zmian', 'error');
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Wystąpił błąd podczas komunikacji z serwerem');
+                    showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
                 });
             });
         });
@@ -1031,6 +1143,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     saveButton.classList.add('font-bold');
                     saveButton.classList.add('animate-pulse');
                 }
+                
+                // Show toast notification for unsaved changes
+                showToast('Pamiętaj o zapisaniu zmian!', 'warning');
             });
         });
     }
@@ -1043,38 +1158,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 .map(checkbox => checkbox.getAttribute('data-id'));
                 
             if (selectedIds.length === 0) {
-                alert('Zaznacz produkty do aktualizacji');
+                showToast('Zaznacz produkty do aktualizacji', 'warning');
                 return;
             }
             
             // Pokaż modal z opcjami aktualizacji cen
-            const modal = document.getElementById('bulkUpdateModal');
-            if (modal) {
-                modal.classList.remove('hidden');
-            }
+            openModal();
         });
     }
     
     // Obsługa zamknięcia modala
     const closeModalBtn = document.getElementById('closeBulkUpdateModal');
     if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', function() {
-            const modal = document.getElementById('bulkUpdateModal');
-            if (modal) {
-                modal.classList.add('hidden');
-            }
-        });
+        closeModalBtn.addEventListener('click', closeModal);
     }
 
     // Obsługa modala masowej aktualizacji
     const cancelBulkUpdateBtn = document.getElementById('cancelBulkUpdate');
     if (cancelBulkUpdateBtn) {
-        cancelBulkUpdateBtn.addEventListener('click', function() {
-            const modal = document.getElementById('bulkUpdateModal');
-            if (modal) {
-                modal.classList.add('hidden');
-            }
-        });
+        cancelBulkUpdateBtn.addEventListener('click', closeModal);
     }
     
     // Włączanie/wyłączanie pola wartości kosztu dostawy
@@ -1116,7 +1218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .map(checkbox => checkbox.getAttribute('data-id'));
                 
             if (selectedIds.length === 0) {
-                alert('Nie zaznaczono żadnych produktów');
+                showToast('Nie zaznaczono żadnych produktów', 'warning');
                 return;
             }
             
@@ -1136,22 +1238,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 !vatValue && 
                 !deliveryTimeValue && 
                 (!deliveryCostOperation || !deliveryCostValue)) {
-                alert('Wybierz przynajmniej jedną operację aktualizacji');
+                showToast('Wybierz przynajmniej jedną operację aktualizacji', 'warning');
                 return;
             }
             
             if (priceOperation && !priceValue) {
-                alert('Podaj wartość dla operacji na cenie');
+                showToast('Podaj wartość dla operacji na cenie', 'warning');
                 return;
             }
             
             if (markupOperation && markupOperation !== '' && !markupValue) {
-                alert('Podaj wartość narzutu');
+                showToast('Podaj wartość narzutu', 'warning');
                 return;
             }
             
             if (deliveryCostOperation && deliveryCostOperation !== '' && !deliveryCostValue) {
-                alert('Podaj wartość kosztu dostawy');
+                showToast('Podaj wartość kosztu dostawy', 'warning');
                 return;
             }
             
@@ -1159,6 +1261,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!confirm(`Czy na pewno chcesz zaktualizować ${selectedIds.length} produktów?`)) {
                 return;
             }
+            
+            // Add loader effect to button
+            const originalText = applyBulkUpdateBtn.innerHTML;
+            applyBulkUpdateBtn.innerHTML = '<span class="loading-spinner mr-2"></span>Aktualizacja...';
+            applyBulkUpdateBtn.disabled = true;
             
             // Przygotuj dane do aktualizacji
             const updateData = {
@@ -1190,22 +1297,23 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert(data.message);
-                    location.reload();
+                    showToast(data.message || 'Produkty zostały zaktualizowane', 'success');
+                    setTimeout(() => location.reload(), 1500);
                 } else {
-                    alert('Wystąpił błąd: ' + data.message);
+                    showToast(data.message || 'Wystąpił błąd podczas aktualizacji produktów', 'error');
+                    applyBulkUpdateBtn.innerHTML = originalText;
+                    applyBulkUpdateBtn.disabled = false;
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Wystąpił błąd podczas komunikacji z serwerem');
+                showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
+                applyBulkUpdateBtn.innerHTML = originalText;
+                applyBulkUpdateBtn.disabled = false;
             });
             
             // Zamknij modal
-            const modal = document.getElementById('bulkUpdateModal');
-            if (modal) {
-                modal.classList.add('hidden');
-            }
+            closeModal();
         });
     }
 
@@ -1216,8 +1324,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!confirm('Czy na pewno chcesz zaktualizować ceny wszystkich produktów wg narzutu i aktualnych cen z XML?')) {
                 return;
             }
+            
+            // Add loader effect to button
+            const originalText = updateAllPricesBtn.innerHTML;
+            updateAllPricesBtn.innerHTML = '<span class="loading-spinner mr-2"></span>Aktualizowanie...';
             updateAllPricesBtn.disabled = true;
-            updateAllPricesBtn.textContent = 'Aktualizowanie...';
+            
             fetch('/admin/update-prices-with-markup', {
                 method: 'POST',
                 headers: {
@@ -1226,13 +1338,13 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-                alert(data.message);
-                location.reload();
+                showToast(data.message || 'Ceny zostały zaktualizowane', 'success');
+                setTimeout(() => location.reload(), 1500);
             })
             .catch(error => {
-                alert('Wystąpił błąd podczas aktualizacji cen!');
+                showToast('Wystąpił błąd podczas aktualizacji cen!', 'error');
+                updateAllPricesBtn.innerHTML = originalText;
                 updateAllPricesBtn.disabled = false;
-                updateAllPricesBtn.textContent = 'Aktualizuj ceny wg narzutu';
             });
         });
     }
@@ -1241,8 +1353,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.update-price-from-xml').forEach(btn => {
         btn.addEventListener('click', function() {
             const productId = this.getAttribute('data-id');
+            
+            // Add loader effect to button
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="loading-spinner"></span>';
             btn.disabled = true;
-            btn.title = 'Aktualizowanie...';
+            
             fetch('/admin/update-product-price-with-markup', {
                 method: 'POST',
                 headers: {
@@ -1252,29 +1368,31 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-                alert(data.message);
-                location.reload();
+                showToast(data.message || 'Cena została zaktualizowana', 'success');
+                setTimeout(() => location.reload(), 1500);
             })
             .catch(error => {
-                alert('Wystąpił błąd podczas aktualizacji ceny!');
+                showToast('Wystąpił błąd podczas aktualizacji ceny!', 'error');
+                btn.innerHTML = originalHTML;
                 btn.disabled = false;
-                btn.title = 'Przelicz cenę z XML';
             });
         });
     });
     
     // Generowanie opisów masowo
     const generateDescriptionsBulkBtn = document.getElementById('generateDescriptionsBulk');
-    generateDescriptionsBulkBtn.addEventListener('click', async function() {
-        const checkboxes = document.querySelectorAll('.product-checkbox:checked');
-        const ids = Array.from(checkboxes).map(cb => cb.getAttribute('data-id'));
-        if (ids.length === 0) {
-            alert('Zaznacz produkty, dla których chcesz wygenerować opisy.');
-            return;
-        }
-        if (!confirm('Na pewno wygenerować/aktualizować opisy dla zaznaczonych produktów?')) return;
-        generateDescriptionsRequest(ids);
-    });
+    if (generateDescriptionsBulkBtn) {
+        generateDescriptionsBulkBtn.addEventListener('click', async function() {
+            const checkboxes = document.querySelectorAll('.product-checkbox:checked');
+            const ids = Array.from(checkboxes).map(cb => cb.getAttribute('data-id'));
+            if (ids.length === 0) {
+                showToast('Zaznacz produkty, dla których chcesz wygenerować opisy', 'warning');
+                return;
+            }
+            if (!confirm('Na pewno wygenerować/aktualizować opisy dla zaznaczonych produktów?')) return;
+            generateDescriptionsRequest(ids, this);
+        });
+    }
 
     // Generowanie opisu pojedynczego produktu
     const generateDescriptionBtns = document.querySelectorAll('.generate-description');
@@ -1282,33 +1400,61 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             const id = this.getAttribute('data-id');
             if (!confirm('Na pewno wygenerować/aktualizować opis dla tego produktu?')) return;
-            generateDescriptionsRequest([id]);
+            generateDescriptionsRequest([id], this);
         });
     });
 
-    async function generateDescriptionsRequest(productIds) {
-        const btnText = 'Generowanie opisów...';
-        const oldText = generateDescriptionsBulkBtn.innerHTML;
-        generateDescriptionsBulkBtn.innerHTML = btnText;
-        generateDescriptionsBulkBtn.disabled = true;
+    async function generateDescriptionsRequest(productIds, buttonElement) {
+        // Disable all description buttons during the operation
+        const allButtons = [generateDescriptionsBulkBtn, ...generateDescriptionBtns];
+        const originalTexts = {};
+        
+        allButtons.forEach(btn => {
+            if (btn) {
+                originalTexts[btn.getAttribute('id') || btn.getAttribute('data-id')] = btn.innerHTML;
+                btn.innerHTML = '<span class="loading-spinner mr-2"></span>Generowanie...';
+                btn.disabled = true;
+            }
+        });
+        
         try {
             const res = await fetch('/admin/generate-product-descriptions', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ product_ids: productIds })
             });
+            
+            if (!res.ok) {
+                throw new Error(`Odpowiedź serwera: ${res.status} ${res.statusText}`);
+            }
+            
             const data = await res.json();
             if (data.success) {
-                alert(data.message || 'Opisy zostały zaktualizowane.');
-                window.location.reload();
+                showToast(data.message || 'Opisy zostały zaktualizowane', 'success');
+                setTimeout(() => window.location.reload(), 1500);
             } else {
-                alert(data.message || 'Nie udało się zaktualizować opisów.');
+                showToast(data.message || 'Nie udało się zaktualizować opisów', 'error');
+                // Restore all buttons
+                allButtons.forEach(btn => {
+                    if (btn) {
+                        const id = btn.getAttribute('id') || btn.getAttribute('data-id');
+                        btn.innerHTML = originalTexts[id] || 'Generuj opis';
+                        btn.disabled = false;
+                    }
+                });
             }
         } catch (e) {
-            alert('Błąd podczas generowania opisów: ' + e);
-        } finally {
-            generateDescriptionsBulkBtn.innerHTML = oldText;
-            generateDescriptionsBulkBtn.disabled = false;
+            console.error('Błąd podczas generowania opisów:', e);
+            showToast('Błąd podczas generowania opisów: ' + e, 'error');
+            
+            // Restore all buttons
+            allButtons.forEach(btn => {
+                if (btn) {
+                    const id = btn.getAttribute('id') || btn.getAttribute('data-id');
+                    btn.innerHTML = originalTexts[id] || 'Generuj opis';
+                    btn.disabled = false;
+                }
+            });
         }
     }
 
