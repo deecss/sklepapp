@@ -6938,3 +6938,8 @@ AssertionError: write() before start_response
 2025-05-22 12:17:10,712 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
 2025-05-22 12:17:11,045 - INFO - Zapisano konfigurację do data/xml_config.json
 2025-05-22 12:17:11,045 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 12:19:08,270 - INFO - 145.239.89.63 - - [22/May/2025 12:19:08] "[33mGET /robots.txt HTTP/1.1[0m" 404 -
+2025-05-22 12:27:11,267 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 12:27:11,267 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 12:27:11,510 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 12:27:11,510 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
