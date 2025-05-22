@@ -5,41 +5,91 @@
 {% block head %}
 {{ super() }}
 <style>
+    /* Modern UI Variables */
+    :root {
+        --primary-color: #4f46e5;
+        --primary-hover: #4338ca;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --light-bg: #f9fafb;
+        --border-color: #e5e7eb;
+        --text-main: #1f2937;
+        --text-secondary: #6b7280;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --radius-sm: 0.25rem;
+        --radius-md: 0.375rem;
+        --radius-lg: 0.5rem;
+        --transition-fast: 0.15s ease;
+        --transition-normal: 0.3s ease;
+    }
+    
     /* Animacje i efekty */
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
     }
     
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.2); }
+        70% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-2px); }
+        40%, 80% { transform: translateX(2px); }
+    }
+    
     .product-row {
-        transition: all 0.2s ease-in-out;
+        transition: all var(--transition-normal);
         animation: fadeIn 0.3s ease-in-out;
+        border-left: 3px solid transparent;
     }
     
     .product-row:hover {
-        background-color: rgba(249, 250, 251, 0.7);
+        background-color: rgba(249, 250, 251, 0.8);
         transform: translateY(-2px);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow: var(--shadow-md);
+        border-left: 3px solid var(--primary-color);
+    }
+    
+    .product-row.unsaved-changes {
+        background-color: rgba(255, 249, 219, 0.7) !important;
+        border-left: 3px solid var(--warning-color) !important;
     }
     
     .btn-icon {
-        transition: all 0.2s;
+        transition: all var(--transition-fast);
     }
     
     .btn-icon:hover {
-        transform: scale(1.2);
+        transform: scale(1.15);
     }
     
     .table-header {
         position: sticky;
         top: 0;
-        background-color: #f9fafb;
+        background-color: var(--light-bg);
         z-index: 10;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        box-shadow: var(--shadow-sm);
+        height: 60px;
+    }
+    
+    .table-header th {
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-secondary);
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     }
     
     .action-button {
-        transition: all 0.2s;
+        transition: all var(--transition-fast);
         position: relative;
         overflow: hidden;
     }
@@ -97,17 +147,27 @@
         color: rgba(239, 68, 68, 1);
     }
     
-    /* Hover effects for inputs */
+    /* Form controls styling */
+    input, select {
+        transition: all var(--transition-fast);
+        box-shadow: var(--shadow-sm);
+    }
+    
     input:hover, select:hover {
         border-color: #a5b4fc;
     }
     
-    /* Animated checkboxes */
+    input:focus, select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    }
+    
+    /* Custom checkbox styling */
     .animated-checkbox {
         position: relative;
         width: 1.2rem;
         height: 1.2rem;
-        border-radius: 0.25rem;
+        border-radius: var(--radius-sm);
         appearance: none;
         border: 2px solid #d1d5db;
         background-color: #fff;
@@ -117,8 +177,8 @@
     }
     
     .animated-checkbox:checked {
-        border-color: #4f46e5;
-        background-color: #4f46e5;
+        border-color: var(--primary-color);
+        background-color: var(--primary-color);
     }
     
     .animated-checkbox:checked::after {
@@ -138,20 +198,151 @@
         0% { opacity: 0; transform: rotate(45deg) scale(0.8); }
         100% { opacity: 1; transform: rotate(45deg) scale(1); }
     }
+    
+    /* Button animations and styles */
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        transition: all var(--transition-fast);
+    }
+    
+    .btn-primary:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .btn-success {
+        background-color: var(--success-color);
+        color: white;
+    }
+    
+    .btn-success:hover {
+        background-color: #0da271;
+    }
+    
+    .btn-danger {
+        background-color: var(--danger-color);
+        color: white;
+    }
+    
+    .btn-danger:hover {
+        background-color: #dc2626;
+    }
+    
+    .btn-warning {
+        background-color: var(--warning-color);
+        color: white;
+    }
+    
+    .btn-warning:hover {
+        background-color: #d97706;
+    }
+    
+    /* Card and container styling */
+    .card {
+        background-color: white;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        transition: all var(--transition-normal);
+    }
+    
+    .card:hover {
+        box-shadow: var(--shadow-lg);
+    }
+    
+    /* Table styling */
+    .products-table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+    }
+    
+    .products-table th:first-child {
+        border-top-left-radius: var(--radius-lg);
+    }
+    
+    .products-table th:last-child {
+        border-top-right-radius: var(--radius-lg);
+    }
+    
+    /* Toast notification */
+    .toast-notification {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        padding: 1rem;
+        background-color: var(--success-color);
+        color: white;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+        z-index: 50;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .toast-notification.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    /* Modal transitions */
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: opacity 0.3s ease;
+    }
+    
+    .modal-content {
+        transition: all 0.3s ease;
+    }
+    
+    /* Loader animations */
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .loading-spinner {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+    }
+    
+    /* Fix for table layout */
+    .table-container {
+        overflow-x: auto;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+    }
+    
+    /* Animation for save button */
+    .animate-pulse {
+        animation: pulse 2s infinite;
+    }
 </style>
 {% endblock %}
 
 {% block admin_content %}
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-6 text-gray-800 flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+    <h1 class="text-3xl font-bold mb-6 text-gray-800 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
         </svg>
         Wystawione produkty
+        <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+            {{ products|length }}
+        </span>
     </h1>
     
     <!-- Filtry produktów -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6 transition-all duration-300 hover:shadow-lg">
+    <div class="card p-6 mb-6 transition-all duration-300 hover:shadow-lg">
         <div class="flex flex-wrap gap-4 items-end">
             <div class="flex-1 min-w-[250px]">
                 <label for="searchQuery" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
@@ -179,7 +370,7 @@
             </div>
             
             <div class="flex items-end">
-                <button id="applyFilters" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 flex items-center">
+                <button id="applyFilters" class="btn-primary py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                     </svg>
@@ -190,8 +381,8 @@
     </div>
     
     <!-- Lista produktów -->
-    <div class="bg-white shadow-md rounded-lg p-6 transition-all duration-300 hover:shadow-lg">
-        <div class="flex justify-between items-center mb-6">
+    <div class="card p-6 transition-all duration-300">
+        <div class="flex justify-between items-center mb-6 flex-wrap gap-3">
             <h2 class="text-xl font-semibold text-gray-800 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -201,26 +392,26 @@
                     {{ products|length }}
                 </span>
             </h2>
-            <div class="flex gap-2">
-                <button id="bulkPriceUpdate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 flex items-center shadow-sm hover:shadow">
+            <div class="flex flex-wrap gap-2">
+                <button id="bulkPriceUpdate" class="btn-primary px-4 py-2 rounded-lg transition-all duration-200 flex items-center shadow-sm hover:shadow">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1 btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                     Masowa edycja
                 </button>
-                <button id="toggleAllAvailability" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 flex items-center shadow-sm hover:shadow">
+                <button id="toggleAllAvailability" class="btn-danger px-4 py-2 rounded-lg transition-all duration-200 flex items-center shadow-sm hover:shadow">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1 btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                     </svg>
                     Wycofaj wszystkie
                 </button>
-                <button id="updateAllPricesWithMarkup" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-200 flex items-center shadow-sm hover:shadow">
+                <button id="updateAllPricesWithMarkup" class="btn-success px-4 py-2 rounded-lg transition-all duration-200 flex items-center shadow-sm hover:shadow">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1 btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
                     Aktualizuj ceny
                 </button>
-                <button id="generateDescriptionsBulk" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all duration-200 flex items-center shadow-sm hover:shadow">
+                <button id="generateDescriptionsBulk" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all duration-200 flex items-center shadow-sm hover:shadow">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1 btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                     </svg>
@@ -230,8 +421,8 @@
         </div>
         
         {% if products %}
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
+        <div class="table-container">
+            <table class="products-table min-w-full divide-y divide-gray-200">
                 <thead class="table-header">
                     <tr class="bg-gray-50">
                         <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -458,8 +649,8 @@
 </div>
 
 <!-- Modal do masowej aktualizacji cen -->
-<div id="bulkUpdateModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-lg shadow-2xl p-6 max-w-md w-full transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+<div id="bulkUpdateModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden transition-opacity duration-300 ease-in-out modal-backdrop">
+    <div class="bg-white rounded-lg shadow-2xl p-6 max-w-md w-full transform transition-all duration-300 scale-95 opacity-0 modal-content" id="modalContent">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-lg font-medium text-gray-900 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -467,7 +658,7 @@
                 </svg>
                 Masowa aktualizacja produktów
             </h3>
-            <button id="closeBulkUpdateModal" class="text-gray-400 hover:text-gray-500 transition-colors duration-200">
+            <button id="closeBulkUpdateModal" class="text-gray-400 hover:text-gray-500 transition-colors duration-200 hover:rotate-90 transform">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -549,10 +740,13 @@
         </div>
         
         <div class="mt-6 flex justify-end gap-3">
-            <button id="cancelBulkUpdate" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all duration-200">
+            <button id="cancelBulkUpdate" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all duration-200 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
                 Anuluj
             </button>
-            <button id="applyBulkUpdate" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-200 flex items-center">
+            <button id="applyBulkUpdate" class="btn-primary px-4 py-2 rounded-md transition-all duration-200 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
@@ -1031,7 +1225,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .then(response => response.json())
-            .then data => {
+            .then(data => {
                 alert(data.message);
                 location.reload();
             })
@@ -1127,6 +1321,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bulkUpdateModal.classList.remove('hidden');
         // Opóźnienie animacji, aby była widoczna
         setTimeout(() => {
+            bulkUpdateModal.classList.add('opacity-100');
             modalContent.classList.remove('scale-95', 'opacity-0');
             modalContent.classList.add('scale-100', 'opacity-100');
         }, 10);
@@ -1134,6 +1329,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Funkcja zamykająca modal z animacją
     function closeModal() {
+        bulkUpdateModal.classList.remove('opacity-100');
         modalContent.classList.remove('scale-100', 'opacity-100');
         modalContent.classList.add('scale-95', 'opacity-0');
         setTimeout(() => {
