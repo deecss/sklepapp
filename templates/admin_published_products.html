@@ -1051,6 +1051,58 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const productId = this.getAttribute('data-id');
+                const available = this.getAttribute('data-available') === 'true';
+                const action = available ? 'wystawić' : 'wycofać';
+                
+                if (!confirm(`Czy na pewno chcesz ${action} ten produkt ze sprzedaży?`)) {
+                    return;
+                }
+                
+                // Add loader effect to button
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span class="loading-spinner mr-2"></span>Przetwarzanie...';
+                btn.disabled = true;
+                
+                // Wyślij żądanie do API
+                fetch('/admin/toggle-product-availability', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        available: available
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        showToast(data.message || 'Status produktu został zmieniony', 'success');
+                        setTimeout(() => location.reload(), 1500);
+                    } else {
+                        showToast(data.message || 'Wystąpił błąd podczas zmiany statusu produktu', 'error');
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+            });
+        });
+    }
     
     // Obsługa zapisywania zmian w produktach
     const saveButtons = document.querySelectorAll('.save-product-changes');
@@ -1424,7 +1476,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Generowanie opisów masowo
     const generateDescriptionsBulkBtn = document.getElementById('generateDescriptionsBulk');
     if (generateDescriptionsBulkBtn) {
-        generateDescriptionsBulkBtn.addEventListener('click', async function() {
+        generateDescriptionsBulkBtn.addEventListener('click', function(event) {
+            event.preventDefault();
             const checkboxes = document.querySelectorAll('.product-checkbox:checked');
             const ids = Array.from(checkboxes).map(cb => cb.getAttribute('data-id'));
             if (ids.length === 0) {
@@ -1438,66 +1491,270 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Generowanie opisu pojedynczego produktu
     const generateDescriptionBtns = document.querySelectorAll('.generate-description');
-    generateDescriptionBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const id = this.getAttribute('data-id');
-            if (!confirm('Na pewno wygenerować/aktualizować opis dla tego produktu?')) return;
-            generateDescriptionsRequest([id], this);
+    if (generateDescriptionBtns && generateDescriptionBtns.length > 0) {
+        generateDescriptionBtns.forEach(btn => {
+            btn.addEventListener('click', function(event) {
+                event.preventDefault();
+                const id = this.getAttribute('data-id');
+                if (!confirm('Na pewno wygenerować/aktualizować opis dla tego produktu?')) return;
+                generateDescriptionsRequest([id], this);
+            });
         });
-    });
+    }
 
-    async function generateDescriptionsRequest(productIds, buttonElement) {
-        // Disable all description buttons during the operation
-        const allButtons = [generateDescriptionsBulkBtn, ...generateDescriptionBtns];
-        const originalTexts = {};
+    function generateDescriptionsRequest(productIds, buttonElement) {
+        // Tworzymy modal z informacją o postępie
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50';
+        modalOverlay.id = 'description-generator-modal';
+        modalOverlay.style.opacity = '0';
+        modalOverlay.style.transition = 'opacity 0.3s ease-in-out';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'bg-white p-8 rounded-xl shadow-2xl max-w-md w-full transform transition-all duration-300';
+        modalContent.style.transform = 'scale(0.95)';
+        modalContent.style.opacity = '0';
+        
+        modalContent.innerHTML = `
+            <div class="flex flex-col items-center">
+                <div class="w-20 h-20 mb-6 relative">
+                    <div class="w-full h-full border-4 border-indigo-500 border-t-transparent rounded-full animate-spin absolute"></div>
+                    <div class="w-full h-full flex items-center justify-center text-indigo-600 font-bold text-xl" id="progress-percentage">0%</div>
+                </div>
+                
+                <h3 class="text-xl font-bold mb-4">Generowanie opisów produktów</h3>
+                
+                <div class="w-full mb-6">
+                    <div class="flex justify-between text-sm text-gray-600 mb-1">
+                        <span id="progress-status">Przygotowywanie...</span>
+                        <span id="progress-count">0/${productIds.length}</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-indigo-600 h-2.5 rounded-full transition-all duration-500 ease-out" id="progress-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-4 rounded-lg w-full mb-4 max-h-28 overflow-y-auto text-left">
+                    <div class="text-sm text-gray-600" id="status-log">
+                        <div class="animate-pulse">Inicjalizacja procesu generowania opisów...</div>
+                    </div>
+                </div>
+                
+                <div class="w-full" id="action-buttons" style="display: none;">
+                    <button type="button" id="close-modal-btn" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        OK
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        modalOverlay.appendChild(modalContent);
+        document.body.appendChild(modalOverlay);
+        
+        // Animacja pojawiania się modalu
+        setTimeout(() => {
+            modalOverlay.style.opacity = '1';
+            modalContent.style.opacity = '1';
+            modalContent.style.transform = 'scale(1)';
+        }, 10);
+        
+        // Elementy do aktualizacji statusu
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercentage = document.getElementById('progress-percentage');
+        const progressStatus = document.getElementById('progress-status');
+        const progressCount = document.getElementById('progress-count');
+        const statusLog = document.getElementById('status-log');
+        const actionButtons = document.getElementById('action-buttons');
+        
+        // Wyłącz wszystkie przyciski generowania opisów
+        const allButtons = [];
+        if (generateDescriptionsBulkBtn) allButtons.push(generateDescriptionsBulkBtn);
+        if (generateDescriptionBtns) allButtons.push(...generateDescriptionBtns);
         
         allButtons.forEach(btn => {
             if (btn) {
-                originalTexts[btn.getAttribute('id') || btn.getAttribute('data-id')] = btn.innerHTML;
+                btn.originalHTML = btn.innerHTML;
                 btn.innerHTML = '<span class="loading-spinner mr-2"></span>Generowanie...';
                 btn.disabled = true;
             }
         });
         
-        try {
-            const res = await fetch('/admin/generate-product-descriptions', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ product_ids: productIds })
-            });
+        // Funkcja dodająca wpis do logu
+        function addLogEntry(message, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = 'mb-1';
             
-            if (!res.ok) {
-                throw new Error(`Odpowiedź serwera: ${res.status} ${res.statusText}`);
+            let icon = '';
+            if (type === 'success') {
+                icon = '<span class="text-green-600 mr-1">✓</span>';
+                entry.className += ' text-green-600';
+            } else if (type === 'error') {
+                icon = '<span class="text-red-600 mr-1">✗</span>';
+                entry.className += ' text-red-600';
+            } else if (type === 'warning') {
+                icon = '<span class="text-yellow-600 mr-1">⚠</span>';
+                entry.className += ' text-yellow-600';
+            } else {
+                icon = '<span class="text-gray-400 mr-1">•</span>';
             }
             
-            const data = await res.json();
-            if (data.success) {
-                showToast(data.message || 'Opisy zostały zaktualizowane', 'success');
-                setTimeout(() => window.location.reload(), 1500);
+            entry.innerHTML = `${icon}${message}`;
+            entry.style.animation = 'fadeIn 0.3s ease-in-out';
+            
+            statusLog.appendChild(entry);
+            statusLog.scrollTop = statusLog.scrollHeight;
+        }
+        
+        // Aktualizacja postępu
+        function updateProgress(current, total) {
+            const percent = Math.round((current / total) * 100);
+            progressBar.style.width = `${percent}%`;
+            progressPercentage.textContent = `${percent}%`;
+            progressCount.textContent = `${current}/${total}`;
+        }
+        
+        // Zakończenie procesu
+        function finishProcess(success, message) {
+            if (success) {
+                progressStatus.textContent = 'Zakończono pomyślnie';
+                addLogEntry('Wszystkie opisy zostały wygenerowane poprawnie.', 'success');
             } else {
-                showToast(data.message || 'Nie udało się zaktualizować opisów', 'error');
-                // Restore all buttons
-                allButtons.forEach(btn => {
-                    if (btn) {
-                        const id = btn.getAttribute('id') || btn.getAttribute('data-id');
-                        btn.innerHTML = originalTexts[id] || 'Generuj opis';
-                        btn.disabled = false;
-                    }
+                progressStatus.textContent = 'Wystąpił błąd';
+                addLogEntry(message || 'Błąd podczas generowania opisów', 'error');
+            }
+            
+            // Pokaż przycisk OK
+            actionButtons.style.display = 'block';
+            
+            // Obsługa przycisku zamknięcia
+            const closeButton = document.getElementById('close-modal-btn');
+            if (closeButton) {
+                closeButton.addEventListener('click', function() {
+                    modalOverlay.style.opacity = '0';
+                    modalContent.style.opacity = '0';
+                    modalContent.style.transform = 'scale(0.95)';
+                    
+                    setTimeout(() => {
+                        modalOverlay.remove();
+                        if (success) {
+                            window.location.reload();
+                        } else {
+                            // Przywróć oryginalny wygląd przycisków
+                            allButtons.forEach(btn => {
+                                if (btn) {
+                                    btn.innerHTML = btn.originalHTML;
+                                    btn.disabled = false;
+                                }
+                            });
+                        }
+                    }, 300);
                 });
             }
-        } catch (error) {
-            console.error('Błąd podczas generowania opisów:', error);
-            showToast('Błąd podczas generowania opisów: ' + error, 'error');
-            
-            // Restore all buttons
-            allButtons.forEach(btn => {
-                if (btn) {
-                    const id = btn.getAttribute('id') || btn.getAttribute('data-id');
-                    btn.innerHTML = originalTexts[id] || 'Generuj opis';
-                    btn.disabled = false;
-                }
-            });
         }
+        
+        // Utworzenie XMLHttpRequest do wysłania żądania
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/admin/generate-product-descriptions', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.timeout = 180000; // 3 minuty timeout
+        
+        // Dodanie wpisów początkowych do logu
+        addLogEntry('Inicjalizacja procesu...');
+        addLogEntry(`Produkty do przetworzenia: ${productIds.length}`);
+        
+        // Obsługa odpowiedzi serwera
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 1) { // OPENED
+                addLogEntry('Nawiązywanie połączenia z serwerem...');
+                progressStatus.textContent = 'Łączenie...';
+            } else if (xhr.readyState === 2) { // HEADERS_RECEIVED
+                addLogEntry('Serwer przyjął żądanie.');
+                progressStatus.textContent = 'Żądanie zaakceptowane';
+            } else if (xhr.readyState === 3) { // LOADING
+                progressStatus.textContent = 'Przetwarzanie...';
+            } else if (xhr.readyState === 4) { // DONE
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        
+                        if (response.success) {
+                            updateProgress(productIds.length, productIds.length);
+                            addLogEntry('Operacja zakończona sukcesem!', 'success');
+                            addLogEntry(response.message || 'Opisy zostały wygenerowane poprawnie.', 'success');
+                            finishProcess(true, response.message);
+                        } else {
+                            addLogEntry('Wystąpił błąd po stronie serwera.', 'error');
+                            addLogEntry(response.message || 'Nie udało się wygenerować opisów.', 'error');
+                            finishProcess(false, response.message);
+                        }
+                    } catch (e) {
+                        addLogEntry('Błąd podczas przetwarzania odpowiedzi z serwera.', 'error');
+                        addLogEntry(e.message, 'error');
+                        finishProcess(false, 'Nie można przetworzyć odpowiedzi serwera');
+                    }
+                } else {
+                    addLogEntry(`Serwer zwrócił błąd: ${xhr.status} ${xhr.statusText}`, 'error');
+                    finishProcess(false, `Błąd serwera: ${xhr.status} ${xhr.statusText}`);
+                }
+            }
+        };
+        
+        // Obsługa postępu
+        xhr.upload.onprogress = function(event) {
+            if (event.lengthComputable) {
+                const percentComplete = Math.round((event.loaded / event.total) * 100);
+                progressBar.style.width = `${percentComplete}%`;
+                progressPercentage.textContent = `${percentComplete}%`;
+                addLogEntry(`Wysyłanie danych: ${percentComplete}%`);
+            }
+        };
+        
+        // Obsługa błędów
+        xhr.onerror = function() {
+            addLogEntry('Błąd połączenia z serwerem.', 'error');
+            finishProcess(false, 'Nie można połączyć się z serwerem');
+        };
+        
+        // Obsługa timeout
+        xhr.ontimeout = function() {
+            addLogEntry('Przekroczono czas oczekiwania na odpowiedź serwera.', 'error');
+            finishProcess(false, 'Przekroczono czas oczekiwania na odpowiedź');
+        };
+        
+        // Wysłanie żądania
+        addLogEntry('Wysyłanie żądania do serwera...');
+        xhr.send(JSON.stringify({ product_ids: productIds }));
+        
+        // Symulacja postępu - stopniowy wzrost paska podczas oczekiwania na odpowiedź
+        let progressSimulation = 0;
+        const progressInterval = setInterval(() => {
+            if (xhr.readyState === 4) {
+                clearInterval(progressInterval);
+                return;
+            }
+            
+            progressSimulation += 1;
+            if (progressSimulation <= 90) { // Max 90% during simulation
+                updateProgress(Math.floor(productIds.length * (progressSimulation / 100)), productIds.length);
+                
+                // Dodaj losowe komunikaty o postępie
+                if (progressSimulation % 15 === 0) {
+                    const messages = [
+                        'Pobieranie danych produktów...',
+                        'Analiza parametrów produktów...',
+                        'Generowanie zawartości opisu...',
+                        'Optymalizacja opisów dla SEO...',
+                        'Formatowanie treści opisów...',
+                        'Sprawdzanie poprawności gramatycznej...'
+                    ];
+                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                    addLogEntry(randomMessage);
+                }
+            }
+        }, 300);
     }
 
     // Dodanie animacji do modalu
