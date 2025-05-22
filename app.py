@@ -1668,7 +1668,8 @@ def ajax_add_to_cart():
 
 if __name__ == '__main__':
     # Uruchomienie pobierania XML w tle
-    xml_downloader.start()
+    # xml_downloader.start() # Stara, niepoprawna nazwa metody
+    xml_downloader.start_scheduler() # Poprawna nazwa metody
     
     # Uruchomienie aplikacji Flask
     socketio.run(app, host='0.0.0.0', port=5454, debug=True)

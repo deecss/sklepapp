@@ -86,7 +86,7 @@
         </div>
         
         <div class="mb-4">
-            <form id="xml-config-form" action="{{ url_for('update_xml_config') }}" method="post">
+            <form id="xml-config-form" action="{{ url_for('update_xml_config_route') }}" method="post">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                         <label for="xml-url-input" class="block text-sm font-medium text-gray-700 mb-1">URL pliku XML</label>
@@ -103,6 +103,9 @@
                     class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-2">
                     Zapisz ustawienia
                 </button>
+            </form>
+            <form method="POST" action="{{ url_for('download_xml_now_route') }}" class="mt-4">
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Pobierz XML teraz</button>
             </form>
         </div>
         
