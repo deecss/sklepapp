@@ -8086,3 +8086,110 @@ AssertionError: write() before start_response
 2025-05-22 19:58:51,920 - INFO - 145.239.89.63 - - [22/May/2025 19:58:51] "GET /produkt/fotel-biurowy-sofotel-porto-materialowy-czarny HTTP/1.1" 200 -
 2025-05-22 19:59:02,054 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
 2025-05-22 19:59:02,095 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:59:17,095 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:59:17,137 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:59:27,040 - INFO - 145.239.89.63 - - [22/May/2025 19:59:27] "GET /produkt/fotel-biurowy-z-mikrosiatki-sofotel-rotar-bezowy HTTP/1.1" 200 -
+2025-05-22 19:59:32,137 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:59:32,180 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:59:47,180 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:59:47,224 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:00:02,157 - INFO - 145.239.89.63 - - [22/May/2025 20:00:02] "GET /produkt/trampolina-ogrodowa-6ft183cm-z-siatka-wewnetrzna-i-drabinka-neo-sport HTTP/1.1" 200 -
+2025-05-22 20:00:02,224 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:00:02,269 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:00:17,270 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:00:17,311 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:00:32,312 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:00:32,353 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:00:47,354 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:00:47,396 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:00:50,451 - INFO - 145.239.89.63 - - [22/May/2025 20:00:50] "GET /kategoria/Akcesoria%20plażowe/Akcesoria%20do%20pływania HTTP/1.1" 200 -
+2025-05-22 20:00:50,904 - INFO - 145.239.89.63 - - [22/May/2025 20:00:50] "GET /produkt/namiot-tipi-dla-dzieci-ze-swiatelkami-nukido-rozowe-w-gwiazdki HTTP/1.1" 200 -
+2025-05-22 20:01:02,396 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:01:02,443 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:01:17,443 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:01:17,488 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:01:19,361 - INFO - 145.239.89.63 - - [22/May/2025 20:01:19] "GET /produkt/namiot-tipi-dla-dzieci-ze-swiatelkami-mietowe-w-gwiazdki HTTP/1.1" 200 -
+2025-05-22 20:01:32,488 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:01:32,530 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:01:47,530 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:01:47,576 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:01:47,939 - INFO - 145.239.89.63 - - [22/May/2025 20:01:47] "GET /produkt/trampolina-ogrodowa-8ft252cm-z-siatka-zewnetrzna-i-drabinka-neo-sport HTTP/1.1" 200 -
+2025-05-22 20:02:02,576 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:02:02,619 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:02:17,620 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:02:17,661 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:02:32,662 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:02:32,703 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:02:44,280 - INFO - 145.239.89.63 - - [22/May/2025 20:02:44] "GET /produkt/namiot-tipi-dla-dzieci-nk-406-nukido-jasno-rozowy HTTP/1.1" 200 -
+2025-05-22 20:02:47,703 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:02:47,749 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:03:02,749 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:03:02,791 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:03:12,751 - INFO - 145.239.89.63 - - [22/May/2025 20:03:12] "GET /produkt/namiot-tipi-dla-dzieci-nukido-dinozaury HTTP/1.1" 200 -
+2025-05-22 20:03:17,791 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:03:17,834 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:03:32,834 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:03:32,876 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:03:41,231 - INFO - 145.239.89.63 - - [22/May/2025 20:03:41] "GET /produkt/namiot-tipi-dla-dzieci-ze-swiatelkami-nukido-szary-w-gwiazdki HTTP/1.1" 200 -
+2025-05-22 20:03:47,876 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:03:47,916 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:04:02,917 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:04:02,957 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:04:09,700 - INFO - 145.239.89.63 - - [22/May/2025 20:04:09] "GET /produkt/trampolina-ogrodowa-14ft435cm-z-siatka-wewnetrzna-i-drabinka-neo-sport HTTP/1.1" 200 -
+2025-05-22 20:04:17,957 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:04:17,997 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:04:32,997 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:04:33,037 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:04:48,038 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:04:48,079 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:05:03,080 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:05:03,123 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:05:05,974 - INFO - 145.239.89.63 - - [22/May/2025 20:05:05] "GET /produkt/namiot-tipi-dla-dzieci-nk-406-nukido-szary HTTP/1.1" 200 -
+2025-05-22 20:05:18,123 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:05:18,168 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:05:28,817 - INFO - 145.239.89.63 - - [22/May/2025 20:05:28] "GET / HTTP/1.1" 200 -
+2025-05-22 20:05:33,168 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:05:33,209 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:05:34,501 - INFO - 145.239.89.63 - - [22/May/2025 20:05:34] "GET /produkt/namiot-tipi-dla-dzieci-ze-swiatelkami-nukido-niebieski HTTP/1.1" 200 -
+2025-05-22 20:05:48,210 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:05:48,249 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:06:03,249 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:06:03,291 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:06:18,292 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:06:18,333 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:06:30,825 - INFO - 145.239.89.63 - - [22/May/2025 20:06:30] "GET /produkt/namiot-tipi-dla-dzieci-nk-406-nukido-zielony HTTP/1.1" 200 -
+2025-05-22 20:06:33,334 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:06:33,373 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:06:48,373 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:06:48,417 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:07:03,417 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:07:03,460 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:07:18,460 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:07:18,502 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:07:27,083 - INFO - 145.239.89.63 - - [22/May/2025 20:07:27] "GET /produkt/trampolina-ogrodowa-dla-dzieci-140-cm-45ft-neo-sport HTTP/1.1" 200 -
+2025-05-22 20:07:33,503 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:07:33,543 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:07:34,836 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 20:07:34,836 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 20:07:48,544 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:07:48,586 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:07:55,548 - INFO - 145.239.89.63 - - [22/May/2025 20:07:55] "GET /produkt/namiot-tipi-dla-dzieci-z-girlanda-i-swiatelkami-nukido-bialo-czarny-z-panda HTTP/1.1" 200 -
+2025-05-22 20:07:55,982 - INFO - 145.239.89.63 - - [22/May/2025 20:07:55] "GET /kategoria/Materace%20dmuchane/Materace%20Intex HTTP/1.1" 200 -
+2025-05-22 20:08:03,587 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:08:03,631 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:08:18,632 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:08:18,674 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:08:24,436 - INFO - 145.239.89.63 - - [22/May/2025 20:08:24] "GET /produkt/namiot-tipi-dla-dzieci-z-girlanda-i-swiatelkami-nukido-rozowy HTTP/1.1" 200 -
+2025-05-22 20:08:33,674 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:08:33,719 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:08:46,893 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 20:08:46,893 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 20:08:48,719 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:08:48,760 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:08:52,915 - INFO - 145.239.89.63 - - [22/May/2025 20:08:52] "GET /produkt/namiot-tipi-dla-dzieci-ze-swiatelkami-nukido-szary HTTP/1.1" 200 -
+2025-05-22 20:09:03,760 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:09:03,810 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:09:18,811 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:09:18,856 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:09:33,856 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:09:33,903 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
