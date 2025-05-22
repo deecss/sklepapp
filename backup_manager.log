@@ -8661,3 +8661,27 @@ AssertionError: write() before start_response
 2025-05-22 21:20:56,533 - INFO - 145.239.89.63 - - [22/May/2025 21:20:56] "GET /produkt/fotel-biurowy-z-mikrosiatki-sofotel-nicea-czarny HTTP/1.1" 200 -
 2025-05-22 21:20:56,978 - INFO - 145.239.89.63 - - [22/May/2025 21:20:56] "GET /produkt/pompa-filtrujaca-piaskowa-3500-lh-intex-26642 HTTP/1.1" 200 -
 2025-05-22 21:22:00,799 - INFO - 145.239.89.63 - - [22/May/2025 21:22:00] "GET /produkt/fotel-biurowy-z-mikrosiatka-praga-jasnoniebieski HTTP/1.1" 200 -
+2025-05-22 21:23:14,857 - INFO - 145.239.89.63 - - [22/May/2025 21:23:14] "GET /produkt/fotel-biurowy-z-mikrosiatki-sofotel-ryga-czarny HTTP/1.1" 200 -
+2025-05-22 21:25:13,621 - INFO - 145.239.89.63 - - [22/May/2025 21:25:13] "GET /produkt/fotel-biurowy-z-mikrosiatka-praga-czarny HTTP/1.1" 200 -
+2025-05-22 21:26:05,298 - INFO - 145.239.89.63 - - [22/May/2025 21:26:05] "GET /kategoria/Materace/Materace%20Intex HTTP/1.1" 200 -
+2025-05-22 21:27:39,123 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:27:39,123 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:27:47,975 - INFO - 145.239.89.63 - - [22/May/2025 21:27:47] "GET /kategoria/Akcesoria%20plażowe/Zabawki%20dmuchane HTTP/1.1" 200 -
+2025-05-22 21:28:39,640 - INFO - 145.239.89.63 - - [22/May/2025 21:28:39] "GET /kategoria/Elektronika/Klimatyzatory%20i%20wentylatory HTTP/1.1" 200 -
+2025-05-22 21:28:42,331 - INFO - Utworzono kopię zapasową: data/backups/products_20250522_212842.json
+2025-05-22 21:28:42,333 - INFO - Usunięto starą kopię zapasową: products_20250522_114708.json
+2025-05-22 21:28:51,029 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:28:51,029 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:29:31,309 - INFO - 145.239.89.63 - - [22/May/2025 21:29:31] "GET /kategoria/Elektronika/Osuszacze%20i%20oczyszczacze%20powietrza HTTP/1.1" 200 -
+2025-05-22 21:30:29,275 - INFO - 145.239.89.63 - - [22/May/2025 21:30:29] "[33mGET /robots.txt HTTP/1.1[0m" 404 -
+2025-05-22 21:30:31,733 - INFO - 145.239.89.63 - - [22/May/2025 21:30:31] "GET / HTTP/1.1" 200 -
+2025-05-22 21:30:50,717 - INFO - 145.239.89.63 - - [22/May/2025 21:30:50] "GET /static/notifications.js HTTP/1.1" 200 -
+2025-05-22 21:30:54,528 - INFO - 145.239.89.63 - - [22/May/2025 21:30:54] "GET /static/category-dropdown.js HTTP/1.1" 200 -
+2025-05-22 21:30:54,739 - INFO - 145.239.89.63 - - [22/May/2025 21:30:54] "GET /static/product-description.css HTTP/1.1" 200 -
+2025-05-22 21:30:59,651 - INFO - 145.239.89.63 - - [22/May/2025 21:30:59] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 21:31:00,503 - INFO - 145.239.89.63 - - [22/May/2025 21:31:00] "GET /static/socket-enhanced.js HTTP/1.1" 200 -
+2025-05-22 21:31:12,448 - INFO - 145.239.89.63 - - [22/May/2025 21:31:12] "GET /kategoria/Materace/Materace%20do%20spania HTTP/1.1" 200 -
+2025-05-22 21:31:13,113 - INFO - 145.239.89.63 - - [22/May/2025 21:31:13] "GET /kategoria/Turystyka%20&%20Hobby/Pontony/Kajaki%20dmuchane HTTP/1.1" 200 -
+2025-05-22 21:32:04,798 - INFO - 145.239.89.63 - - [22/May/2025 21:32:04] "GET /kategoria/Pompki/Pompki%20elektryczne HTTP/1.1" 200 -
+2025-05-22 21:32:05,252 - INFO - 145.239.89.63 - - [22/May/2025 21:32:05] "GET /kategoria/Akcesoria%20do%20basenów/Filtry%20do%20pomp HTTP/1.1" 200 -
+2025-05-22 21:32:06,076 - INFO - 145.239.89.63 - - [22/May/2025 21:32:06] "GET /kategoria/Trampoliny/Części%20do%20trampolin/Maty%20do%20trampolin HTTP/1.1" 200 -
