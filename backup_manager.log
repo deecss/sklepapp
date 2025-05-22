@@ -8633,3 +8633,15 @@ AssertionError: write() before start_response
 2025-05-22 20:58:49,456 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
 2025-05-22 20:59:33,149 - INFO - 145.239.89.63 - - [22/May/2025 20:59:33] "GET /produkt/pompa-piaskowa-10500-lh-intex-26648 HTTP/1.1" 200 -
 2025-05-22 20:59:47,546 - INFO - 145.239.89.63 - - [22/May/2025 20:59:47] "GET /kategoria/Materace%20dmuchane/Fotel%20dmuchany HTTP/1.1" 200 -
+2025-05-22 21:02:55,750 - INFO - 145.239.89.63 - - [22/May/2025 21:02:55] "GET /kategoria/Turystyka/Namioty%20plażowe HTTP/1.1" 200 -
+2025-05-22 21:03:47,420 - INFO - 145.239.89.63 - - [22/May/2025 21:03:47] "GET /kategoria/Akcesoria%20basenowe/Czyszczenie%20basenu HTTP/1.1" 200 -
+2025-05-22 21:04:43,828 - INFO - 145.239.89.63 - - [22/May/2025 21:04:43] "GET /kategoria/Krzesła,%20fotele%20i%20hokery/Krzesła%20biurowe HTTP/1.1" 200 -
+2025-05-22 21:05:57,883 - INFO - 145.239.89.63 - - [22/May/2025 21:05:57] "GET /kategoria/Elektronika/Higiena%20jamy%20ustnej HTTP/1.1" 200 -
+2025-05-22 21:07:11,965 - INFO - 145.239.89.63 - - [22/May/2025 21:07:11] "GET /kategoria/Akcesoria%20do%20basenów/Skimmer%20do%20basenu HTTP/1.1" 200 -
+2025-05-22 21:07:38,085 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:07:38,085 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:08:26,063 - INFO - 145.239.89.63 - - [22/May/2025 21:08:26] "GET /kategoria/Akcesoria%20plażowe/Do%20nauki%20pływania HTTP/1.1" 200 -
+2025-05-22 21:08:49,998 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:08:49,998 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:09:40,106 - INFO - 145.239.89.63 - - [22/May/2025 21:09:40] "GET /kategoria/Plaża/Rękawki%20do%20pływania HTTP/1.1" 200 -
+2025-05-22 21:12:08,249 - INFO - 145.239.89.63 - - [22/May/2025 21:12:08] "GET /kategoria/Turystyka%20&%20Hobby/Trampoliny%20ogrodowe HTTP/1.1" 200 -
