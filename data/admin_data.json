@@ -1,0 +1,77 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password_hash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "role": "admin",
+      "created_at": 1747948331.1237326
+    }
+  ],
+  "orders": [
+    {
+      "id": "7c75a646-8612-4d63-bba8-deaeea08b61e",
+      "customer": {
+        "name": "yedtdtd",
+        "email": "kdfghbv@wp.pl",
+        "phone": "4242424",
+        "address": "fasfa",
+        "postcode": "fafaf",
+        "city": "afaffa"
+      },
+      "items": [
+        {
+          "EAN": "5908220477945",
+          "available_for_sale": true,
+          "category": "Fotele sk\u00f3rzane",
+          "category_path": [
+            "Krzes\u0142a, fotele i hokery",
+            "Krzes\u0142a biurowe",
+            "Fotele sk\u00f3rzane"
+          ],
+          "description": "<div id=\"opis-import\">\n<div class=\"row\">\n<div class=\"full\"><img alt=\"2290\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2290/0_1747947689.webp\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\"><img alt=\"2290\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2290/1_1747947690.webp\"/></div>\n<div class=\"half\">\n<h2>Krzes\u0142o biurowe w nowoczesnej stylistyce</h2>\n<p>Fotel biurowy Praga zosta\u0142 zaprojektowany z my\u015bl\u0105 o osobach ceni\u0105cych sobie wygod\u0119 oraz nowoczesn\u0105 stylistyk\u0119.</p>\n<p><strong>G\u0142\u00f3wne cechy:</strong></p>\n<ul>\n<li>oddychaj\u0105ce obicie z mikrosiatki,</li>\n<li>regulacja wysoko\u015bci siedziska,</li>\n<li>regulacja u\u0142o\u017cenia zag\u0142\u00f3wka,</li>\n<li>podw\u00f3jne, gumowane k\u00f3\u0142ka.</li>\n</ul>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"full\">\n<h3>Idealny dla ka\u017cdego!</h3>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"full\"><img alt=\"2290\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2290/2_1747947690.webp\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\">\n<h3>Wyj\u0105tkowy design</h3>\n<ul>\n<li>wygoda zamkni\u0119ta w niebanalnym wygl\u0105dzie.</li>\n</ul>\n<p>Wyj\u0105tkowo\u015b\u0107 fotela Praga podkre\u015blona zosta\u0142a dzi\u0119ki wykorzystaniu <strong>mi\u0119kkiej</strong> i <strong>oddychaj\u0105cej</strong> <strong>mikrosiatki </strong>w po\u0142\u0105czeniu z <strong>nowoczesnym designem.</strong></p>\n</div>\n<div class=\"half\"><img alt=\"2290\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2290/3_1747947690.webp\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\"><img alt=\"2290\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2290/4_1747947690.webp\"/></div>\n<div class=\"half\">\n<h3>Regulowany- dostosujesz go do siebie!</h3>\n<ul>\n<li><strong>regulacja wysoko\u015bci</strong> siedziska</li>\n<li><strong>regulacja zag\u0142\u00f3wka</strong></li>\n<li><strong>regulacja pochylenia</strong> - mo\u017cliwo\u015b\u0107 bujania lub zablokowania fotela w pozycji pionowej</li>\n</ul>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"full\">\n<h3>Dopracowany w ka\u017cdym calu</h3>\n<ul>\n<li>ergonomiczny kszta\u0142t fotela podpieraj\u0105cy odcinek l\u0119d\u017awiowy</li>\n<li>regulowany zag\u0142\u00f3wek</li>\n<li>wykonany z oddychaj\u0105cej mikrosiatki</li>\n<li>stabilna, pi\u0119cionoga podstawa</li>\n</ul>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"full\"><img alt=\"2290\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2290/5_1747947691.webp\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\">\n<h3>Budowa fotela:</h3>\n<ol>\n<li><strong>regulowany zag\u0142\u00f3wek</strong> zapewni odpoczynek mi\u0119\u015bniom karku</li>\n<li><strong>profilowane,</strong>\u00a0wysokie oparcie wykonane ze przewiewnej mikrosiatki</li>\n<li><strong>cz\u0119\u015b\u0107 \u015brodkowa</strong> zapewni wsparcie dla l\u0119d\u017awi</li>\n<li><strong>wytrzyma\u0142e pod\u0142okietniki</strong> z tworzywa, odporne na zarysowania i uderzenia</li>\n<li><strong>mi\u0119kkie siedzisko</strong></li>\n<li><strong>podno\u015bnik gazowy</strong>\u00a0zapewnia p\u0142ynn\u0105 regulacj\u0119 wysoko\u015bci siedziska</li>\n<li><strong>podstawa z gumowanymi k\u00f3\u0142kami</strong>, kt\u00f3re nie rysuj\u0105 pod\u0142ogi</li>\n</ol>\n</div>\n<div class=\"half\"><img alt=\"2290\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2290/6_1747947691.webp\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\"><img alt=\"2290\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2290/7_1747947691.webp\"/></div>\n<div class=\"half\">\n<h3>Wymiary fotela</h3>\n<ul>\n<li>maksymalna wysoko\u015b\u0107 ca\u0142kowita:128 cm</li>\n<li>szeroko\u015b\u0107 ca\u0142kowita: 64 cm</li>\n<li>wysoko\u015b\u0107 oparcia: 83 cm</li>\n<li>maksymalna wysoko\u015b\u0107 siedziska: 50 cm</li>\n<li>minimalna wysoko\u015b\u0107 siedziska: 45 cm</li>\n<li>g\u0142\u0119boko\u015b\u0107 siedziska: 46 cm</li>\n</ul>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"full\"><img alt=\"2290\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2290/8_1747947691.webp\"/></div>\n</div>\n</div>",
+          "discounted_price": 231.24,
+          "id": "2290",
+          "image": "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16269.jpg",
+          "images": [
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16269.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16262.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16263.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16264.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16265.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16266.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16273.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16267.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16268.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16270.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16271.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-z-mikrosiatka-p_16272.jpg"
+          ],
+          "last_modified": "2025-05-22 23:01:31",
+          "markup_percent": 98.0,
+          "name": "Fotel biurowy z mikrosiatk\u0105 Praga - czarny",
+          "original_price": 272.05,
+          "price": 538.66,
+          "price_net_xml": 221.18,
+          "producer": "Sofotel",
+          "stock": 40,
+          "url": "https://janshop.pl/p4698,fotel-biurowy-z-mikrosiatka-praga--czarny.html",
+          "uuid": "a92b46be649f80d5e776f16f004988f614463",
+          "vat": 23,
+          "xml_id": "2290"
+        }
+      ],
+      "subtotal": 538.66,
+      "delivery_cost": 0.0,
+      "total": 538.66,
+      "payment_method": "bank_transfer",
+      "status": "new",
+      "created_at": 1747948365.940148,
+      "payment_id": "0649ca11-f12e-4983-abe5-c6ec2b5cb27f"
+    }
+  ],
+  "stats": {
+    "total_orders": 1,
+    "total_revenue": 538.66,
+    "most_popular_product": "2290"
+  }
+}

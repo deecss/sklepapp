@@ -4,7 +4,7 @@
     <div class="flex justify-between items-center">
         <div>
             <h1 class="text-2xl font-bold text-gray-800">Zamówienie #{{ order.id }}</h1>
-            <p class="text-gray-600">Data: {{ order.data.date }}</p>
+            <p class="text-gray-600">Data: {{ order.created_at | format_datetime if order.created_at else 'Brak daty' }}</p>
         </div>
         <a href="{{ url_for('admin_orders') }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
             Powrót do listy
@@ -53,15 +53,15 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        {% for item in order.data.items %}
+                        {% for item in order.items %}
                         <tr>
                             <td class="px-4 py-3 text-sm text-gray-900">{{ item.name }}</td>
-                            <td class="px-4 py-3 text-sm text-gray-900 text-right">{{ item.price }} zł</td>
+                            <td class="px-4 py-3 text-sm text-gray-900 text-right">{{ "%.2f" | format(item.price) }} zł</td>
                         </tr>
                         {% endfor %}
                         <tr class="bg-gray-50">
                             <td class="px-4 py-3 text-sm font-bold text-gray-900">SUMA</td>
-                            <td class="px-4 py-3 text-sm font-bold text-gray-900 text-right">{{ order.data.total }} zł</td>
+                            <td class="px-4 py-3 text-sm font-bold text-gray-900 text-right">{{ "%.2f" | format(order.total) }} zł</td>
                         </tr>
                     </tbody>
                 </table>
@@ -71,12 +71,12 @@
         <div>
             <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Metoda płatności</h3>
             <p class="text-sm text-gray-900">
-                {% if order.data.payment == 'przelew' %}
+                {% if order.payment_method == 'bank_transfer' %}
                     Przelew bankowy
-                {% elif order.data.payment == 'pobranie' %}
+                {% elif order.payment_method == 'cash_on_delivery' %}
                     Płatność za pobraniem
                 {% else %}
-                    {{ order.data.payment }}
+                    {{ order.payment_method }}
                 {% endif %}
             </p>
         </div>
@@ -88,33 +88,33 @@
         <div class="space-y-4">
             <div>
                 <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Imię i nazwisko</h3>
-                <p class="text-sm text-gray-900">{{ order.data.customer.name }}</p>
+                <p class="text-sm text-gray-900">{{ order.customer.name }}</p>
             </div>
             
             <div>
                 <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Email</h3>
-                <p class="text-sm text-gray-900">{{ order.data.customer.email }}</p>
+                <p class="text-sm text-gray-900">{{ order.customer.email }}</p>
             </div>
             
             <div>
                 <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Telefon</h3>
-                <p class="text-sm text-gray-900">{{ order.data.customer.phone }}</p>
+                <p class="text-sm text-gray-900">{{ order.customer.phone }}</p>
             </div>
             
             <div>
                 <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Adres</h3>
-                <p class="text-sm text-gray-900">{{ order.data.customer.address }}</p>
+                <p class="text-sm text-gray-900">{{ order.customer.address }}</p>
             </div>
             
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Kod pocztowy</h3>
-                    <p class="text-sm text-gray-900">{{ order.data.customer.postcode }}</p>
+                    <p class="text-sm text-gray-900">{{ order.customer.postcode }}</p>
                 </div>
                 
                 <div>
                     <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Miasto</h3>
-                    <p class="text-sm text-gray-900">{{ order.data.customer.city }}</p>
+                    <p class="text-sm text-gray-900">{{ order.customer.city }}</p>
                 </div>
             </div>
         </div>
@@ -153,82 +153,48 @@
                 </form>
             </div>
         </div>
-        
-        <div class="mb-4">
-            <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Szczegóły płatności</h3>
-            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 text-sm">
-                <div class="sm:col-span-2">
-                    <dt class="font-medium text-gray-500">Metoda płatności</dt>
-                    <dd>
-                        {% if payment.payment_method == 'bank_transfer' %}
-                        Przelew bankowy
-                        {% elif payment.payment_method == 'cash_on_delivery' %}
-                        Płatność za pobraniem
-                        {% else %}
-                        {{ payment.payment_method }}
-                        {% endif %}
-                    </dd>
-                </div>
-                <div>
-                    <dt class="font-medium text-gray-500">Kwota</dt>
-                    <dd>{{ payment.amount }} zł</dd>
-                </div>
-                <div>
-                    <dt class="font-medium text-gray-500">Data utworzenia</dt>
-                    <dd>{{ payment.created_at }}</dd>
-                </div>
-                
-                {% if payment.payment_method == 'bank_transfer' %}
-                <div class="sm:col-span-2 mt-2 p-3 bg-blue-50 border border-blue-100 rounded-md">
-                    <p class="font-medium text-blue-800 mb-1">Dane do przelewu:</p>
-                    <p class="text-blue-700"><span class="font-medium">Nr konta:</span> {{ payment.payment_details.account_number }}</p>
-                    <p class="text-blue-700"><span class="font-medium">Odbiorca:</span> {{ payment.payment_details.account_owner }}</p>
-                    <p class="text-blue-700"><span class="font-medium">Tytuł:</span> {{ payment.payment_details.title }}</p>
-                </div>
-                {% elif payment.payment_method == 'cash_on_delivery' %}
-                <div class="sm:col-span-2 mt-2 p-3 bg-blue-50 border border-blue-100 rounded-md">
-                    <p class="font-medium text-blue-800 mb-1">Płatność za pobraniem:</p>
-                    <p class="text-blue-700"><span class="font-medium">Opłata:</span> {{ payment.payment_details.fee }} zł</p>
-                    <p class="text-blue-700"><span class="font-medium">Łączna kwota:</span> {{ payment.payment_details.total_amount }} zł</p>
-                </div>
-                {% endif %}
-            </dl>
-        </div>
-        
-        <div class="mb-4">
-            <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Historia płatności</h3>
-            <div class="border rounded-md overflow-hidden">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Data</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Notatka</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        {% for entry in payment.history %}
-                        <tr>
-                            <td class="px-4 py-2 text-sm text-gray-500">{{ entry.timestamp }}</td>
-                            <td class="px-4 py-2 text-sm">
-                                <span class="px-2 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                    {% if entry.status == 'pending' %}bg-yellow-100 text-yellow-800
-                                    {% elif entry.status == 'paid' %}bg-green-100 text-green-800
-                                    {% elif entry.status == 'failed' %}bg-red-100 text-red-800
-                                    {% elif entry.status == 'refunded' %}bg-purple-100 text-purple-800
-                                    {% else %}bg-gray-100 text-gray-800{% endif %}">
-                                    {{ entry.status }}
-                                </span>
-                            </td>
-                            <td class="px-4 py-2 text-sm text-gray-500">{{ entry.note|default('-') }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+
+        <div class="space-y-4">
+            <div>
+                <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">ID Płatności</h3>
+                <p class="text-sm text-gray-900">{{ payment.id }}</p>
             </div>
+            <div>
+                <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Kwota</h3>
+                <p class="text-sm text-gray-900">{{ "%.2f" | format(payment.amount) }} zł</p>
+            </div>
+            <div>
+                <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Metoda</h3>
+                <p class="text-sm text-gray-900">
+                    {% if payment.method == 'bank_transfer' %}
+                        Przelew bankowy
+                    {% elif payment.method == 'cash_on_delivery' %}
+                        Płatność za pobraniem
+                    {% else %}
+                        {{ payment.method }}
+                    {% endif %}
+                </p>
+            </div>
+            <div>
+                <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Data utworzenia</h3>
+                <p class="text-sm text-gray-900">{{ payment.created_at | format_datetime if payment.created_at else 'Brak daty' }}</p>
+            </div>
+            {% if payment.history %}
+            <div>
+                <h3 class="text-sm uppercase text-gray-500 font-medium mb-1">Historia statusów</h3>
+                <ul class="list-disc list-inside text-sm text-gray-700">
+                    {% for entry in payment.history %}
+                    <li>
+                        {{ entry.timestamp | format_datetime }}: {{ entry.status }}
+                        {% if entry.note %} ({{ entry.note }}){% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
         </div>
         {% else %}
-        <p class="text-gray-500">Brak informacji o płatności</p>
+        <p class="text-gray-600">Brak informacji o płatności dla tego zamówienia.</p>
         {% endif %}
     </div>
 </div>

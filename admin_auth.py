@@ -133,51 +133,68 @@ class AdminAuth:
     
     def add_order(self, order_data):
         # Dodanie nowego zamówienia do listy
-        order_id = len(self.orders) + 1
-        order = {
-            "id": order_id,
-            "data": order_data,
-            "status": "nowe"
-        }
-        self.orders.append(order)
+        # Używamy ID z order_data, jeśli istnieje, w przeciwnym razie generujemy nowe
+        # W tym przypadku order_data['id'] jest już unikalnym UUID
+        
+        # Sprawdź czy zamówienie o tym ID już istnieje, aby uniknąć duplikatów
+        if any(o.get('id') == order_data.get('id') for o in self.orders):
+            self.app.logger.warning(f"Order with ID {order_data.get('id')} already exists. Skipping add.")
+            return False # Lub zaktualizuj istniejące zamówienie
+
+        self.orders.append(order_data) # Zapisujemy cały słownik order_data
         
         # Aktualizacja statystyk
-        self.stats["total_orders"] += 1
+        self.stats["total_orders"] = len(self.orders) # Poprawione liczenie
         self.stats["total_revenue"] += order_data.get("total", 0)
         
-        # Aktualizacja najpopularniejszego produktu
+        # Aktualizacja najpopularniejszego produktu (logika może pozostać taka sama lub być uproszona)
         product_counts = {}
-        for item in order_data.get("items", []):
-            product_id = item.get("id")
-            if product_id in product_counts:
-                product_counts[product_id] += 1
-            else:
-                product_counts[product_id] = 1
+        for o in self.orders: # Przelicz na podstawie wszystkich zamówień
+            for item in o.get("items", []):
+                product_id = item.get("id") # Zakładamy, że item ma 'id'
+                if product_id: # Upewnij się, że product_id istnieje
+                    product_counts[product_id] = product_counts.get(product_id, 0) + 1
         
         if product_counts:
-            most_popular = max(product_counts.items(), key=lambda x: x[1])
-            self.stats["most_popular_product"] = most_popular[0]
+            # Znajdź produkt z największą liczbą wystąpień
+            most_popular_id = max(product_counts, key=product_counts.get)
+            # Możesz chcieć zapisać ID produktu lub jego nazwę, jeśli masz dostęp do ProductManager
+            self.stats["most_popular_product"] = str(most_popular_id) 
+        else:
+            self.stats["most_popular_product"] = None
         
-        return order_id
-    
+        self._save_data() # Zapisz dane po dodaniu zamówienia
+        self.app.logger.info(f"Order {order_data.get('id')} added and data saved. Total orders: {len(self.orders)}")
+        return True # Zwracamy True jeśli dodano pomyślnie
+
     def get_order(self, order_id):
         # Pobranie zamówienia po ID
         for order in self.orders:
-            if order["id"] == order_id:
+            if str(order.get("id")) == str(order_id): # Porównujemy stringi dla pewności
                 return order
+        self.app.logger.warning(f"Order with ID {order_id} not found in self.orders.")
         return None
     
     def update_order_status(self, order_id, new_status):
         # Aktualizacja statusu zamówienia
+        order_found = False
         for order in self.orders:
-            if order["id"] == order_id:
+            if str(order.get("id")) == str(order_id):
                 order["status"] = new_status
-                return True
+                order_found = True
+                break
+        if order_found:
+            self._save_data() # Zapisz zmiany
+            self.app.logger.info(f"Order {order_id} status updated to {new_status} and data saved.")
+            return True
+        self.app.logger.warning(f"Failed to update status for order {order_id}. Order not found.")
         return False
     
     def get_all_orders(self):
-        # Pobranie wszystkich zamówień
-        return self.orders
+        # Pobranie wszystkich zamówień, posortowane od najnowszego
+        sorted_orders = sorted(self.orders, key=lambda o: o.get('created_at', 0), reverse=True)
+        self.app.logger.info(f"Retrieving all orders. Count: {len(sorted_orders)}")
+        return sorted_orders
     
     def get_stats(self):
         # Pobranie statystyk

@@ -31,12 +31,12 @@
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200" id="orders-table">
-            {% for order in orders|reverse %}
+            {% for order in orders %}
             <tr data-status="{{ order.status }}">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ order.id }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.data.date }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.data.customer.name }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.data.total }} zł</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.created_at | format_datetime if order.created_at else 'Brak daty' }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ order.customer.name }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ "%.2f" | format(order.total) }} zł</td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                         {% if order.status == 'nowe' %}bg-yellow-100 text-yellow-800

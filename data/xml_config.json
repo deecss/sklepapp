@@ -2,14 +2,8 @@
   "url": "https://ergo.enode.ovh/products.xml",
   "interval_minutes": 10,
   "auto_start": false,
-  "last_download": "2025-05-22T23:06:33.358290",
+  "last_download": "2025-05-22T23:16:32.912774",
   "download_history": [
-    {
-      "timestamp": "2025-05-21T01:28:03.631600",
-      "filename": "data/products_latest.xml",
-      "success": true,
-      "size_bytes": 9962140
-    },
     {
       "timestamp": "2025-05-21T01:28:16.722705",
       "filename": "data/products_latest.xml",
@@ -593,13 +587,19 @@
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T22:56:33.033562",
+      "timestamp": "2025-05-22T22:56:32.318105",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T23:06:33.775519",
+      "timestamp": "2025-05-22T23:06:32.836726",
+      "filename": "data/products_latest.xml",
+      "success": true,
+      "size_bytes": 9962140
+    },
+    {
+      "timestamp": "2025-05-22T23:16:33.283980",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140

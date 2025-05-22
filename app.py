@@ -127,6 +127,20 @@ def timestamp_to_date(timestamp):
         return "Nieznana"
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(timestamp))
 
+@app.template_filter('format_datetime')
+def format_datetime_filter(value, format='%Y-%m-%d %H:%M:%S'):
+    """Formats a timestamp or datetime object into a string."""
+    if value is None:
+        return ""
+    if isinstance(value, (int, float)): # Assuming it's a timestamp
+        try:
+            return datetime.fromtimestamp(value).strftime(format)
+        except (TypeError, ValueError):
+            return str(value) # Fallback if timestamp is invalid
+    if isinstance(value, datetime):
+        return value.strftime(format)
+    return str(value) # Fallback for other types
+
 # Add custom slugify filter for templates
 @app.template_filter('slugify')
 def slugify_filter(text):
@@ -666,11 +680,11 @@ def order():
             'delivery_cost': delivery_cost,
             'total': total,
             'payment_method': request.form.get('payment_method'),
-            'status': 'new',
+            'status': 'new', # Initial status
             'created_at': datetime.now().timestamp()
         }
         
-        # Process payment - for demonstration only
+        # Process payment
         payment_method = request.form.get('payment_method')
         payment = payment_manager.create_payment(
             order_id=order_data['id'],
@@ -682,6 +696,12 @@ def order():
         # Store payment ID in order
         order_data['payment_id'] = payment['id']
         
+        # Save order using AdminAuth
+        if admin_auth.add_order(order_data):
+            app.logger.info(f"Order {order_data['id']} successfully added via admin_auth.add_order.")
+        else:
+            app.logger.error(f"Failed to add order {order_data['id']} via admin_auth.add_order.")
+
         # Store order in session for confirmation page
         session['last_order'] = order_data
         
@@ -715,7 +735,8 @@ def confirmation(order_id):
     return render_template('confirmation.html', 
                            order=order, 
                            payment=payment,
-                           payment_method_name=payment_method_name)
+                           payment_method_name=payment_method_name,
+                           payment_manager=payment_manager) # Added payment_manager to context
 
 @app.route('/regulamin')
 def terms():
