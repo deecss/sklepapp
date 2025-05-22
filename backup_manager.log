@@ -7023,3 +7023,15 @@ AssertionError: write() before start_response
 2025-05-22 14:44:58,752 - INFO - 145.239.89.63 - - [22/May/2025 14:44:58] "GET /static/search-enhanced.js HTTP/1.1" 200 -
 2025-05-22 14:44:59,131 - INFO - 145.239.89.63 - - [22/May/2025 14:44:59] "GET /static/search-enhanced.js HTTP/1.1" 200 -
 2025-05-22 14:45:00,774 - INFO - 145.239.89.63 - - [22/May/2025 14:45:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-22 14:45:17,952 - INFO - 145.239.89.63 - - [22/May/2025 14:45:17] "[33mGET /wp-login.php HTTP/1.1[0m" 404 -
+2025-05-22 14:46:44,206 - INFO - 145.239.89.63 - - [22/May/2025 14:46:44] "GET / HTTP/1.1" 200 -
+2025-05-22 14:46:44,738 - INFO - 145.239.89.63 - - [22/May/2025 14:46:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-22 14:46:45,035 - INFO - 145.239.89.63 - - [22/May/2025 14:46:45] "[33mGET /favicon.png HTTP/1.1[0m" 404 -
+2025-05-22 14:47:09,412 - INFO - Utworzono kopię zapasową: data/backups/products_20250522_144709.json
+2025-05-22 14:47:09,414 - INFO - Usunięto starą kopię zapasową: products_20250521_012815.json
+2025-05-22 14:47:10,113 - INFO - Utworzono kopię zapasową: data/backups/products_20250522_144710.json
+2025-05-22 14:47:10,115 - INFO - Usunięto starą kopię zapasową: products_20250521_012816.json
+2025-05-22 14:47:18,385 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 14:47:18,385 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 14:47:18,522 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 14:47:18,522 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
