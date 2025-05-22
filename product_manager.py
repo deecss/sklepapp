@@ -391,6 +391,44 @@ class ProductManager:
             self.logger.error(f"Błąd podczas aktualizacji produktu (ID: {product_id}): {str(e)}")
             return False
         
+    def update_product_description(self, product_id, description):
+        """
+        Aktualizuje opis produktu w bazie danych.
+        
+        Args:
+            product_id (str): ID produktu
+            description (str): Nowy opis produktu w HTML
+            
+        Returns:
+            bool: True jeśli aktualizacja się powiodła, False w przeciwnym razie
+        """
+        try:
+            # Znajdź produkt
+            product = None
+            for p in self.products:
+                if str(p.get('id')) == str(product_id):
+                    product = p
+                    break
+            
+            if not product:
+                self.logger.error(f"Nie znaleziono produktu o ID {product_id}")
+                return False
+            
+            # Aktualizuj opis
+            product['description'] = description
+            
+            # Aktualizuj datę modyfikacji
+            product['last_modified'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            
+            # Zapisz zmiany
+            self._save_to_db()
+            self.logger.info(f"Opis produktu {product.get('name')} (ID: {product_id}) został zaktualizowany")
+            return True
+        
+        except Exception as e:
+            self.logger.error(f"Błąd podczas aktualizacji opisu produktu (ID: {product_id}): {str(e)}")
+            return False
+    
     def get_product_lists(self):
         """
         Zwraca listy produktów zapisane w pliku JSON.
@@ -582,3 +620,508 @@ class ProductManager:
             return self.products
         else:
             return [p for p in self.products if p.get('available_for_sale', False)]
+    
+    def get_product_by_id(self, product_id, include_unavailable=True):
+        """
+        Zwraca produkt o podanym ID
+        
+        Args:
+            product_id (int): ID produktu
+            include_unavailable (bool): Czy zwracać produkt niedostępny do sprzedaży
+            
+        Returns:
+            dict: Znaleziony produkt lub None
+        """
+        product_id_str = str(product_id)
+        for product in self.products:
+            if str(product.get('id')) == product_id_str:
+                if include_unavailable or product.get('available_for_sale', False):
+                    return product
+                break
+        return None
+    
+    def get_product_by_slug(self, slug, include_unavailable=True):
+        """
+        Zwraca produkt o podanym slugu (przyjaznej nazwie)
+        
+        Args:
+            slug (str): Slug produktu
+            include_unavailable (bool): Czy zwracać produkt niedostępny do sprzedaży
+            
+        Returns:
+            dict: Znaleziony produkt lub None
+        """
+        from app import slugify
+        
+        for product in self.products:
+            product_slug = slugify(product.get('name', ''))
+            if product_slug == slug:
+                if include_unavailable or product.get('available_for_sale', False):
+                    return product
+                break
+        return None
+    
+    def get_products_by_category(self, category, include_unavailable=False):
+        """
+        Zwraca produkty z danej kategorii
+        
+        Args:
+            category (str): Nazwa kategorii
+            include_unavailable (bool): Czy zwracać produkty niedostępne do sprzedaży
+            
+        Returns:
+            list: Lista produktów z danej kategorii
+        """
+        # Przeszukaj zarówno po głównej kategorii jak i po ścieżce kategorii
+        products = []
+        for p in self.products:
+            is_in_category = (p.get('category') == category or 
+                            (p.get('category_path') and category in p.get('category_path')))
+            
+            if is_in_category and (include_unavailable or p.get('available_for_sale', False)):
+                products.append(p)
+                
+        return products
+    
+    def get_categories(self):
+        """Zwraca listę unikalnych kategorii"""
+        return list(set(p.get('category') for p in self.products if p.get('category')))
+    
+    def get_category_tree(self):
+        """
+        Zwraca hierarchiczną strukturę kategorii w formie drzewa
+        
+        Returns:
+            dict: Struktura drzewa kategorii
+        """
+        category_tree = {}
+        
+        for product in self.products:
+            # Pobierz ścieżkę kategorii
+            category_path = product.get('category_path', [])
+            
+            if not category_path:
+                continue
+                
+            # Buduj drzewo kategorii
+            current_level = category_tree
+            for i, category in enumerate(category_path):
+                if category not in current_level:
+                    # Jeśli to ostatni element ścieżki, ustaw wartość na pustą listę
+                    current_level[category] = {} if i < len(category_path) - 1 else {}
+                
+                # Przejdź do następnego poziomu
+                current_level = current_level[category]
+        
+        return category_tree
+    
+    def get_main_categories(self):
+        """
+        Zwraca listę głównych kategorii (pierwszego poziomu)
+        
+        Returns:
+            list: Lista głównych kategorii
+        """
+        categories = set()
+        for product in self.products:
+            category_path = product.get('category_path', [])
+            if category_path and len(category_path) > 0:
+                categories.add(category_path[0])
+        
+        return list(categories)
+        
+    def get_featured_categories(self):
+        """
+        Zwraca listę wyróżnionych kategorii do wyświetlenia w sekcji 'Popularne kategorie'
+        
+        Returns:
+            list: Lista wyróżnionych kategorii
+        """
+        # Sprawdź czy istnieje plik konfiguracyjny
+        config_path = os.path.join('data', 'featured_categories.json')
+        
+        try:
+            if os.path.exists(config_path):
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            else:
+                # Jeśli brak konfiguracji, domyślnie zwracamy pierwsze 4 kategorie
+                return self.get_main_categories()[:4]
+        except Exception as e:
+            self.logger.error(f"Błąd podczas wczytywania wyróżnionych kategorii: {str(e)}")
+            return self.get_main_categories()[:4]
+    
+    def save_featured_categories(self, categories):
+        """
+        Zapisuje listę wyróżnionych kategorii
+        
+        Args:
+            categories (list): Lista nazw kategorii do wyróżnienia
+            
+        Returns:
+            bool: True jeśli operacja zakończyła się powodzeniem, False w przeciwnym razie
+        """
+        config_path = os.path.join('data', 'featured_categories.json')
+        
+        try:
+            # Ogranicz liczbę kategorii do 6
+            if len(categories) > 6:
+                categories = categories[:6]
+                
+            # Upewnij się, że katalog istnieje
+            os.makedirs(os.path.dirname(config_path), exist_ok=True)
+            
+            # Zapisz konfigurację do pliku
+            with open(config_path, 'w', encoding='utf-8') as f:
+                json.dump(categories, f, ensure_ascii=False, indent=2)
+                
+            self.logger.info(f"Zapisano {len(categories)} wyróżnionych kategorii")
+            return True
+        except Exception as e:
+            self.logger.error(f"Błąd podczas zapisywania wyróżnionych kategorii: {str(e)}")
+            return False
+        
+    def get_recent_products(self, limit=20, days=None):
+        """
+        Zwraca ostatnio dodane produkty
+        
+        Args:
+            limit (int): Maksymalna liczba produktów do zwrócenia
+            days (int, optional): Liczba dni wstecz do sprawdzenia
+            
+        Returns:
+            list: Lista produktów
+        """
+        # Pobierz wszystkie produkty i posortuj według daty dodania (jeśli istnieje)
+        # Używamy bezpiecznej funkcji do sortowania, która radzi sobie z różnymi typami danych
+        def get_sort_key(product):
+            if not product:
+                return '2000-01-01'
+                
+            added_at = product.get('added_at')
+            
+            # Jeśli added_at nie istnieje
+            if added_at is None:
+                return '2000-01-01'
+                
+            # Jeśli added_at jest liczbą (timestamp), użyj jej
+            if isinstance(added_at, (int, float)):
+                try:
+                    # Konwertuj timestamp na string daty
+                    return datetime.fromtimestamp(added_at).strftime('%Y-%m-%d %H:%M:%S')
+                except (ValueError, TypeError, OverflowError):
+                    return '2000-01-01'
+                    
+            # Jeśli added_at jest stringiem (data), użyj go
+            elif isinstance(added_at, str):
+                return added_at
+                
+            # W przeciwnym razie użyj wartości domyślnej
+            return '2000-01-01'
+                
+        # Użyj try-except aby zabezpieczyć się przed nieprzewidzianymi błędami
+        try:
+            sorted_products = sorted(
+                self.products, 
+                key=get_sort_key, 
+                reverse=True
+            )
+        except Exception as e:
+            self.logger.error(f"Błąd podczas sortowania produktów: {str(e)}")
+            # Jeśli sortowanie się nie powiedzie, zwróć nieposortowaną listę
+            sorted_products = self.products[:limit]
+        
+        # Jeśli określono liczbę dni, sprawdź tylko te produkty
+        if days:
+            today = datetime.now()
+            filtered_products = []
+            
+            for product in sorted_products:
+                if 'added_at' in product:
+                    try:
+                        # Sprawdź typ added_at
+                        if isinstance(product['added_at'], str):
+                            # Próbuj parsować jako datę
+                            try:
+                                added_date = datetime.strptime(product['added_at'], '%Y-%m-%d %H:%M:%S')
+                                days_diff = (today - added_date).days
+                                if days_diff <= days:
+                                    filtered_products.append(product)
+                            except (ValueError, TypeError):
+                                # Jeśli nie można przetworzyć jako format stringa, dodaj produkt (lepiej pokazać więcej niż mniej)
+                                filtered_products.append(product)
+                        elif isinstance(product['added_at'], (int, float)):
+                            # Jeśli to timestamp, konwertuj na datę
+                            try:
+                                added_date = datetime.fromtimestamp(product['added_at'])
+                                days_diff = (today - added_date).days
+                                if days_diff <= days:
+                                    filtered_products.append(product)
+                            except (ValueError, TypeError, OverflowError):
+                                # Jeśli konwersja timestamp się nie powiodła, dodaj produkt
+                                filtered_products.append(product)
+                        else:
+                            # Nieznany format, dodaj produkt na wszelki wypadek
+                            filtered_products.append(product)
+                    except Exception as e:
+                        # W przypadku jakiegokolwiek błędu, dodaj produkt
+                        self.logger.error(f"Błąd podczas przetwarzania daty produktu: {str(e)}")
+                        filtered_products.append(product)
+                else:
+                    # Jeśli nie ma added_at, dodaj produkt (nie możemy filtrować po dacie)
+                    filtered_products.append(product)
+            
+            # Zwróć tylko określoną liczbę produktów
+            return filtered_products[:limit]
+        
+        # W przeciwnym razie po prostu zwróć ostatnio dodane produkty według limitu
+        return sorted_products[:limit]
+    
+    def add_product(self, product_data):
+        """
+        Dodaje nowy, ręcznie wprowadzony produkt do bazy danych.
+        Obsługuje ceny netto, marże i ceny brutto.
+        """
+        try:
+            new_product_id = self._get_next_id()
+            self.logger.info(f"Attempting to add new product with proposed ID: {new_product_id}")
+
+            vat_rate = float(product_data.get('vat', self.VAT_RATE))
+            
+            # Podstawowe informacje o produkcie
+            final_product_info = {
+                'id': new_product_id,
+                'xml_id': None, # Ręcznie dodane produkty nie mają xml_id
+                'name': product_data.get('name'),
+                'category': product_data.get('category'),
+                'description': product_data.get('description', ''),
+                'stock': int(product_data.get('stock', 0)),
+                'available_for_sale': product_data.get('available_for_sale', True),
+                'vat': vat_rate,
+                'added_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                'last_modified': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+
+            # Dodatkowe pola, które mogą być przekazane
+            optional_fields = ['image', 'shipping_time', 'shipping_cost', 'custom_name', 
+                               'custom_category', 'EAN', 'producer', 'url', 'uuid', 'category_path']
+            for field in optional_fields:
+                if field in product_data:
+                    final_product_info[field] = product_data[field]
+            
+            if 'shipping_cost' in final_product_info and final_product_info['shipping_cost'] is not None:
+                try:
+                    final_product_info['shipping_cost'] = float(final_product_info['shipping_cost'])
+                except ValueError:
+                    self.logger.warning(f"Invalid shipping_cost value for new product: {final_product_info['shipping_cost']}")
+                    final_product_info['shipping_cost'] = 0.0
+
+
+            # Logika cenowa
+            price_net_cost = product_data.get('price_net_cost') # Cena netto zakupu
+            markup_percent = product_data.get('markup_percent') # Marża procentowa
+            final_gross_price_direct = product_data.get('price') # Bezpośrednio podana cena sprzedaży brutto
+
+            if price_net_cost is not None:
+                price_net_cost = float(price_net_cost)
+                # original_price to cena bazowa brutto (po VAT, przed marżą sklepu)
+                base_gross_price = self._calculate_gross_price(price_net_cost, vat_rate)
+                final_product_info['original_price'] = base_gross_price
+                # Zapisujemy cenę netto zakupu w polu price_net_xml (lub dedykowanym polu price_net_cost)
+                final_product_info['price_net_xml'] = price_net_cost 
+
+                if markup_percent is not None:
+                    markup_percent = float(markup_percent)
+                    final_product_info['markup_percent'] = markup_percent
+                    # Cena sprzedaży brutto = cena bazowa brutto * (1 + marża/100)
+                    final_product_info['price'] = round(base_gross_price * (1 + markup_percent / 100), 2)
+                elif final_gross_price_direct is not None:
+                    # Podano cenę sprzedaży brutto i cenę netto zakupu, obliczamy marżę
+                    final_gross_price_direct = float(final_gross_price_direct)
+                    final_product_info['price'] = final_gross_price_direct
+                    if base_gross_price > 0:
+                        final_product_info['markup_percent'] = round(((final_gross_price_direct / base_gross_price) - 1) * 100, 2)
+                    else:
+                        final_product_info['markup_percent'] = 0.0 # Marża 0, jeśli cena bazowa 0
+                else:
+                    # Podano tylko cenę netto zakupu, marża 0%
+                    final_product_info['markup_percent'] = 0.0
+                    final_product_info['price'] = base_gross_price # Cena sprzedaży = cena bazowa brutto
+            
+            elif final_gross_price_direct is not None:
+                # Podano tylko cenę sprzedaży brutto, brak informacji o koszcie netto
+                final_gross_price_direct = float(final_gross_price_direct)
+                final_product_info['price'] = final_gross_price_direct
+                # Nie można wiarygodnie obliczyć marży ani ceny bazowej brutto (original_price)
+                # Ustawiamy original_price na cenę sprzedaży (marża 0% od tej bazy)
+                final_product_info['original_price'] = final_gross_price_direct
+                final_product_info['markup_percent'] = 0.0
+                final_product_info['price_net_xml'] = None # Brak informacji o koszcie netto
+            else:
+                # Brak jakichkolwiek informacji o cenie
+                self.logger.warning(f"No price information provided for new product {final_product_info.get('name')}. Setting prices to 0.")
+                final_product_info['price'] = 0.0
+                final_product_info['original_price'] = 0.0
+                final_product_info['markup_percent'] = 0.0
+                final_product_info['price_net_xml'] = None
+
+            # Upewnienie się, że kluczowe pola cenowe są floatami i istnieją
+            for key in ['price', 'original_price', 'markup_percent']:
+                final_product_info[key] = float(final_product_info.get(key, 0.0) or 0.0)
+            
+            if final_product_info.get('price_net_xml') is not None:
+                final_product_info['price_net_xml'] = float(final_product_info['price_net_xml'])
+            else: # Jeśli price_net_xml jest None, upewnij się, że tak pozostaje
+                 final_product_info['price_net_xml'] = None
+
+
+            self.products.append(final_product_info)
+            if self._save_to_db():
+                self.logger.info(f"Pomyślnie dodano nowy produkt ID: {final_product_info['id']}, Nazwa: {final_product_info.get('name')}")
+                return final_product_info
+            else:
+                self.logger.error(f"Nie udało się zapisać bazy danych po dodaniu produktu ID: {final_product_info['id']}")
+                # Potencjalnie usuń produkt z self.products, jeśli zapis się nie powiódł, aby uniknąć niespójności
+                self.products = [p for p in self.products if p.get('id') != final_product_info['id']]
+                return None
+
+        except Exception as e:
+            self.logger.error(f"Krytyczny błąd podczas dodawania produktu: {str(e)}", exc_info=True)
+            return None
+            
+    def _get_next_id(self):
+        """
+        Generuje nowe ID dla produktu (jako string).
+        Szuka maksymalnego ID numerycznego wśród istniejących produktów.
+        """
+        if not self.products:
+            return "1"
+        
+        max_id_num = 0
+        for p in self.products:
+            try:
+                # Próbuje przekonwertować ID na liczbę, jeśli jest numeryczne
+                current_id_str = p.get('id')
+                if current_id_str and str(current_id_str).isdigit():
+                    current_id_num = int(current_id_str)
+                    if current_id_num > max_id_num:
+                        max_id_num = current_id_num
+            except (ValueError, TypeError):
+                continue # Ignoruj ID, które nie są numeryczne lub nie można ich przekonwertować
+        
+        return str(max_id_num + 1)
+        
+    def add_product_from_xml(self, product_id, markup_percent=0, available_for_sale=True):
+        """
+        Dodaje produkt z pliku XML do sklepu z określonymi parametrami.
+        
+        Args:
+            product_id (str): ID produktu z XML
+            markup_percent (float): Narzut procentowy na cenę bazową
+            available_for_sale (bool): Czy produkt ma być dostępny do sprzedaży
+            
+        Returns:
+            dict: Zaktualizowany produkt lub None w przypadku błędu
+        """
+        try:
+            # Szukaj produktu w bazie danych
+            product = None
+            for p in self.products:
+                if str(p.get('id')) == str(product_id) or str(p.get('xml_id')) == str(product_id):
+                    product = p
+                    break
+            
+            if not product:
+                self.logger.error(f"Nie znaleziono produktu o ID {product_id} w bazie danych")
+                return None
+            
+            # Aktualizuj produkt
+            product['available_for_sale'] = available_for_sale
+            product['markup_percent'] = float(markup_percent)
+            
+            # Oblicz nową cenę sprzedaży z uwzględnieniem narzutu
+            original_price = product.get('original_price', 0)
+            product['price'] = round(original_price * (1 + markup_percent / 100), 2)
+            
+            # Aktualizacja daty modyfikacji
+            product['last_modified'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            
+            # Zapisz zmiany
+            if self._save_to_db():
+                self.logger.info(f"Produkt {product.get('name')} (ID: {product_id}) został zaktualizowany. "
+                               f"Dostępność: {available_for_sale}, Narzut: {markup_percent}%")
+                return product
+            else:
+                self.logger.error(f"Błąd podczas zapisywania produktu ID: {product_id}")
+                return None
+                
+        except Exception as e:
+            self.logger.error(f"Błąd podczas dodawania produktu z XML (ID: {product_id}): {str(e)}")
+            return None
+            
+    def add_products_from_list(self, list_id):
+        """
+        Dodaje wszystkie produkty z danej listy do sklepu.
+        
+        Args:
+            list_id (int): ID listy produktów
+            
+        Returns:
+            list: Lista zaktualizowanych produktów lub pusta lista w przypadku błędu
+        """
+        try:
+            # Pobierz listę produktów
+            product_list = self.get_product_list(list_id)
+            if not product_list:
+                self.logger.error(f"Nie znaleziono listy produktów o ID {list_id}")
+                return []
+            
+            # Pobierz parametry listy
+            markup_percent = product_list.get('markup_percent', 0)
+            product_ids = product_list.get('products_ids', [])
+            product_markups = product_list.get('product_markups', {})
+            
+            updated_products = []
+            for product_id in product_ids:
+                # Jeśli dla produktu zdefiniowano indywidualny narzut, użyj go
+                individual_markup = product_markups.get(str(product_id), markup_percent)
+                
+                # Zaktualizuj produkt
+                updated_product = self.add_product_from_xml(product_id, individual_markup, True)
+                if updated_product:
+                    updated_products.append(updated_product)
+            
+            self.logger.info(f"Dodano {len(updated_products)} produktów z listy ID: {list_id}")
+            return updated_products
+            
+        except Exception as e:
+            self.logger.error(f"Błąd podczas dodawania produktów z listy (ID: {list_id}): {str(e)}")
+            return []
+    
+    def get_published_products(self):
+        """
+        Zwraca wszystkie produkty dostępne do sprzedaży (opublikowane).
+        
+        Returns:
+            list: Lista produktów dostępnych do sprzedaży.
+        """
+        return [p for p in self.products if p.get('available_for_sale', False)]
+    
+    def get_last_update(self):
+        """
+        Returns the timestamp of the last product update based on XML file modification time
+        or None if the XML file doesn't exist.
+        """
+        try:
+            if os.path.exists(self.xml_path):
+                # Get the modification time of the XML file
+                mod_time = os.path.getmtime(self.xml_path)
+                # Convert to datetime object
+                last_update = datetime.fromtimestamp(mod_time)
+                return last_update.strftime('%Y-%m-%d %H:%M:%S')
+            else:
+                self.logger.warning(f"XML file does not exist: {self.xml_path}")
+                return None
+        except Exception as e:
+            self.logger.error(f"Error getting last update time: {str(e)}")
+            return None

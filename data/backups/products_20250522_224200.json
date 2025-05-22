@@ -1732,7 +1732,7 @@
     "EAN": "5908220470908",
     "producer": "Sofotel",
     "url": "https://janshop.pl/p451,kolka-gumowane-do-foteli-biurowych-5-szt-biale.html",
-    "available_for_sale": false,
+    "available_for_sale": true,
     "category": "Części do krzeseł i foteli",
     "category_path": [
       "Dom",
@@ -1740,12 +1740,13 @@
       "Części do krzeseł i foteli"
     ],
     "price_net_xml": 13.88,
-    "price": 17.07,
+    "price": 21.71,
     "discounted_price": 14.51,
     "original_price": 17.07,
-    "markup_percent": 0.0,
+    "markup_percent": 27.2,
     "vat": 23,
-    "stock": 27
+    "stock": 27,
+    "last_modified": "2025-05-22 22:41:37"
   },
   {
     "xml_id": "MULTIBLOCK",
