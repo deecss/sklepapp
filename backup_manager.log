@@ -7064,3 +7064,7 @@ AssertionError: write() before start_response
 2025-05-22 15:47:21,425 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
 2025-05-22 15:47:21,498 - INFO - Zapisano konfigurację do data/xml_config.json
 2025-05-22 15:47:21,498 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 15:57:21,961 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 15:57:21,961 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 15:57:21,968 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 15:57:21,968 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
