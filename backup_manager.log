@@ -8645,3 +8645,19 @@ AssertionError: write() before start_response
 2025-05-22 21:08:49,998 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
 2025-05-22 21:09:40,106 - INFO - 145.239.89.63 - - [22/May/2025 21:09:40] "GET /kategoria/Plaża/Rękawki%20do%20pływania HTTP/1.1" 200 -
 2025-05-22 21:12:08,249 - INFO - 145.239.89.63 - - [22/May/2025 21:12:08] "GET /kategoria/Turystyka%20&%20Hobby/Trampoliny%20ogrodowe HTTP/1.1" 200 -
+2025-05-22 21:13:22,525 - INFO - 145.239.89.63 - - [22/May/2025 21:13:22] "GET /kategoria/Turystyka/Termosy HTTP/1.1" 200 -
+2025-05-22 21:14:36,366 - INFO - 145.239.89.63 - - [22/May/2025 21:14:36] "GET /kategoria/Trampoliny%20ogrodowe/Części%20do%20trampolin HTTP/1.1" 200 -
+2025-05-22 21:16:33,434 - INFO - 145.239.89.63 - - [22/May/2025 21:16:33] "GET /kategoria/Hobby/Wykrywacze%20metali HTTP/1.1" 200 -
+2025-05-22 21:16:34,442 - INFO - 145.239.89.63 - - [22/May/2025 21:16:34] "GET /kategoria/Turystyka%20&%20Hobby/Pontony HTTP/1.1" 200 -
+2025-05-22 21:17:26,123 - INFO - 145.239.89.63 - - [22/May/2025 21:17:26] "GET /kategoria/Hobby/Stojak%20rowerowy HTTP/1.1" 200 -
+2025-05-22 21:17:38,582 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:17:38,582 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:18:50,516 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:18:50,516 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:20:02,625 - INFO - 145.239.89.63 - - [22/May/2025 21:20:02] "GET /kategoria/Turystyka%20&%20Hobby/Deski%20SUP HTTP/1.1" 200 -
+2025-05-22 21:20:03,610 - INFO - 145.239.89.63 - - [22/May/2025 21:20:03] "GET /produkt/fotel-biurowy-z-mikrosiatki-sofotel-formax-grafitowy HTTP/1.1" 200 -
+2025-05-22 21:20:04,052 - INFO - 145.239.89.63 - - [22/May/2025 21:20:04] "GET /produkt/fotel-biurowy-dla-gracza-sofotel-cerber-czarno-czerwony HTTP/1.1" 200 -
+2025-05-22 21:20:04,866 - INFO - 145.239.89.63 - - [22/May/2025 21:20:04] "GET /kategoria/Dziecko/Zabawki/Butle%20z%20helem HTTP/1.1" 200 -
+2025-05-22 21:20:56,533 - INFO - 145.239.89.63 - - [22/May/2025 21:20:56] "GET /produkt/fotel-biurowy-z-mikrosiatki-sofotel-nicea-czarny HTTP/1.1" 200 -
+2025-05-22 21:20:56,978 - INFO - 145.239.89.63 - - [22/May/2025 21:20:56] "GET /produkt/pompa-filtrujaca-piaskowa-3500-lh-intex-26642 HTTP/1.1" 200 -
+2025-05-22 21:22:00,799 - INFO - 145.239.89.63 - - [22/May/2025 21:22:00] "GET /produkt/fotel-biurowy-z-mikrosiatka-praga-jasnoniebieski HTTP/1.1" 200 -
