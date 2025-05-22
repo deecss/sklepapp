@@ -6854,3 +6854,78 @@ AssertionError: write() before start_response
 2025-05-21 02:10:30,332 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
 2025-05-21 02:10:45,332 - INFO - _CV-NJfOmj98uAUJAAAC: Sending packet PING data None
 2025-05-21 02:10:45,385 - INFO - _CV-NJfOmj98uAUJAAAC: Received packet PONG data 
+2025-05-22 11:47:08,187 - INFO - Server initialized for threading.
+2025-05-22 11:47:08,188 - INFO - Załadowano konfigurację z data/xml_config.json
+2025-05-22 11:47:08,220 - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-22 11:47:08,221 - INFO - Załadowano 2 płatności z bazy danych
+2025-05-22 11:47:08,221 - INFO - Załadowano konfigurację płatności z data/payment_config.json
+2025-05-22 11:47:08,221 - INFO - Uruchomiono automatyczne tworzenie kopii zapasowych co 60 minut
+2025-05-22 11:47:08,253 - INFO - Baza danych produktów zawiera 3708 produktów, w tym 68 dostępnych do sprzedaży
+2025-05-22 11:47:08,255 - INFO - Utworzono kopię zapasową: data/backups/products_20250522_114708.json
+2025-05-22 11:47:08,265 - INFO - Usunięto starą kopię zapasową: products_20250521_012109.json
+2025-05-22 11:47:08,511 - INFO - Zachowano dostępność dla 68 produktów i 36 opisów produktów
+2025-05-22 11:47:08,592 - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-22 11:47:08,592 - INFO - Pomyślnie sparsowano plik XML data/products_latest.xml, znaleziono 3708 produktów
+2025-05-22 11:47:08,630 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5454
+ * Running on http://65.109.58.220:5454
+2025-05-22 11:47:08,630 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-22 11:47:08,630 - INFO -  * Restarting with stat
+2025-05-22 11:47:08,833 - INFO - Server initialized for threading.
+2025-05-22 11:47:08,833 - INFO - Załadowano konfigurację z data/xml_config.json
+2025-05-22 11:47:08,866 - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-22 11:47:08,866 - INFO - Załadowano 2 płatności z bazy danych
+2025-05-22 11:47:08,866 - INFO - Załadowano konfigurację płatności z data/payment_config.json
+2025-05-22 11:47:08,866 - INFO - Uruchomiono automatyczne tworzenie kopii zapasowych co 60 minut
+2025-05-22 11:47:08,899 - INFO - Baza danych produktów zawiera 3708 produktów, w tym 68 dostępnych do sprzedaży
+2025-05-22 11:47:08,930 - INFO - Utworzono kopię zapasową: data/backups/products_20250522_114708.json
+2025-05-22 11:47:09,038 - ERROR - Błąd podczas parsowania pliku XML data/products_latest.xml: no element found: line 167918, column 62
+2025-05-22 11:47:09,047 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 11:47:09,047 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 11:47:09,048 - INFO - Uruchomiono harmonogram pobierania XML co 10 minut
+2025-05-22 11:47:09,074 - WARNING -  * Debugger is active!
+2025-05-22 11:47:09,076 - INFO -  * Debugger PIN: 212-086-963
+2025-05-22 11:47:09,496 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 11:47:09,497 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 11:47:09,498 - INFO - Uruchomiono harmonogram pobierania XML co 10 minut
+2025-05-22 11:47:18,871 - INFO - 145.239.89.63 - - [22/May/2025 11:47:18] "GET / HTTP/1.1" 200 -
+2025-05-22 11:47:19,007 - INFO - 145.239.89.63 - - [22/May/2025 11:47:19] "GET /static/product-description.css HTTP/1.1" 200 -
+2025-05-22 11:47:19,109 - INFO - 145.239.89.63 - - [22/May/2025 11:47:19] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 11:47:19,154 - INFO - 145.239.89.63 - - [22/May/2025 11:47:19] "GET /static/notifications.js HTTP/1.1" 200 -
+2025-05-22 11:47:19,543 - INFO - 145.239.89.63 - - [22/May/2025 11:47:19] "GET /static/socket-enhanced.js HTTP/1.1" 200 -
+2025-05-22 11:47:19,550 - INFO - 145.239.89.63 - - [22/May/2025 11:47:19] "GET /static/category-dropdown.js HTTP/1.1" 200 -
+2025-05-22 11:47:20,181 - INFO - 145.239.89.63 - - [22/May/2025 11:47:20] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-22 11:47:20,196 - INFO - exnwZV7FTJmSCDt9AAAA: Sending packet OPEN data {'sid': 'exnwZV7FTJmSCDt9AAAA', 'upgrades': [], 'pingTimeout': 30000, 'pingInterval': 15000, 'maxPayload': 1000000}
+2025-05-22 11:47:20,196 - INFO - exnwZV7FTJmSCDt9AAAA: Received request to upgrade to websocket
+2025-05-22 11:47:20,197 - INFO - exnwZV7FTJmSCDt9AAAA: Upgrade to websocket successful
+2025-05-22 11:47:20,280 - INFO - exnwZV7FTJmSCDt9AAAA: Received packet MESSAGE data 0
+2025-05-22 11:47:20,281 - INFO - emitting event "welcome" to 43equccCdD4_Tpt9AAAB [/]
+2025-05-22 11:47:20,281 - INFO - exnwZV7FTJmSCDt9AAAA: Sending packet MESSAGE data 2["welcome",{"message":"Po\u0142\u0105czono z serwerem w czasie rzeczywistym","socket_id":"43equccCdD4_Tpt9AAAB","timestamp":1747907240.2812312}]
+2025-05-22 11:47:20,281 - INFO - exnwZV7FTJmSCDt9AAAA: Sending packet MESSAGE data 0{"sid":"43equccCdD4_Tpt9AAAB"}
+2025-05-22 11:47:35,197 - INFO - exnwZV7FTJmSCDt9AAAA: Sending packet PING data None
+2025-05-22 11:47:35,250 - INFO - exnwZV7FTJmSCDt9AAAA: Received packet PONG data 
+2025-05-22 11:47:35,327 - INFO - 145.239.89.63 - - [22/May/2025 11:47:35] "[33mGET /admin/ HTTP/1.1[0m" 404 -
+2025-05-22 11:47:35,554 - INFO - 145.239.89.63 - - [22/May/2025 11:47:35] "[35m[1mGET /socket.io/?EIO=4&transport=websocket HTTP/1.1[0m" 500 -
+2025-05-22 11:47:35,555 - ERROR - Error on request:
+Traceback (most recent call last):
+  File "/home/dee/sklepapp/venv/lib/python3.12/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/home/dee/sklepapp/venv/lib/python3.12/site-packages/werkzeug/serving.py", line 336, in execute
+    write(b"")
+  File "/home/dee/sklepapp/venv/lib/python3.12/site-packages/werkzeug/serving.py", line 261, in write
+    assert status_set is not None, "write() before start_response"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: write() before start_response
+2025-05-22 11:47:53,384 - INFO - 31.179.185.98 - - [22/May/2025 11:47:53] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2025-05-22 11:47:53,433 - INFO - 31.179.185.98 - - [22/May/2025 11:47:53] "GET /admin/login?next=http://s7.enode.ovh:5454/admin/dashboard HTTP/1.1" 200 -
+2025-05-22 11:47:54,111 - INFO - 31.179.185.98 - - [22/May/2025 11:47:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-22 11:47:57,027 - INFO - 31.179.185.98 - - [22/May/2025 11:47:57] "[32mPOST /admin/login?next=http://s7.enode.ovh:5454/admin/dashboard HTTP/1.1[0m" 302 -
+2025-05-22 11:47:57,094 - INFO - 31.179.185.98 - - [22/May/2025 11:47:57] "GET /admin/dashboard HTTP/1.1" 200 -
+2025-05-22 11:48:00,641 - INFO - 31.179.185.98 - - [22/May/2025 11:48:00] "GET /admin/create-listing HTTP/1.1" 200 -
+2025-05-22 11:48:05,383 - INFO - 31.179.185.98 - - [22/May/2025 11:48:05] "GET /admin/product-listing HTTP/1.1" 200 -
+2025-05-22 11:48:14,652 - INFO - 31.179.185.98 - - [22/May/2025 11:48:14] "GET /admin/search-xml-products?query=fotel%20biurowy&field=any&page=1 HTTP/1.1" 200 -
+2025-05-22 11:57:09,612 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 11:57:09,613 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 11:57:09,999 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 11:57:09,999 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
