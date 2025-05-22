@@ -6943,3 +6943,8 @@ AssertionError: write() before start_response
 2025-05-22 12:27:11,267 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
 2025-05-22 12:27:11,510 - INFO - Zapisano konfigurację do data/xml_config.json
 2025-05-22 12:27:11,510 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 12:35:53,048 - INFO - 145.239.89.63 - - [22/May/2025 12:35:53] "GET /kategoria/Trampoliny/Trampoliny%20fitness HTTP/1.1" 200 -
+2025-05-22 12:37:11,790 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 12:37:11,790 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 12:37:11,958 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 12:37:11,958 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
