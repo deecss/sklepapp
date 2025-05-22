@@ -7130,3 +7130,17 @@ AssertionError: write() before start_response
 2025-05-22 18:07:28,470 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
 2025-05-22 18:07:28,497 - INFO - Zapisano konfigurację do data/xml_config.json
 2025-05-22 18:07:28,497 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 18:17:28,994 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 18:17:28,994 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 18:17:29,012 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 18:17:29,012 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 18:20:38,401 - INFO - 145.239.89.63 - - [22/May/2025 18:20:38] "GET / HTTP/1.1" 200 -
+2025-05-22 18:23:34,962 - INFO - 31.179.185.98 - - [22/May/2025 18:23:34] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2025-05-22 18:23:35,010 - INFO - 31.179.185.98 - - [22/May/2025 18:23:35] "GET /admin/login?next=http://s7.enode.ovh:5454/admin/dashboard HTTP/1.1" 200 -
+2025-05-22 18:23:35,726 - INFO - 31.179.185.98 - - [22/May/2025 18:23:35] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-22 18:23:38,010 - INFO - 31.179.185.98 - - [22/May/2025 18:23:38] "[32mPOST /admin/login?next=http://s7.enode.ovh:5454/admin/dashboard HTTP/1.1[0m" 302 -
+2025-05-22 18:23:38,060 - INFO - 31.179.185.98 - - [22/May/2025 18:23:38] "GET /admin/dashboard HTTP/1.1" 200 -
+2025-05-22 18:23:42,117 - INFO - 31.179.185.98 - - [22/May/2025 18:23:42] "GET /admin/published-products HTTP/1.1" 200 -
+2025-05-22 18:23:44,670 - INFO - 31.179.185.98 - - [22/May/2025 18:23:44] "GET /admin/create-listing HTTP/1.1" 200 -
+2025-05-22 18:23:46,874 - INFO - 31.179.185.98 - - [22/May/2025 18:23:46] "GET /admin/product-listing HTTP/1.1" 200 -
+2025-05-22 18:23:58,685 - INFO - 31.179.185.98 - - [22/May/2025 18:23:58] "GET /admin/create-listing HTTP/1.1" 200 -
