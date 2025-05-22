@@ -8193,3 +8193,112 @@ AssertionError: write() before start_response
 2025-05-22 20:09:18,856 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
 2025-05-22 20:09:33,856 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
 2025-05-22 20:09:33,903 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:09:48,903 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:09:48,945 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:09:49,177 - INFO - 145.239.89.63 - - [22/May/2025 20:09:49] "GET /produkt/stabilizator-drewniany-do-namiotu-tipi-nukido HTTP/1.1" 200 -
+2025-05-22 20:10:03,946 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:10:03,991 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:10:17,640 - INFO - 145.239.89.63 - - [22/May/2025 20:10:17] "GET /kategoria/Dziecko/Pojazdy%20dla%20dzieci HTTP/1.1" 200 -
+2025-05-22 20:10:18,992 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:10:19,033 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:10:34,033 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:10:34,075 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:10:49,075 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:10:49,117 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:10:56,048 - INFO - 145.239.89.63 - - [22/May/2025 20:10:56] "GET /kategoria/Baseny%20ogrodowe/Basen%20ogrodowy%20Bestway HTTP/1.1" 200 -
+2025-05-22 20:11:04,118 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:11:04,164 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:11:19,164 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:11:19,205 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:11:34,206 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:11:34,248 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:11:49,248 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:11:49,291 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:12:03,930 - INFO - 145.239.89.63 - - [22/May/2025 20:12:03] "GET /kategoria/Akcesoria%20do%20basenów/Do%20czyszczenia%20basenu HTTP/1.1" 200 -
+2025-05-22 20:12:04,292 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:12:04,349 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:12:19,349 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:12:19,393 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:12:32,411 - INFO - 145.239.89.63 - - [22/May/2025 20:12:32] "GET /kategoria/Materace%20dmuchane HTTP/1.1" 200 -
+2025-05-22 20:12:32,847 - INFO - 145.239.89.63 - - [22/May/2025 20:12:32] "GET /produkt/namiot-tipi-dla-dzieci-ze-swiatelkami-nukido-granatowy HTTP/1.1" 200 -
+2025-05-22 20:12:33,503 - INFO - 145.239.89.63 - - [22/May/2025 20:12:33] "GET /kategoria/Dom/Akcesoria%20obuwnicze HTTP/1.1" 200 -
+2025-05-22 20:12:34,393 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:12:34,437 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:12:49,437 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:12:49,483 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:13:01,967 - INFO - 145.239.89.63 - - [22/May/2025 20:13:01] "GET /kategoria/Turystyka/Pontony HTTP/1.1" 200 -
+2025-05-22 20:13:04,483 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:13:04,525 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:13:19,525 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:13:19,567 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:13:34,567 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:13:34,610 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:13:41,378 - INFO - 145.239.89.63 - - [22/May/2025 20:13:41] "GET /kategoria/Akcesoria%20do%20basenów/Pokrywy%20na%20basen HTTP/1.1" 200 -
+2025-05-22 20:13:49,610 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:13:49,652 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:14:04,652 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:14:04,695 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:14:19,695 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:14:19,741 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:14:22,683 - INFO - 145.239.89.63 - - [22/May/2025 20:14:22] "GET /kategoria/Materace%20dmuchane/Materac%20dmuchany%20dwuosobowy HTTP/1.1" 200 -
+2025-05-22 20:14:34,742 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:14:34,785 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:14:40,242 - INFO - 145.239.89.63 - - [22/May/2025 20:14:40] "GET /kategoria/Dla%20dzieci/Domki%20i%20namioty HTTP/1.1" 200 -
+2025-05-22 20:14:49,785 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:14:49,827 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:15:04,828 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:15:04,872 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:15:19,873 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:15:19,917 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:15:34,918 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:15:34,959 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:15:38,902 - INFO - 145.239.89.63 - - [22/May/2025 20:15:38] "GET /kategoria/Akcesoria%20do%20basenów/Filtry%20basenowe HTTP/1.1" 200 -
+2025-05-22 20:15:49,959 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:15:49,999 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:16:05,000 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:16:05,042 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:16:07,393 - INFO - 145.239.89.63 - - [22/May/2025 20:16:07] "GET /kategoria/Turystyka/Fotele%20dmuchane HTTP/1.1" 200 -
+2025-05-22 20:16:20,042 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:16:20,084 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:16:35,084 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:16:35,125 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:16:35,876 - INFO - 145.239.89.63 - - [22/May/2025 20:16:35] "GET /kategoria/Dla%20dzieci/Dmuchane%20place%20zabaw HTTP/1.1" 200 -
+2025-05-22 20:16:50,126 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:16:50,167 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:17:04,335 - INFO - 145.239.89.63 - - [22/May/2025 20:17:04] "GET /kategoria/Dziecko/Zabawki HTTP/1.1" 200 -
+2025-05-22 20:17:05,168 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:17:05,211 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:17:20,211 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:17:20,254 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:17:35,255 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:17:35,295 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:17:35,400 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 20:17:35,400 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 20:17:50,296 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:17:50,339 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:18:00,652 - INFO - 145.239.89.63 - - [22/May/2025 20:18:00] "GET /kategoria/Baseny%20ogrodowe/SPA%20dmuchane HTTP/1.1" 200 -
+2025-05-22 20:18:05,339 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:18:05,386 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:18:20,387 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:18:20,429 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:18:35,429 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:18:35,476 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:18:39,829 - INFO - 145.239.89.63 - - [22/May/2025 20:18:39] "GET /kategoria/Namioty%20dla%20dzieci HTTP/1.1" 200 -
+2025-05-22 20:18:47,409 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 20:18:47,409 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 20:18:50,477 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:18:50,522 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:19:05,522 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:19:05,567 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:19:08,306 - INFO - 145.239.89.63 - - [22/May/2025 20:19:08] "GET /api/polecane-produkty HTTP/1.1" 200 -
+2025-05-22 20:19:20,567 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:19:20,614 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:19:35,614 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:19:35,660 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:19:36,563 - INFO - 145.239.89.63 - - [22/May/2025 20:19:36] "[32mGET /produkt/${product.id} HTTP/1.1[0m" 302 -
+2025-05-22 20:19:37,170 - INFO - 145.239.89.63 - - [22/May/2025 20:19:37] "GET / HTTP/1.1" 200 -
+2025-05-22 20:19:50,660 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:19:50,711 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 20:20:05,680 - INFO - 145.239.89.63 - - [22/May/2025 20:20:05] "GET /kategoria/Pompy%20do%20basenu HTTP/1.1" 200 -
+2025-05-22 20:20:05,711 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 20:20:05,757 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
