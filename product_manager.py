@@ -666,15 +666,28 @@ class ProductManager:
                     product['category'] = "Bez kategorii"
                     product['category_path'] = ["Bez kategorii"]
                 
-                # Obsługa cen
+                # Obsługa cen (dodaj 23% VAT do cen netto z XML)
                 try:
-                    product['price'] = float(self._safe_get_xml_value(product_elem, 'price', '0'))
-                    product['discounted_price'] = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
+                    # Pobieramy ceny netto z XML
+                    price_netto = float(self._safe_get_xml_value(product_elem, 'price', '0'))
+                    discounted_price_netto = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
+                    
+                    # Dodajemy VAT do cen netto
+                    product['price'] = self._add_vat_to_price(price_netto)
+                    product['discounted_price'] = self._add_vat_to_price(discounted_price_netto)
+                    
+                    # Jeśli brak ceny promocyjnej, użyj ceny regularnej
                     if product['discounted_price'] == 0:
                         product['discounted_price'] = product['price']
+                        
+                    # Zachowaj również oryginalne ceny netto
+                    product['price_netto'] = price_netto
+                    product['discounted_price_netto'] = discounted_price_netto if discounted_price_netto > 0 else price_netto
                 except ValueError:
                     product['price'] = 0
                     product['discounted_price'] = 0
+                    product['price_netto'] = 0
+                    product['discounted_price_netto'] = 0
                 
                 # Stan magazynowy
                 product['stock'] = stock
@@ -1500,3 +1513,37 @@ class ProductManager:
         except Exception as e:
             self.logger.error(f"Błąd podczas ustawiania dostępności produktu: {str(e)}")
             return False
+    
+    def _add_vat_to_price(self, price_netto):
+        """
+        Dodaje 23% VAT do ceny netto
+        
+        Args:
+            price_netto (float): Cena netto
+            
+        Returns:
+            float: Cena brutto (z VAT)
+        """
+        if price_netto is None or not isinstance(price_netto, (int, float)):
+            return 0.0
+            
+        vat_multiplier = 1.23  # 23% VAT
+        return round(price_netto * vat_multiplier, 2)
+        
+    def _setup_logger(self):
+        """
+        Ustawia konfigurację loggera
+        """
+        # Ustawienia loggera
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler("product_manager.log"),
+                logging.StreamHandler()
+            ]
+        )
+        
+        # Przykładowe logi
+        self.logger.info("Inicjalizacja menedżera produktów")
+        self.logger.info(f"Wczytano {len(self.products)} produktów")
