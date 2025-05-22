@@ -7005,3 +7005,21 @@ AssertionError: write() before start_response
 2025-05-22 14:27:17,345 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
 2025-05-22 14:27:17,551 - INFO - Zapisano konfigurację do data/xml_config.json
 2025-05-22 14:27:17,551 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 14:37:17,868 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 14:37:17,868 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 14:37:18,042 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 14:37:18,042 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 14:44:52,456 - INFO - 145.239.89.63 - - [22/May/2025 14:44:52] "[33mGET /robots.txt HTTP/1.1[0m" 404 -
+2025-05-22 14:44:52,790 - INFO - 145.239.89.63 - - [22/May/2025 14:44:52] "GET / HTTP/1.1" 200 -
+2025-05-22 14:44:53,783 - INFO - 145.239.89.63 - - [22/May/2025 14:44:53] "GET / HTTP/1.1" 200 -
+2025-05-22 14:44:54,459 - INFO - 145.239.89.63 - - [22/May/2025 14:44:54] "GET /static/notifications.js HTTP/1.1" 200 -
+2025-05-22 14:44:54,874 - INFO - 145.239.89.63 - - [22/May/2025 14:44:54] "GET /static/product-description.css HTTP/1.1" 200 -
+2025-05-22 14:44:55,330 - INFO - 145.239.89.63 - - [22/May/2025 14:44:55] "GET /static/product-description.css HTTP/1.1" 200 -
+2025-05-22 14:44:55,776 - INFO - 145.239.89.63 - - [22/May/2025 14:44:55] "GET /static/socket-enhanced.js HTTP/1.1" 200 -
+2025-05-22 14:44:56,176 - INFO - 145.239.89.63 - - [22/May/2025 14:44:56] "GET /static/socket-enhanced.js HTTP/1.1" 200 -
+2025-05-22 14:44:56,775 - INFO - 145.239.89.63 - - [22/May/2025 14:44:56] "GET /static/category-dropdown.js HTTP/1.1" 200 -
+2025-05-22 14:44:57,625 - INFO - 145.239.89.63 - - [22/May/2025 14:44:57] "GET /static/notifications.js HTTP/1.1" 200 -
+2025-05-22 14:44:58,645 - INFO - 145.239.89.63 - - [22/May/2025 14:44:58] "GET /static/category-dropdown.js HTTP/1.1" 200 -
+2025-05-22 14:44:58,752 - INFO - 145.239.89.63 - - [22/May/2025 14:44:58] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 14:44:59,131 - INFO - 145.239.89.63 - - [22/May/2025 14:44:59] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 14:45:00,774 - INFO - 145.239.89.63 - - [22/May/2025 14:45:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
