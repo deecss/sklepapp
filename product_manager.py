@@ -766,3 +766,208 @@ class ProductManager:
         except Exception as e:
             self.logger.error(f"Krytyczny błąd podczas dodawania produktu: {str(e)}", exc_info=True)
             return None
+    
+    def get_product_lists(self):
+        """
+        Zwraca listy produktów zapisane w pliku JSON.
+        
+        Returns:
+            list: Lista słowników reprezentujących listy produktów.
+        """
+        try:
+            if os.path.exists(self.PRODUCT_LISTS_FILE) and os.path.getsize(self.PRODUCT_LISTS_FILE) > 0:
+                with open(self.PRODUCT_LISTS_FILE, 'r', encoding='utf-8') as f:
+                    product_lists = json.load(f)
+                self.logger.info(f"Załadowano {len(product_lists)} list produktów")
+                return product_lists
+            else:
+                self.logger.warning(f"Plik list produktów nie istnieje lub jest pusty: {self.PRODUCT_LISTS_FILE}")
+                return []
+        except Exception as e:
+            self.logger.error(f"Błąd podczas ładowania list produktów: {str(e)}")
+            return []
+    
+    def get_product_list(self, list_id):
+        """
+        Zwraca pojedynczą listę produktów o podanym ID.
+        
+        Args:
+            list_id (int): ID listy produktów do pobrania.
+            
+        Returns:
+            dict: Słownik reprezentujący listę produktów lub None, jeśli nie znaleziono.
+        """
+        product_lists = self.get_product_lists()
+        for product_list in product_lists:
+            if product_list.get('id') == list_id:
+                return product_list
+        return None
+    
+    def save_product_list(self, name, description, products_ids, markup_percent, product_markups=None):
+        """
+        Zapisuje nową listę produktów.
+        
+        Args:
+            name (str): Nazwa listy produktów.
+            description (str): Opis listy produktów.
+            products_ids (list): Lista ID produktów.
+            markup_percent (float): Domyślny narzut procentowy dla wszystkich produktów na liście.
+            product_markups (dict, optional): Słownik z indywidualnymi narzutami dla produktów {id: markup_percent}.
+            
+        Returns:
+            dict: Zapisana lista produktów lub None w przypadku błędu.
+        """
+        try:
+            # Załaduj istniejące listy
+            product_lists = self.get_product_lists()
+            
+            # Wygeneruj nowe ID
+            new_id = 1
+            if product_lists:
+                max_id = max(pl.get('id', 0) for pl in product_lists)
+                new_id = max_id + 1
+            
+            # Przygotuj nową listę produktów
+            new_product_list = {
+                'id': new_id,
+                'name': name,
+                'description': description,
+                'products_ids': products_ids,
+                'markup_percent': float(markup_percent),
+                'product_markups': product_markups or {},
+                'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            
+            # Dodaj do istniejących list
+            product_lists.append(new_product_list)
+            
+            # Zapisz do pliku
+            os.makedirs(os.path.dirname(self.PRODUCT_LISTS_FILE), exist_ok=True)
+            with open(self.PRODUCT_LISTS_FILE, 'w', encoding='utf-8') as f:
+                json.dump(product_lists, f, ensure_ascii=False, indent=2)
+            
+            self.logger.info(f"Zapisano nową listę produktów: {new_product_list['name']} (ID: {new_product_list['id']})")
+            return new_product_list
+        
+        except Exception as e:
+            self.logger.error(f"Błąd podczas zapisywania listy produktów: {str(e)}")
+            return None
+    
+    def update_product_list(self, list_id, data):
+        """
+        Aktualizuje istniejącą listę produktów.
+        
+        Args:
+            list_id (int): ID listy produktów do aktualizacji.
+            data (dict): Dane do aktualizacji.
+            
+        Returns:
+            dict: Zaktualizowana lista produktów lub None w przypadku błędu.
+        """
+        try:
+            product_lists = self.get_product_lists()
+            
+            for i, product_list in enumerate(product_lists):
+                if product_list.get('id') == list_id:
+                    # Aktualizuj dane
+                    for key, value in data.items():
+                        if key == 'markup_percent':
+                            product_lists[i][key] = float(value)
+                        else:
+                            product_lists[i][key] = value
+                    
+                    # Zapisz do pliku
+                    with open(self.PRODUCT_LISTS_FILE, 'w', encoding='utf-8') as f:
+                        json.dump(product_lists, f, ensure_ascii=False, indent=2)
+                    
+                    self.logger.info(f"Zaktualizowano listę produktów ID: {list_id}")
+                    return product_lists[i]
+            
+            self.logger.warning(f"Nie znaleziono listy produktów o ID: {list_id} do aktualizacji")
+            return None
+        
+        except Exception as e:
+            self.logger.error(f"Błąd podczas aktualizacji listy produktów: {str(e)}")
+            return None
+    
+    def delete_product_list(self, list_id):
+        """
+        Usuwa listę produktów o podanym ID.
+        
+        Args:
+            list_id (int): ID listy produktów do usunięcia.
+            
+        Returns:
+            bool: True jeśli usunięto, False w przypadku błędu.
+        """
+        try:
+            product_lists = self.get_product_lists()
+            initial_count = len(product_lists)
+            
+            # Filtrowanie listy, aby usunąć element z podanym ID
+            product_lists = [pl for pl in product_lists if pl.get('id') != list_id]
+            
+            if len(product_lists) == initial_count:
+                self.logger.warning(f"Nie znaleziono listy produktów o ID: {list_id} do usunięcia")
+                return False
+            
+            # Zapisz zaktualizowaną listę do pliku
+            with open(self.PRODUCT_LISTS_FILE, 'w', encoding='utf-8') as f:
+                json.dump(product_lists, f, ensure_ascii=False, indent=2)
+            
+            self.logger.info(f"Usunięto listę produktów o ID: {list_id}")
+            return True
+        
+        except Exception as e:
+            self.logger.error(f"Błąd podczas usuwania listy produktów: {str(e)}")
+            return False
+    
+    def get_xml_products_by_ids(self, product_ids):
+        """
+        Pobiera produkty z danymi z pliku XML na podstawie listy identyfikatorów.
+        
+        Args:
+            product_ids (list): Lista identyfikatorów produktów.
+            
+        Returns:
+            list: Lista produktów z danymi z XML.
+        """
+        result = []
+        for product_id in product_ids:
+            # Szukaj produktu najpierw w bazie danych
+            product = next((p for p in self.products if str(p.get('id')) == str(product_id)), None)
+            
+            if product:
+                # Sprawdź, czy produkt jest już w sklepie
+                product['is_in_shop'] = product.get('available_for_sale', False)
+                result.append(product)
+        
+        return result
+    
+    def get_last_update(self):
+        """
+        Returns the timestamp of the last product update based on XML file modification time
+        or None if the XML file doesn't exist.
+        """
+        try:
+            if os.path.exists(self.xml_path):
+                # Get the modification time of the XML file
+                mod_time = os.path.getmtime(self.xml_path)
+                # Convert to datetime object
+                last_update = datetime.fromtimestamp(mod_time)
+                return last_update.strftime('%Y-%m-%d %H:%M:%S')
+            else:
+                self.logger.warning(f"XML file does not exist: {self.xml_path}")
+                return None
+        except Exception as e:
+            self.logger.error(f"Error getting last update time: {str(e)}")
+            return None
+    
+    def get_published_products(self):
+        """
+        Zwraca wszystkie produkty dostępne do sprzedaży (opublikowane).
+        
+        Returns:
+            list: Lista produktów dostępnych do sprzedaży.
+        """
+        return [p for p in self.products if p.get('available_for_sale', False)]
