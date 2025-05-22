@@ -1,15 +1,21 @@
 import xml.etree.ElementTree as ET
-import json
-import os
-import time
-from datetime import datetime
 import logging
-import threading  # Dodajemy obsługę wątków
+import time # Dodane dla time.time()
+import os
+import json
+from datetime import datetime, timedelta # Dodano timedelta
 
 class ProductManager:
     """Klasa zarządzająca produktami - parsowanie XML i zapisywanie do bazy danych"""
     
-    def __init__(self):
+    DB_FILE = os.path.join('data', 'products.json')
+    XML_CONFIG_FILE = os.path.join('data', 'xml_config.json')
+    PRODUCT_LISTS_FILE = os.path.join('data', 'product_lists.json')
+    FEATURED_CATEGORIES_FILE = os.path.join('data', 'featured_categories.json')
+    DEFAULT_XML_PATH = os.path.join('data', 'products_latest.xml')
+    VAT_RATE = 23  # Domyślna stawka VAT w procentach
+
+    def __init__(self, db_file=None, xml_path=None):
         """Inicjalizacja menedżera produktów"""
         # Konfiguracja logowania
         logging.basicConfig(
@@ -26,9 +32,6 @@ class ProductManager:
         
         # Lista produktów
         self.products = []
-        
-        # Dodajemy blokadę dla bezpiecznego zapisu wielowątkowego
-        self.save_lock = threading.Lock()
         
         # Próba załadowania istniejących produktów
         self._load_from_db()
@@ -129,11 +132,26 @@ class ProductManager:
             root = tree.getroot()
             
             new_products = []
+            parsed_xml_ids = set()
+
             for product_elem in root.findall('.//offer'):
                 product = {}
                 
                 # Bezpośrednie mapowanie pól
-                product['id'] = self._safe_get_xml_value(product_elem, 'id')
+                xml_id = self._safe_get_xml_value(product_elem, 'id')
+                if not xml_id:
+                    self.logger.warning("Pominięto produkt w XML bez ID.")
+                    continue
+                
+                if xml_id in parsed_xml_ids:
+                    self.logger.warning(f"Zduplikowany XML ID {xml_id} w pliku. Pomijam kolejne wystąpienie.")
+                    continue
+                parsed_xml_ids.add(xml_id)
+
+                product['xml_id'] = xml_id # Zapisujemy ID z XML
+                product['id'] = xml_id # Używamy XML ID jako głównego ID produktu dla uproszczenia
+                                       # Jeśli potrzebne są osobne ID, trzeba będzie to dostosować
+
                 product['uuid'] = self._safe_get_xml_value(product_elem, 'uuid')
                 product['name'] = self._safe_get_xml_value(product_elem, 'name')
                 product['EAN'] = self._safe_get_xml_value(product_elem, 'EAN')
@@ -150,58 +168,72 @@ class ProductManager:
                     # Zamień encje HTML na znaki
                     category_text = category_text.replace('&amp;gt;', '>').replace('&gt;', '>')
                     # Podziel na poszczególne poziomy kategorii
-                    categories = [cat.strip() for cat in category_text.split('>')]
-                    product['category'] = categories[-1] if categories else ""
-                    product['category_path'] = categories
+                    categories = [cat.strip() for cat in category_text.split('>') if cat.strip()]
+                    product['category'] = categories[-1] if categories else "Bez kategorii"
+                    product['category_path'] = categories if categories else ["Bez kategorii"]
                 else:
                     product['category'] = "Bez kategorii"
                     product['category_path'] = ["Bez kategorii"]
                 
-                # Obsługa cen
+                # Obsługa cen - ceny z XML są NETTO, doliczamy VAT
                 try:
-                    product['price'] = float(self._safe_get_xml_value(product_elem, 'price', '0'))
-                    product['discounted_price'] = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
-                    if product['discounted_price'] == 0:
-                        product['discounted_price'] = product['price']
+                    price_net_xml = float(self._safe_get_xml_value(product_elem, 'price', '0'))
+                    discounted_price_net_xml = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
+                    
+                    if discounted_price_net_xml == 0:
+                        discounted_price_net_xml = price_net_xml
+
+                    product['price_net_xml'] = price_net_xml # Cena netto z XML
+                    
+                    # Obliczamy ceny brutto
+                    price_gross_xml = self._calculate_gross_price(price_net_xml)
+                    discounted_price_gross_xml = self._calculate_gross_price(discounted_price_net_xml)
+
+                    product['price'] = price_gross_xml # Cena brutto (po VAT, przed dodatkowym narzutem sklepu)
+                    product['discounted_price'] = discounted_price_gross_xml # Cena promocyjna brutto (po VAT)
+                    
+                    # original_price to cena brutto z XML, która będzie bazą do dalszych narzutów sklepowych
+                    product['original_price'] = price_gross_xml 
+                    
+                    # Domyślny narzut sklepu to 0% przy pierwszym parsowaniu
+                    product['markup_percent'] = 0.0
+
+                except ValueError as e:
+                    self.logger.error(f"Błąd konwersji ceny dla produktu XML ID {xml_id}: {e}")
+                    product['price_net_xml'] = 0.0
+                    product['price'] = 0.0
+                    product['discounted_price'] = 0.0
+                    product['original_price'] = 0.0
+                    product['markup_percent'] = 0.0
+
+                # VAT - pobieramy z XML jeśli jest, inaczej domyślny
+                vat_xml = self._safe_get_xml_value(product_elem, 'tax')
+                try:
+                    product['vat'] = int(vat_xml) if vat_xml else self.VAT_RATE
                 except ValueError:
-                    product['price'] = 0
-                    product['discounted_price'] = 0
+                    product['vat'] = self.VAT_RATE
                 
-                # Obsługa stanu magazynowego
+                # Stan magazynowy
                 try:
                     product['stock'] = int(self._safe_get_xml_value(product_elem, 'stock', '0'))
                 except ValueError:
                     product['stock'] = 0
                 
-                # Obsługa obrazków
-                pictures_elem = product_elem.find('pictures')
-                if pictures_elem is not None:
-                    product['images'] = [pic.text for pic in pictures_elem.findall('picture') if pic.text]
-                    product['image'] = product['images'][0] if product['images'] else None
-                else:
-                    product['images'] = []
-                    product['image'] = None
-                
-                # Tylko produkty dostępne na magazynie
-                if product['stock'] > 0:
-                    new_products.append(product)
+                # Tylko produkty dostępne na magazynie (lub z ujemnym stanem, jeśli tak ma być)
+                # Na razie dodajemy wszystkie, filtrowanie może być później
+                new_products.append(product)
             
-            # Zachowaj dostępność produktów i ich opisy z poprzedniej wersji
+            # Zachowaj dostępność produktów, opisy i narzuty z poprzedniej wersji
             restored_count = 0
             preserved_descriptions = 0
+            preserved_markups = 0
+            
             if hasattr(self, 'products') and self.products:
-                # Tworzymy mapę istniejących produktów dla szybkiego dostępu
-                existing_products_map = {}
-                for p in self.products:
-                    if 'xml_id' in p:
-                        existing_products_map[p['xml_id']] = p
-                    else:
-                        existing_products_map[str(p.get('id', ''))] = p
+                existing_products_map = {str(p.get('xml_id')): p for p in self.products if p.get('xml_id')}
                 
-                # Przenosimy dostępność i opisy z istniejących produktów
                 for new_product in new_products:
-                    product_id = str(new_product.get('id', ''))
-                    existing_product = existing_products_map.get(product_id)
+                    xml_id = str(new_product.get('xml_id'))
+                    existing_product = existing_products_map.get(xml_id)
                     
                     if existing_product:
                         # Zachowaj status dostępności
@@ -214,35 +246,79 @@ class ProductManager:
                             new_product['description'] = existing_product['description']
                             preserved_descriptions += 1
                             
-                        # Zachowaj inne istotne pola
-                        for field in ['markup_percent', 'original_price']:
-                            if field in existing_product:
+                        # Zachowaj narzut sklepu i zaktualizuj cenę, jeśli narzut istnieje
+                        if 'markup_percent' in existing_product and existing_product['markup_percent'] is not None:
+                            markup_percent = float(existing_product['markup_percent'])
+                            new_product['markup_percent'] = markup_percent
+                            
+                            # Cena bazowa do narzutu to cena brutto z XML (czyli new_product['original_price'])
+                            base_gross_price_for_markup = new_product['original_price'] 
+                            
+                            final_price_with_markup = round(base_gross_price_for_markup * (1 + markup_percent / 100), 2)
+                            new_product['price'] = final_price_with_markup
+                            # discounted_price również powinno być przeliczone jeśli jest równe cenie bazowej
+                            if new_product['discounted_price'] == base_gross_price_for_markup : # Porównujemy z ceną brutto z XML
+                                new_product['discounted_price'] = final_price_with_markup
+                            preserved_markups +=1
+                        
+                        # Zachowaj inne istotne pola, które mogły być ręcznie edytowane
+                        for field in ['delivery_time', 'delivery_cost', 'custom_name', 'custom_category']: # Dodaj inne pola wg potrzeb
+                            if field in existing_product and existing_product[field] is not None:
                                 new_product[field] = existing_product[field]
-                
-                self.logger.info(f"Zachowano dostępność dla {restored_count} produktów i {preserved_descriptions} opisów produktów")
             
-            # Aktualizuj produkty
             self.products = new_products
-            
-            # Przechowaj produkty XML dla późniejszego użycia przez get_product_from_xml
-            self.xml_products = new_products
-            
-            # Dodaj timestamp aktualizacji
-            self.last_update = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            
-            # Zapisz do bazy danych
+            self._assign_internal_ids() # Przypisz unikalne ID wewnętrzne jeśli XML ID nie wystarczą
             self._save_to_db()
             
-            self.logger.info(f"Pomyślnie sparsowano plik XML {xml_path}, znaleziono {len(new_products)} produktów")
+            self.logger.info(f"Pomyślnie sparsowano plik XML {xml_path}, znaleziono {len(new_products)} produktów.")
+            self.logger.info(f"Przywrócono dostępność dla {restored_count} produktów.")
+            self.logger.info(f"Zachowano opisy dla {preserved_descriptions} produktów.")
+            self.logger.info(f"Zachowano i zastosowano narzuty dla {preserved_markups} produktów.")
             return True
             
-        except Exception as e:
-            self.logger.error(f"Błąd podczas parsowania pliku XML {xml_path}: {str(e)}")
+        except ET.ParseError as e:
+            self.logger.error(f"Błąd parsowania XML ({xml_path}): {e}")
             return False
-    
-    def _safe_get_xml_value(self, elem, tag, default=None):
+        except Exception as e:
+            self.logger.error(f"Nieoczekiwany błąd podczas parsowania pliku XML {xml_path}: {str(e)}")
+            return False
+
+    def _assign_internal_ids(self):
+        """Przypisuje unikalne ID wewnętrzne, jeśli 'id' nie jest jeszcze unikalne lub nie istnieje."""
+        # Jeśli używamy xml_id jako 'id', ta funkcja może nie być potrzebna
+        # lub może służyć do generowania ID dla produktów dodanych ręcznie
+        next_id = 1
+        if self.products:
+            # Znajdź maksymalne istniejące ID numeryczne
+            max_id = 0
+            for p in self.products:
+                try:
+                    current_id = int(p.get('id', 0))
+                    if current_id > max_id:
+                        max_id = current_id
+                except ValueError:
+                    pass # Ignoruj ID, które nie są liczbami
+            next_id = max_id + 1
+
+        for product in self.products:
+            if 'id' not in product or not product['id']: # Lub jeśli chcemy mieć osobne ID od xml_id
+                product['id'] = str(next_id)
+                next_id += 1
+            # Upewnij się, że ID jest stringiem, jeśli konwertujemy z int
+            product['id'] = str(product.get('id'))
+
+
+    def _calculate_gross_price(self, net_price, vat_rate=None):
+        """Oblicza cenę brutto na podstawie ceny netto i stawki VAT."""
+        if vat_rate is None:
+            vat_rate = self.VAT_RATE
+        if net_price is None:
+            return 0.0
+        return round(float(net_price) * (1 + vat_rate / 100), 2)
+
+    def _safe_get_xml_value(self, element, tag_name, default=''):
         """Bezpiecznie pobiera wartość z elementu XML"""
-        child = elem.find(tag)
+        child = element.find(tag_name)
         if child is not None and child.text is not None:
             return child.text
         return default
@@ -708,16 +784,8 @@ class ProductManager:
     
     def add_product_from_xml(self, xml_product_id, markup_percent=0, available_for_sale=False, xml_path=None):
         """
-        Dodaje produkt z XML do sklepu z zadanym narzutem procentowym
-        
-        Args:
-            xml_product_id (str): ID produktu w XML
-            markup_percent (float): Procentowy narzut na cenę
-            available_for_sale (bool): Czy produkt ma być dostępny do sprzedaży
-            xml_path (str, optional): Ścieżka do pliku XML
-            
-        Returns:
-            dict: Dodany produkt lub None w przypadku błędu
+        Dodaje produkt z XML do sklepu z zadanym narzutem procentowym.
+        Cena z XML jest traktowana jako NETTO, najpierw doliczany jest VAT, potem narzut.
         """
         if xml_path is None:
             xml_path = self.xml_path
@@ -733,53 +801,77 @@ class ProductManager:
             
             product_elem = root.find(f".//offer[id='{xml_product_id}']")
             if product_elem is None:
-                self.logger.error(f"Nie znaleziono produktu o ID {xml_product_id} w pliku XML")
+                self.logger.error(f"Nie znaleziono produktu o XML ID {xml_product_id} w pliku XML")
                 return None
-            
-            # Sprawdź czy produkt już istnieje w bazie
-            for existing_product in self.products:
-                if existing_product.get('xml_id') == xml_product_id:
-                    self.logger.info(f"Produkt o ID {xml_product_id} już istnieje w bazie")
-                    return existing_product
-            
-            # Parsuj produkt
+
+            # Sprawdź, czy produkt już istnieje w bazie sklepu
+            existing_product = self.get_product_by_xml_id(xml_product_id)
+            if existing_product:
+                self.logger.info(f"Produkt o XML ID {xml_product_id} już istnieje w sklepie. ID: {existing_product['id']}")
+                # Można by tu zaktualizować istniejący produkt zamiast zwracać None lub błąd
+                # Na razie zwracamy None, aby uniknąć duplikatów przez tę funkcję
+                return None 
+
             product = {}
-            product['xml_id'] = self._safe_get_xml_value(product_elem, 'id')
-            product['id'] = len(self.products) + 1
-            product['uuid'] = self._safe_get_xml_value(product_elem, 'uuid')
+            product['xml_id'] = xml_product_id
+            
+            # Mapowanie podstawowych pól
             product['name'] = self._safe_get_xml_value(product_elem, 'name')
             product['EAN'] = self._safe_get_xml_value(product_elem, 'EAN')
             product['producer'] = self._safe_get_xml_value(product_elem, 'producer')
             product['url'] = self._safe_get_xml_value(product_elem, 'url')
+            product['uuid'] = self._safe_get_xml_value(product_elem, 'uuid')
             product['added_date'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             
             # Obsługa kategorii
             category_text = self._safe_get_xml_value(product_elem, 'category')
             if category_text:
-                category_text = category_text.replace('&amp;gt;', '>')
-                categories = [cat.strip() for cat in category_text.split('>')]
+                category_text = category_text.replace('&amp;gt;', '>').replace('&gt;', '>')
+                categories = [cat.strip() for cat in category_text.split('>') if cat.strip()]
                 product['category'] = categories[-1] if categories else "Bez kategorii"
-                product['category_path'] = categories
+                product['category_path'] = categories if categories else ["Bez kategorii"]
             else:
                 product['category'] = "Bez kategorii"
                 product['category_path'] = ["Bez kategorii"]
             
-            # Obsługa cen z narzutem
+            # Obsługa cen z narzutem (cena z XML to NETTO)
             try:
-                base_price = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
-                if base_price == 0:
-                    base_price = float(self._safe_get_xml_value(product_elem, 'price', '0'))
+                base_price_net_xml = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
+                if base_price_net_xml == 0:
+                    base_price_net_xml = float(self._safe_get_xml_value(product_elem, 'price', '0'))
                 
-                # Dodaj narzut procentowy
-                markup_multiplier = 1 + (markup_percent / 100)
-                product['price'] = round(base_price * markup_multiplier, 2)
-                product['original_price'] = base_price
-                product['markup_percent'] = markup_percent
+                product['price_net_xml'] = base_price_net_xml
+
+                # 1. Dolicz VAT do ceny netto z XML
+                base_price_gross_xml = self._calculate_gross_price(base_price_net_xml)
+                product['original_price'] = base_price_gross_xml # Cena brutto z XML (po VAT, przed narzutem sklepu)
+                
+                # 2. Dolicz narzut sklepu do ceny brutto z XML
+                markup_multiplier = 1 + (float(markup_percent) / 100)
+                final_price_with_markup = round(base_price_gross_xml * markup_multiplier, 2)
+                
+                product['price'] = final_price_with_markup # Finalna cena brutto (po VAT i po narzucie sklepu)
+                product['markup_percent'] = float(markup_percent)
+
+                # discounted_price powinno być równe cenie, chyba że jest specjalna promocja
+                # Na razie ustawiamy równe finalnej cenie
+                product['discounted_price'] = final_price_with_markup
+
             except ValueError:
-                product['price'] = 0
-                product['original_price'] = 0
-                product['markup_percent'] = 0
+                self.logger.error(f"Błąd konwersji ceny dla produktu XML ID {xml_product_id} przy dodawaniu.")
+                product['price_net_xml'] = 0.0
+                product['original_price'] = 0.0
+                product['price'] = 0.0
+                product['markup_percent'] = 0.0
+                product['discounted_price'] = 0.0
             
+            # VAT
+            vat_xml = self._safe_get_xml_value(product_elem, 'tax')
+            try:
+                product['vat'] = int(vat_xml) if vat_xml else self.VAT_RATE
+            except ValueError:
+                product['vat'] = self.VAT_RATE
+
             # Ustaw dostępność
             product['available_for_sale'] = available_for_sale
             
@@ -792,243 +884,151 @@ class ProductManager:
             except ValueError:
                 product['stock'] = 0
             
-            # Obsługa obrazków
-            pictures_elem = product_elem.find('pictures')
-            if pictures_elem is not None:
-                product['images'] = [pic.text for pic in pictures_elem.findall('picture') if pic.text]
-                product['image'] = product['images'][0] if product['images'] else None
-            else:
-                product['images'] = []
-                product['image'] = None
-            
-            # Dodaj produkt do bazy
-            self.products.append(product)
-            self._save_to_db()
-            
-            self.logger.info(f"Dodano produkt {product['name']} (ID: {product['id']}) z pliku XML")
-            return product
-            
-        except Exception as e:
-            self.logger.error(f"Błąd podczas dodawania produktu z XML: {str(e)}")
-            return None
-    
-    def save_product_list(self, name, description, products_ids, markup_percent=0, product_markups=None):
-        """
-        Zapisuje listę produktów do późniejszego użycia
-        
-        Args:
-            name (str): Nazwa listy
-            description (str): Opis listy
-            products_ids (list): Lista ID produktów z XML
-            markup_percent (float): Domyślny narzut procentowy
-            product_markups (dict, optional): Słownik zawierający indywidualne narzuty dla produktów {product_id: markup_percent}
-            
-        Returns:
-            dict: Zapisana lista lub None w przypadku błędu
-        """
-        try:
-            # Załaduj istniejące listy
-            lists_path = os.path.join('data', 'product_lists.json')
-            product_lists = []
-            
-            if os.path.exists(lists_path):
-                with open(lists_path, 'r', encoding='utf-8') as f:
-                    product_lists = json.load(f)
-            
-            # Utwórz nową listę
-            new_list = {
-                'id': len(product_lists) + 1,
-                'name': name,
-                'description': description,
-                'products_ids': products_ids,
-                'markup_percent': markup_percent,
-                'product_markups': product_markups or {},
-                'created_at': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            }
-            
-            # Dodaj listę
-            product_lists.append(new_list)
-            
-            # Zapisz listy
-            os.makedirs(os.path.dirname(lists_path), exist_ok=True)
-            with open(lists_path, 'w', encoding='utf-8') as f:
-                json.dump(product_lists, f, ensure_ascii=False, indent=2)
-            
-            self.logger.info(f"Zapisano listę produktów '{name}' z {len(products_ids)} produktami")
-            return new_list
-            
-        except Exception as e:
-            self.logger.error(f"Błąd podczas zapisywania listy produktów: {str(e)}")
-            return None
-    
-    def get_product_lists(self):
-        """Zwraca wszystkie zapisane listy produktów"""
-        lists_path = os.path.join('data', 'product_lists.json')
-        
-        if os.path.exists(lists_path):
-            try:
-                with open(lists_path, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-            except Exception as e:
-                self.logger.error(f"Błąd podczas wczytywania list produktów: {str(e)}")
-        
-        return []
-    
-    def add_products_from_list(self, list_id):
-        """
-        Dodaje wszystkie produkty z listy do sklepu
-        
-        Args:
-            list_id (int): ID listy produktów
-            
-        Returns:
-            list: Lista dodanych produktów lub None w przypadku błędu
-        """
-        try:
-            # Załaduj listy produktów
-            lists = self.get_product_lists()
-            
-            # Znajdź listę
-            product_list = None
-            for lst in lists:
-                if lst.get('id') == list_id:
-                    product_list = lst
-                    break
-            
-            if not product_list:
-                self.logger.error(f"Nie znaleziono listy produktów o ID {list_id}")
-                return None
-            
-            # Dodaj produkty
-            added_products = []
-            markup_percent = product_list.get('markup_percent', 0)
-            product_markups = product_list.get('product_markups', {})
-            
-            for xml_id in product_list.get('products_ids', []):
-                # Sprawdź czy produkt ma indywidualny narzut
-                individual_markup = product_markups.get(xml_id, markup_percent)
-                
-                # Produkty dodawane z listy są domyślnie dostępne do sprzedaży
-                product = self.add_product_from_xml(xml_id, individual_markup, available_for_sale=True)
-                if product:
-                    added_products.append(product)
-            
-            self.logger.info(f"Dodano {len(added_products)} produktów z listy '{product_list.get('name')}'")
-            return added_products
-            
-        except Exception as e:
-            self.logger.error(f"Błąd podczas dodawania produktów z listy: {str(e)}")
-            return None
+            # Opis produktu (może być pobrany później lub z XML)
+            product['description'] = self._safe_get_xml_value(product_elem, 'description', '') # Pobierz opis jeśli jest w <description>
 
-    def add_custom_product(self, product_data):
-        """
-        Dodaje własny produkt do sklepu (bez korzystania z XML)
-        
-        Args:
-            product_data (dict): Dane produktu (name, price, category, description, stock, image)
+            # Dodaj produkt do listy i przypisz ID sklepu
+            # Znajdź następne dostępne ID numeryczne
+            max_id = 0
+            for p_existing in self.products:
+                try:
+                    if int(p_existing.get('id', 0)) > max_id:
+                        max_id = int(p_existing.get('id', 0))
+                except ValueError: # Ignoruj ID, które nie są liczbami
+                    pass
             
-        Returns:
-            dict: Dodany produkt lub None w przypadku błędu
-        """
-        try:
-            # Utworzenie nowego produktu
-            product = {
-                'id': len(self.products) + 1,
-                'custom': True,  # Oznaczenie, że to własny produkt
-                'name': product_data.get('name', 'Nowy produkt'),
-                'description': product_data.get('description', ''),
-                'category': product_data.get('category', 'Inne'),
-                'category_path': [product_data.get('category', 'Inne')],
-                'price': float(product_data.get('price', 0)),
-                'stock': int(product_data.get('stock', 0)),
-                'image': product_data.get('image', None),
-                'images': [product_data.get('image', None)] if product_data.get('image') else [],
-                'added_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                'available_for_sale': True  # Domyślnie produkt jest dostępny
-            }
-            
-            # Dodaj produkt do bazy
+            product['id'] = str(max_id + 1) # Nowe unikalne ID w sklepie
+
             self.products.append(product)
             self._save_to_db()
             
-            self.logger.info(f"Dodano własny produkt {product['name']} (ID: {product['id']})")
+            self.logger.info(f"Dodano nowy produkt z XML ID {xml_product_id} do sklepu jako ID {product['id']} z narzutem {markup_percent}%.")
             return product
-            
+
+        except ET.ParseError as e:
+            self.logger.error(f"Błąd parsowania XML ({xml_path}) przy dodawaniu produktu: {e}")
+            return None
         except Exception as e:
-            self.logger.error(f"Błąd podczas dodawania własnego produktu: {str(e)}")
+            self.logger.error(f"Nieoczekiwany błąd podczas dodawania produktu z XML ({xml_product_id}): {str(e)}")
             return None
     
-    def update_product(self, product_id, price=None, vat=None, delivery_time=None, delivery_cost=None, markup_percent=None):
+    def update_product(self, product_id, price=None, vat=None, delivery_time=None, delivery_cost=None, markup_percent=None, available_for_sale=None, name=None, description=None, category_path=None, ean=None, producer=None, stock=None, custom_fields=None):
         """
-        Aktualizuje dane produktu
-        
-        Args:
-            product_id (str): ID produktu do aktualizacji
-            price (float, optional): Nowa cena produktu
-            vat (int, optional): Nowa stawka VAT
-            delivery_time (str, optional): Nowy czas dostawy
-            delivery_cost (float, optional): Nowy koszt dostawy
-            markup_percent (float, optional): Nowy procent narzutu
-        
-        Returns:
-            bool: True jeśli aktualizacja się powiodła, False w przeciwnym razie
+        Aktualizuje dane produktu.
+        Jeśli 'price' jest podane, jest to finalna cena brutto.
+        Jeśli 'markup_percent' jest podane, cena jest przeliczana na podstawie 'original_price' (brutto z XML).
         """
         try:
-            # Znajdź produkt po ID
-            product = None
+            product_id_str = str(product_id)
+            product_found = False
             for p in self.products:
-                if str(p.get('id')) == str(product_id):
+                if str(p.get('id')) == product_id_str:
                     product = p
+                    product_found = True
                     break
             
-            if not product:
-                self.logger.error(f"Nie znaleziono produktu o ID: {product_id}")
+            if not product_found:
+                self.logger.error(f"Nie znaleziono produktu o ID: {product_id_str}")
                 return False
             
             # Aktualizuj pola produktu
+            if name is not None:
+                product['name'] = name
+            if description is not None:
+                product['description'] = description
+            if category_path is not None and isinstance(category_path, list):
+                product['category_path'] = category_path
+                product['category'] = category_path[-1] if category_path else "Bez kategorii"
+            if ean is not None:
+                product['EAN'] = ean
+            if producer is not None:
+                product['producer'] = producer
+            if stock is not None:
+                try:
+                    product['stock'] = int(stock)
+                except ValueError:
+                    self.logger.warning(f"Nieprawidłowa wartość dla stanu magazynowego: {stock} dla produktu ID {product_id_str}")
+
+
             if price is not None:
-                product['price'] = float(price)
-                
-                # Jeśli produkt ma XML ID i podana jest nowa cena, aktualizujemy narzut
-                if product.get('xml_id') and product.get('original_price', 0) > 0:
-                    original_price = product.get('original_price')
-                    if original_price > 0:
-                        # Oblicz nowy procent narzutu na podstawie ceny
-                        new_markup = ((float(price) / original_price) - 1) * 100
+                try:
+                    new_final_price = round(float(price), 2)
+                    product['price'] = new_final_price
+                    
+                    # Jeśli produkt ma 'original_price' (cena brutto z XML przed narzutem sklepu)
+                    # i jest ona większa od zera, możemy przeliczyć 'markup_percent'
+                    if product.get('original_price') and float(product['original_price']) > 0:
+                        original_gross_price = float(product['original_price'])
+                        # (new_final_price / original_gross_price - 1) * 100 = markup_percent
+                        new_markup = ((new_final_price / original_gross_price) - 1) * 100
                         product['markup_percent'] = round(new_markup, 2)
-                
-                # Jeśli nie ma promocyjnej ceny, ustaw ją taką samą jak podstawowa
-                if product.get('discounted_price', 0) == 0 or product.get('discounted_price') == product.get('price'):
-                    product['discounted_price'] = float(price)
-            
-            # Jeśli podano nowy procent narzutu, aktualizujemy cenę
-            if markup_percent is not None and product.get('xml_id') and product.get('original_price', 0) > 0:
-                product['markup_percent'] = float(markup_percent)
-                markup_multiplier = 1 + (float(markup_percent) / 100)
-                original_price = product.get('original_price')
-                product['price'] = round(original_price * markup_multiplier, 2)
-                
-                # Jeśli nie ma promocyjnej ceny, ustaw ją taką samą jak podstawowa
-                if product.get('discounted_price', 0) == 0 or product.get('discounted_price') == product.get('price'):
-                    product['discounted_price'] = product['price']
+                    else:
+                        # Jeśli nie ma original_price, nie możemy obliczyć narzutu,
+                        # ale cena została ustawiona. Możemy wyzerować narzut lub zostawić.
+                        # Dla spójności, jeśli cena jest ustawiana ręcznie, a nie ma bazy, narzut może być niejednoznaczny.
+                        # Ustawmy narzut na None lub 0, jeśli nie można go wyliczyć.
+                        product['markup_percent'] = 0.0 # lub None
+
+                    # Aktualizujemy discounted_price, jeśli nie ma innej logiki promocyjnej
+                    # Zakładamy, że jeśli cena jest aktualizowana, to discounted_price też powinna (chyba że jest promocja)
+                    if product.get('discounted_price') == product.get('price') or not product.get('discounted_price'): # Proste założenie
+                         product['discounted_price'] = new_final_price
+
+                except ValueError:
+                    self.logger.error(f"Nieprawidłowa wartość ceny dla produktu ID {product_id_str}: {price}")
+                    return False
+
+            # Jeśli podano nowy procent narzutu, przeliczamy cenę na podstawie 'original_price'
+            elif markup_percent is not None: # Używamy elif, bo 'price' ma pierwszeństwo
+                try:
+                    markup_percent = float(markup_percent)
+                    product['markup_percent'] = markup_percent
+                    
+                    if product.get('original_price') and float(product['original_price']) > 0:
+                        original_gross_price = float(product['original_price'])
+                        markup_multiplier = 1 + (markup_percent / 100)
+                        new_final_price = round(original_gross_price * markup_multiplier, 2)
+                        product['price'] = new_final_price
+                        
+                        # Aktualizujemy discounted_price
+                        if product.get('discounted_price') == original_gross_price or not product.get('discounted_price'): # Proste założenie
+                            product['discounted_price'] = new_final_price
+                    else:
+                        # Nie można obliczyć ceny na podstawie narzutu, jeśli brakuje original_price
+                        self.logger.warning(f"Nie można zaktualizować ceny produktu ID {product_id_str} na podstawie narzutu, "
+                                            f"ponieważ brakuje 'original_price' (ceny brutto z XML).")
+                        # Cena nie jest zmieniana, tylko narzut jest zapisywany.
+                except ValueError:
+                    self.logger.error(f"Nieprawidłowa wartość procentowa narzutu dla produktu ID {product_id_str}: {markup_percent}")
+                    return False
             
             if vat is not None:
-                product['vat'] = int(vat)
-            
-            if delivery_time:
+                try:
+                    product['vat'] = int(vat)
+                except ValueError:
+                     self.logger.warning(f"Nieprawidłowa wartość VAT: {vat} dla produktu ID {product_id_str}")
+            if delivery_time is not None:
                 product['delivery_time'] = delivery_time
-            
             if delivery_cost is not None:
-                product['delivery_cost'] = float(delivery_cost)
+                try:
+                    product['delivery_cost'] = round(float(delivery_cost), 2)
+                except ValueError:
+                    self.logger.warning(f"Nieprawidłowa wartość kosztu dostawy: {delivery_cost} dla produktu ID {product_id_str}")
+
+            if available_for_sale is not None:
+                product['available_for_sale'] = bool(available_for_sale)
+
+            if custom_fields and isinstance(custom_fields, dict):
+                for key, value in custom_fields.items():
+                    product[key] = value
             
-            # Zapisz zmiany w bazie danych
+            product['updated_at'] = time.time() # Dodajemy znacznik czasu aktualizacji
             self._save_to_db()
-            
-            self.logger.info(f"Zaktualizowano produkt ID: {product_id}")
+            self.logger.info(f"Zaktualizowano produkt ID: {product_id_str}")
             return True
         
         except Exception as e:
-            self.logger.error(f"Błąd podczas aktualizacji produktu: {str(e)}")
+            self.logger.error(f"Błąd podczas aktualizacji produktu ID {product_id_str}: {str(e)}")
             return False
     
     def toggle_product_availability(self, product_id, available=None):
@@ -1278,98 +1278,156 @@ class ProductManager:
 
     def update_price_with_markup(self, product_id):
         """
-        Aktualizuje cenę produktu na podstawie aktualnej ceny z XML i zachowanego procentu narzutu
-        
-        Args:
-            product_id (str): ID produktu do aktualizacji
-        
-        Returns:
-            bool: True jeśli aktualizacja się powiodła, False w przeciwnym razie
+        Aktualizuje cenę produktu na podstawie aktualnej ceny z XML (NETTO),
+        dolicza VAT, a następnie stosuje zachowany procent narzutu sklepu.
         """
         try:
-            # Znajdź produkt po ID
+            product_id_str = str(product_id)
             product = None
-            for p in self.products:
-                if str(p.get('id')) == str(product_id):
-                    product = p
+            for p_item in self.products:
+                if str(p_item.get('id')) == product_id_str:
+                    product = p_item
                     break
             
             if not product:
-                self.logger.error(f"Nie znaleziono produktu o ID: {product_id}")
+                self.logger.error(f"Nie znaleziono produktu o ID: {product_id_str} do aktualizacji ceny z narzutem.")
                 return False
             
-            # Pobierz XML ID produktu
             xml_id = product.get('xml_id')
             if not xml_id:
-                self.logger.error(f"Produkt o ID {product_id} nie ma przypisanego XML ID")
+                self.logger.error(f"Produkt o ID {product_id_str} nie ma przypisanego XML ID. Nie można zaktualizować ceny z XML.")
                 return False
             
-            # Pobierz zapisany procent narzutu
-            markup_percent = product.get('markup_percent', 0)
+            markup_percent = float(product.get('markup_percent', 0.0)) # Narzut sklepu
             
-            # Pobierz aktualną cenę z XML
+            # Pobierz aktualną cenę NETTO z XML
+            if not os.path.exists(self.xml_path):
+                self.logger.error(f"Plik XML nie istnieje: {self.xml_path}")
+                return False
+
             tree = ET.parse(self.xml_path)
             root = tree.getroot()
             
             product_elem = root.find(f".//offer[id='{xml_id}']")
             if product_elem is None:
-                self.logger.error(f"Nie znaleziono produktu o XML ID {xml_id} w pliku XML")
+                self.logger.error(f"Nie znaleziono produktu o XML ID {xml_id} w pliku XML do aktualizacji ceny.")
                 return False
             
-            # Pobierz aktualną cenę z XML
             try:
-                new_base_price = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
-                if new_base_price == 0:
-                    new_base_price = float(self._safe_get_xml_value(product_elem, 'price', '0'))
+                new_base_price_net_xml = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
+                if new_base_price_net_xml == 0:
+                    new_base_price_net_xml = float(self._safe_get_xml_value(product_elem, 'price', '0'))
                 
-                # Oblicz nową cenę z narzutem
+                # 1. Zaktualizuj cenę netto z XML w produkcie
+                product['price_net_xml'] = new_base_price_net_xml
+                
+                # 2. Oblicz nową cenę brutto z XML (po VAT) - to będzie nowa 'original_price'
+                new_base_price_gross_xml = self._calculate_gross_price(new_base_price_net_xml, product.get('vat', self.VAT_RATE))
+                product['original_price'] = new_base_price_gross_xml
+                
+                # 3. Oblicz nową finalną cenę brutto z narzutem sklepu
                 markup_multiplier = 1 + (markup_percent / 100)
-                new_price = round(new_base_price * markup_multiplier, 2)
+                new_final_price = round(new_base_price_gross_xml * markup_multiplier, 2)
                 
-                # Aktualizuj cenę i zapisz oryginalną cenę
-                product['price'] = new_price
-                product['original_price'] = new_base_price
+                product['price'] = new_final_price
                 
-                # Jeśli nie ma promocyjnej ceny, ustaw ją taką samą jak podstawowa
-                if product.get('discounted_price', 0) == 0 or product.get('discounted_price') == product.get('price'):
-                    product['discounted_price'] = new_price
+                # Aktualizuj discounted_price, jeśli jest powiązana
+                # Proste założenie: jeśli discounted_price było równe starej cenie brutto z XML, aktualizujemy je
+                # Można to uszczegółowić w zależności od logiki promocji
+                if product.get('discounted_price') == product.get('original_price') or product.get('discounted_price') == 0:
+                     product['discounted_price'] = new_final_price
                 
-                # Zapisz zmiany w bazie danych
+                product['updated_at'] = time.time()
                 self._save_to_db()
                 
-                self.logger.info(f"Zaktualizowano cenę produktu ID: {product_id} z narzutem {markup_percent}%")
+                self.logger.info(f"Zaktualizowano cenę produktu ID: {product_id_str} (XML ID: {xml_id}) "
+                                 f"na podstawie XML. Nowa cena netto XML: {new_base_price_net_xml}, "
+                                 f"nowa cena brutto XML (original_price): {new_base_price_gross_xml}, "
+                                 f"finalna cena z narzutem {markup_percent}%: {new_final_price}.")
                 return True
             except ValueError as e:
-                self.logger.error(f"Błąd podczas przetwarzania ceny produktu: {str(e)}")
+                self.logger.error(f"Błąd podczas przetwarzania ceny produktu XML ID {xml_id}: {str(e)}")
                 return False
             
         except Exception as e:
-            self.logger.error(f"Błąd podczas aktualizacji ceny produktu z narzutem: {str(e)}")
+            self.logger.error(f"Błąd podczas aktualizacji ceny produktu ID {product_id_str} z narzutem: {str(e)}")
             return False
-    
+
     def update_all_prices_with_markup(self):
         """
-        Aktualizuje ceny wszystkich produktów na podstawie aktualnych cen z XML i zachowanych procentów narzutu
-        
-        Returns:
-            tuple: (int, int) - (liczba zaktualizowanych produktów, liczba błędów)
+        Aktualizuje ceny wszystkich produktów, które mają zdefiniowany `xml_id` i `markup_percent`,
+        na podstawie aktualnych cen z XML (NETTO + VAT) i zachowanych procentów narzutu sklepu.
         """
         updated_count = 0
         error_count = 0
         
-        for product in self.products:
-            # Pomiń produkty bez XML ID lub bez narzutu
-            if not product.get('xml_id') or product.get('markup_percent', 0) == 0:
+        # Tworzymy kopię listy ID produktów do iteracji, aby uniknąć problemów z modyfikacją podczas iteracji
+        product_ids_to_update = [p.get('id') for p in self.products if p.get('xml_id') and 'markup_percent' in p]
+
+        for product_id in product_ids_to_update:
+            if not product_id: continue # Pomiń jeśli ID jest None lub puste
+
+            # Znajdź produkt po ID na świeżo, na wypadek gdyby lista self.products się zmieniła
+            current_product = self.get_product_by_id(product_id)
+            if not current_product:
+                error_count +=1
+                self.logger.warning(f"Nie znaleziono produktu o ID {product_id} podczas update_all_prices_with_markup.")
+                continue
+
+            # Pomiń produkty bez XML ID lub bez zapisanego narzutu (choć filtr wyżej powinien to załatwić)
+            if not current_product.get('xml_id') or current_product.get('markup_percent') is None:
                 continue
             
-            success = self.update_price_with_markup(product.get('id'))
+            success = self.update_price_with_markup(current_product.get('id'))
             if success:
                 updated_count += 1
             else:
                 error_count += 1
         
-        self.logger.info(f"Zaktualizowano ceny {updated_count} produktów, błędów: {error_count}")
+        if updated_count > 0 or error_count > 0:
+             self._save_to_db() # Zapisz zmiany zbiorczo po wszystkich aktualizacjach
+        
+        self.logger.info(f"Zakończono aktualizację cen wszystkich produktów z narzutem. "
+                         f"Zaktualizowano: {updated_count}, Błędów: {error_count}")
         return (updated_count, error_count)
+
+    def add_custom_product(self, product_data):
+        """
+        Dodaje własny produkt do sklepu (bez korzystania z XML)
+        
+        Args:
+            product_data (dict): Dane produktu (name, price, category, description, stock, image)
+            
+        Returns:
+            dict: Dodany produkt lub None w przypadku błędu
+        """
+        try:
+            # Utworzenie nowego produktu
+            product = {
+                'id': len(self.products) + 1,
+                'custom': True,  # Oznaczenie, że to własny produkt
+                'name': product_data.get('name', 'Nowy produkt'),
+                'description': product_data.get('description', ''),
+                'category': product_data.get('category', 'Inne'),
+                'category_path': [product_data.get('category', 'Inne')],
+                'price': float(product_data.get('price', 0)),
+                'stock': int(product_data.get('stock', 0)),
+                'image': product_data.get('image', None),
+                'images': [product_data.get('image', None)] if product_data.get('image') else [],
+                'added_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                'available_for_sale': True  # Domyślnie produkt jest dostępny
+            }
+            
+            # Dodaj produkt do bazy
+            self.products.append(product)
+            self._save_to_db()
+            
+            self.logger.info(f"Dodano własny produkt {product['name']} (ID: {product['id']})")
+            return product
+            
+        except Exception as e:
+            self.logger.error(f"Błąd podczas dodawania własnego produktu: {str(e)}")
+            return None
     
     def update_product_description(self, product_id, description_html):
         """

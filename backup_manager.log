@@ -8876,3 +8876,1186 @@ AssertionError: write() before start_response
 2025-05-22 21:46:32,282 - INFO - 145.239.89.63 - - [22/May/2025 21:46:32] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZSU&sid=n2OG7nVBfQBsS70lAAAX HTTP/1.1" 200 -
 2025-05-22 21:46:32,282 - INFO - n2OG7nVBfQBsS70lAAAX: Sending packet PING data None
 2025-05-22 21:46:42,177 - INFO - 145.239.89.63 - - [22/May/2025 21:46:42] "GET /kategoria/Turystyka/Kajaki%20dmuchane HTTP/1.1" 200 -
+2025-05-22 21:57:07,096 - INFO - Server initialized for threading.
+2025-05-22 21:57:07,096 - INFO - Załadowano konfigurację z data/xml_config.json
+2025-05-22 21:57:07,130 - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-22 21:57:07,130 - INFO - Załadowano 2 płatności z bazy danych
+2025-05-22 21:57:07,130 - INFO - Załadowano konfigurację płatności z data/payment_config.json
+2025-05-22 21:57:07,130 - INFO - Uruchomiono automatyczne tworzenie kopii zapasowych co 60 minut
+2025-05-22 21:57:07,163 - INFO - Baza danych produktów zawiera 3708 produktów, w tym 68 dostępnych do sprzedaży
+2025-05-22 21:57:07,168 - INFO - Utworzono kopię zapasową: data/backups/products_20250522_215707.json
+2025-05-22 21:57:07,178 - INFO - Usunięto starą kopię zapasową: products_20250522_154710.json
+2025-05-22 21:57:07,363 - WARNING - Zduplikowany XML ID 51115 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,366 - WARNING - Zduplikowany XML ID 59242-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,366 - WARNING - Zduplikowany XML ID 59242-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,367 - WARNING - Zduplikowany XML ID 75053-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,369 - WARNING - Zduplikowany XML ID 1601 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,370 - WARNING - Zduplikowany XML ID 1600 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,370 - WARNING - Zduplikowany XML ID 1602 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,370 - WARNING - Zduplikowany XML ID 1604 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,370 - WARNING - Zduplikowany XML ID 1605 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,370 - WARNING - Zduplikowany XML ID 1607 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28212 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 29000 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 29005 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28020 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28021 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28022 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28023 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28048 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28000 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28684 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 57422-S w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58480 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58431 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 56475 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58485 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 57453 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 68612 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 68614 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 68615 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 68610 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58561 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58859-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58859-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58894 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58868 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58504 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28202 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28030 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 28031 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58890-06 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58890-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 57403 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,419 - WARNING - Zduplikowany XML ID 58924 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 56483-intex w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58484 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58889-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58889-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 55609 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 68367 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 59623 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 68624 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 59631 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 68370 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58446 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58412 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 28122 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 68672 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 68347 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 48259 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58025 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58660 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58802-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58802-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 68609 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 69613 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 28032 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 59220-07 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 59242-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 59251-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 59251-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 59251-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 59252 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 59703-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58000 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58012 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58032 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58060 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58071 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58093 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58094 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58386 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58383 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58210 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 58111 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 28120 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 28130 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 28200 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 28210 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 28271 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 57266 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 67374 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 67002 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 67003 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 67403 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 28272 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 28273 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,420 - WARNING - Zduplikowany XML ID 29039 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 56508 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 68675 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29005-6szt w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 68564 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 57471 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58562 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 56587 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58671 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58165-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 59040 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 59040-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 59040 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 59065 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 28002 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 34009 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 51045 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58212 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 67224 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 67225 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 43055 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 52027 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58036 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58037-POKRYWA w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58038 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58389 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 61062 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 62004 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 62015 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 62064 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 67004 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 43011 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 51080 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58105 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58106 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 67001 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58331 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58107 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58236 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58095 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 55503 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 28003 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 57444 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29059 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29060 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29054 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29053 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29051 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29050 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29052 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29055 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29056 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 29057 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 55504 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 58357 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 59895-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 69611 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,421 - WARNING - Zduplikowany XML ID 56441-INTEX w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 57482 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 28040 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 62003 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 67223 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 67226 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 67401 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 28212-4w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 28202-4w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 67003-62002 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 56588 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 56585 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 59030 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 59262-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 59262-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 57470 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 59469 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58426 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 59416 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58546 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 28270 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 34037-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 34037-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 36016 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 36025-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 41037-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 43009 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 43023 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 44013-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 52133 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 54005 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 54006 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58241 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58242 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58173 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58224-PRYSZNIC w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58369 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58368 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 62023 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 67121-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 91002 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 91007 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58259 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 98002 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58039 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 44672-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 67004-62002 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 28122-4w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 28120-2w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 28130-2w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 28200-2w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 28210-2w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58093-6szt w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58094-6szt w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58012-6szt w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 29080 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58332 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58240 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58228-POKRYWA w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,422 - WARNING - Zduplikowany XML ID 58253-POKRYWA w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 62030 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 62005 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 57173 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 51004 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 57135 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 53052 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 57525 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 57520 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 98003 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 32050 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 32096 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 67000 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 66810 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 58439 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 58507 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 56420 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 59894-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 59894-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 58836-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 68605 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 28101 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 68676-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 68676 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 68676 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID NS-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 54009-2w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 10605 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 28602 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 29083 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 29081 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 56268 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 56822 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 57190 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 57524 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 58641 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 59460 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 28685 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 31022 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 36013-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 36024-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 36024-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 36084-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 36084-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 43024 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 43108 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 51103 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 51104 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 51115 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 51115 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 52123 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,423 - WARNING - Zduplikowany XML ID 54117 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 54118 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 55029 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 58103 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 58108 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 58252-pokrywa w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 58280 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 58319 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 91041 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 91043 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 98001 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28602-29007 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 62086 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID NS-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID NS-07 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 49602 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28039 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28089 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 29001 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 48674 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28500 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 57114 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28502 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28038 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28142 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28143 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 58248 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 67006-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 67006-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 68002 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 56441-BESTWAY w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28270-2w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28271-2w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28272-2w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28602GS w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 58381GS w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID DM-111 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID DM-112 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID DM-113 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID DM-114 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID DM-121 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID DM-122 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 101 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 422 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 424 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 421 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 43015-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 43015-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 43015-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 51008 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 52192 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 54153 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 55030 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 58249 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 58442 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 58430 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 57558 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 57555 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 68305 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28026 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 28004 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,424 - WARNING - Zduplikowany XML ID 54006-2W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 54006-3W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 4981 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 1200 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 1201 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 55507 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 56825 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 57561 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 58770 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 56265 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 56263 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 57551 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 57106 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 57104 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 59421 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 57181 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 55944 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 26668 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 26670 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 26666 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28037 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28051 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28695 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 64103 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 67997 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 67998 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 67999 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 36113-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 36113-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 53069 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 52241 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 58462 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 58419 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 56448-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 32034 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28122-15w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28143-2W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28270-15w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28271-15w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28273-15w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 56800 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 57161 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 66640 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 66644 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 58786 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 26644 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 26646 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 26648 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 26652 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28698 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28503 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 28505 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 64756 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 64757 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 64758 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 64759 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 64755 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,425 - WARNING - Zduplikowany XML ID 64765 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64141 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64142 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64143 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64144 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 55028 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 51061-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 51061-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 51124 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 43118-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 58425-Bestway w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 58423 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 58424 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 58474-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 43116 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 36128-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 36121-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 41122 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 58499 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 58486 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 56710-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26700 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26700-2W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26702 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26702-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26710 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26710-2W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26712 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26712-4W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26712-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26716 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26716-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26726 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26726-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26784 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26784-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26792 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 26792-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID NS-06Z181 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID NS-08C181 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID NS-10C181 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID NS-12C181 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 3820 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64777 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64761 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64762 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 68579 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 66552 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64106 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64763 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64107 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64108 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64109 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 66552-66640 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64103-68612 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64141-68612 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 64142-68612 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 66638 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,426 - WARNING - Zduplikowany XML ID 66634 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 66642 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 57165 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 69629 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 62068 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 56418 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 36159 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 56595 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 56488 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 43161 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 53092 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 52326 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 52320 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 51145 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 41009 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 55001 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 55022 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 26742-18W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 26742 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 57392 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 93541 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 54009 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 52328 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 57376 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 43097 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 67628 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 26756 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 26756-18W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 58475 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 68556-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 56274-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 56274-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 56488-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 56406 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 56595-16W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 55031 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 56448 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28428 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28428-Z w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28440 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28440-Z w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28442 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28442-Z w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28458 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28458-Z w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28462 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28462-Z w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 32042-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 32042-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 61083 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 28606 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 55647 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 29041 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 29044 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 51009 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 26726-20W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 67000-62002 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 26756-20W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 26742-20W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 26792-20W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 51005 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 59230-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 59230-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 59230-06 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,427 - WARNING - Zduplikowany XML ID 58232 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 36112-06 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 43014-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 43014-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 43028-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 43028-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 43040-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 44020-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 3822 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1814 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1815 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1813 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1812 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1835 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1833 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1823 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1822 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1832 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1831 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1820 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1825 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 59258-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1824 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 55602-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 55602-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 55602-06 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 58221-07 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 43103-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1800 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1803 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1804 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 1805 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 67001-62002 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 64759-68612 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 64758-68612 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 66551 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 64779 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 55978-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 55991-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 57552 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 57563 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 58652-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 66636 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 69625 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 60001 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 5614A w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 58619 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 58292 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 5612X w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 56710 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 56950 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 67002-62002 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 60310 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 26031 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 68084 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 60307 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 60304 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 60303 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 58636 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 57147 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 44635 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 28118 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 28208 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 28274 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 67699 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 60311 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,428 - WARNING - Zduplikowany XML ID 56950-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 5612X-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 26644-PIASEK-25KG w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28208-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28274-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 26646-PIASEK-25KG w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 26652-PIASEK-50KG w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28106 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28108 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28116 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28106-2W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28108-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28116-2W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 26648-PIASEK-50KG w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 64101 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 29084 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28005 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 59266-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 59266-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 22011-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 24018-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 22039-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 22040-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 36228-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 36237-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 36237-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 52418 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 42049-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 42049-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 42049-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28118-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28205 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 24035-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 60306 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 5614Z w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 55685-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 55685-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 55685-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 26664 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 48260 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 57536-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 57536-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 5614A-16w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 5614Z-17w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 54009-3w1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 64760 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 58535 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28054 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 58448 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 29061 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28520 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 57113 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 64102 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 59717-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 59717-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 64778 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28028 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28016 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28014 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28013 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28011 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 56664-INTEX w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,429 - WARNING - Zduplikowany XML ID 28010 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 28012 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 28015 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 28029 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 28017 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 98018 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 68105 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 43533 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 58681 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 52479 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 52478 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 44083 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 36306-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 26756-20w1-1541 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 1819 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID MULTI-0.5KG-29040 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID MULTI-0.5KG-58210 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 57448-BESTWAY w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 56420-17W1B w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 5618W w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 57443 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 57445 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 57456 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 36302 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 55642 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 56666-INTEX w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 57450 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 56665 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 6713L w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 6713M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 75111 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 44669-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 44669-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 44669-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID NS-15-181-BT w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 56269 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 57144 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 57166 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 58417 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 58438 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 58437 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 58435 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 26642 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 26662 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 28036 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 28018 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 28628 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 57567 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 66814NP w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 28006 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 56874 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 56261-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 56261-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 56261-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 59409-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 58652-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 31036-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 31036-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 31036-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 36014-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 36014-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 36351-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 36351-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,430 - WARNING - Zduplikowany XML ID 36350-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 36350-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 44033-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 44033-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 34170-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 34170-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 22011-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 22011-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 21005-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 21005-06 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 22039-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 22039-06 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 22040-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 22040-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 24035-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 24025-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 91038N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 91040N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 55684-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64148ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64428ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64116ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64118ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64124ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64150ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64126ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64136ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64146ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64426ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 59258-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 59258-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 59720-09 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 58590-11 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 58590-12 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 41480 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 67770ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64122ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64132ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64162ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64412ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64414ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 56457N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 56217 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 56629N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 56456N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 56671N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 56403N-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 64418ND w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 56629N-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 56457N-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 56671N-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 56404N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 58635 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 58701 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 60316 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 60323 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 60321 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 52560 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 52566 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 43637 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 43643 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 32069N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 54370 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,431 - WARNING - Zduplikowany XML ID 9101D w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 91004N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 9101B w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 91099 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 5618W-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 26702-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 26712-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 26716-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 26784-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 26792-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28118-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28122-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28202-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28208-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28212-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28272-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28273-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 5612X-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 5614A-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 56420-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 56448-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 56488-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 64159 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 56406-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 59895-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 29001-6SZT w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 59380-09 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 59380-07 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 52269 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 561CF w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 68676-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 59266-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 66803-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 59256-06 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 59256-07 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28076 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28506 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28290 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28266 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 56132 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 67680 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 67682 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 67681 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 54150 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 56143 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 58492-INTEX w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 26102 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 57577 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 58432 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 21002-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 58234N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 22057-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 58278N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 58277N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 58282N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,432 - WARNING - Zduplikowany XML ID 28266-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 28266-2W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 21002-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 21002-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 22057-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 22057-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 22052-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 24023-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 22044-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 22052-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 22052-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 24023-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 58771 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 98019 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 98022 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 98792 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 98793 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 98795 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 60327 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 61141 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 61135 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 28209 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 28626 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 64179 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 57412 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 59220-07 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 59220-08 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 59220-09 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 61145 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 31042-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 34037-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 34149 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 32102-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 36120-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 41479 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 41502 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 43550 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 43644-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 43722 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 43730 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 43731 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 51025-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,433 - WARNING - Zduplikowany XML ID 32034N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 51128 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 54445 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 54446 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 56283N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 52638 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 52640 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 52642 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 53157 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 68091 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 58210N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9101C w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 59040-09 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 59040-08 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 58233N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 22049-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 58230 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 60334 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 62147 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 62174 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 75086 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 75115 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 36120-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 43644-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 64177 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 51025-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 51061-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9102T w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9102K w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9103D w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9102S w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9103C w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9102O w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9101F w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 32272 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9102U w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9102Z w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 98800 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 43733 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 52477 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 91042N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 36294 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 28106-15W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 66616 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 66637 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 56138 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 58727 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 57562 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 57576 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 56253 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 56802-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 56802-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 56802-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 64012 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 64097 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 56405N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 57528 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 24029-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 24029-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID NS-08W231 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9101I w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 9102N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,434 - WARNING - Zduplikowany XML ID 57241N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 62255 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 58072N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 62257 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 32273 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 32274 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 58237N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 56441-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 68001N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 36300 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 9101A w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 25039-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 24053-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 24053-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 43045 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-06W241 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-12W241 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 43720 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 52307 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 24036-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 24036-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 58013N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 41477 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 52632 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 34169-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 53156 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 25046-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 24068-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 24068-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 26009 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 36353-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 91098 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 51033-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 36025-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 34178 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 25039-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 25019-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 25019-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 43305 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 54451 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-13W241 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-15W241 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 650000 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 650001 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 62252 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 41405 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 171100 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 171200 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-06Z241 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-06Z221 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-12Z231 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-08Z231 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-14C221 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-14W231 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID NS-13W231 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 170200 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,435 - WARNING - Zduplikowany XML ID 170201 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 170202 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 170203 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 170204 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 170300 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 170301 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 170302 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 170303 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 170304 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 170305 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID NS-04Z240F w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 171010 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 171210 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID MSPA-SAPPHIRE w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 6001P w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 650200 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 650300 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 650400 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 28075 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 28077 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 28450NP w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 28452NP w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 64114 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 44125 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 44126 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 61153 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 61154 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 58870 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 26602 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 26604 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 26638 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 26636 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 26688 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59259-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59259-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59259-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 58263-10 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59720-10 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59720-11 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 58725-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 58725-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 58725-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 56139 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 58419-INTEX w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 60337 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 56710-M w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 561KC w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 58427-INTEX w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 58467 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 58480-N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 56433 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59241-08 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59241-09 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59221-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59266-05 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59260-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 58859-06 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59590-02 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59590-03 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59590-04 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59590-01 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 56669 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,436 - WARNING - Zduplikowany XML ID 59040-10 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,437 - WARNING - Zduplikowany XML ID 59040-11 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,437 - WARNING - Zduplikowany XML ID 6001N w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,437 - WARNING - Zduplikowany XML ID 56456N-17W1 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,437 - WARNING - Zduplikowany XML ID 41525 w pliku. Pomijam kolejne wystąpienie.
+2025-05-22 21:57:07,444 - ERROR - Nieoczekiwany błąd podczas parsowania pliku XML data/products_latest.xml: 'ProductManager' object has no attribute 'save_lock'
+2025-05-22 21:57:07,479 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5454
+ * Running on http://65.109.58.220:5454
+2025-05-22 21:57:07,479 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-22 21:57:07,479 - INFO -  * Restarting with stat
+2025-05-22 21:57:07,677 - INFO - Server initialized for threading.
+2025-05-22 21:57:07,677 - INFO - Załadowano konfigurację z data/xml_config.json
+2025-05-22 21:57:07,709 - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-22 21:57:07,710 - INFO - Załadowano 2 płatności z bazy danych
+2025-05-22 21:57:07,710 - INFO - Załadowano konfigurację płatności z data/payment_config.json
+2025-05-22 21:57:07,710 - INFO - Uruchomiono automatyczne tworzenie kopii zapasowych co 60 minut
+2025-05-22 21:57:07,743 - INFO - Baza danych produktów zawiera 3708 produktów, w tym 68 dostępnych do sprzedaży
+2025-05-22 21:57:07,749 - INFO - Utworzono kopię zapasową: data/backups/products_20250522_215707.json
+2025-05-22 21:57:07,879 - ERROR - Błąd parsowania XML (data/products_latest.xml): unclosed token: line 153871, column 3
+2025-05-22 21:57:07,896 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:57:07,896 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:57:07,898 - INFO - Uruchomiono harmonogram pobierania XML co 10 minut
+2025-05-22 21:57:07,913 - WARNING -  * Debugger is active!
+2025-05-22 21:57:07,914 - INFO -  * Debugger PIN: 212-086-963
+2025-05-22 21:57:08,344 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:57:08,344 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:57:08,346 - INFO - Uruchomiono harmonogram pobierania XML co 10 minut
+2025-05-22 21:57:10,372 - INFO - 31.179.185.98 - - [22/May/2025 21:57:10] "GET /admin/products HTTP/1.1" 200 -
+2025-05-22 21:57:16,188 - INFO - 31.179.185.98 - - [22/May/2025 21:57:16] "GET /admin/products HTTP/1.1" 200 -
+2025-05-22 21:57:22,597 - INFO - 31.179.185.98 - - [22/May/2025 21:57:22] "[35m[1mGET /admin/product-listing HTTP/1.1[0m" 500 -
+2025-05-22 21:57:22,752 - INFO - 31.179.185.98 - - [22/May/2025 21:57:22] "GET /admin/product-listing?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-05-22 21:57:22,796 - INFO - 31.179.185.98 - - [22/May/2025 21:57:22] "GET /admin/product-listing?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-05-22 21:57:23,012 - INFO - 31.179.185.98 - - [22/May/2025 21:57:23] "GET /admin/product-listing?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-05-22 21:57:25,013 - INFO - 31.179.185.98 - - [22/May/2025 21:57:25] "GET /admin/products HTTP/1.1" 200 -
+2025-05-22 21:57:27,637 - INFO - 31.179.185.98 - - [22/May/2025 21:57:27] "GET /admin/create-listing HTTP/1.1" 200 -
+2025-05-22 21:57:48,820 - INFO - 145.239.89.63 - - [22/May/2025 21:57:48] "GET /kategoria/Dziecko/Namioty%20dla%20dzieci HTTP/1.1" 200 -
+2025-05-22 21:58:13,961 - INFO - 31.179.185.98 - - [22/May/2025 21:58:13] "GET /admin/published-products HTTP/1.1" 200 -
+2025-05-22 21:58:18,580 - INFO - 31.179.185.98 - - [22/May/2025 21:58:18] "[35m[1mGET /admin/product-listing HTTP/1.1[0m" 500 -
+2025-05-22 21:58:18,696 - INFO - 31.179.185.98 - - [22/May/2025 21:58:18] "[36mGET /admin/product-listing?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-05-22 21:58:18,764 - INFO - 31.179.185.98 - - [22/May/2025 21:58:18] "[36mGET /admin/product-listing?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-05-22 21:59:02,908 - INFO - 145.239.89.63 - - [22/May/2025 21:59:02] "GET /kategoria/Dom/Wieszaki HTTP/1.1" 200 -
+2025-05-22 21:59:04,166 - INFO - 31.179.185.98 - - [22/May/2025 21:59:04] "GET /admin/published-products HTTP/1.1" 200 -
+2025-05-22 21:59:06,102 - ERROR - Invalid session RRGC4EY8AcJAskcBAAAF (further occurrences of this error will be logged with level INFO)
+2025-05-22 21:59:06,102 - INFO - 145.239.89.63 - - [22/May/2025 21:59:06] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIZSL&sid=RRGC4EY8AcJAskcBAAAF HTTP/1.1[0m" 400 -
+2025-05-22 21:59:06,690 - INFO - Invalid session 9FRBegX126-PjX70AAAH
+2025-05-22 21:59:06,690 - INFO - 145.239.89.63 - - [22/May/2025 21:59:06] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIZbw&sid=9FRBegX126-PjX70AAAH HTTP/1.1[0m" 400 -
+2025-05-22 22:00:16,972 - INFO - 145.239.89.63 - - [22/May/2025 22:00:16] "GET /kategoria/Ogród/Meble%20ogrodowe HTTP/1.1" 200 -
+2025-05-22 22:00:20,410 - INFO - 145.239.89.63 - - [22/May/2025 22:00:20] "GET /kategoria/Baseny/Baseny%20ogrodowe HTTP/1.1" 200 -
+2025-05-22 22:00:21,073 - INFO - 145.239.89.63 - - [22/May/2025 22:00:21] "GET /kategoria/Dom/Suszarki%20do%20naczyń HTTP/1.1" 200 -
+2025-05-22 22:00:22,823 - INFO - Invalid session TbKFY9eezsrEyJYiAAAJ
+2025-05-22 22:00:22,823 - INFO - 145.239.89.63 - - [22/May/2025 22:00:22] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIYWU&sid=TbKFY9eezsrEyJYiAAAJ HTTP/1.1[0m" 400 -
+2025-05-22 22:00:23,479 - INFO - Invalid session ZwKzesjhysvvwqLjAAAL
+2025-05-22 22:00:23,479 - INFO - 145.239.89.63 - - [22/May/2025 22:00:23] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIYuF&sid=ZwKzesjhysvvwqLjAAAL HTTP/1.1[0m" 400 -
+2025-05-22 22:00:24,157 - INFO - Invalid session r2r0Gbl6ljls75h6AAAN
+2025-05-22 22:00:24,157 - INFO - 145.239.89.63 - - [22/May/2025 22:00:24] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIZ4h&sid=r2r0Gbl6ljls75h6AAAN HTTP/1.1[0m" 400 -
+2025-05-22 22:00:25,156 - INFO - Invalid session r2r0Gbl6ljls75h6AAAN
+2025-05-22 22:00:25,157 - INFO - 145.239.89.63 - - [22/May/2025 22:00:25] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZ4g&sid=r2r0Gbl6ljls75h6AAAN HTTP/1.1[0m" 400 -
+2025-05-22 22:00:26,361 - INFO - Invalid session TlE3x3XVDtGkp0Y_AAAP
+2025-05-22 22:00:26,361 - INFO - 145.239.89.63 - - [22/May/2025 22:00:26] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIZSK&sid=TlE3x3XVDtGkp0Y_AAAP HTTP/1.1[0m" 400 -
+2025-05-22 22:00:27,464 - INFO - Invalid session TlE3x3XVDtGkp0Y_AAAP
+2025-05-22 22:00:27,465 - INFO - 145.239.89.63 - - [22/May/2025 22:00:27] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZSU&sid=TlE3x3XVDtGkp0Y_AAAP HTTP/1.1[0m" 400 -
+2025-05-22 22:00:28,590 - INFO - vvJwhXfo_H3PFrTKAAAA: Sending packet OPEN data {'sid': 'vvJwhXfo_H3PFrTKAAAA', 'upgrades': ['websocket'], 'pingTimeout': 30000, 'pingInterval': 15000, 'maxPayload': 1000000}
+2025-05-22 22:00:28,590 - INFO - 145.239.89.63 - - [22/May/2025 22:00:28] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZbc HTTP/1.1" 200 -
+2025-05-22 22:00:41,095 - INFO - vvJwhXfo_H3PFrTKAAAA: Received packet CLOSE data 
+2025-05-22 22:00:41,096 - INFO - 145.239.89.63 - - [22/May/2025 22:00:41] "POST /socket.io/?EIO=4&transport=polling&t=PRrIZbw&sid=vvJwhXfo_H3PFrTKAAAA HTTP/1.1" 200 -
+2025-05-22 22:00:41,096 - INFO - 145.239.89.63 - - [22/May/2025 22:00:41] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZbn&sid=vvJwhXfo_H3PFrTKAAAA HTTP/1.1" 200 -
+2025-05-22 22:00:53,252 - INFO - 31.179.185.98 - - [22/May/2025 22:00:53] "GET /admin/create-listing HTTP/1.1" 200 -
+2025-05-22 22:02:04,630 - INFO - 145.239.89.63 - - [22/May/2025 22:02:04] "GET /kategoria/Akcesoria%20do%20basenów/Pozostałe%20akcesoria HTTP/1.1" 200 -
+2025-05-22 22:02:07,664 - INFO - Invalid session vvJwhXfo_H3PFrTKAAAA
+2025-05-22 22:02:07,664 - INFO - 145.239.89.63 - - [22/May/2025 22:02:07] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZbm&sid=vvJwhXfo_H3PFrTKAAAA HTTP/1.1[0m" 400 -
+2025-05-22 22:02:08,420 - INFO - Invalid session vvJwhXfo_H3PFrTKAAAA
+2025-05-22 22:02:08,420 - INFO - 145.239.89.63 - - [22/May/2025 22:02:08] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIZbn&sid=vvJwhXfo_H3PFrTKAAAA HTTP/1.1[0m" 400 -
+2025-05-22 22:02:56,362 - INFO - 145.239.89.63 - - [22/May/2025 22:02:56] "GET /produkt/fotel-biurowy-z-mikrosiatki-sofotel-formax-czarny HTTP/1.1" 200 -
+2025-05-22 22:02:56,826 - INFO - 145.239.89.63 - - [22/May/2025 22:02:56] "GET /kategoria/Zdrowie/Koce%20elektryczne HTTP/1.1" 200 -
+2025-05-22 22:02:59,381 - INFO - Invalid session jWlObrnCfuYg9WO4AAAR
+2025-05-22 22:02:59,381 - INFO - 145.239.89.63 - - [22/May/2025 22:02:59] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIYWK&sid=jWlObrnCfuYg9WO4AAAR HTTP/1.1[0m" 400 -
+2025-05-22 22:03:00,003 - INFO - vynE5JY1jCGsz1xwAAAB: Sending packet OPEN data {'sid': 'vynE5JY1jCGsz1xwAAAB', 'upgrades': ['websocket'], 'pingTimeout': 30000, 'pingInterval': 15000, 'maxPayload': 1000000}
+2025-05-22 22:03:00,003 - INFO - 145.239.89.63 - - [22/May/2025 22:03:00] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYjp HTTP/1.1" 200 -
+2025-05-22 22:03:01,065 - INFO - Invalid session jWlObrnCfuYg9WO4AAAR
+2025-05-22 22:03:01,065 - INFO - 145.239.89.63 - - [22/May/2025 22:03:01] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIYWe&sid=jWlObrnCfuYg9WO4AAAR HTTP/1.1[0m" 400 -
+2025-05-22 22:03:02,232 - INFO - vynE5JY1jCGsz1xwAAAB: Received packet MESSAGE data 0
+2025-05-22 22:03:02,232 - INFO - emitting event "welcome" to 6jvT1rJ_YVEdjEYTAAAC [/]
+2025-05-22 22:03:02,232 - INFO - vynE5JY1jCGsz1xwAAAB: Sending packet MESSAGE data 2["welcome",{"message":"Po\u0142\u0105czono z serwerem w czasie rzeczywistym","socket_id":"6jvT1rJ_YVEdjEYTAAAC","timestamp":1747944182.2328165}]
+2025-05-22 22:03:02,233 - INFO - vynE5JY1jCGsz1xwAAAB: Sending packet MESSAGE data 0{"sid":"6jvT1rJ_YVEdjEYTAAAC"}
+2025-05-22 22:03:02,233 - INFO - 145.239.89.63 - - [22/May/2025 22:03:02] "POST /socket.io/?EIO=4&transport=polling&t=PRrIYjz&sid=vynE5JY1jCGsz1xwAAAB HTTP/1.1" 200 -
+2025-05-22 22:03:03,379 - INFO - 145.239.89.63 - - [22/May/2025 22:03:03] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYj-&sid=vynE5JY1jCGsz1xwAAAB HTTP/1.1" 200 -
+2025-05-22 22:03:04,514 - INFO - Invalid session y6ingfiDYhxOkhM1AAAT
+2025-05-22 22:03:04,514 - INFO - 145.239.89.63 - - [22/May/2025 22:03:04] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIYuF&sid=y6ingfiDYhxOkhM1AAAT HTTP/1.1[0m" 400 -
+2025-05-22 22:03:05,662 - INFO - Invalid session y6ingfiDYhxOkhM1AAAT
+2025-05-22 22:03:05,662 - INFO - 145.239.89.63 - - [22/May/2025 22:03:05] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIYu5&sid=y6ingfiDYhxOkhM1AAAT HTTP/1.1[0m" 400 -
+2025-05-22 22:03:15,003 - INFO - vynE5JY1jCGsz1xwAAAB: Sending packet PING data None
+2025-05-22 22:03:15,003 - INFO - 145.239.89.63 - - [22/May/2025 22:03:15] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYk7&sid=vynE5JY1jCGsz1xwAAAB HTTP/1.1" 200 -
+2025-05-22 22:03:15,202 - INFO - Invalid session y6ingfiDYhxOkhM1AAAT
+2025-05-22 22:03:15,203 - INFO - 145.239.89.63 - - [22/May/2025 22:03:15] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIYuP&sid=y6ingfiDYhxOkhM1AAAT HTTP/1.1[0m" 400 -
+2025-05-22 22:03:17,622 - INFO - vynE5JY1jCGsz1xwAAAB: Received packet PONG data 
+2025-05-22 22:03:17,622 - INFO - 145.239.89.63 - - [22/May/2025 22:03:17] "POST /socket.io/?EIO=4&transport=polling&t=PRrIYkH&sid=vynE5JY1jCGsz1xwAAAB HTTP/1.1" 200 -
+2025-05-22 22:03:27,384 - INFO - Invalid session k6QHGo1u8asQx7PtAAAV
+2025-05-22 22:03:27,384 - INFO - 145.239.89.63 - - [22/May/2025 22:03:27] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZ4g&sid=k6QHGo1u8asQx7PtAAAV HTTP/1.1[0m" 400 -
+2025-05-22 22:03:29,360 - INFO - vynE5JY1jCGsz1xwAAAB: Received packet CLOSE data 
+2025-05-22 22:03:29,361 - INFO - 145.239.89.63 - - [22/May/2025 22:03:29] "POST /socket.io/?EIO=4&transport=polling&t=PRrIYkR&sid=vynE5JY1jCGsz1xwAAAB HTTP/1.1" 200 -
+2025-05-22 22:03:29,361 - INFO - 145.239.89.63 - - [22/May/2025 22:03:29] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYkI&sid=vynE5JY1jCGsz1xwAAAB HTTP/1.1" 200 -
+2025-05-22 22:03:31,209 - INFO - Invalid session k6QHGo1u8asQx7PtAAAV
+2025-05-22 22:03:31,209 - INFO - 145.239.89.63 - - [22/May/2025 22:03:31] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZ4-&sid=k6QHGo1u8asQx7PtAAAV HTTP/1.1[0m" 400 -
+2025-05-22 22:03:32,681 - INFO - X6gcziFQWnd-MUFOAAAD: Sending packet OPEN data {'sid': 'X6gcziFQWnd-MUFOAAAD', 'upgrades': ['websocket'], 'pingTimeout': 30000, 'pingInterval': 15000, 'maxPayload': 1000000}
+2025-05-22 22:03:32,682 - INFO - 145.239.89.63 - - [22/May/2025 22:03:32] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYux HTTP/1.1" 200 -
+2025-05-22 22:03:34,144 - INFO - Invalid session n2OG7nVBfQBsS70lAAAX
+2025-05-22 22:03:34,144 - INFO - 145.239.89.63 - - [22/May/2025 22:03:34] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZSK&sid=n2OG7nVBfQBsS70lAAAX HTTP/1.1[0m" 400 -
+2025-05-22 22:03:35,678 - INFO - X6gcziFQWnd-MUFOAAAD: Received packet MESSAGE data 0
+2025-05-22 22:03:35,678 - INFO - emitting event "welcome" to i1t6qKdj5zJggXUUAAAE [/]
+2025-05-22 22:03:35,679 - INFO - X6gcziFQWnd-MUFOAAAD: Sending packet MESSAGE data 2["welcome",{"message":"Po\u0142\u0105czono z serwerem w czasie rzeczywistym","socket_id":"i1t6qKdj5zJggXUUAAAE","timestamp":1747944215.6789408}]
+2025-05-22 22:03:35,679 - INFO - X6gcziFQWnd-MUFOAAAD: Sending packet MESSAGE data 0{"sid":"i1t6qKdj5zJggXUUAAAE"}
+2025-05-22 22:03:35,679 - INFO - 145.239.89.63 - - [22/May/2025 22:03:35] "POST /socket.io/?EIO=4&transport=polling&t=PRrIYv0&sid=X6gcziFQWnd-MUFOAAAD HTTP/1.1" 200 -
+2025-05-22 22:03:36,911 - INFO - 145.239.89.63 - - [22/May/2025 22:03:36] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYv1&sid=X6gcziFQWnd-MUFOAAAD HTTP/1.1" 200 -
+2025-05-22 22:03:37,832 - INFO - 145.239.89.63 - - [22/May/2025 22:03:37] "GET /kategoria/Baseny/Baseny%20rozporowe HTTP/1.1" 200 -
+2025-05-22 22:03:38,875 - INFO - Invalid session n2OG7nVBfQBsS70lAAAX
+2025-05-22 22:03:38,875 - INFO - 145.239.89.63 - - [22/May/2025 22:03:38] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZSe&sid=n2OG7nVBfQBsS70lAAAX HTTP/1.1[0m" 400 -
+2025-05-22 22:03:47,682 - INFO - 145.239.89.63 - - [22/May/2025 22:03:47] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYvA&sid=X6gcziFQWnd-MUFOAAAD HTTP/1.1" 200 -
+2025-05-22 22:03:47,682 - INFO - X6gcziFQWnd-MUFOAAAD: Sending packet PING data None
+2025-05-22 22:03:47,882 - INFO - Invalid session jWlObrnCfuYg9WO4AAAR
+2025-05-22 22:03:47,883 - INFO - 145.239.89.63 - - [22/May/2025 22:03:47] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIYWK&sid=jWlObrnCfuYg9WO4AAAR HTTP/1.1[0m" 400 -
+2025-05-22 22:03:50,441 - INFO - X6gcziFQWnd-MUFOAAAD: Received packet PONG data 
+2025-05-22 22:03:50,441 - INFO - 145.239.89.63 - - [22/May/2025 22:03:50] "POST /socket.io/?EIO=4&transport=polling&t=PRrIYvK&sid=X6gcziFQWnd-MUFOAAAD HTTP/1.1" 200 -
+2025-05-22 22:03:52,636 - INFO - Invalid session jWlObrnCfuYg9WO4AAAR
+2025-05-22 22:03:52,636 - INFO - 145.239.89.63 - - [22/May/2025 22:03:52] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIYWe&sid=jWlObrnCfuYg9WO4AAAR HTTP/1.1[0m" 400 -
+2025-05-22 22:03:54,985 - INFO - Invalid session y6ingfiDYhxOkhM1AAAT
+2025-05-22 22:03:54,985 - INFO - 145.239.89.63 - - [22/May/2025 22:03:54] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIYu5&sid=y6ingfiDYhxOkhM1AAAT HTTP/1.1[0m" 400 -
+2025-05-22 22:03:57,189 - INFO - Invalid session y6ingfiDYhxOkhM1AAAT
+2025-05-22 22:03:57,189 - INFO - 145.239.89.63 - - [22/May/2025 22:03:57] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIYuP&sid=y6ingfiDYhxOkhM1AAAT HTTP/1.1[0m" 400 -
+2025-05-22 22:03:58,660 - INFO - Invalid session k6QHGo1u8asQx7PtAAAV
+2025-05-22 22:03:58,660 - INFO - 145.239.89.63 - - [22/May/2025 22:03:58] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZ4g&sid=k6QHGo1u8asQx7PtAAAV HTTP/1.1[0m" 400 -
+2025-05-22 22:04:00,312 - INFO - Invalid session k6QHGo1u8asQx7PtAAAV
+2025-05-22 22:04:00,312 - INFO - 145.239.89.63 - - [22/May/2025 22:04:00] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZ4-&sid=k6QHGo1u8asQx7PtAAAV HTTP/1.1[0m" 400 -
+2025-05-22 22:04:01,842 - INFO - Invalid session n2OG7nVBfQBsS70lAAAX
+2025-05-22 22:04:01,842 - INFO - 145.239.89.63 - - [22/May/2025 22:04:01] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZSK&sid=n2OG7nVBfQBsS70lAAAX HTTP/1.1[0m" 400 -
+2025-05-22 22:04:03,257 - INFO - Invalid session n2OG7nVBfQBsS70lAAAX
+2025-05-22 22:04:03,258 - INFO - 145.239.89.63 - - [22/May/2025 22:04:03] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIZSe&sid=n2OG7nVBfQBsS70lAAAX HTTP/1.1[0m" 400 -
+2025-05-22 22:04:05,441 - INFO - X6gcziFQWnd-MUFOAAAD: Sending packet PING data None
+2025-05-22 22:04:18,083 - INFO - 145.239.89.63 - - [22/May/2025 22:04:18] "GET /kategoria/Akcesoria%20do%20basenów/Sitko%20do%20basenu HTTP/1.1" 200 -
