@@ -6987,3 +6987,9 @@ AssertionError: write() before start_response
 2025-05-22 13:47:15,290 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
 2025-05-22 13:47:15,498 - INFO - Zapisano konfigurację do data/xml_config.json
 2025-05-22 13:47:15,498 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 13:52:47,611 - INFO - 145.239.89.63 - - [22/May/2025 13:52:47] "GET /kategoria/Trampoliny/Akcesoria%20do%20trampolin HTTP/1.1" 200 -
+2025-05-22 13:57:15,820 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 13:57:15,820 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 13:57:16,002 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 13:57:16,002 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 14:02:30,632 - INFO - 145.239.89.63 - - [22/May/2025 14:02:30] "[33mGET /wp-login.php HTTP/1.1[0m" 404 -
