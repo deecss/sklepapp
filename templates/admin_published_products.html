@@ -76,7 +76,7 @@
         background-color: var(--light-bg);
         z-index: 10;
         box-shadow: var(--shadow-sm);
-        height: 60px;
+        /* height: 60px; */ /* Removed fixed height */
     }
     
     .table-header th {
@@ -268,6 +268,81 @@
         border-top-right-radius: var(--radius-lg);
     }
     
+    .products-table th,
+    .products-table td {
+        padding: 0.75rem; /* Reduced padding for more compact cells */
+        vertical-align: middle;
+        border-bottom: 1px solid var(--border-color);
+        text-align: left; /* Ensure text is aligned to the left */
+    }
+
+    .products-table th {
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        background-color: var(--light-bg); /* Ensure header has a background */
+        position: sticky; /* Make header sticky */
+        top: 0; /* Stick to the top */
+        z-index: 10; /* Ensure header is above other content */
+    }
+
+    /* Specific column widths */
+    .products-table th.col-checkbox,
+    .products-table td.col-checkbox {
+        width: 3rem; /* Checkbox column */
+        min-width: 3rem;
+        text-align: center;
+    }
+    .products-table th.col-product,
+    .products-table td.col-product {
+        width: 25%; /* Product column */
+        min-width: 200px;
+    }
+    .products-table th.col-category,
+    .products-table td.col-category {
+        width: 12%; /* Category column */
+        min-width: 120px;
+    }
+    .products-table th.col-markup,
+    .products-table td.col-markup {
+        width: 10%; /* Markup column */
+        min-width: 100px;
+    }
+    .products-table th.col-price,
+    .products-table td.col-price {
+        width: 10%; /* Price column */
+        min-width: 110px;
+    }
+    .products-table th.col-vat,
+    .products-table td.col-vat {
+        width: 8%;  /* VAT column */
+        min-width: 80px;
+    }
+    .products-table th.col-shipping,
+    .products-table td.col-shipping {
+        width: 12%; /* Shipping column */
+        min-width: 140px;
+    }
+    .products-table th.col-stock,
+    .products-table td.col-stock {
+        width: 8%;  /* Stock column */
+        min-width: 80px;
+        text-align: center;
+    }
+    .products-table th.col-actions,
+    .products-table td.col-actions {
+        width: 12%; /* Actions column */
+        min-width: 150px;
+        text-align: center;
+    }
+
+    .products-table tr:last-child td {
+        border-bottom: none;
+    }
+    
     /* Toast notification */
     .toast-notification {
         position: fixed;
@@ -331,11 +406,12 @@
     
     .products-table th,
     .products-table td {
-        padding: 1rem 0.75rem;
+        padding: 0.75rem; /* Reduced padding for more compact cells */
         vertical-align: middle;
         border-bottom: 1px solid var(--border-color);
+        text-align: left; /* Ensure text is aligned to the left */
     }
-    
+
     .products-table th {
         font-weight: 600;
         color: var(--text-secondary);
@@ -343,8 +419,62 @@
         letter-spacing: 0.05em;
         font-size: 0.75rem;
         white-space: nowrap;
+        background-color: var(--light-bg); /* Ensure header has a background */
+        position: sticky; /* Make header sticky */
+        top: 0; /* Stick to the top */
+        z-index: 10; /* Ensure header is above other content */
     }
-    
+
+    /* Specific column widths */
+    .products-table th.col-checkbox,
+    .products-table td.col-checkbox {
+        width: 3rem; /* Checkbox column */
+        min-width: 3rem;
+        text-align: center;
+    }
+    .products-table th.col-product,
+    .products-table td.col-product {
+        width: 25%; /* Product column */
+        min-width: 200px;
+    }
+    .products-table th.col-category,
+    .products-table td.col-category {
+        width: 12%; /* Category column */
+        min-width: 120px;
+    }
+    .products-table th.col-markup,
+    .products-table td.col-markup {
+        width: 10%; /* Markup column */
+        min-width: 100px;
+    }
+    .products-table th.col-price,
+    .products-table td.col-price {
+        width: 10%; /* Price column */
+        min-width: 110px;
+    }
+    .products-table th.col-vat,
+    .products-table td.col-vat {
+        width: 8%;  /* VAT column */
+        min-width: 80px;
+    }
+    .products-table th.col-shipping,
+    .products-table td.col-shipping {
+        width: 12%; /* Shipping column */
+        min-width: 140px;
+    }
+    .products-table th.col-stock,
+    .products-table td.col-stock {
+        width: 8%;  /* Stock column */
+        min-width: 80px;
+        text-align: center;
+    }
+    .products-table th.col-actions,
+    .products-table td.col-actions {
+        width: 12%; /* Actions column */
+        min-width: 150px;
+        text-align: center;
+    }
+
     .products-table tr:last-child td {
         border-bottom: none;
     }
@@ -452,66 +582,82 @@
             <table class="products-table min-w-full divide-y divide-gray-200">
                 <thead class="table-header">
                     <tr class="bg-gray-50">
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <input type="checkbox" id="selectAll" class="animated-checkbox">
+                        <th scope="col" class="col-checkbox px-3 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"> <!-- Removed text-left -->
+                            <input type="checkbox" id="selectAll" class="animated-checkbox mx-auto">
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                            </svg>
-                            Produkt
+                        <th scope="col" class="col-product px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> <!-- Removed flex items-center -->
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                </svg>
+                                Produkt
+                            </div>
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                            </svg>
-                            Kategoria
+                        <th scope="col" class="col-category px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> <!-- Removed flex items-center -->
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                                </svg>
+                                Kategoria
+                            </div>
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            Narzut
+                        <th scope="col" class="col-markup px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> <!-- Removed flex items-center -->
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Narzut
+                            </div>
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            Cena
+                        <th scope="col" class="col-price px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> <!-- Removed flex items-center -->
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Cena
+                            </div>
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
-                            </svg>
-                            VAT
+                        <th scope="col" class="col-vat px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> <!-- Removed flex items-center -->
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
+                                </svg>
+                                VAT
+                            </div>
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
-                            </svg>
-                            Wysyłka
+                        <th scope="col" class="col-shipping px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> <!-- Removed flex items-center -->
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                                </svg>
+                                Wysyłka
+                            </div>
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                            </svg>
-                            Stan
+                        <th scope="col" class="col-stock px-3 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"> <!-- Removed flex items-center and text-left -->
+                            <div class="flex items-center"> <!-- text-align: center from col-stock CSS will apply here -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                </svg>
+                                Stan
+                            </div>
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                            Akcje
+                        <th scope="col" class="col-actions px-3 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"> <!-- Removed flex items-center justify-center and text-left -->
+                            <div class="flex items-center justify-center"> <!-- text-align: center from col-actions CSS will apply here -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                Akcje
+                            </div>
                         </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200" id="productsTableBody">
                     {% for product in products %}
                     <tr class="product-row" data-id="{{ product.id }}" data-name="{{ product.name }}" data-category="{{ product.category }}">
-                        <td class="px-3 py-4 whitespace-nowrap">
-                            <input type="checkbox" class="product-checkbox animated-checkbox" data-id="{{ product.id }}">
+                        <td class="col-checkbox px-3 py-4 whitespace-nowrap">
+                            <input type="checkbox" class="product-checkbox animated-checkbox mx-auto" data-id="{{ product.id }}">
                         </td>
-                        <td class="px-3 py-4">
+                        <td class="col-product px-3 py-4">
                             <div class="flex items-center">
                                 {% if product.image %}
                                 <div class="h-12 w-12 rounded-lg overflow-hidden shadow-sm flex-shrink-0 border border-gray-200 bg-white">
@@ -535,10 +681,10 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="px-3 py-4">
+                        <td class="col-category px-3 py-4">
                             <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full truncate max-w-[130px] inline-block">{{ product.category }}</span>
                         </td>
-                        <td class="px-3 py-4">
+                        <td class="col-markup px-3 py-4">
                             <div class="flex items-center">
                                 <input type="number" class="w-20 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 product-markup transition-all duration-200" 
                                     data-id="{{ product.id }}" 
@@ -554,7 +700,7 @@
                                 {% endif %}
                             </div>
                         </td>
-                        <td class="px-3 py-4">
+                        <td class="col-price px-3 py-4">
                             <div class="flex flex-col">
                                 {% if product.original_price %}
                                 <span class="text-sm text-gray-500 line-through flex items-center">
@@ -580,7 +726,7 @@
                                 {% endif %}
                             </div>
                         </td>
-                        <td class="px-3 py-4">
+                        <td class="col-vat px-3 py-4">
                             <select class="w-20 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 product-vat transition-all duration-200" 
                                 data-id="{{ product.id }}">
                                 <option value="23" {% if product.vat == 23 %}selected{% endif %}>23%</option>
@@ -589,7 +735,7 @@
                                 <option value="0" {% if product.vat == 0 %}selected{% endif %}>0%</option>
                             </select>
                         </td>
-                        <td class="px-3 py-4">
+                        <td class="col-shipping px-3 py-4">
                             <div class="flex flex-col gap-2">
                                 <select class="w-28 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 product-delivery-time transition-all duration-200" 
                                     data-id="{{ product.id }}">
@@ -612,7 +758,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="px-3 py-4">
+                        <td class="col-stock px-3 py-4">
                             {% if product.stock > 10 %}
                             <span class="badge badge-green">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -636,21 +782,21 @@
                             </span>
                             {% endif %}
                         </td>
-                        <td class="px-3 py-4 text-sm font-medium">
-                            <div class="flex flex-col space-y-2">
-                                <button class="text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1 rounded-md flex items-center justify-center action-button transition-all duration-200 save-product-changes" data-id="{{ product.id }}">
+                        <td class="col-actions px-3 py-4 text-sm font-medium">
+                            <div class="flex flex-col space-y-2 items-center">
+                                <button class="text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1 rounded-md flex items-center justify-center action-button transition-all duration-200 save-product-changes w-full max-w-[120px]" data-id="{{ product.id }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     Zapisz
                                 </button>
-                                <button class="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md flex items-center justify-center action-button transition-all duration-200 toggle-availability" data-id="{{ product.id }}" data-available="false">
+                                <button class="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md flex items-center justify-center action-button transition-all duration-200 toggle-availability w-full max-w-[120px]" data-id="{{ product.id }}" data-available="false">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                     Wycofaj
                                 </button>
-                                <button class="text-white bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-md flex items-center justify-center action-button transition-all duration-200 generate-description" data-id="{{ product.id }}">
+                                <button class="text-white bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-md flex items-center justify-center action-button transition-all duration-200 generate-description w-full max-w-[120px]" data-id="{{ product.id }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                     </svg>
@@ -974,7 +1120,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
-            .then(data => {
+            .then(data => { // Corrected: added parentheses around 'data'
                 if (data.success) {
                     showToast(data.message || 'Produkty zostały wycofane ze sprzedaży', 'success');
                     setTimeout(() => location.reload(), 1500);
@@ -1108,7 +1254,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Add loader effect to button
                 const originalText = btn.innerHTML;
                 btn.innerHTML = '<span class="loading-spinner mr-2"></span>Zapisywanie...';
-                btn.disabled = true;
+                               btn.disabled = true;
                 
                 // Wyślij żądanie do API
                 fetch('/admin/update-product', {

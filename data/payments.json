@@ -176,5 +176,33 @@
       "account_owner": "Sklep Internetowy Sp. z o.o.",
       "title": "Zamówienie 7c75a646-8612-4d63-bba8-deaeea08b61e"
     }
+  },
+  {
+    "id": "20bcdb39-c1aa-49e0-b668-60988598a478",
+    "order_id": "2a70f56a-caed-4ec2-9e87-0612e23ea8dd",
+    "amount": 703.89,
+    "payment_method": "cash_on_delivery",
+    "status": "pending",
+    "created_at": "2025-05-23T01:26:19.191630",
+    "updated_at": "2025-05-23T01:26:19.191635",
+    "customer_data": {
+      "name": "afafaf",
+      "email": "afafaf@wp.pl",
+      "phone": "24525425",
+      "address": "fsfsfsf",
+      "postcode": "sfsf",
+      "city": "sfsfsf"
+    },
+    "history": [
+      {
+        "status": "pending",
+        "timestamp": "2025-05-23T01:26:19.191637",
+        "note": "Płatność utworzona"
+      }
+    ],
+    "payment_details": {
+      "fee": 12.99,
+      "total_amount": 716.88
+    }
   }
 ]

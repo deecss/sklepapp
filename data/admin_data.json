@@ -67,11 +67,69 @@
       "status": "w realizacji",
       "created_at": 1747948365.940148,
       "payment_id": "0649ca11-f12e-4983-abe5-c6ec2b5cb27f"
+    },
+    {
+      "id": "2a70f56a-caed-4ec2-9e87-0612e23ea8dd",
+      "customer": {
+        "name": "afafaf",
+        "email": "afafaf@wp.pl",
+        "phone": "24525425",
+        "address": "fsfsfsf",
+        "postcode": "sfsf",
+        "city": "sfsfsf"
+      },
+      "items": [
+        {
+          "EAN": "5902041319248",
+          "available_for_sale": true,
+          "category": "Krzes\u0142a biurowe",
+          "category_path": [
+            "Dom",
+            "Krzes\u0142a, fotele i hokery",
+            "Krzes\u0142a biurowe"
+          ],
+          "delivery_cost": 20.0,
+          "delivery_time": "1-2 dni",
+          "description": "<div id=\"opis-import\">\n<div class=\"row\">\n<div class=\"full\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/0_1747947694.jpg\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/1_1747947694.jpg\"/></div>\n<div class=\"half\">\n<h3>Fotel Porto  PREMIUM</h3>\n<p><strong> z podw\u00f3jn\u0105 warstw\u0105 g\u0105bkowania!</strong></p>\n<p>Kod produktu:<strong> 2438</strong></p>\n<p><strong>Fotel Porto zatroszczy si\u0119 o Tw\u00f3j komfort.</strong></p>\n<h3>G\u0141\u00d3WNE CECHY:</h3>\n<ul>\n<li><strong>podw\u00f3jna warstwa</strong>\u00a0g\u0105bkowania na siedzisku, oparciu i pod\u0142okietnikach,</li>\n<li>tapicerka wykonana z\u00a0<strong>przyjemnego w dotyku</strong>\u00a0i trwa\u0142ego materia\u0142u,</li>\n<li><strong>swobodne odchylanie fotela w pionie i poziomie,</strong></li>\n<li><strong>chromowana podstawa z gumowymi k\u00f3\u0142kami,</strong></li>\n<li>maksymalne obci\u0105\u017cenie:\u00a0<strong>120 kg,</strong></li>\n<li>bardzo prosty<strong>\u00a0monta\u017c w kilka minut.</strong></li>\n</ul>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"full\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/2_1747947694.jpg\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\">\n<h2>Wygodny w ka\u017cdym elemencie</h2>\n<p><strong> wyprofilowane oparcie,\u00a0</strong>kt\u00f3re ul\u017cy Twojemu kr\u0119gos\u0142upowi<strong>,</strong></p>\n<p><strong>\u00a0</strong>wysoki zag\u0142\u00f3wek, pozwala\u00a0<strong>oprze\u0107 g\u0142ow\u0119 i rozlu\u017ani\u0107 mi\u0119\u015bnie,</strong></p>\n<p><strong>podw\u00f3jna mi\u0119kka poduszka na siedzisku, oparciu i pod\u0142okietnikach.</strong></p>\n<p>Je\u015bli\u00a0<strong>masz ju\u017c dosy\u0107 niewygodnych foteli,</strong>\u00a0to rozsi\u0105d\u017a si\u0119 w fotelu Porto. Wszelkie niedogodno\u015bci min\u0105 jak r\u0119k\u0105 odj\u0105\u0142!</p>\n</div>\n<div class=\"half\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/3_1747947694.jpg\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/4_1747947695.jpg\"/></div>\n<div class=\"half\">\n<h2>Ustaw fotel, jak tylko chcesz</h2>\n<p><strong> Regulacja wysoko\u015bci</strong></p>\n<p><strong>Najwa\u017cniejszym elementem fotela</strong>\u00a0jest regulacja wysoko\u015bci, dzi\u0119ki kt\u00f3rej dostosujesz fotel do swojego wzrostu i wysoko\u015bci biurka.</p>\n<p>Fotel zosta\u0142 wyposa\u017cony w podno\u015bnik gazowy, kt\u00f3ry pozwala\u00a0<strong>p\u0142ynnie zmienia\u0107 wysoko\u015b\u0107.</strong></p>\n<p><strong> Pochylenie siedziska</strong></p>\n<p>Jednym ruchem mo\u017cesz odblokowa\u0107\u00a0<strong>opcj\u0119 bujania</strong>- dzi\u0119ki niej mo\u017cesz u\u0142o\u017cy\u0107 si\u0119 jeszcze wygodniej!</p>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"half\">\n<h3> Wysokiej klasy materia\u0142y ?</h3>\n<p>Do wykonania naszego fotela u\u017cyli\u015bmy\u00a0<strong>wysokiej klasy materia\u0142\u00f3w</strong>, dobieraj\u0105c je pod k\u0105tem\u00a0<strong>wygody, u\u017cyteczno\u015bci i trwa\u0142o\u015bci</strong>.</p>\n<p>\u00a0<strong>W naszym fotelu</strong>\u00a0zastosowano\u00a0<strong>podw\u00f3jne g\u0105bkowanie</strong>, kt\u00f3re poprawia wygod\u0119 i ergonomiczno\u015b\u0107.</p>\n</div>\n<div class=\"half\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/5_1747947695.jpg\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/6_1747947696.jpg\"/></div>\n<div class=\"half\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/7_1747947696.jpg\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/8_1747947696.jpg\"/></div>\n<div class=\"half\">\n<h3>Chromowana podstawa z gumowymi k\u00f3\u0142kami</h3>\n<ul>\n<li>pi\u0119ciono\u017cna,\u00a0<strong>stabilna podstawa,</strong></li>\n<li>gumowe\u00a0<strong>podw\u00f3jne</strong>\u00a0k\u00f3\u0142ka, kt\u00f3re\u00a0<strong>chroni\u0105 pod\u0142og\u0119 przed zarysowaniem.</strong></li>\n</ul>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"half\">\n<h2>Wymiary fotela</h2>\n<ul>\n<li>wysoko\u015b\u0107 ca\u0142kowita 125 cm</li>\n<li>szeroko\u015b\u0107 ca\u0142kowita 60 cm</li>\n<li>szeroko\u015b\u0107 siedziska 56 cm</li>\n<li>wysoko\u015b\u0107 siedziska 47-57 cm</li>\n<li>g\u0142\u0119boko\u015b\u0107 siedziska 55cm</li>\n<li>wysoko\u015b\u0107 pod\u0142okietnik\u00f3w 22 cm</li>\n</ul>\n</div>\n<div class=\"half\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/9_1747947696.jpg\"/></div>\n</div>\n<div class=\"row\">\n<div class=\"half\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/10_1747947697.jpg\"/></div>\n<div class=\"half\">\n<h3>Fotel Porto to:</h3>\n<ol>\n<li>Dwuwarstwowy, profilowany zag\u0142\u00f3wek,</li>\n<li>Mi\u0119kkie,\u00a0<strong>podw\u00f3jnie g\u0105bkowane</strong>\u00a0oparcie,</li>\n<li>Ergonomiczny,\u00a0<strong>wspieraj\u0105cy l\u0119d\u017awie</strong>\u00a0kszta\u0142t oparcia,</li>\n<li><strong>Komfortowe, mi\u0119kkie</strong>\u00a0pod\u0142okietniki</li>\n<li><strong>Wyprofilowane siedzisko</strong>, kt\u00f3re podnosi wygod\u0119 siedzenia.</li>\n<li>Sprawdzony podno\u015bnik gazowy z os\u0142on\u0105.</li>\n<li><strong>Gumowane, podw\u00f3jne k\u00f3\u0142ka</strong>\u00a0chroni\u0105ce pod\u0142og\u0119.</li>\n</ol>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"full\"><img alt=\"2438\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2438/11_1747947697.jpg\"/></div>\n</div>\n</div>",
+          "discounted_price": 293.59,
+          "id": "2438",
+          "image": "https://janshop.pl/galerie/f/fotel-biurowy-sofotel-porto-m_22720.jpg",
+          "images": [
+            "https://janshop.pl/galerie/f/fotel-biurowy-sofotel-porto-m_22720.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-sofotel-porto-m_22715.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-sofotel-porto-m_22716.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-sofotel-porto-m_22718.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-sofotel-porto-m_22717.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-sofotel-porto-m_22722.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-sofotel-porto-m_22719.jpg",
+            "https://janshop.pl/galerie/f/fotel-biurowy-sofotel-porto-m_22721.jpg"
+          ],
+          "last_modified": "2025-05-22 23:34:12",
+          "markup_percent": 98.0,
+          "name": "Fotel biurowy Sofotel Porto - materia\u0142owy czarny",
+          "original_price": 345.4,
+          "price": 683.89,
+          "price_net_xml": 280.81,
+          "producer": "Sofotel",
+          "stock": 55,
+          "url": "https://janshop.pl/p5149,fotel-biurowy-sofotel-porto--materialowy-czarny.html",
+          "uuid": "a92b46be649f80d5e776f16f004988f614463",
+          "vat": 23,
+          "xml_id": "2438"
+        }
+      ],
+      "subtotal": 683.89,
+      "delivery_cost": 20.0,
+      "total": 703.89,
+      "payment_method": "cash_on_delivery",
+      "status": "new",
+      "created_at": 1747956379.191602,
+      "payment_id": "20bcdb39-c1aa-49e0-b668-60988598a478"
     }
   ],
   "stats": {
-    "total_orders": 1,
-    "total_revenue": 538.66,
+    "total_orders": 2,
+    "total_revenue": 1242.55,
     "most_popular_product": "2290"
   }
 }
