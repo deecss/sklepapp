@@ -1051,46 +1051,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
                 e.preventDefault();
-                e.stopPropagation();
-                
-                const productId = this.getAttribute('data-id');
-                const available = this.getAttribute('data-available') === 'true';
-                const action = available ? 'wystawić' : 'wycofać';
-                
-                if (!confirm(`Czy na pewno chcesz ${action} ten produkt ze sprzedaży?`)) {
-                    return;
-                }
-                
-                // Add loader effect to button
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<span class="loading-spinner mr-2"></span>Przetwarzanie...';
-                btn.disabled = true;
-                
-                // Wyślij żądanie do API
-                fetch('/admin/toggle-product-availability', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        product_id: productId,
-                        available: available
-                    })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        showToast(data.message || 'Status produktu został zmieniony', 'success');
-                        setTimeout(() => location.reload(), 1500);
-                    } else {
-                        showToast(data.message || 'Wystąpił błąd podczas zmiany statusu produktu', 'error');
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
                     }
                 })
                 .catch(error => {
@@ -1533,19 +1493,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
                 
-                <div class="bg-gray-50 p-4 rounded-lg w-full mb-4 max-h-28 overflow-y-auto text-left">
+                <div class="bg-gray-50 p-4 rounded-lg w-full mb-4 max-h-40 overflow-y-auto text-left">
                     <div class="text-sm text-gray-600" id="status-log">
                         <div class="animate-pulse">Inicjalizacja procesu generowania opisów...</div>
                     </div>
                 </div>
                 
                 <div class="w-full" id="action-buttons" style="display: none;">
-                    <button type="button" id="close-modal-btn" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        OK
-                    </button>
+                    <div class="flex flex-col space-y-2">
+                        <button type="button" id="close-modal-btn" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span id="close-btn-text">OK</span>
+                        </button>
+                        <button type="button" id="retry-btn" class="hidden w-full border border-indigo-600 text-indigo-600 py-2 px-4 rounded-lg hover:bg-indigo-50 transition-colors duration-200 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Ponów próbę
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
@@ -1567,6 +1535,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const progressCount = document.getElementById('progress-count');
         const statusLog = document.getElementById('status-log');
         const actionButtons = document.getElementById('action-buttons');
+        const retryBtn = document.getElementById('retry-btn');
+        const closeBtn = document.getElementById('close-modal-btn');
+        const closeBtnText = document.getElementById('close-btn-text');
         
         // Wyłącz wszystkie przyciski generowania opisów
         const allButtons = [];
@@ -1581,10 +1552,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Funkcja dodająca wpis do logu
+        // Funkcja dodająca wpis do logu z animacją
         function addLogEntry(message, type = 'info') {
             const entry = document.createElement('div');
-            entry.className = 'mb-1';
+            entry.className = 'mb-1 opacity-0';
             
             let icon = '';
             if (type === 'success') {
@@ -1601,159 +1572,340 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             entry.innerHTML = `${icon}${message}`;
-            entry.style.animation = 'fadeIn 0.3s ease-in-out';
             
             statusLog.appendChild(entry);
-            statusLog.scrollTop = statusLog.scrollHeight;
+            
+            // Płynna animacja pojawienia się wpisu
+            setTimeout(() => {
+                entry.style.transition = 'opacity 0.3s ease-in-out';
+                entry.style.opacity = '1';
+                statusLog.scrollTop = statusLog.scrollHeight;
+            }, 10);
         }
         
-        // Aktualizacja postępu
+        // Aktualizacja postępu z animacją
         function updateProgress(current, total) {
             const percent = Math.round((current / total) * 100);
+            
+            // Płynna animacja paska postępu
+            progressBar.style.transition = 'width 0.5s ease-out';
             progressBar.style.width = `${percent}%`;
-            progressPercentage.textContent = `${percent}%`;
+            
+            // Aktualizacja procentów z animacją licznika
+            const currentValue = parseInt(progressPercentage.textContent.replace('%', '')) || 0;
+            animateValue(progressPercentage, currentValue, percent, 500);
+            
+            // Aktualizacja licznika produktów
             progressCount.textContent = `${current}/${total}`;
         }
         
-        // Zakończenie procesu
-        function finishProcess(success, message) {
+        // Funkcja animująca wartość liczbową
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.textContent = `${value}%`;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Zakończenie procesu z dodatkową obsługą powtórzeń
+        function finishProcess(success, message, isRetry = false) {
             if (success) {
                 progressStatus.textContent = 'Zakończono pomyślnie';
+                progressStatus.className = 'text-green-600 font-medium';
+                progressBar.className = 'bg-green-500 h-2.5 rounded-full transition-all duration-500 ease-out';
                 addLogEntry('Wszystkie opisy zostały wygenerowane poprawnie.', 'success');
+                closeBtnText.textContent = 'Zamknij i odśwież';
             } else {
                 progressStatus.textContent = 'Wystąpił błąd';
+                progressStatus.className = 'text-red-600 font-medium';
+                progressBar.className = 'bg-red-500 h-2.5 rounded-full transition-all duration-500 ease-out';
                 addLogEntry(message || 'Błąd podczas generowania opisów', 'error');
+                closeBtnText.textContent = 'Zamknij';
+                
+                // Pokaż przycisk retry w przypadku błędu, ale nie jeśli to już było powtórzenie
+                if (!isRetry) {
+                    retryBtn.classList.remove('hidden');
+                }
             }
             
-            // Pokaż przycisk OK
+            // Pokaż przyciski akcji
             actionButtons.style.display = 'block';
             
             // Obsługa przycisku zamknięcia
-            const closeButton = document.getElementById('close-modal-btn');
-            if (closeButton) {
-                closeButton.addEventListener('click', function() {
-                    modalOverlay.style.opacity = '0';
-                    modalContent.style.opacity = '0';
-                    modalContent.style.transform = 'scale(0.95)';
+            closeBtn.addEventListener('click', function() {
+                modalOverlay.style.opacity = '0';
+                modalContent.style.opacity = '0';
+                modalContent.style.transform = 'scale(0.95)';
+                
+                setTimeout(() => {
+                    modalOverlay.remove();
+                    if (success) {
+                        window.location.reload();
+                    } else {
+                        // Przywróć oryginalny wygląd przycisków
+                        allButtons.forEach(btn => {
+                            if (btn) {
+                                btn.innerHTML = btn.originalHTML;
+                                btn.disabled = false;
+                            }
+                        });
+                    }
+                }, 300);
+            });
+            
+            // Obsługa przycisku ponowienia próby
+            retryBtn.addEventListener('click', function() {
+                // Ukryj przyciski akcji
+                actionButtons.style.display = 'none';
+                
+                // Zresetuj status
+                progressStatus.textContent = 'Ponowna próba...';
+                progressStatus.className = 'text-gray-600';
+                progressBar.className = 'bg-indigo-600 h-2.5 rounded-full transition-all duration-500 ease-out';
+                
+                // Dodaj informację o ponownej próbie
+                addLogEntry('Ponowienie próby generowania opisów...', 'warning');
+                
+                // Rozpocznij wysyłanie żądania ponownie
+                sendRequest(true);
+            });
+        }
+        
+        // Funkcja wysyłająca żądanie z obsługą zarówno fetch jak i XMLHttpRequest
+        function sendRequest(isRetry = false) {
+            // Resetowanie postępu w przypadku ponownej próby
+            if (isRetry) {
+                updateProgress(0, productIds.length);
+            }
+            
+            // Dodanie wpisów początkowych do logu
+            addLogEntry(isRetry ? 'Ponawianie żądania...' : 'Inicjalizacja procesu...');
+            addLogEntry(`Produkty do przetworzenia: ${productIds.length}`);
+            
+            // Dane do wysłania
+            const requestData = { product_ids: productIds };
+            
+            // Próba użycia nowoczesnego fetch API z fallbackiem do XMLHttpRequest
+            const canUseFetch = typeof fetch === 'function';
+            
+            if (canUseFetch) {
+                // Korzystamy z nowoczesnego fetch API
+                addLogEntry('Używanie nowoczesnego API do komunikacji...');
+                
+                // Kontroler przerwania fetch - pozwala na anulowanie żądania
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 180000); // 3 minuty timeout
+                
+                addLogEntry('Wysyłanie żądania do serwera...');
+                
+                fetch('/admin/generate-product-descriptions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData),
+                    signal: controller.signal
+                })
+                .then(response => {
+                    clearTimeout(timeoutId);
+                    addLogEntry(`Otrzymano odpowiedź: status ${response.status}`);
                     
-                    setTimeout(() => {
-                        modalOverlay.remove();
-                        if (success) {
-                            window.location.reload();
-                        } else {
-                            // Przywróć oryginalny wygląd przycisków
-                            allButtons.forEach(btn => {
-                                if (btn) {
-                                    btn.innerHTML = btn.originalHTML;
-                                    btn.disabled = false;
-                                }
-                            });
-                        }
-                    }, 300);
+                    if (!response.ok) {
+                        throw new Error(`Serwer zwrócił błąd: ${response.status} ${response.statusText}`);
+                    }
+                    
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        updateProgress(productIds.length, productIds.length);
+                        addLogEntry('Operacja zakończona sukcesem!', 'success');
+                        addLogEntry(data.message || 'Opisy zostały wygenerowane poprawnie.', 'success');
+                        finishProcess(true, data.message, isRetry);
+                    } else {
+                        addLogEntry('Serwer zgłosił błąd podczas przetwarzania.', 'error');
+                        addLogEntry(data.message || 'Nie udało się wygenerować opisów.', 'error');
+                        finishProcess(false, data.message, isRetry);
+                    }
+                })
+                .catch(error => {
+                    clearTimeout(timeoutId);
+                    addLogEntry(`Wystąpił błąd: ${error.message}`, 'error');
+                    
+                    // W przypadku przerwania - specjalna obsługa
+                    if (error.name === 'AbortError') {
+                        addLogEntry('Przerwano żądanie ze względu na przekroczenie czasu oczekiwania.', 'error');
+                        finishProcess(false, 'Przekroczono czas oczekiwania na odpowiedź', isRetry);
+                    } else {
+                        // Jeśli fetch się nie powiódł, spróbuj użyć XMLHttpRequest jako fallback
+                        addLogEntry('Próba użycia alternatywnej metody komunikacji...', 'warning');
+                        useFallbackXHR(isRetry);
+                    }
                 });
+                
+                // Symulacja postępu dla fetch - podobnie jak w XMLHttpRequest
+                startProgressSimulation(180000); // 3 minuty
+                
+            } else {
+                // Używamy XMLHttpRequest jako fallback
+                useFallbackXHR(isRetry);
+            }
+            
+            // Funkcja fallback używająca XMLHttpRequest
+            function useFallbackXHR(isXHRRetry) {
+                addLogEntry('Używanie alternatywnej metody komunikacji...', isXHRRetry ? 'warning' : 'info');
+                
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/admin/generate-product-descriptions', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.timeout = 180000; // 3 minuty timeout
+                
+                // Obsługa odpowiedzi serwera
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 1) { // OPENED
+                        addLogEntry('Nawiązywanie połączenia z serwerem...');
+                        progressStatus.textContent = 'Łączenie...';
+                    } else if (xhr.readyState === 2) { // HEADERS_RECEIVED
+                        addLogEntry('Serwer przyjął żądanie.');
+                        progressStatus.textContent = 'Żądanie zaakceptowane';
+                    } else if (xhr.readyState === 3) { // LOADING
+                        progressStatus.textContent = 'Przetwarzanie...';
+                    } else if (xhr.readyState === 4) { // DONE
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            try {
+                                const response = JSON.parse(xhr.responseText);
+                                
+                                if (response.success) {
+                                    updateProgress(productIds.length, productIds.length);
+                                    addLogEntry('Operacja zakończona sukcesem!', 'success');
+                                    addLogEntry(response.message || 'Opisy zostały wygenerowane poprawnie.', 'success');
+                                    finishProcess(true, response.message, isXHRRetry);
+                                } else {
+                                    addLogEntry('Wystąpił błąd po stronie serwera.', 'error');
+                                    addLogEntry(response.message || 'Nie udało się wygenerować opisów.', 'error');
+                                    finishProcess(false, response.message, isXHRRetry);
+                                }
+                            } catch (e) {
+                                addLogEntry('Błąd podczas przetwarzania odpowiedzi z serwera.', 'error');
+                                addLogEntry(e.message, 'error');
+                                finishProcess(false, 'Nie można przetworzyć odpowiedzi serwera', isXHRRetry);
+                            }
+                        } else {
+                            addLogEntry(`Serwer zwrócił błąd: ${xhr.status} ${xhr.statusText}`, 'error');
+                            finishProcess(false, `Błąd serwera: ${xhr.status} ${xhr.statusText}`, isXHRRetry);
+                        }
+                    }
+                };
+                
+                // Obsługa postępu
+                xhr.upload.onprogress = function(event) {
+                    if (event.lengthComputable) {
+                        const percentComplete = Math.round((event.loaded / event.total) * 100);
+                        updateProgress(Math.ceil(productIds.length * (percentComplete / 100)), productIds.length);
+                        addLogEntry(`Wysyłanie danych: ${percentComplete}%`);
+                    }
+                };
+                
+                // Obsługa błędów
+                xhr.onerror = function() {
+                    addLogEntry('Błąd połączenia z serwerem.', 'error');
+                    finishProcess(false, 'Nie można połączyć się z serwerem', isXHRRetry);
+                };
+                
+                // Obsługa timeout
+                xhr.ontimeout = function() {
+                    addLogEntry('Przekroczono czas oczekiwania na odpowiedź serwera.', 'error');
+                    finishProcess(false, 'Przekroczono czas oczekiwania na odpowiedź', isXHRRetry);
+                };
+                
+                // Wysłanie żądania
+                addLogEntry('Wysyłanie żądania do serwera...');
+                xhr.send(JSON.stringify(requestData));
+                
+                // Symulacja postępu
+                if (!isXHRRetry) {
+                    startProgressSimulation(180000); // 3 minuty
+                }
             }
         }
         
-        // Utworzenie XMLHttpRequest do wysłania żądania
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/admin/generate-product-descriptions', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.timeout = 180000; // 3 minuty timeout
-        
-        // Dodanie wpisów początkowych do logu
-        addLogEntry('Inicjalizacja procesu...');
-        addLogEntry(`Produkty do przetworzenia: ${productIds.length}`);
-        
-        // Obsługa odpowiedzi serwera
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 1) { // OPENED
-                addLogEntry('Nawiązywanie połączenia z serwerem...');
-                progressStatus.textContent = 'Łączenie...';
-            } else if (xhr.readyState === 2) { // HEADERS_RECEIVED
-                addLogEntry('Serwer przyjął żądanie.');
-                progressStatus.textContent = 'Żądanie zaakceptowane';
-            } else if (xhr.readyState === 3) { // LOADING
-                progressStatus.textContent = 'Przetwarzanie...';
-            } else if (xhr.readyState === 4) { // DONE
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    try {
-                        const response = JSON.parse(xhr.responseText);
-                        
-                        if (response.success) {
-                            updateProgress(productIds.length, productIds.length);
-                            addLogEntry('Operacja zakończona sukcesem!', 'success');
-                            addLogEntry(response.message || 'Opisy zostały wygenerowane poprawnie.', 'success');
-                            finishProcess(true, response.message);
-                        } else {
-                            addLogEntry('Wystąpił błąd po stronie serwera.', 'error');
-                            addLogEntry(response.message || 'Nie udało się wygenerować opisów.', 'error');
-                            finishProcess(false, response.message);
-                        }
-                    } catch (e) {
-                        addLogEntry('Błąd podczas przetwarzania odpowiedzi z serwera.', 'error');
-                        addLogEntry(e.message, 'error');
-                        finishProcess(false, 'Nie można przetworzyć odpowiedzi serwera');
-                    }
-                } else {
-                    addLogEntry(`Serwer zwrócił błąd: ${xhr.status} ${xhr.statusText}`, 'error');
-                    finishProcess(false, `Błąd serwera: ${xhr.status} ${xhr.statusText}`);
-                }
-            }
-        };
-        
-        // Obsługa postępu
-        xhr.upload.onprogress = function(event) {
-            if (event.lengthComputable) {
-                const percentComplete = Math.round((event.loaded / event.total) * 100);
-                progressBar.style.width = `${percentComplete}%`;
-                progressPercentage.textContent = `${percentComplete}%`;
-                addLogEntry(`Wysyłanie danych: ${percentComplete}%`);
-            }
-        };
-        
-        // Obsługa błędów
-        xhr.onerror = function() {
-            addLogEntry('Błąd połączenia z serwerem.', 'error');
-            finishProcess(false, 'Nie można połączyć się z serwerem');
-        };
-        
-        // Obsługa timeout
-        xhr.ontimeout = function() {
-            addLogEntry('Przekroczono czas oczekiwania na odpowiedź serwera.', 'error');
-            finishProcess(false, 'Przekroczono czas oczekiwania na odpowiedź');
-        };
-        
-        // Wysłanie żądania
-        addLogEntry('Wysyłanie żądania do serwera...');
-        xhr.send(JSON.stringify({ product_ids: productIds }));
-        
-        // Symulacja postępu - stopniowy wzrost paska podczas oczekiwania na odpowiedź
-        let progressSimulation = 0;
-        const progressInterval = setInterval(() => {
-            if (xhr.readyState === 4) {
-                clearInterval(progressInterval);
-                return;
-            }
+        // Funkcja symulująca postęp podczas oczekiwania na odpowiedź
+        function startProgressSimulation(maxDuration) {
+            let progressSimulation = 0;
+            let simulationStep = 0;
+            const endTime = Date.now() + maxDuration;
             
-            progressSimulation += 1;
-            if (progressSimulation <= 90) { // Max 90% during simulation
-                updateProgress(Math.floor(productIds.length * (progressSimulation / 100)), productIds.length);
-                
-                // Dodaj losowe komunikaty o postępie
-                if (progressSimulation % 15 === 0) {
-                    const messages = [
-                        'Pobieranie danych produktów...',
-                        'Analiza parametrów produktów...',
-                        'Generowanie zawartości opisu...',
-                        'Optymalizacja opisów dla SEO...',
-                        'Formatowanie treści opisów...',
-                        'Sprawdzanie poprawności gramatycznej...'
-                    ];
-                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-                    addLogEntry(randomMessage);
+            const progressMessages = [
+                'Pobieranie danych produktów...',
+                'Analiza parametrów produktów...',
+                'Generowanie zawartości opisu...',
+                'Optymalizacja opisów dla SEO...',
+                'Formatowanie treści opisów...',
+                'Sprawdzanie poprawności gramatycznej...',
+                'Analizowanie podobnych produktów...',
+                'Dostosowywanie stylu opisów...',
+                'Weryfikacja zgodności z regulaminem sklepu...',
+                'Sprawdzanie poprawności opisów technicznych...'
+            ];
+            
+            const progressInterval = setInterval(() => {
+                // Sprawdź czy modal jest nadal widoczny
+                if (!document.getElementById('description-generator-modal')) {
+                    clearInterval(progressInterval);
+                    return;
                 }
-            }
-        }, 300);
+                
+                // Zwiększaj postęp wolniej wraz z upływem czasu
+                const timeRemaining = Math.max(0, endTime - Date.now()) / maxDuration;
+                const increment = Math.max(0.2, timeRemaining * 1);
+                
+                progressSimulation += increment;
+                simulationStep++;
+                
+                // Aktualizuj pasek postępu, ale nie przekraczaj 90%
+                if (progressSimulation <= 90) {
+                    const simulatedProgress = Math.min(90, progressSimulation);
+                    updateProgress(Math.floor(productIds.length * (simulatedProgress / 100)), productIds.length);
+                    
+                    // Dodawaj komunikaty o postępie w strategicznych momentach
+                    if (simulationStep % 10 === 0) {
+                        const randomIndex = Math.floor(Math.random() * progressMessages.length);
+                        const message = progressMessages[randomIndex];
+                        
+                        // Nie powtarzaj ostatniego komunikatu
+                        if (statusLog.lastElementChild && !statusLog.lastElementChild.innerHTML.includes(message)) {
+                            addLogEntry(message);
+                        } else {
+                            // Wybierz inny komunikat, jeśli powtarza się ostatni
+                            const alternativeIndex = (randomIndex + 1) % progressMessages.length;
+                            addLogEntry(progressMessages[alternativeIndex]);
+                        }
+                    }
+                    
+                    // Dodaj specjalne komunikaty w kluczowych momentach progresu
+                    if (Math.round(simulatedProgress) === 25) {
+                        addLogEntry('25% postępu - pobieranie danych produktów zakończone', 'success');
+                    } else if (Math.round(simulatedProgress) === 50) {
+                        addLogEntry('50% postępu - generowanie podstawowych opisów', 'success');
+                    } else if (Math.round(simulatedProgress) === 75) {
+                        addLogEntry('75% postępu - finalizowanie generowania opisów', 'success');
+                    }
+                }
+            }, 300);
+            
+            // Przechowaj referencję do interwału, aby można było go zatrzymać w razie potrzeby
+            window._progressInterval = progressInterval;
+        }
+        
+        // Rozpocznij proces
+        sendRequest(false);
     }
 
     // Dodanie animacji do modalu
