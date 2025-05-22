@@ -2,7 +2,7 @@
   "url": "https://ergo.enode.ovh/products.xml",
   "interval_minutes": 10,
   "auto_start": false,
-  "last_download": "2025-05-22T19:08:43.387948",
+  "last_download": "2025-05-22T19:27:32.273178",
   "download_history": [
     {
       "timestamp": "2025-05-20T19:48:04.742426",
@@ -323,283 +323,283 @@
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T11:47:09.495721",
+      "timestamp": "2025-05-22T11:47:09.046000",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T11:57:09.998716",
+      "timestamp": "2025-05-22T11:57:09.606800",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T12:07:10.513579",
+      "timestamp": "2025-05-22T12:07:10.143049",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T12:17:11.038862",
+      "timestamp": "2025-05-22T12:17:10.706813",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T12:27:11.509665",
+      "timestamp": "2025-05-22T12:27:11.261525",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T12:37:11.952270",
+      "timestamp": "2025-05-22T12:37:11.783994",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T12:47:12.445326",
+      "timestamp": "2025-05-22T12:47:12.260306",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T12:57:12.958996",
+      "timestamp": "2025-05-22T12:57:12.749031",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T13:07:13.417910",
+      "timestamp": "2025-05-22T13:07:13.230517",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T13:17:13.917933",
+      "timestamp": "2025-05-22T13:17:13.753687",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T13:27:14.489475",
+      "timestamp": "2025-05-22T13:27:14.255775",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T13:37:14.974852",
+      "timestamp": "2025-05-22T13:37:14.754901",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T13:47:15.491842",
+      "timestamp": "2025-05-22T13:47:15.284458",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T13:57:16.001523",
+      "timestamp": "2025-05-22T13:57:15.814476",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T14:07:16.521958",
+      "timestamp": "2025-05-22T14:07:16.342882",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T14:17:17.042629",
+      "timestamp": "2025-05-22T14:17:16.847551",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T14:27:17.538760",
+      "timestamp": "2025-05-22T14:27:17.339472",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T14:37:18.029297",
+      "timestamp": "2025-05-22T14:37:17.862160",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T14:47:18.515856",
+      "timestamp": "2025-05-22T14:47:18.379415",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T14:57:19.029427",
+      "timestamp": "2025-05-22T14:57:18.882228",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T15:07:19.567978",
+      "timestamp": "2025-05-22T15:07:19.398907",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T15:17:20.026556",
+      "timestamp": "2025-05-22T15:17:19.923221",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T15:27:20.487436",
+      "timestamp": "2025-05-22T15:27:20.403070",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T15:37:21.001836",
+      "timestamp": "2025-05-22T15:37:20.909367",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T15:47:21.491607",
+      "timestamp": "2025-05-22T15:47:21.423781",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T15:57:21.961716",
+      "timestamp": "2025-05-22T15:57:21.947853",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T16:07:22.433328",
+      "timestamp": "2025-05-22T16:07:22.432926",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T16:17:22.908585",
+      "timestamp": "2025-05-22T16:17:22.926188",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T16:27:23.390538",
+      "timestamp": "2025-05-22T16:27:23.378993",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T16:37:23.893831",
+      "timestamp": "2025-05-22T16:37:23.912918",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T16:47:24.383319",
+      "timestamp": "2025-05-22T16:47:24.419119",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T16:57:24.907632",
+      "timestamp": "2025-05-22T16:57:24.925070",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T17:07:25.394858",
+      "timestamp": "2025-05-22T17:07:25.420860",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T17:17:25.948462",
+      "timestamp": "2025-05-22T17:17:25.944410",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T17:27:26.492306",
+      "timestamp": "2025-05-22T17:27:26.488249",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T17:37:26.999144",
+      "timestamp": "2025-05-22T17:37:26.985110",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T17:47:27.469336",
+      "timestamp": "2025-05-22T17:47:27.507150",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T17:57:27.966255",
+      "timestamp": "2025-05-22T17:57:27.948888",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T18:07:28.457873",
+      "timestamp": "2025-05-22T18:07:28.496572",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T18:17:28.987861",
+      "timestamp": "2025-05-22T18:17:29.006463",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T18:27:29.529787",
+      "timestamp": "2025-05-22T18:27:29.524314",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T18:27:58.836812",
+      "timestamp": "2025-05-22T18:37:30.071011",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T18:28:41.773813",
+      "timestamp": "2025-05-22T18:47:30.645895",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T18:38:42.289344",
+      "timestamp": "2025-05-22T18:57:31.133640",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T18:48:42.835077",
+      "timestamp": "2025-05-22T19:07:31.643477",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T18:58:43.301679",
+      "timestamp": "2025-05-22T19:17:32.190128",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
     },
     {
-      "timestamp": "2025-05-22T19:08:43.791274",
+      "timestamp": "2025-05-22T19:27:32.717776",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140
