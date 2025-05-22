@@ -2,21 +2,175 @@
 
 {% block title %}Wystawione produkty{% endblock %}
 
+{% block head %}
+{{ super() }}
+<style>
+    /* Animacje i efekty */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .product-row {
+        transition: all 0.2s ease-in-out;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    .product-row:hover {
+        background-color: rgba(249, 250, 251, 0.7);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .btn-icon {
+        transition: all 0.2s;
+    }
+    
+    .btn-icon:hover {
+        transform: scale(1.2);
+    }
+    
+    .table-header {
+        position: sticky;
+        top: 0;
+        background-color: #f9fafb;
+        z-index: 10;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    
+    .action-button {
+        transition: all 0.2s;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .action-button::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.5);
+        opacity: 0;
+        border-radius: 100%;
+        transform: scale(1, 1) translate(-50%);
+        transform-origin: 50% 50%;
+    }
+    
+    .action-button:hover::after {
+        animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+        0% {
+            transform: scale(0, 0);
+            opacity: 0.5;
+        }
+        100% {
+            transform: scale(20, 20);
+            opacity: 0;
+        }
+    }
+    
+    .badge {
+        padding: 0.2rem 0.5rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    .badge-green {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: rgba(16, 185, 129, 1);
+    }
+    
+    .badge-yellow {
+        background-color: rgba(245, 158, 11, 0.1);
+        color: rgba(245, 158, 11, 1);
+    }
+    
+    .badge-red {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: rgba(239, 68, 68, 1);
+    }
+    
+    /* Hover effects for inputs */
+    input:hover, select:hover {
+        border-color: #a5b4fc;
+    }
+    
+    /* Animated checkboxes */
+    .animated-checkbox {
+        position: relative;
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 0.25rem;
+        appearance: none;
+        border: 2px solid #d1d5db;
+        background-color: #fff;
+        transition: all 0.3s;
+        cursor: pointer;
+        vertical-align: middle;
+    }
+    
+    .animated-checkbox:checked {
+        border-color: #4f46e5;
+        background-color: #4f46e5;
+    }
+    
+    .animated-checkbox:checked::after {
+        content: '';
+        position: absolute;
+        top: 0.2rem;
+        left: 0.35rem;
+        width: 0.25rem;
+        height: 0.5rem;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        animation: checkmark 0.2s ease-in-out;
+    }
+    
+    @keyframes checkmark {
+        0% { opacity: 0; transform: rotate(45deg) scale(0.8); }
+        100% { opacity: 1; transform: rotate(45deg) scale(1); }
+    }
+</style>
+{% endblock %}
+
 {% block admin_content %}
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6">Wystawione produkty</h1>
+    <h1 class="text-3xl font-bold mb-6 text-gray-800 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
+        Wystawione produkty
+    </h1>
     
     <!-- Filtry produktów -->
-    <div class="bg-white shadow rounded-lg p-6 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 transition-all duration-300 hover:shadow-lg">
         <div class="flex flex-wrap gap-4 items-end">
             <div class="flex-1 min-w-[250px]">
-                <label for="searchQuery" class="block text-sm font-medium text-gray-700 mb-1">Wyszukaj produkt</label>
-                <input type="text" id="searchQuery" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Wpisz nazwę, ID, EAN...">
+                <label for="searchQuery" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    Wyszukaj produkt
+                </label>
+                <input type="text" id="searchQuery" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200" placeholder="Wpisz nazwę, ID, EAN...">
             </div>
             
             <div class="w-[200px]">
-                <label for="categoryFilter" class="block text-sm font-medium text-gray-700 mb-1">Kategoria</label>
-                <select id="categoryFilter" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <label for="categoryFilter" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                    </svg>
+                    Kategoria
+                </label>
+                <select id="categoryFilter" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200">
                     <option value="">Wszystkie kategorie</option>
                     {% for category in categories %}
                     <option value="{{ category }}">{{ category }}</option>
@@ -25,7 +179,10 @@
             </div>
             
             <div class="flex items-end">
-                <button id="applyFilters" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button id="applyFilters" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
                     Filtruj
                 </button>
             </div>
@@ -33,28 +190,39 @@
     </div>
     
     <!-- Lista produktów -->
-    <div class="bg-white shadow rounded-lg p-6">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-lg font-semibold">Produkty wystawione do sprzedaży ({{ products|length }})</h2>
+    <div class="bg-white shadow-md rounded-lg p-6 transition-all duration-300 hover:shadow-lg">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Produkty wystawione do sprzedaży 
+                <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                    {{ products|length }}
+                </span>
+            </h2>
             <div class="flex gap-2">
-                <button id="bulkPriceUpdate" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button id="bulkPriceUpdate" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 flex items-center shadow-sm hover:shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1 btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                     Masowa edycja
                 </button>
-                <button id="toggleAllAvailability" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                <button id="toggleAllAvailability" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-200 flex items-center shadow-sm hover:shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1 btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                    </svg>
                     Wycofaj wszystkie
                 </button>
-                <button id="updateAllPricesWithMarkup" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button id="updateAllPricesWithMarkup" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-200 flex items-center shadow-sm hover:shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1 btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
                     Aktualizuj ceny
                 </button>
-                <button id="generateDescriptionsBulk" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-3-3v6m9 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <button id="generateDescriptionsBulk" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all duration-200 flex items-center shadow-sm hover:shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1 btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                     </svg>
                     Generuj opisy
                 </button>
@@ -62,35 +230,59 @@
         </div>
         
         {% if products %}
-        <div>
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
+                <thead class="table-header">
+                    <tr class="bg-gray-50">
                         <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <input type="checkbox" id="selectAll" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <input type="checkbox" id="selectAll" class="animated-checkbox">
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                            </svg>
                             Produkt
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                            </svg>
                             Kategoria
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                             Narzut
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Cena oryg./aktualna
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Cena
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
+                            </svg>
                             VAT
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                            </svg>
                             Wysyłka
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
                             Stan
                         </th>
-                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
                             Akcje
                         </th>
                     </tr>
@@ -99,36 +291,45 @@
                     {% for product in products %}
                     <tr class="product-row" data-id="{{ product.id }}" data-name="{{ product.name }}" data-category="{{ product.category }}">
                         <td class="px-3 py-4 whitespace-nowrap">
-                            <input type="checkbox" class="product-checkbox h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" data-id="{{ product.id }}">
+                            <input type="checkbox" class="product-checkbox animated-checkbox" data-id="{{ product.id }}">
                         </td>
                         <td class="px-3 py-4">
                             <div class="flex items-center">
                                 {% if product.image %}
-                                <img src="{{ product.image }}" alt="{{ product.name }}" class="h-10 w-10 object-cover rounded mr-3">
+                                <div class="h-12 w-12 rounded-lg overflow-hidden shadow-sm flex-shrink-0 border border-gray-200 bg-white">
+                                    <img src="{{ product.image }}" alt="{{ product.name }}" class="h-full w-full object-contain">
+                                </div>
                                 {% else %}
-                                <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
-                                    <span class="text-gray-500 text-xs">Brak</span>
+                                <div class="h-12 w-12 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 border border-gray-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
                                 </div>
                                 {% endif %}
-                                <div>
-                                    <div class="font-medium text-gray-900">{{ product.name }}</div>
-                                    <div class="text-xs text-gray-500">ID: {{ product.id }}</div>
+                                <div class="ml-3">
+                                    <div class="font-medium text-gray-900 truncate max-w-[180px]">{{ product.name }}</div>
+                                    <div class="text-xs text-gray-500 flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                                        </svg>
+                                        ID: {{ product.id }}
+                                    </div>
                                 </div>
                             </div>
                         </td>
                         <td class="px-3 py-4">
-                            <span class="text-sm text-gray-500">{{ product.category }}</span>
+                            <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full truncate max-w-[130px] inline-block">{{ product.category }}</span>
                         </td>
                         <td class="px-3 py-4">
                             <div class="flex items-center">
-                                <input type="number" class="w-20 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 product-markup" 
+                                <input type="number" class="w-20 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 product-markup transition-all duration-200" 
                                     data-id="{{ product.id }}" 
                                     value="{{ product.markup_percent|default(0) }}" 
                                     step="0.1" min="0">
-                                <span class="ml-1 text-gray-700">%</span>
+                                <span class="ml-1 text-gray-700 font-semibold">%</span>
                                 {% if product.xml_id %}
-                                <button class="ml-2 text-blue-600 hover:text-blue-800 update-price-from-xml" data-id="{{ product.id }}" title="Przelicz cenę z XML">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <button class="ml-2 text-blue-600 hover:text-blue-800 update-price-from-xml btn-icon" data-id="{{ product.id }}" title="Przelicz cenę z XML">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                     </svg>
                                 </button>
@@ -138,22 +339,31 @@
                         <td class="px-3 py-4">
                             <div class="flex flex-col">
                                 {% if product.original_price %}
-                                <span class="text-sm text-gray-500 line-through"><span class="original-price">{{ product.original_price|default(0) }}</span> zł</span>
+                                <span class="text-sm text-gray-500 line-through flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span class="original-price">{{ product.original_price|default(0) }}</span> zł
+                                </span>
                                 {% endif %}
                                 <div class="flex items-center mt-1">
-                                    <input type="number" class="w-20 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 product-price" 
+                                    <input type="number" class="w-20 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 product-price transition-all duration-200" 
                                         data-id="{{ product.id }}" 
                                         value="{{ product.price }}" 
                                         step="0.01" min="0">
-                                    <span class="ml-1 text-gray-700">zł</span>
+                                    <span class="ml-1 text-gray-700 font-semibold">zł</span>
                                 </div>
                                 {% if product.markup_percent %}
-                                <div class="text-xs text-green-600 mt-1 price-with-markup"></div>
+                                <div class="text-xs text-green-600 mt-1 price-with-markup flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                    </svg>
+                                </div>
                                 {% endif %}
                             </div>
                         </td>
                         <td class="px-3 py-4">
-                            <select class="w-20 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 product-vat" 
+                            <select class="w-20 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 product-vat transition-all duration-200" 
                                 data-id="{{ product.id }}">
                                 <option value="23" {% if product.vat == 23 %}selected{% endif %}>23%</option>
                                 <option value="8" {% if product.vat == 8 %}selected{% endif %}>8%</option>
@@ -163,7 +373,7 @@
                         </td>
                         <td class="px-3 py-4">
                             <div class="flex flex-col gap-2">
-                                <select class="w-28 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 product-delivery-time" 
+                                <select class="w-28 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 product-delivery-time transition-all duration-200" 
                                     data-id="{{ product.id }}">
                                     <option value="1-2 dni" {% if product.delivery_time == '1-2 dni' %}selected{% endif %}>1-2 dni</option>
                                     <option value="2-3 dni" {% if product.delivery_time == '2-3 dni' %}selected{% endif %}>2-3 dni</option>
@@ -173,34 +383,62 @@
                                     <option value="14-30 dni" {% if product.delivery_time == '14-30 dni' or not product.delivery_time %}selected{% endif %}>14-30 dni</option>
                                 </select>
                                 <div class="flex items-center">
-                                    <span class="text-xs text-gray-500 mr-1">Koszt:</span>
-                                    <input type="number" class="w-16 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 product-delivery-cost" 
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <input type="number" class="w-16 px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 product-delivery-cost transition-all duration-200" 
                                         data-id="{{ product.id }}" 
                                         value="{{ product.delivery_cost|default(0) }}" 
                                         step="0.01" min="0">
-                                    <span class="ml-1 text-xs text-gray-700">zł</span>
+                                    <span class="ml-1 text-xs text-gray-700 font-medium">zł</span>
                                 </div>
                             </div>
                         </td>
                         <td class="px-3 py-4">
                             {% if product.stock > 10 %}
-                            <span class="text-green-600">{{ product.stock }}</span>
+                            <span class="badge badge-green">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                {{ product.stock }}
+                            </span>
                             {% elif product.stock > 0 %}
-                            <span class="text-yellow-600">{{ product.stock }}</span>
+                            <span class="badge badge-yellow">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                                {{ product.stock }}
+                            </span>
                             {% else %}
-                            <span class="text-red-600">{{ product.stock }}</span>
+                            <span class="badge badge-red">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                {{ product.stock }}
+                            </span>
                             {% endif %}
                         </td>
                         <td class="px-3 py-4 text-sm font-medium">
-                            <button class="text-indigo-600 hover:text-indigo-900 save-product-changes block mb-2" data-id="{{ product.id }}">
-                                Zapisz
-                            </button>
-                            <button class="text-red-600 hover:text-red-900 toggle-availability block" data-id="{{ product.id }}" data-available="false">
-                                Wycofaj
-                            </button>
-                            <button class="text-purple-600 hover:text-purple-900 generate-description block mt-2" data-id="{{ product.id }}">
-                                Generuj opis
-                            </button>
+                            <div class="flex flex-col space-y-2">
+                                <button class="text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1 rounded-md flex items-center justify-center action-button transition-all duration-200 save-product-changes" data-id="{{ product.id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Zapisz
+                                </button>
+                                <button class="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md flex items-center justify-center action-button transition-all duration-200 toggle-availability" data-id="{{ product.id }}" data-available="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    Wycofaj
+                                </button>
+                                <button class="text-white bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-md flex items-center justify-center action-button transition-all duration-200 generate-description" data-id="{{ product.id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                    </svg>
+                                    Generuj opis
+                                </button>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
@@ -208,19 +446,28 @@
             </table>
         </div>
         {% else %}
-        <div class="text-gray-500 text-center py-8">
-            Brak wystawionych produktów.
+        <div class="text-gray-500 text-center py-8 bg-gray-50 rounded-lg flex flex-col items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            </svg>
+            <p class="text-lg font-medium">Brak wystawionych produktów.</p>
+            <p class="text-sm text-gray-400">Wystaw produkty z zakładki "Produkty z XML"</p>
         </div>
         {% endif %}
     </div>
 </div>
 
 <!-- Modal do masowej aktualizacji cen -->
-<div id="bulkUpdateModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-lg shadow-xl p-6 max-w-md w-full">
+<div id="bulkUpdateModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-2xl p-6 max-w-md w-full transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
         <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-medium text-gray-900">Masowa aktualizacja produktów</h3>
-            <button id="closeBulkUpdateModal" class="text-gray-400 hover:text-gray-500">
+            <h3 class="text-lg font-medium text-gray-900 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Masowa aktualizacja produktów
+            </h3>
+            <button id="closeBulkUpdateModal" class="text-gray-400 hover:text-gray-500 transition-colors duration-200">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -230,16 +477,21 @@
         <div class="space-y-4">
             <!-- Zmiana ceny -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Operacja na cenie</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Operacja na cenie
+                </label>
                 <div class="flex items-center gap-2">
-                    <select id="priceOperation" class="w-40 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <select id="priceOperation" class="w-40 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200">
                         <option value="add">Dodaj kwotę</option>
                         <option value="subtract">Odejmij kwotę</option>
                         <option value="percent_increase">Zwiększ o procent</option>
                         <option value="percent_decrease">Zmniejsz o procent</option>
                         <option value="set">Ustaw wartość</option>
                     </select>
-                    <input type="number" id="priceValue" class="w-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" step="0.01" min="0" placeholder="Wartość">
+                    <input type="number" id="priceValue" class="w-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200" step="0.01" min="0" placeholder="Wartość">
                 </div>
             </div>
             
@@ -247,20 +499,20 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Operacja na narzucie</label>
                 <div class="flex items-center gap-2">
-                    <select id="markupOperation" class="w-40 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <select id="markupOperation" class="w-40 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200">
                         <option value="">Nie zmieniaj</option>
                         <option value="add">Dodaj procent</option>
                         <option value="subtract">Odejmij procent</option>
                         <option value="set">Ustaw wartość</option>
                     </select>
-                    <input type="number" id="markupValue" class="w-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" step="0.1" min="0" placeholder="Wartość %" disabled>
+                    <input type="number" id="markupValue" class="w-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200" step="0.1" min="0" placeholder="Wartość %" disabled>
                 </div>
             </div>
             
             <!-- Zmiana VAT -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Stawka VAT</label>
-                <select id="bulkVat" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <select id="bulkVat" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200">
                     <option value="">Nie zmieniaj</option>
                     <option value="23">23%</option>
                     <option value="8">8%</option>
@@ -272,7 +524,7 @@
             <!-- Zmiana czasu dostawy -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Czas dostawy</label>
-                <select id="bulkDeliveryTime" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <select id="bulkDeliveryTime" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200">
                     <option value="">Nie zmieniaj</option>
                     <option value="1-2 dni">1-2 dni</option>
                     <option value="2-3 dni">2-3 dni</option>
@@ -287,20 +539,23 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Koszt dostawy</label>
                 <div class="flex items-center gap-2">
-                    <select id="deliveryCostOperation" class="w-40 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <select id="deliveryCostOperation" class="w-40 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200">
                         <option value="">Nie zmieniaj</option>
                         <option value="set">Ustaw wartość</option>
                     </select>
-                    <input type="number" id="deliveryCostValue" class="w-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" step="0.01" min="0" placeholder="Wartość" disabled>
+                    <input type="number" id="deliveryCostValue" class="w-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200" step="0.01" min="0" placeholder="Wartość" disabled>
                 </div>
             </div>
         </div>
         
         <div class="mt-6 flex justify-end gap-3">
-            <button id="cancelBulkUpdate" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">
+            <button id="cancelBulkUpdate" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all duration-200">
                 Anuluj
             </button>
-            <button id="applyBulkUpdate" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            <button id="applyBulkUpdate" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-200 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
                 Zastosuj zmiany
             </button>
         </div>
@@ -776,7 +1031,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .then(response => response.json())
-            .then(data => {
+            .then data => {
                 alert(data.message);
                 location.reload();
             })
@@ -862,6 +1117,34 @@ document.addEventListener('DOMContentLoaded', function() {
             generateDescriptionsBulkBtn.disabled = false;
         }
     }
+
+    // Dodanie animacji do modalu
+    const bulkUpdateModal = document.getElementById('bulkUpdateModal');
+    const modalContent = document.getElementById('modalContent');
+
+    // Funkcja otwierająca modal z animacją
+    function openModal() {
+        bulkUpdateModal.classList.remove('hidden');
+        // Opóźnienie animacji, aby była widoczna
+        setTimeout(() => {
+            modalContent.classList.remove('scale-95', 'opacity-0');
+            modalContent.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
+
+    // Funkcja zamykająca modal z animacją
+    function closeModal() {
+        modalContent.classList.remove('scale-100', 'opacity-100');
+        modalContent.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+            bulkUpdateModal.classList.add('hidden');
+        }, 300);
+    }
+
+    // Podmiana istniejących event listenerów
+    document.getElementById('bulkPriceUpdate').addEventListener('click', openModal);
+    document.getElementById('closeBulkUpdateModal').addEventListener('click', closeModal);
+    document.getElementById('cancelBulkUpdate').addEventListener('click', closeModal);
 });
 </script>
 {% endblock %}
