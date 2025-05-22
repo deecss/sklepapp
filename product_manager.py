@@ -164,6 +164,20 @@ class ProductManager:
                 product['producer'] = self._safe_get_xml_value(product_elem, 'producer')
                 product['url'] = self._safe_get_xml_value(product_elem, 'url')
                 
+                # Obsługa obrazów produktu
+                product['images'] = []
+                pictures_elem = product_elem.find('pictures')
+                if pictures_elem is not None:
+                    for pic_elem in pictures_elem.findall('picture'):
+                        if pic_elem.text and pic_elem.text.strip():
+                            product['images'].append(pic_elem.text.strip())
+                
+                # Ustaw pierwszy obraz jako główny
+                if product['images']:
+                    product['image'] = product['images'][0]
+                else:
+                    product['image'] = None
+                
                 # Domyślnie produkty NIE są dostępne do sprzedaży po zaimportowaniu z XML
                 # (dostępność musi być włączona ręcznie lub przez skrypt)
                 product['available_for_sale'] = False
@@ -195,11 +209,10 @@ class ProductManager:
                     price_gross_xml = self._calculate_gross_price(price_net_xml)
                     discounted_price_gross_xml = self._calculate_gross_price(discounted_price_net_xml)
 
-                    product['price'] = price_gross_xml # Cena brutto (po VAT, przed dodatkowym narzutem sklepu)
-                    product['discounted_price'] = discounted_price_gross_xml # Cena promocyjna brutto (po VAT)
-                    
-                    # original_price to cena brutto z XML, która będzie bazą do dalszych narzutów sklepowych
-                    product['original_price'] = price_gross_xml 
+                    # Używamy discounted_price jako głównej ceny brutto, price jest teraz ceną "przed rabatem"
+                    product['price'] = discounted_price_gross_xml # Cena brutto po rabacie
+                    product['original_price'] = discounted_price_gross_xml # Cena bazowa do narzutów
+                    product['regular_price'] = price_gross_xml # Regularna cena (przed rabatem)
                     
                     # Domyślny narzut sklepu to 0% przy pierwszym parsowaniu
                     product['markup_percent'] = 0.0
@@ -268,7 +281,7 @@ class ProductManager:
                             preserved_markups +=1
                         
                         # Zachowaj inne istotne pola, które mogły być ręcznie edytowane
-                        for field in ['delivery_time', 'delivery_cost', 'custom_name', 'custom_category']: # Dodaj inne pola wg potrzeb
+                        for field in ['delivery_time', 'delivery_cost', 'custom_name', 'custom_category', 'images', 'image']: # Dodaj inne pola wg potrzeb
                             if field in existing_product and existing_product[field] is not None:
                                 new_product[field] = existing_product[field]
             
@@ -428,6 +441,83 @@ class ProductManager:
         except Exception as e:
             self.logger.error(f"Błąd podczas aktualizacji opisu produktu (ID: {product_id}): {str(e)}")
             return False
+    
+    def get_product_from_xml(self, product_id):
+        """
+        Pobiera dane produktu bezpośrednio z pliku XML na podstawie ID.
+        
+        Args:
+            product_id (str): ID produktu do znalezienia
+            
+        Returns:
+            dict: Słownik z danymi produktu z XML lub None, jeśli produkt nie został znaleziony
+        """
+        try:
+            if not os.path.exists(self.xml_path):
+                self.logger.error(f"Plik XML nie istnieje: {self.xml_path}")
+                return None
+                
+            tree = ET.parse(self.xml_path)
+            root = tree.getroot()
+            
+            # Znajdź produkt po ID
+            for product_elem in root.findall('.//offer'):
+                xml_id = self._safe_get_xml_value(product_elem, 'id')
+                if xml_id and str(xml_id) == str(product_id):
+                    # Mapuj dane z XML do słownika
+                    product = {
+                        'xml_id': xml_id,
+                        'id': xml_id,
+                        'name': self._safe_get_xml_value(product_elem, 'name'),
+                        'EAN': self._safe_get_xml_value(product_elem, 'EAN'),
+                        'producer': self._safe_get_xml_value(product_elem, 'producer'),
+                        'url': self._safe_get_xml_value(product_elem, 'url'),
+                        'category': self._safe_get_xml_value(product_elem, 'category'),
+                    }
+                    
+                    # Pobierz obrazy produktu
+                    product['images'] = []
+                    pictures_elem = product_elem.find('pictures')
+                    if pictures_elem is not None:
+                        for pic_elem in pictures_elem.findall('picture'):
+                            if pic_elem.text and pic_elem.text.strip():
+                                product['images'].append(pic_elem.text.strip())
+                    
+                    # Ustaw pierwszy obraz jako główny
+                    if product['images']:
+                        product['image'] = product['images'][0]
+                    else:
+                        product['image'] = None
+                    
+                    try:
+                        price_net_xml = float(self._safe_get_xml_value(product_elem, 'price', '0'))
+                        discounted_price_net_xml = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
+                        
+                        if discounted_price_net_xml == 0:
+                            discounted_price_net_xml = price_net_xml
+                            
+                        product['price'] = self._calculate_gross_price(discounted_price_net_xml)
+                        product['regular_price'] = self._calculate_gross_price(price_net_xml)
+                    except ValueError:
+                        product['price'] = 0.0
+                        product['regular_price'] = 0.0
+                        
+                    try:
+                        product['stock'] = int(self._safe_get_xml_value(product_elem, 'stock', '0'))
+                    except ValueError:
+                        product['stock'] = 0
+                        
+                    return product
+            
+            self.logger.warning(f"Produkt o ID {product_id} nie został znaleziony w XML")
+            return None
+            
+        except ET.ParseError as e:
+            self.logger.error(f"Błąd parsowania XML ({self.xml_path}): {e}")
+            return None
+        except Exception as e:
+            self.logger.error(f"Nieoczekiwany błąd podczas pobierania produktu z XML (ID: {product_id}): {str(e)}")
+            return None
     
     def get_product_lists(self):
         """

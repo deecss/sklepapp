@@ -1745,7 +1745,9 @@
     "original_price": 17.07,
     "markup_percent": 27.2,
     "vat": 23,
-    "stock": 27
+    "stock": 27,
+    "description": "<div id=\"opis-import\">\n<div class=\"row\">\n<div class=\"half\"><img alt=\"2553\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2553/0_1747946949.jpg\"/></div>\n<div class=\"half\">\n<h2>Kółka do fotela biurowego 5 szt.</h2>\n<ul>\n<li>kółka podwójne,</li>\n<li><strong>gumowana</strong> powierzchnia,</li>\n<li>wytrzymałe tworzywo,</li>\n<li><strong>5 szt. w zestawie.</strong></li>\n</ul>\n</div>\n</div>\n<div class=\"row\">\n<div class=\"half\">\n<p>Uniwersalne kółka jezdne, które pasują do wielu modeli foteli i krzeseł biurowych. Są typowym wyposażeniem mebla, ale spośród innych wyróżnia je pokrycie warstwą <strong>masy kauczukowej</strong>. Za sprawą tego zabiegu, delikatna podłoga, na której będą pracować, nie ulegnie tak szybko porysowaniu! Dodatkowo, kółka pracują niezwykle cicho i nie ślizgają się po terakocie.</p>\n</div>\n<div class=\"half\"><img alt=\"2553\" class=\"lazyload\" loading=\"lazy\" src=\"/static/uploads/products/2553/1_1747946949.jpg\"/></div>\n</div>\n</div>",
+    "last_modified": "2025-05-22 22:49:09"
   },
   {
     "xml_id": "MULTIBLOCK",
