@@ -6960,3 +6960,11 @@ AssertionError: write() before start_response
 2025-05-22 12:57:12,755 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
 2025-05-22 12:57:12,965 - INFO - Zapisano konfigurację do data/xml_config.json
 2025-05-22 12:57:12,965 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 13:07:13,237 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 13:07:13,237 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 13:07:13,419 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 13:07:13,419 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 13:09:13,038 - INFO - 145.239.89.63 - - [22/May/2025 13:09:13] "GET / HTTP/1.1" 200 -
+2025-05-22 13:09:13,478 - INFO - 145.239.89.63 - - [22/May/2025 13:09:13] "GET /kontakt HTTP/1.1" 200 -
+2025-05-22 13:09:13,863 - INFO - 145.239.89.63 - - [22/May/2025 13:09:13] "[32mPOST /kontakt HTTP/1.1[0m" 302 -
+2025-05-22 13:09:13,980 - INFO - 145.239.89.63 - - [22/May/2025 13:09:13] "GET /kontakt HTTP/1.1" 200 -
