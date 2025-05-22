@@ -64,7 +64,7 @@
       "delivery_cost": 0.0,
       "total": 538.66,
       "payment_method": "bank_transfer",
-      "status": "new",
+      "status": "w realizacji",
       "created_at": 1747948365.940148,
       "payment_id": "0649ca11-f12e-4983-abe5-c6ec2b5cb27f"
     }

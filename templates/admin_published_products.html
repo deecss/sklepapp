@@ -940,12 +940,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (toggleAllBtn) {
         toggleAllBtn.addEventListener('click', function() {
-            if (!confirm('Czy na pewno chcesz wycofać wszystkie produkty ze sprzedaży?')) {
+            if (!confirm('Czy na pewno chcesz wycofać wszystkie zaznaczone produkty ze sprzedaży?')) {
                 return;
             }
             
-            const selectedIds = Array.from(productCheckboxes)
-                .filter(checkbox => checkbox.checked)
+            const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked'))
                 .map(checkbox => parseInt(checkbox.getAttribute('data-id')));
                 
             if (selectedIds.length === 0) {
@@ -969,7 +968,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     available: false
                 })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     showToast(data.message || 'Produkty zostały wycofane ze sprzedaży', 'success');
@@ -994,11 +998,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (toggleBtns && toggleBtns.length > 0) {
         toggleBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
                 const productId = parseInt(this.getAttribute('data-id'));
                 const available = this.getAttribute('data-available') === 'true';
+                const action = available ? 'wystawić' : 'wycofać';
                 
-                if (!confirm(`Czy na pewno chcesz ${available ? 'wystawić' : 'wycofać'} ten produkt?`)) {
+                if (!confirm(`Czy na pewno chcesz ${action} ten produkt ze sprzedaży?`)) {
                     return;
                 }
                 
@@ -1018,7 +1026,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         available: available
                     })
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.success) {
                         showToast(data.message || 'Status produktu został zmieniony', 'success');
@@ -1026,6 +1039,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         showToast(data.message || 'Wystąpił błąd podczas zmiany statusu produktu', 'error');
                         btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+            });
+        });
+    }
                         btn.disabled = false;
                     }
                 })
@@ -1048,24 +1073,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 const productId = parseInt(this.getAttribute('data-id'));
                 const productRow = document.querySelector(`.product-row[data-id="${productId}"]`);
                 
+                if (!productRow) {
+                    console.error('Nie znaleziono wiersza produktu z ID:', productId);
+                    showToast('Wystąpił błąd: nie znaleziono produktu', 'error');
+                    return;
+                }
+                
                 // Pobierz wartości z pól edycji
-                const price = productRow.querySelector('.product-price').value;
-                const markup = productRow.querySelector('.product-markup').value;
-                const vat = productRow.querySelector('.product-vat').value;
-                const deliveryTime = productRow.querySelector('.product-delivery-time').value;
-                const deliveryCost = productRow.querySelector('.product-delivery-cost').value;
+                const priceInput = productRow.querySelector('.product-price');
+                const markupInput = productRow.querySelector('.product-markup');
+                const vatSelect = productRow.querySelector('.product-vat');
+                const deliveryTimeSelect = productRow.querySelector('.product-delivery-time');
+                const deliveryCostInput = productRow.querySelector('.product-delivery-cost');
+                
+                // Sprawdź czy wszystkie pola istnieją
+                if (!priceInput || !markupInput || !vatSelect || !deliveryTimeSelect || !deliveryCostInput) {
+                    console.error('Nie znaleziono wszystkich pól formularza dla produktu ID:', productId);
+                    showToast('Wystąpił błąd: nie znaleziono wszystkich pól formularza', 'error');
+                    return;
+                }
+                
+                const price = priceInput.value;
+                const markup = markupInput.value;
+                const vat = vatSelect.value;
+                const deliveryTime = deliveryTimeSelect.value;
+                const deliveryCost = deliveryCostInput.value;
                 
                 // Walidacja danych
                 if (!price || isNaN(parseFloat(price)) || parseFloat(price) < 0) {
                     showToast('Podaj poprawną cenę!', 'error');
+                    priceInput.focus();
                     return;
                 }
                 if (!markup || isNaN(parseFloat(markup)) || parseFloat(markup) < 0) {
                     showToast('Podaj poprawny narzut!', 'error');
+                    markupInput.focus();
                     return;
                 }
                 if (!deliveryCost || isNaN(parseFloat(deliveryCost)) || parseFloat(deliveryCost) < 0) {
                     showToast('Podaj poprawny koszt dostawy!', 'error');
+                    deliveryCostInput.focus();
                     return;
                 }
                 
@@ -1089,7 +1136,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         delivery_cost: parseFloat(deliveryCost)
                     })
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.success) {
                         // Pokaż powiadomienie o powodzeniu
