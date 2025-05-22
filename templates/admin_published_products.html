@@ -1002,7 +1002,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                const productId = parseInt(this.getAttribute('data-id'));
+                const productId = this.getAttribute('data-id');
                 const available = this.getAttribute('data-available') === 'true';
                 const action = available ? 'wystawić' : 'wycofać';
                 
@@ -1051,26 +1051,16 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-                        btn.disabled = false;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                });
-            });
-        });
-    }
     
     // Obsługa zapisywania zmian w produktach
     const saveButtons = document.querySelectorAll('.save-product-changes');
     
     if (saveButtons && saveButtons.length > 0) {
         saveButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const productId = parseInt(this.getAttribute('data-id'));
+            btn.addEventListener('click', function(event) {
+                event.preventDefault();
+                
+                const productId = this.getAttribute('data-id');
                 const productRow = document.querySelector(`.product-row[data-id="${productId}"]`);
                 
                 if (!productRow) {
@@ -1495,9 +1485,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
             }
-        } catch (e) {
-            console.error('Błąd podczas generowania opisów:', e);
-            showToast('Błąd podczas generowania opisów: ' + e, 'error');
+        } catch (error) {
+            console.error('Błąd podczas generowania opisów:', error);
+            showToast('Błąd podczas generowania opisów: ' + error, 'error');
             
             // Restore all buttons
             allButtons.forEach(btn => {
