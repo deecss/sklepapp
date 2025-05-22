@@ -1,0 +1,2068 @@
+<!doctype html><html lang="pl" xmlns:fb="http://ogp.me/ns/fb#"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Wyszukiwarka :: Janshop.pl</title>
+<link rel="canonical" href="https://janshop.pl/szukaj.html">
+<meta name="description" content="Wielobranżowy sklep internetowy, wyposażenie domu i ogrodu w tym baseny ogrodowe, trampoliny i artykuły dla dzieci w sklepie janshop.pl!">
+<meta name="keywords" content="janshop, baseny ogrodowe, baseny intex, baseny bestway, okapy kuchenne, trampoliny ogrodowe, foteliki i maty interaktywne, ricokids">
+<meta name="robots" content="index,all,follow">
+<meta name="rating" content="General">
+<meta http-equiv="content-language" content="pl">
+<meta name="revisit-after" content="1 day">
+<meta name="distribution" content="global">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="author" content="janshop.pl, sklep internetowy">
+
+<meta name="robots" content="noindex,nofollow">
+<meta name="facebook-domain-verification" content="i7in849cd6db7xt11jtuxe1zwbut2e" /> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="theme/css/konfigurator.css" />
+    <!--<link href="theme/css/style.min.css" rel="stylesheet" type="text/css" />-->
+<link rel="stylesheet" href="dist/css/styles.css">    
+<link href="dist/css/fonts.css" rel="stylesheet" type="text/css" />
+
+    <!--<link href="theme/css/fonts.css" rel="stylesheet" type="text/css" />-->
+<!--<link rel="preconnect" href="https://fonts.gstatic.com">-->
+
+<!--<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+
+-->
+<link href="dist/vendors/fontello/fontello/css/fontello.css?v=266" rel="stylesheet">
+
+
+    <link href="theme/css/floatingCart.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="dist/css/showcomments.css" />
+    <link rel='stylesheet' href='/theme/css/jquery.fancybox.css?ver=1.2.6' type='text/css' />
+    <link rel='stylesheet' href="/theme/css/newsletter.css"> 
+    <!--<link rel="stylesheet" href="/theme/js/fancybox/3.1.25/jquery.fancybox.min.css" /> -->
+<link href="theme/css/360-view.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="dist/vendors/slick/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="dist/vendors/slick/slick/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" href="/dist/css/jquery.rating.css" >
+
+<script src="/theme/js/lazysizes.min.js" ></script>
+<!--<script src="dist/js/jquery/1.8.2/jquery.min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<!--<script  type="text/javascript" src="/theme/js/jquery/1.11.3/jquery.min.js" ></script>-->
+<!--<script  type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js" ></script>-->
+
+<meta charset="utf-8" />
+<script src="https://static.payu.com/res/v2/widget-mini-installments.js"></script>
+
+<script src="/theme/js/jquery-migrate-1.4.1.min.js"  async="" ></script>
+<script
+			  src="https://code.jquery.com/jquery-migrate-3.5.2.min.js"
+			  integrity="sha256-ocUeptHNod0gW2X1Z+ol3ONVAGWzIJXUmIs+4nUeDLI="
+			  crossorigin="anonymous" async=""></script>
+
+<script type="text/javascript"  src="/theme/js/jquery/ui/1.12.1/jquery-ui.min.js"  async=""></script>
+<!--<script src="/theme/js/fancybox/3.1.25/jquery.fancybox.min.js" async=""></script>-->
+
+
+
+<script  type="text/javascript" src="/dist/js/jquery.rating.pack.js" ></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+ -->
+
+
+
+
+
+
+    <link rel="Shortcut icon" href="img/favicon.ico">
+
+    <!-- Hotjar Tracking Code for janshop.pl -->
+    <!--
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 1576074, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
+-->
+
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '282524219483937');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=282524219483937&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FQ7B249JMD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied'
+});
+  gtag('js', new Date());
+
+  gtag('config', 'G-FQ7B249JMD', { 'anonymize_ip': true });
+</script>
+<script type="text/javascript">var aProdukty = []; var aProduktyN = []; var aProduktyRadio = []; </script><script src="skrypty.php"></script></head><body><img id="loading-image" src="img/loading.gif" alt="loading" style="height: 1px; width: 1px; position: absolute; left: 0; top: 0; display: none"><div id="kqs-tlo" style="width: 100%; height: 100%; display: none; position: fixed; top: 0; left: 0; background-color: #000000; z-index: 1000; opacity: 0; transition: opacity 0.5s linear;" onclick="kqs_off();"></div><div id="galeria-box" style="display: none; position: fixed; color: #000000; background-color: #ffffff; z-index: 1001; border: 0; box-shadow: 0 5px 20px #808080; opacity: 0; transition: opacity 0.5s linear;"><div id="galeria-podklad" style="width: 32px; height: 32px; margin: 20px; text-align: center"><img src="img/loading.gif" alt="loading" id="galeria-obraz" onclick="kqs_off();"></div><div style="margin: -10px 10px 10px 10px" id="galeria-miniatury"></div><div id="galeria-nazwa" style="margin: 10px; color: #000000; font-weight: bold; text-align: center"></div><div class="kqs-iks" style="width: 20px; height: 20px; position: absolute; cursor: pointer; top: 0; right: 0; background: #ffffff url(img/iks.png) 2px 6px/12px no-repeat; box-sizing: content-box;" onclick="kqs_off();"></div></div><table id="kqs-box-tlo" style="width: 100%; height: 100%; display: none; position: fixed; top: 0; left: 0; z-index: 1001; opacity: 0; transition: opacity 0.5s linear;"><tr><td style="width: 100%; height: 100%; vertical-align: middle"><div id="kqs-box" style="width: 95%; height: 95%; position: relative; margin: auto; color: #000000; background-color: #ffffff; border-radius: 10px; border: 0; box-shadow: 0 5px 20px #808080"><div id="kqs-box-zawartosc" style="height: 100%; padding: 20px"></div><div class="kqs-iks" style="width: 20px; height: 20px; position: absolute; cursor: pointer; top: 0; right: 0; background: url(img/iks.png) 2px 6px/12px no-repeat; box-sizing: content-box" onclick="kqs_off();"></div></div></td></tr></table><div id="podpowiedzi" class="tips"></div>        <nav class="mobileNav">
+                
+	<nav  class='mobileNav'>
+	<ul id='mobMenu-0' class='mobMenuList'><li><a class='mobMenuListSubOpen' href='#mobMenu-1'></a><a href='k4,dziecko.html' title="Artykuły dla dzieci i niemowląt - Ricokids i Nukido">Dziecko</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-12'></a><a href='k5,dom.html' title="Wyposażenie domu, sprzęty gospodarstwa domowego">Dom</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-25'></a><a href='k108,elektronika.html' title="">Elektronika</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-36'></a><a href='k224,hobby.html' title="Hobby - janshop.pl">Hobby</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-47'></a><a href='k3,trampoliny.html' title="Trampoliny to najlepszy prezent dla dziecka do ogrodu - janshop.pl">Trampoliny</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-53'></a><a href='k442,zdrowie.html' title="">Zdrowie</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-57'></a><a href='k53,materace.html' title="Materace dmuchane welurowe | Sprawdzeni producenci | Sklep Online Janshop.pl">Materace</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-61'></a><a href='k6,turystyka.html' title="">Turystyka</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-72'></a><a href='k188,baseny.html' title="">Baseny</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-82'></a><a href='k16,akcesoria-basenowe.html' title="Akcesoria basenowe do basenów Intex i Bestway - janshop.pl">Akcesoria basenowe</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-92'></a><a href='k2,ogrod.html' title="Do ogrodu wszystko czego potrzebujesz komfort i relaks - janshop.pl">Ogród</a></li><li><a class='mobMenuListSubOpen' href='#mobMenu-107'></a><a href='k25,plaza.html' title="Akcesoria plażowe marki Intex i Bestway - janshop.pl">Plaża</a></li>
+	</ul>
+	<ul id='mobMenu-1' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Dziecko</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-2'></a><a href='k205,dla-najmlodszych.html' title="">Dla najmłodszych</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-3'></a><a href='k359,bezpieczenstwo-dzieci.html' title="Bezpieczeństwo dzieci - janshop.pl">Bezpieczeństwo dzieci</a></li>
+		<li><a href='k49,foteliki-samochodowe.html' title="Foteliki samochodowe bezpieczne i sprawdzone - janshop.pl">Foteliki samochodowe</a></li>
+		<li><a href='k50,krzeselka-do-karmienia.html' title="Krzesełka do karmienia Ricokids to komfort podczas posiłku - janshop.pl">Krzesełka do karmienia</a></li>
+		<li><a href='k217,namioty-dla-dzieci.html' title="Namioty dla dzieci">Namioty dla dzieci</a></li>
+		<li><a href='k396,lampki-nocne.html' title="">Lampki nocne</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-8'></a><a href='k52,zabawki.html' title="">Zabawki</a></li>
+		<li><a href='k361,pojemniki-na-zabawki.html' title="Pojemniki na zabawki Ricokids - janshop.pl">Pojemniki na zabawki</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-10'></a><a href='k358,pojazdy-dla-dzieci.html' title="Pojazdy dla dzieci Ricokids - janshop.pl">Pojazdy dla dzieci</a></li>
+		<li><a href='k63,hustawki-dla-dzieci.html' title="Huśtawki dla dzieci | Artykuły dziecięce | Sklep Online Janshop.pl">Huśtawki dla dzieci</a></li>
+	</ul>
+	<ul id='mobMenu-12' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Dom</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-13'></a><a href='k351,krzesla,-fotele-i-hokery.html' title="Krzesła, fotele i hokery Sofotel w ofercie - janshop.pl">Krzesła, fotele i hokery</a></li>
+		<li><a href='k353,szafy-tekstylne.html' title="Szafy tekstylne - janshop.pl">Szafy tekstylne</a></li>
+		<li><a href='k418,wieszaki.html' title="">Wieszaki</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-16'></a><a href='k425,szkatulki-i-pudelka.html' title="">Szkatułki i pudełka</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-17'></a><a href='k90,wyposazenie-warsztatu.html' title="">Wyposażenie warsztatu</a></li>
+		<li><a href='k424,piecyki-gazowe.html' title="">Piecyki gazowe</a></li>
+		<li><a href='k368,suszarki-na-pranie.html' title="">Suszarki na pranie</a></li>
+		<li><a href='k429,suszarki-do-naczyn.html' title="">Suszarki do naczyń</a></li>
+		<li><a href='k374,hustawki-kokony.html' title="Huśtawki i fotele kokony | Najlepsze ceny na Janshop.pl">Huśtawki kokony</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-22'></a><a href='k432,pracownia.html' title="">Pracownia</a></li>
+		<li><a href='k35,odplywy-liniowe.html' title="Odpływy liniowe | Nowoczesna łazienka w niskiej cenie | Janshop.pl">Odpływy liniowe</a></li>
+		<li><a href='k202,skrzynki-na-listy.html' title="Skrzynki na listy - janshop.pl">Skrzynki na listy</a></li>
+	</ul>
+	<ul id='mobMenu-25' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Elektronika</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-26'></a><a href='k33,okapy-kuchenne.html' title="">Okapy kuchenne</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-27'></a><a href='k346,osuszacze-i-oczyszczacze-powietrza.html' title="Osuszacze i oczyszczacze powietrza - janshop.pl">Osuszacze i oczyszczacze powietrza</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-28'></a><a href='k447,elektronarzedzia.html' title="">Elektronarzędzia</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-29'></a><a href='k122,male-agd.html' title="">Małe AGD</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-30'></a><a href='k309,higiena-jamy-ustnej.html' title="Higiena jamy ustnej - janshop.pl">Higiena jamy ustnej</a></li>
+		<li><a href='k460,maszynki-do-strzyzenia.html' title="">Maszynki do strzyżenia</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-32'></a><a href='k452,wagi-elektroniczne.html' title="">Wagi elektroniczne</a></li>
+		<li><a href='k367,klimatyzatory-i-wentylatory.html' title="Wentylatory i wiatraki stojące w ofercie sklepu Janshop.pl">Klimatyzatory i wentylatory</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-34'></a><a href='k138,laktatory.html' title="">Laktatory</a></li>
+		<li><a href='k316,alkomaty.html' title="Alkomaty - Kup online i podróżuj bezpiecznie! - Sklep Janshop.pl">Alkomaty</a></li>
+	</ul>
+	<ul id='mobMenu-36' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Hobby</a></li>
+		<li><a href='k461,malowanie-po-numerach.html' title="">Malowanie po numerach</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-38'></a><a href='k337,hulajnogi.html' title="Hulajnogi - janshop.pl">Hulajnogi</a></li>
+		<li><a href='k389,maty-do-akupresury.html' title="">Maty do akupresury</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-40'></a><a href='k392,sprzet-sportowy-.html' title="">Sprzęt sportowy </a></li>
+		<li><a href='k222,bramki-pilkarskie.html' title="Bramki piłkarskie - sofotel.pl">Bramki piłkarskie</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-42'></a><a href='k223,stoly-do-gier.html' title="Stoły do gier | Piłkarzyki, Bilard, Cymbergaj | Sklep Online">Stoły do gier</a></li>
+		<li><a href='k263,stojak-motocyklowy.html' title="Stojak motocyklowy - jansho.pl">Stojak motocyklowy</a></li>
+		<li><a href='k383,stojak-rowerowy.html' title="">Stojak rowerowy</a></li>
+		<li><a href='k94,wykrywacze-metali.html' title="Wykrywacze metali - ręczny detektor metalu idealny dla Ciebie">Wykrywacze metali</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-46'></a><a href='k225,dla-zwierzat.html' title="Dla zwierząt">Dla zwierząt</a></li>
+	</ul>
+	<ul id='mobMenu-47' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Trampoliny</a></li>
+		<li><a href='k13,trampoliny-ogrodowe.html' title="Trampoliny ogrodowe z siatką | Szeroki wybór | Sklep online Janshop">Trampoliny ogrodowe</a></li>
+		<li><a href='k14,trampoliny-fitness.html' title="Trampoliny fitness doskonale wpływają na poprawę sylwetki - janshop.pl">Trampoliny fitness</a></li>
+		<li><a href='k140,trampoliny-dla-dzieci.html' title="Trampoliny dla dzieci | Bezpieczne i Sprawdzone | Sklep Online Janshop.pl">Trampoliny dla dzieci</a></li>
+		<li><a href='k387,akcesoria-do-trampolin.html' title="">Akcesoria do trampolin</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-52'></a><a href='k92,czesci-do-trampolin.html' title="">Części do trampolin</a></li>
+	</ul>
+	<ul id='mobMenu-53' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Zdrowie</a></li>
+		<li><a href='k444,cisnieniomierze.html' title="">Ciśnieniomierze</a></li>
+		<li><a href='k455,koce-elektryczne.html' title="">Koce elektryczne</a></li>
+		<li><a href='k443,termometry.html' title="">Termometry</a></li>
+	</ul>
+	<ul id='mobMenu-57' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Materace</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-58'></a><a href='k304,materace-do-spania.html' title="Materace do spania - janshop.pl">Materace do spania</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-59'></a><a href='k43,materac-dmuchany.html' title="Materac dmuchany renomowanych marek Intex i Bestway - janshop.pl">Materac dmuchany</a></li>
+		<li><a href='k313,pompki-do-materaca.html' title="Pompki do materaca | Ręczne i Elektryczne | Sklep online Janshop.pl">Pompki do materaca</a></li>
+	</ul>
+	<ul id='mobMenu-61' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Turystyka</a></li>
+		<li><a href='k143,lodowki-turystyczne.html' title="Lodówki turystyczne sprawdzają się w podróży - janshop.pl">Lodówki turystyczne</a></li>
+		<li><a href='k434,termosy-.html' title="">Termosy </a></li>
+		<li><a href='k204,wanienki-turystyczne.html' title="Wanienki turystyczne wygodne i higieniczne - janshop.pl">Wanienki turystyczne</a></li>
+		<li><a href='k115,fotele-dmuchane.html' title="">Fotele dmuchane</a></li>
+		<li><a href='k292,namioty-plazowe.html' title="Namioty plażowe - janshop.pl">Namioty plażowe</a></li>
+		<li><a href='k293,namioty-turystyczne.html' title="Namioty turystyczne - janshop.pl">Namioty turystyczne</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-68'></a><a href='k56,pontony.html' title="Pontony - janshop.pl">Pontony</a></li>
+		<li><a href='k289,kajaki-dmuchane.html' title="Kajaki dmuchane - janshop.pl">Kajaki dmuchane</a></li>
+		<li><a href='k54,pompki-.html' title="">Pompki </a></li>
+		<li><a href='k57,akcesoria-turystyczne.html' title="Akcesoria turystyczne - janshop.pl">Akcesoria turystyczne</a></li>
+	</ul>
+	<ul id='mobMenu-72' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Baseny</a></li>
+		<li><a href='k1,baseny-ogrodowe.html' title="Baseny ogrodowe najlepszych marek Intex i Bestawy - janshop.pl">Baseny ogrodowe</a></li>
+		<li><a href='k7,baseny-rozporowe.html' title="Baseny rozporowe w bardzo bogatej ofercie Intex i Bestway - janshop.pl">Baseny rozporowe</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-75'></a><a href='k8,baseny-stelazowe.html' title="Baseny stelażowe marki Intex i Bestway najlepsza oferta - janshop.pl">Baseny stelażowe</a></li>
+		<li><a href='k132,baseny-intex.html' title="Baseny INTEX bogata oferta basenów stelażowych i rozporowych | Janshop.pl">Baseny Intex</a></li>
+		<li><a href='k133,baseny-bestway.html' title="Baseny Bestway to produkty najwyższej jakości - janshop.pl">Baseny Bestway</a></li>
+		<li><a href='k128,zestawy-basenowe.html' title="">Zestawy basenowe</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-79'></a><a href='k61,dmuchane-spa.html' title="Dmuchane SPA | Kup własne domowe SPA Online! | Janshop.pl">Dmuchane SPA</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-80'></a><a href='k15,baseny-dmuchane.html' title="Baseny dmuchane i pompowane dla całej rodziny - janshop.pl">Baseny dmuchane</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-81'></a><a href='k26,baseny-dla-dzieci.html' title="Baseny dla dzieci | Najlepsze oferty Sklep Online | Janshop.pl">Baseny dla dzieci</a></li>
+	</ul>
+	<ul id='mobMenu-82' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Akcesoria basenowe</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-83'></a><a href='k17,pompy-do-basenu.html' title="Pompy do basenu zadbaj o czystość w swoim basenie - janshop.pl">Pompy do basenu</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-84'></a><a href='k21,pokrywy-na-basen.html' title="Pokrywy na basen skutecznie zabezpieczające wodę - janshop.pl">Pokrywy na basen</a></li>
+		<li><a href='k415,pokrywy-termiczne-do-spa.html' title="">Pokrywy termiczne do SPA</a></li>
+		<li><a href='k22,maty-pod-basen.html' title="Maty pod basen idealnym uzupełniem przygotowania podłoża - janshop.pl">Maty pod basen</a></li>
+		<li><a href='k24,drabinki-do-basenu.html' title="Drabinki do basenu stabilne i gwarantujące bezpieczeństwo - janshop.pl">Drabinki do basenu</a></li>
+		<li><a href='k23,czyszczenie-basenu.html' title="Czyszczenie basenu z naszymi akcesoriami to przyjemność - janshop.pl">Czyszczenie basenu</a></li>
+		<li><a href='k131,odkurzacze-do-basenu.html' title="Odkurzacze do basenu wspierają utrzymanie czystości - janshop.pl">Odkurzacze do basenu</a></li>
+		<li><a href='k27,chemia-basenowa.html' title="Chemia basenowa sojusznik w walce z mikroorganizmami - janshop.pl">Chemia basenowa</a></li>
+		<li><a href='k28,pozostale-akcesoria.html' title="">Pozostałe akcesoria</a></li>
+	</ul>
+	<ul id='mobMenu-92' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Ogród</a></li>
+		<li><a href='k438,grille.html' title="">Grille</a></li>
+		<li><a href='k451,lampki-solarne.html' title="">Lampki solarne</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-95'></a><a href='k450,meble-ogrodowe.html' title="">Meble ogrodowe</a></li>
+		<li><a href='k466,pergole.html' title="">Pergole</a></li>
+		<li><a href='k441,plandeki.html' title="">Plandeki</a></li>
+		<li><a href='k468,siatki-cieniujace.html' title="">Siatki cieniujące</a></li>
+		<li><a href='k472,zagle-przeciwsloneczne.html' title="">Żagle przeciwsłoneczne</a></li>
+		<li><a href='k464,zbiorniki-na-deszczowke.html' title="">Zbiorniki na deszczówkę</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-101'></a><a href='k340,uprawa-roslin.html' title="Uprawa roślin, zadbaj o swoje roślinki - Janshop.pl">Uprawa roślin</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-102'></a><a href='k378,taczki-i-wozki-ogrodowe.html' title="Taczki i wózki ogrodowe | Sklep online Janshop.pl">Taczki i wózki ogrodowe</a></li>
+		<li><a href='k129,namioty-ogrodowe.html' title="Namioty ogrodowe i pawilony | Okazyjne ceny w sklepie Janshop.pl">Namioty ogrodowe</a></li>
+		<li><a href='k123,skrzynie-ogrodowe.html' title="Skrzynie ogrodowe organizują i porządkują przestrzeń - janshop.pl">Skrzynie ogrodowe</a></li>
+		<li><a href='k241,parasole-ogrodowe.html' title="Parasole ogrodowe | Wybierz Parasol Ogrodowy dla Ciebie | Janshop.pl">Parasole ogrodowe</a></li>
+		<li><a href='k232,hamaki-ogrodowe.html' title="Hamaki ogrodowe - ze stelażem i bez | Sklep online Janshop.pl">Hamaki ogrodowe</a></li>
+	</ul>
+	<ul id='mobMenu-107' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-0'>Plaża</a></li>
+		<li><a href='k371,deski-sup.html' title="Deski Sup | Najlepsze deski do pływania w konkurencyjnych cenach Janshop.pl">Deski SUP</a></li>
+		<li><a class='mobMenuListSubOpen' href='#mobMenu-109'></a><a href='k294,materac-plazowy.html' title="Materac plażowy - janshop.pl">Materac plażowy</a></li>
+		<li><a href='k297,rekawki-do-plywania.html' title="Rękawki do pływania - janshop.pl">Rękawki do pływania</a></li>
+		<li><a href='k116,zabawki-dmuchane.html' title="">Zabawki dmuchane</a></li>
+		<li><a href='k96,kola-do-plywania.html' title="Koła do pływania od najlepszych producentów Intex i Bestway - janshop.pl">Koła do pływania</a></li>
+		<li><a href='k136,pilki-dmuchane.html' title="Piłki dmuchane do aktywnej zabawy na plaży i w ogrodzie - janshop.pl">Piłki dmuchane</a></li>
+		<li><a href='k59,akcesoria-do-plywania.html' title="Akcesoria do pływania - janshop.pl">Akcesoria do pływania</a></li>
+		<li><a href='k296,sprzet-do-nurkowania.html' title="Sprzęt do nurkowania">Sprzęt do nurkowania</a></li>
+	</ul>
+	<ul id='mobMenu-2' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-1'>Dla najmłodszych</a></li>
+		<li><a href='k402,karuzele-do-lozeczka.html' title="">Karuzele do łóżeczka</a></li>
+		<li><a href='k206,maty-edukacyjne.html' title="Maty edukacyjne oraz maty interaktywne dla rozwoju najmłodszych">Maty edukacyjne</a></li>
+		<li><a href='k421,nakladki-na-sedes.html' title="">Nakładki na sedes</a></li>
+		<li><a href='k391,nocniki-interaktywne.html' title="">Nocniki interaktywne</a></li>
+		<li><a href='k390,wanienki-dla-dzieci-.html' title="">Wanienki dla dzieci </a></li>
+		<li><a href='k459,wozki-dzieciece.html' title="">Wózki dziecięce</a></li>
+		<li><a href='k109,lezaczki-bujaczki.html' title="Leżaczki bujaczki dla dzieci | Sklep Online Janshop.pl">Leżaczki bujaczki</a></li>
+		<li><a href='k111,spiworki-do-wozka.html' title="Śpiworki do wózka chroną przed wiatrem i zimnem - janshop.pl">Śpiworki do wózka</a></li>
+		<li><a href='k401,lozeczka-turystyczne-.html' title="">Łóżeczka turystyczne </a></li>
+	</ul>
+	<ul id='mobMenu-3' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-1'>Bezpieczeństwo dzieci</a></li>
+		<li><a href='k216,barierki-do-lozka.html' title="Barierki do łóżka dla dzieci Ricokids - janshop.pl">Barierki do łóżka</a></li>
+		<li><a href='k360,ochraniacze-do-lozeczka.html' title="">Ochraniacze do łóżeczka</a></li>
+		<li><a href='k420,zabezpieczenia.html' title="">Zabezpieczenia</a></li>
+		<li><a href='k334,bramki-na-schody.html' title="Barierki na schody i bramki bezpieczeństwa dla dzieci Ricokids - janshop.pl">Bramki na schody</a></li>
+		<li><a href='k113,kojce-dla-dzieci.html' title="Kojce dla dzieci gwarantujący bezpieczeństwo - janshop.pl">Kojce dla dzieci</a></li>
+	</ul>
+	<ul id='mobMenu-8' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-1'>Zabawki</a></li>
+		<li><a href='k416,banki-mydlane-.html' title="">Bańki mydlane </a></li>
+		<li><a href='k426,dla-najmlodszych.html' title="">Dla najmłodszych</a></li>
+		<li><a href='k428,klocki-magnetyczne.html' title="">Klocki magnetyczne</a></li>
+		<li><a href='k430,ksiazki-magnetyczne.html' title="">Książki Magnetyczne</a></li>
+		<li><a href='k417,plastyczne.html' title="">Plastyczne</a></li>
+		<li><a href='k419,zabawki-drewniane.html' title="">Zabawki drewniane</a></li>
+		<li><a href='k203,domki-dla-lalek.html' title="Domki dla lalek | Niezwykłe zabawki w niezwykłych cenach | Janshop.pl">Domki dla lalek</a></li>
+		<li><a href='k221,kuchnie-dla-dzieci.html' title="Kuchnie dla dzieci - janshop.pl">Kuchnie dla dzieci</a></li>
+		<li><a href='k408,toaletki-dla-dzieci.html' title="">Toaletki dla dzieci</a></li>
+		<li><a href='k409,warsztaty-dla-dzieci.html' title="">Warsztaty dla dzieci</a></li>
+		<li><a href='k231,tablice-magnetyczne.html' title="Tablice magnetyczne dla dzieci Ricokids - janshop.pl">Tablice magnetyczne</a></li>
+		<li><a href='k404,zabawki-edukacyjne.html' title="">Zabawki edukacyjne</a></li>
+		<li><a href='k183,maty-piankowe.html' title="Maty piankowe stworzone specjalnie z myślą najmłodszych - janshop.pl">Maty piankowe</a></li>
+		<li><a href='k356,butle-z-helem.html' title="Butle z helem - janshop.pl">Butle z helem</a></li>
+	</ul>
+	<ul id='mobMenu-10' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-1'>Pojazdy dla dzieci</a></li>
+		<li><a href='k51,rowerki-biegowe.html' title="Rowerki biegowe wstępem do wspaniałej przygody - janshop.pl">Rowerki biegowe</a></li>
+		<li><a href='k385,gokart-na-pedaly.html' title="">Gokart na pedały</a></li>
+		<li><a href='k357,hulajnogi-trojkolowe.html' title="Hulajnogi trójkołowe Ricokids - janshop.pl">Hulajnogi trójkołowe</a></li>
+	</ul>
+	<ul id='mobMenu-13' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-12'>Krzesła, fotele i hokery</a></li>
+		<li><a href='k38,krzesla-biurowe.html' title="">Krzesła biurowe</a></li>
+		<li><a href='k247,fotele-gamingowe.html' title="Fotele gamingowe | Stabilna Konstrukcja | Niskie Ceny | Janshop.pl">Fotele gamingowe</a></li>
+		<li><a href='k352,fotele-wypoczynkowe-z-podnozkiem.html' title="Fotele wypoczynkowe z podnóżkiem - janshop.pl">Fotele wypoczynkowe z podnóżkiem</a></li>
+		<li><a href='k366,fotele-bujane.html' title="">Fotele bujane</a></li>
+		<li><a href='k39,hokery.html' title="Hokery - janshop.pl">Hokery</a></li>
+		<li><a href='k251,krzesla-skandynawskie.html' title="Krzesła skandynawskie - sofotel.pl">Krzesła skandynawskie</a></li>
+		<li><a href='k325,czesci-do-krzesel-i-foteli.html' title="Części zamienne do krzeseł i foteli - janshop.pl">Części do krzeseł i foteli</a></li>
+	</ul>
+	<ul id='mobMenu-16' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-12'>Szkatułki i pudełka</a></li>
+		<li><a href='k412,szkatulki-do-bizuterii.html' title="">Szkatułki do biżuterii</a></li>
+		<li><a href='k423,pudelka-na-zegarki.html' title="">Pudełka na zegarki</a></li>
+		<li><a href='k422,kuferki-na-kosmetyki.html' title="">Kuferki na kosmetyki</a></li>
+	</ul>
+	<ul id='mobMenu-17' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-12'>Wyposażenie warsztatu</a></li>
+		<li><a href='k457,kable-rozruchowe-.html' title="">Kable rozruchowe </a></li>
+		<li><a href='k465,kompresory-elektryczne-.html' title="">Kompresory elektryczne </a></li>
+		<li><a href='k474,organizery-do-samochodu.html' title="">Organizery do samochodu</a></li>
+		<li><a href='k449,podnosniki-samochodowe.html' title="">Podnośniki samochodowe</a></li>
+		<li><a href='k261,regaly-metalowe.html' title="Regały Metalowe Magazynowe | Sklep Online | Tanie i wytrzymałe">Regały metalowe</a></li>
+		<li><a href='k262,wozki-narzedziowe.html' title="Wózki narzędziowe - janshop.pl">Wózki narzędziowe</a></li>
+		<li><a href='k384,wozki-transportowe.html' title="">Wózki transportowe</a></li>
+		<li><a href='k405,odkurzacze-do-warsztatu.html' title="">Odkurzacze do warsztatu</a></li>
+		<li><a href='k407,filtry-do-odkurzaczy.html' title="">Filtry do odkurzaczy</a></li>
+	</ul>
+	<ul id='mobMenu-22' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-12'>Pracownia</a></li>
+		<li><a href='k433,regaly.html' title="">Regały</a></li>
+	</ul>
+	<ul id='mobMenu-26' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-25'>Okapy kuchenne</a></li>
+		<li><a href='k400,okap-blatowy.html' title="">Okap blatowy</a></li>
+		<li><a href='k267,okap-kominowy.html' title="Okap kominowy - janshop.pl">Okap kominowy</a></li>
+		<li><a href='k265,okap-podszafkowy.html' title="Okap podszafkowy - janshop.pl">Okap podszafkowy</a></li>
+		<li><a href='k266,okap-do-zabudowy.html' title="Okap do zabudowy - janshop.pl">Okap do zabudowy</a></li>
+		<li><a href='k274,okap-wyspowy.html' title="Okap wyspowy - janshop.pl">Okap wyspowy</a></li>
+		<li><a href='k275,okap-teleskopowy.html' title="Okap teleskopowy - janshop.pl">Okap teleskopowy</a></li>
+		<li><a href='k377,filtry-do-okapow.html' title="Filtry do okapów | Sklep online z okapami | Janshop.pl">Filtry do okapów</a></li>
+	</ul>
+	<ul id='mobMenu-27' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-25'>Osuszacze i oczyszczacze powietrza</a></li>
+		<li><a href='k370,nawilzacze-powietrza.html' title="Nawilżacze powietrza | Szeroki wybór wydajnych urządzeń w sklepie Janshop.pl">Nawilżacze powietrza</a></li>
+		<li><a href='k310,oczyszczacze-powietrza.html' title="Oczyszczacze powietrza - janshop.pl">Oczyszczacze powietrza</a></li>
+		<li><a href='k34,osuszacze-powietrza.html' title="Osuszacze powietrza skutecznej marki Berdsen - janshop.pl">Osuszacze powietrza</a></li>
+	</ul>
+	<ul id='mobMenu-28' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-25'>Elektronarzędzia</a></li>
+		<li><a href='k406,odkurzacze-warsztatowe.html' title="">Odkurzacze warsztatowe</a></li>
+		<li><a href='k448,opalarki-elektryczne.html' title="">Opalarki elektryczne</a></li>
+		<li><a href='k454,spawarki-do-plastiku.html' title="">Spawarki do plastiku</a></li>
+		<li><a href='k458,stacje-lutownicze.html' title="">Stacje lutownicze</a></li>
+		<li><a href='k437,myjki-cisnieniowe.html' title="">Myjki ciśnieniowe</a></li>
+	</ul>
+	<ul id='mobMenu-29' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-25'>Małe AGD</a></li>
+		<li><a href='k388,czajniki-elektryczne.html' title="">Czajniki elektryczne</a></li>
+		<li><a href='k473,ekspresy-do-kawy.html' title="">Ekspresy do kawy</a></li>
+		<li><a href='k386,frytkownice-beztluszczowe.html' title="">Frytkownice beztłuszczowe</a></li>
+		<li><a href='k462,golarki-do-ubran.html' title="">Golarki do ubrań</a></li>
+		<li><a href='k277,maszynki-do-mielenia-miesa.html' title="Maszynka do mielenia mięsa - janshop.pl">Maszynki do mielenia mięsa</a></li>
+		<li><a href='k446,parownice-.html' title="">Parownice </a></li>
+		<li><a href='k431,sokowirowki-i-blendery-.html' title="">Sokowirówki i blendery </a></li>
+		<li><a href='k399,stacje-pogodowe.html' title="">Stacje pogodowe</a></li>
+		<li><a href='k347,suszarki-do-grzybow.html' title="Suszarki do grzybów i owoców - janshop.pl">Suszarki do grzybów</a></li>
+		<li><a href='k276,wyciskarki-wolnoobrotowe.html' title="Wyciskarki wolnoobrotowe - janshop.pl">Wyciskarki wolnoobrotowe</a></li>
+	</ul>
+	<ul id='mobMenu-30' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-25'>Higiena jamy ustnej</a></li>
+		<li><a href='k36,szczoteczki-soniczne.html' title="">Szczoteczki soniczne</a></li>
+		<li><a href='k197,irygatory-do-zebow.html' title="">Irygatory do zębów</a></li>
+		<li><a href='k281,koncowki-do-szczoteczki-sonicznej.html' title="Końcówki do szczoteczki sonicznej - janshop.pl">Końcówki do szczoteczki sonicznej</a></li>
+		<li><a href='k349,koncowki-do-irygatorow.html' title="Końcówki do irygatorów w sklepie Janshop.pl">Końcówki do irygatorów</a></li>
+	</ul>
+	<ul id='mobMenu-32' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-25'>Wagi elektroniczne</a></li>
+		<li><a href='k453,wagi-przemyslowe.html' title="">Wagi przemysłowe</a></li>
+		<li><a href='k344,wagi-dla-niemowlat.html' title="">Wagi dla niemowląt</a></li>
+	</ul>
+	<ul id='mobMenu-34' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-25'>Laktatory</a></li>
+		<li><a href='k282,laktator-elektryczny.html' title="Laktator elektryczny - janshop.pl">Laktator elektryczny</a></li>
+		<li><a href='k283,laktator-reczny.html' title="Laktator ręczny - janshop.pl">Laktator ręczny</a></li>
+		<li><a href='k363,wkladki-laktacyjne.html' title="">Wkładki laktacyjne</a></li>
+	</ul>
+	<ul id='mobMenu-38' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-36'>Hulajnogi</a></li>
+		<li><a href='k365,hulajnogi-wyczynowe.html' title="">Hulajnogi wyczynowe</a></li>
+		<li><a href='k364,hulajnogi-miejskie.html' title="Hulajnogi miejskie dla dorosłych">Hulajnogi miejskie</a></li>
+		<li><a href='k338,akcesoria-do-hulajnog.html' title="Akcesoria do hulajnóg na sklepie Janshop.pl">Akcesoria do hulajnóg</a></li>
+	</ul>
+	<ul id='mobMenu-40' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-36'>Sprzęt sportowy </a></li>
+		<li><a href='k436,akcesoria-do-jogi.html' title="">Akcesoria do jogi</a></li>
+		<li><a href='k456,kijki-trekkingowe.html' title="">Kijki trekkingowe</a></li>
+		<li><a href='k427,masazery.html' title="">Masażery</a></li>
+		<li><a href='k393,pilki-do-cwiczen.html' title="">Piłki do ćwiczeń</a></li>
+		<li><a href='k394,rollery-,-walki-i-pileczki-do-masazu.html' title="">Rollery , wałki i piłeczki do masażu</a></li>
+		<li><a href='k414,skakanki.html' title="">Skakanki</a></li>
+		<li><a href='k413,stabilizatory.html' title="">Stabilizatory</a></li>
+		<li><a href='k395,stepy-do-cwiczen-.html' title="">Stepy do ćwiczeń </a></li>
+		<li><a href='k435,tasmy-i-gumy-do-cwiczen.html' title="">Taśmy i gumy do ćwiczeń</a></li>
+		<li><a href='k18,laweczki-do-cwiczen.html' title="Ławeczki do ćwiczeń - jan-shop.pl">Ławeczki do ćwiczeń</a></li>
+		<li><a href='k350,maty-fitness.html' title="Maty fitness na sklepie Janshop.pl">Maty fitness</a></li>
+		<li><a href='k93,drazki-do-podciagania.html' title="Drążki do podciągania - janshop.pl">Drążki do podciągania</a></li>
+	</ul>
+	<ul id='mobMenu-42' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-36'>Stoły do gier</a></li>
+		<li><a href='k228,stol-do-bilarda.html' title="Stół do bilarda - janshop.pl">Stół do bilarda</a></li>
+		<li><a href='k226,stol-do-cymbergaja.html' title="Stół do cymbergaja - janshop.pl">Stół do cymbergaja</a></li>
+		<li><a href='k227,stol-do-pilkarzykow.html' title="Stół do piłkarzyków | Stoły do gry w wyjątkowych cenach | janshop.pl">Stół do piłkarzyków</a></li>
+	</ul>
+	<ul id='mobMenu-46' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-36'>Dla zwierząt</a></li>
+		<li><a href='k178,drapak-dla-kota.html' title="Drapak dla kota | Stabilna podstawa i dodatkowe zabawki | Janshop.pl">Drapak dla kota</a></li>
+		<li><a href='k440,klatki-dla-zwierzat.html' title="">Klatki dla zwierząt</a></li>
+	</ul>
+	<ul id='mobMenu-52' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-47'>Części do trampolin</a></li>
+		<li><a href='k411,laczniki-nog.html' title="">Łączniki nóg</a></li>
+		<li><a href='k372,maty-do-trampolin.html' title="Maty do trampolin | Części zamienne | Zakupy online w sklepie Janshop.pl">Maty do trampolin</a></li>
+		<li><a href='k373,oslony-na-sprezyny.html' title="Kup wytrzymałe osłony na sprężyny do trampolin | Janshop.pl">Osłony na sprężyny</a></li>
+		<li><a href='k410,pierscienie-do-siatki.html' title="">Pierścienie do siatki</a></li>
+		<li><a href='k342,siatki-do-trampoliny.html' title="Siatki do trampolin | Części zamienne Neo-Sport | Sklep online Janshop.pl">Siatki do trampoliny</a></li>
+		<li><a href='k375,slupki-do-trampolin.html' title="Słupki do trampolin | Najsolidniejsze części zamienne w ofercie sklepu Janshop.pl">Słupki do trampolin</a></li>
+		<li><a href='k398,sprezyny-do-trampolin.html' title="">Sprężyny do trampolin</a></li>
+	</ul>
+	<ul id='mobMenu-58' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-57'>Materace do spania</a></li>
+		<li><a href='k305,lozka-dmuchane.html' title="lozka-dmuchane">Łóżka dmuchane</a></li>
+	</ul>
+	<ul id='mobMenu-59' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-57'>Materac dmuchany</a></li>
+		<li><a href='k300,materac-dmuchany-do-spania.html' title="Materac dmuchany do spania - janshop.pl">Materac dmuchany do spania</a></li>
+		<li><a href='k302,materac-dmuchany-dwuosobowy.html' title="Materac dmuchany dwuosobowy - janshop.pl">Materac dmuchany dwuosobowy</a></li>
+		<li><a href='k301,materac-dmuchany-jednoosobowy.html' title="Materac dmuchany jednoosobowy - janshop.pl">Materac dmuchany jednoosobowy</a></li>
+	</ul>
+	<ul id='mobMenu-68' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-61'>Pontony</a></li>
+		<li><a href='k290,pompki-do-pontonow.html' title="Pompki do pontonów - janshop.pl">Pompki do pontonów</a></li>
+		<li><a href='k286,pontony-dla-dzieci.html' title="Pontony dla dzieci - janshop.pl">Pontony dla dzieci</a></li>
+		<li><a href='k285,pontony-dmuchane.html' title="Pontony dmuchane - janshop.pl">Pontony dmuchane</a></li>
+		<li><a href='k291,pontony-wedkarskie.html' title="Pontony wędkarskie - janshop.pl">Pontony wędkarskie</a></li>
+	</ul>
+	<ul id='mobMenu-75' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-72'>Baseny stelażowe</a></li>
+		<li><a href='k148,baseny-stelazowe-bestway.html' title="Baseny stelażowe od renomowanego producenta | Baseny Bestway | Janshop.pl">Baseny stelażowe Bestway</a></li>
+		<li><a href='k146,baseny-stelazowe-intex.html' title="Baseny stelażowe | Znany producent INTEX | Sklep Online Janshop.pl">Baseny stelażowe Intex</a></li>
+	</ul>
+	<ul id='mobMenu-79' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-72'>Dmuchane SPA</a></li>
+		<li><a href='k382,akcesoria-do-spa.html' title="Akcesoria do spa jacuzzi">Akcesoria do SPA</a></li>
+	</ul>
+	<ul id='mobMenu-80' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-72'>Baseny dmuchane</a></li>
+		<li><a href='k173,baseny-dmuchane-bestway.html' title="">Baseny dmuchane Bestway</a></li>
+		<li><a href='k172,baseny-dmuchane-intex.html' title="">Baseny dmuchane Intex</a></li>
+	</ul>
+	<ul id='mobMenu-81' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-72'>Baseny dla dzieci</a></li>
+		<li><a href='k161,basenik-dla-niemowlaka.html' title="">Basenik dla niemowlaka</a></li>
+		<li><a href='k160,baseny-dla-dzieci-z-daszkiem.html' title="">Baseny dla dzieci z daszkiem</a></li>
+		<li><a href='k376,slizgawki-wodne.html' title="Ślizgawki wodne dla dzieci | Kup online | Janshop.pl">Ślizgawki wodne</a></li>
+		<li><a href='k62,dmuchane-place-zabaw.html' title="Dmuchane place zabaw marki Intex i Bestway - janshop.pl">Dmuchane place zabaw</a></li>
+		<li><a href='k45,suchy-basen-z-kulkami.html' title="Suchy basen z kulkami - janshop.pl">Suchy basen z kulkami</a></li>
+	</ul>
+	<ul id='mobMenu-83' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-82'>Pompy do basenu</a></li>
+		<li><a href='k176,pompy-do-basenu-bestway.html' title="">Pompy do basenu Bestway</a></li>
+		<li><a href='k177,pompy-do-basenu-intex.html' title="">Pompy do basenu Intex</a></li>
+		<li><a href='k175,pompy-piaskowe-do-basenu.html' title="">Pompy piaskowe do basenu</a></li>
+	</ul>
+	<ul id='mobMenu-84' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-82'>Pokrywy na basen</a></li>
+		<li><a href='k187,pokrywy-solarne.html' title="Pokrywy solarne INTEX oraz Bestway | Konkurencyjne ceny | Sklep online">Pokrywy solarne</a></li>
+	</ul>
+	<ul id='mobMenu-95' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-92'>Meble ogrodowe</a></li>
+		<li><a href='k467,meble-skladane-i-cateringowe.html' title="">Meble składane i cateringowe</a></li>
+		<li><a href='k463,stoly-i-krzesla.html' title="">Stoły i krzesła</a></li>
+		<li><a href='k88,fotele-ogrodowe-wiszace.html' title="Fotele ogrodowe wiszące - sofotel.pl">Fotele ogrodowe wiszące</a></li>
+		<li><a href='k439,lezaki-ogrodowe.html' title="">Leżaki ogrodowe</a></li>
+		<li><a href='k124,lawki-ogrodowe.html' title="Ławki ogrodowe marki Sofotel to jakość i styl - janshop.pl">Ławki ogrodowe</a></li>
+	</ul>
+	<ul id='mobMenu-101' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-92'>Uprawa roślin</a></li>
+		<li><a href='k470,akcesoria.html' title="">Akcesoria</a></li>
+		<li><a href='k469,obrzeza-ogrodowe.html' title="">Obrzeża ogrodowe</a></li>
+		<li><a href='k445,opryskiwacze.html' title="">Opryskiwacze</a></li>
+		<li><a href='k471,tyczki-do-roslin.html' title="">Tyczki do roślin</a></li>
+		<li><a href='k31,tunel-foliowy.html' title="Tunele foliowe | Ceny i opinie | Janshop.pl">Tunel foliowy</a></li>
+		<li><a href='k339,agrotkanina.html' title="Agrotkanina | Popraw swoje uprawy! | Sklep Online Janshop.pl">Agrotkanina</a></li>
+		<li><a href='k134,szklarnie-ogrodowe.html' title="Szklarnie ogrodowe do uprawy roślin we własnym ogrodzie - janshop.pl">Szklarnie ogrodowe</a></li>
+		<li><a href='k135,agrowloknina.html' title="Agrowłóknina zabezpiecz swoje uprawy i popraw wyniki - janshop.pl">Agrowłóknina</a></li>
+	</ul>
+	<ul id='mobMenu-102' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-92'>Taczki i wózki ogrodowe</a></li>
+		<li><a href='k379,wozki-ogrodowe.html' title="">Wózki Ogrodowe</a></li>
+		<li><a href='k381,kola-do-taczek-i-wozkow.html' title="">Koła do taczek i wózków</a></li>
+	</ul>
+	<ul id='mobMenu-109' class='mobMenuList'>
+		<li class='mobMenuSubtitle'><a class='mobMenu-subclose' href='#mobMenu-107'>Materac plażowy</a></li>
+		<li><a href='k295,plywajaca-wyspa.html' title="Pływająca wyspa - janshop.pl">Pływająca wyspa</a></li>
+	</ul>
+	</nav><script>
+        $(document).ready(function(){
+            $( ".mobileNav ul" ).addClass('mobMenuList-hidden');
+            $( ".mobileNav ul:first").removeClass('mobMenuList-hidden').addClass('mobMenuList-opened');
+            $( ".mobileNav ul li a.mobMenuListSubOpen" ).click(function(event){
+                event.preventDefault();
+                $( ".mobileNav ul" ).removeClass('mobMenuList-opened');
+                $(this).parent().parent().addClass('mobMenuList-subopened').addClass('mobMenuList-opened');
+                $( ".mobileNav ul:first" ).addClass('mobMenuList-opened');
+                var href = $(this).attr('href').replace('#','');
+                var page=$( "#"+href);
+                page.removeClass('mobMenuList-hidden');
+                if (page.is(':visible')) {
+                    page.addClass('mobMenuList-opened');
+                }
+            });
+            $( ".mobileNav ul li a.mobMenu-subclose" ).click(function(event){
+                event.preventDefault();
+                /*$(this).parent().parent().addClass('mobMenuList-hidden');*/
+                transitionEnd = 'transitionend webkitTransitionEnd otransitionend MSTransitionEnd';
+                var page=$(this).parent().parent();
+                page.on(transitionEnd, function () {
+                    page.toggleClass('mobMenuList-hidden');
+                    page.off(transitionEnd);
+                });
+                $( ".mobileNav ul").removeClass('mobMenuList-opened');
+                $( ".mobileNav ul:first").addClass('mobMenuList-opened');
+                var href = $(this).attr('href').replace('#','');
+                $( "#"+href).removeClass('mobMenuList-hidden');
+                $( "#"+href).addClass('mobMenuList-opened').removeClass('mobMenuList-subopened');
+            });
+        });
+
+        </script>
+                </nav>
+
+
+<div id="page" class="page-search">
+
+
+<header class="header">
+    <div class="wrapper">
+
+        <div class="header__row">
+             <a href="/" class="logoMod"><img src="dist/img/logo.png" alt="Sklep Janshop.pl"></a>
+
+                        <div class="searchMod">
+                <form action="index.php" method="get"><input TYPE="hidden" name="d" value="szukaj"><div style="display:none"><input type="checkbox" name="szukajOpis" value="1" id="szukaj_op"></div>
+                    <div class="searchMod__text"><input type="text" value="" name="szukaj" onkeyup="podpowiedz(this.value);" autocomplete="off" placeholder="Czego szukasz?"></div>
+                    <div class="searchMod__find">
+                        <button type="submit"><em></em></button>
+                    </div>
+                </form>
+            </div>
+            <!-- searchMod -->
+
+            <div class="header__mods">
+                <div class="infoMod">
+                   <span class="infoMod__58"><a href="tel:+48587463797">(58) 746 37 97</a></span>
+                   <span class="infoMod__801">0 801 000 610</span>
+
+                    <div class="infoMod__extra">
+                        <div class="infoMod__hover">
+                            <p class="infoMod__header n3">Zadzwoń do nas!</p>
+                            <div class="infoMod__infos">
+                                Przyjmujemy zamówienia telefoniczne.<br>
+                                PON: <strong>7:30 - 17:30</strong>,<br>
+                                WT-PT: <strong>7:30 - 15:30</strong>.
+                                <a href="kontakt.html" class="infoMod__link"><span>Wyślij wiadomość</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- infoMod -->
+                <div class="accountMod">
+                    <a href="konto.html" class="accountMod__link3"><span>Konto</span></a>
+                    
+                    <div class="accountMod__extra">
+                        <div class="accountMod__hover">
+                                                            <p class="accountMod__header n3">Twoje konto</p>
+                            <div class="accountMod__box">
+                                <a href="index.php?d=login" rel="nofollow" class="accountMod__link">Zaloguj się</a> 
+                                <a href="index.php?d=rejestracja" rel="nofollow" class="accountMod__link accountMod__link--light">Nowe konto</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- accountMod -->
+                <div id="mKoszyk">                <div class="cartMod">
+                    <a href="index.php?d=koszyk" rel="nofollow" class="cartMod__linko"><span class="cartMod__qty">0</span><span class="cartMod__name">Koszyk</span></a>
+                </div>
+                <!-- accountMod --></div>
+            </div>
+
+            <a href="" id="cats-box" class="js-menuTrigger"><em class="icon-menu"></em></a>
+
+
+        </div>
+        <!-- header__row -->
+
+    </div>
+</header>
+
+            <div id="nav">
+                
+	<nav id='cat-top' class='box radius5'>
+	<ul>
+		<li class='dropdown'>
+			<a href='k4,dziecko.html' class='dropbtn'  title="Artykuły dla dzieci i niemowląt - Ricokids i Nukido">Dziecko</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/nukido.gif'></div><div class='productName'>Mata piankowa edukacyjna składana 200 x 180 x 1 cm Nukido NK-340 ocean-liczby</div><div class='price'><span>104,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p6747,Mata-piankowa-edukacyjna-składana-200-x-180-x-1-cm-Nukido-NK-340-ocean-liczby.html'><img class='lazyload' data-src='galerie/m/mata-piankowa-skladana-200-x_41412_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory arrow'><a href='k205,dla-najmlodszych.html' title="">Dla najmłodszych</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k402,karuzele-do-lozeczka.html' title="">Karuzele do łóżeczka</a></li>
+							<li><a href='k206,maty-edukacyjne.html' title="Maty edukacyjne oraz maty interaktywne dla rozwoju najmłodszych">Maty edukacyjne</a></li>
+							<li><a href='k421,nakladki-na-sedes.html' title="">Nakładki na sedes</a></li>
+							<li><a href='k391,nocniki-interaktywne.html' title="">Nocniki interaktywne</a></li>
+							<li><a href='k390,wanienki-dla-dzieci-.html' title="">Wanienki dla dzieci </a></li>
+							<li><a href='k459,wozki-dzieciece.html' title="">Wózki dziecięce</a></li>
+							<li><a href='k109,lezaczki-bujaczki.html' title="Leżaczki bujaczki dla dzieci | Sklep Online Janshop.pl">Leżaczki bujaczki</a></li>
+							<li><a href='k111,spiworki-do-wozka.html' title="Śpiworki do wózka chroną przed wiatrem i zimnem - janshop.pl">Śpiworki do wózka</a></li>
+							<li><a href='k401,lozeczka-turystyczne-.html' title="">Łóżeczka turystyczne </a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k359,bezpieczenstwo-dzieci.html' title="Bezpieczeństwo dzieci - janshop.pl">Bezpieczeństwo dzieci</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k216,barierki-do-lozka.html' title="Barierki do łóżka dla dzieci Ricokids - janshop.pl">Barierki do łóżka</a></li>
+							<li><a href='k360,ochraniacze-do-lozeczka.html' title="">Ochraniacze do łóżeczka</a></li>
+							<li><a href='k420,zabezpieczenia.html' title="">Zabezpieczenia</a></li>
+							<li><a href='k334,bramki-na-schody.html' title="Barierki na schody i bramki bezpieczeństwa dla dzieci Ricokids - janshop.pl">Bramki na schody</a></li>
+							<li><a href='k113,kojce-dla-dzieci.html' title="Kojce dla dzieci gwarantujący bezpieczeństwo - janshop.pl">Kojce dla dzieci</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k49,foteliki-samochodowe.html' title="Foteliki samochodowe bezpieczne i sprawdzone - janshop.pl">Foteliki samochodowe</a>
+				</li>
+				<li class='subcategory '><a href='k50,krzeselka-do-karmienia.html' title="Krzesełka do karmienia Ricokids to komfort podczas posiłku - janshop.pl">Krzesełka do karmienia</a>
+				</li>
+				<li class='subcategory '><a href='k217,namioty-dla-dzieci.html' title="Namioty dla dzieci">Namioty dla dzieci</a>
+				</li>
+				<li class='subcategory '><a href='k396,lampki-nocne.html' title="">Lampki nocne</a>
+				</li>
+				<li class='subcategory arrow'><a href='k52,zabawki.html' title="">Zabawki</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k416,banki-mydlane-.html' title="">Bańki mydlane </a></li>
+							<li><a href='k426,dla-najmlodszych.html' title="">Dla najmłodszych</a></li>
+							<li><a href='k428,klocki-magnetyczne.html' title="">Klocki magnetyczne</a></li>
+							<li><a href='k430,ksiazki-magnetyczne.html' title="">Książki Magnetyczne</a></li>
+							<li><a href='k417,plastyczne.html' title="">Plastyczne</a></li>
+							<li><a href='k419,zabawki-drewniane.html' title="">Zabawki drewniane</a></li>
+							<li><a href='k203,domki-dla-lalek.html' title="Domki dla lalek | Niezwykłe zabawki w niezwykłych cenach | Janshop.pl">Domki dla lalek</a></li>
+							<li><a href='k221,kuchnie-dla-dzieci.html' title="Kuchnie dla dzieci - janshop.pl">Kuchnie dla dzieci</a></li>
+							<li><a href='k408,toaletki-dla-dzieci.html' title="">Toaletki dla dzieci</a></li>
+							<li><a href='k409,warsztaty-dla-dzieci.html' title="">Warsztaty dla dzieci</a></li>
+							<li><a href='k231,tablice-magnetyczne.html' title="Tablice magnetyczne dla dzieci Ricokids - janshop.pl">Tablice magnetyczne</a></li>
+							<li><a href='k404,zabawki-edukacyjne.html' title="">Zabawki edukacyjne</a></li>
+							<li><a href='k183,maty-piankowe.html' title="Maty piankowe stworzone specjalnie z myślą najmłodszych - janshop.pl">Maty piankowe</a></li>
+							<li><a href='k356,butle-z-helem.html' title="Butle z helem - janshop.pl">Butle z helem</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k361,pojemniki-na-zabawki.html' title="Pojemniki na zabawki Ricokids - janshop.pl">Pojemniki na zabawki</a>
+				</li>
+				<li class='subcategory arrow'><a href='k358,pojazdy-dla-dzieci.html' title="Pojazdy dla dzieci Ricokids - janshop.pl">Pojazdy dla dzieci</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k51,rowerki-biegowe.html' title="Rowerki biegowe wstępem do wspaniałej przygody - janshop.pl">Rowerki biegowe</a></li>
+							<li><a href='k385,gokart-na-pedaly.html' title="">Gokart na pedały</a></li>
+							<li><a href='k357,hulajnogi-trojkolowe.html' title="Hulajnogi trójkołowe Ricokids - janshop.pl">Hulajnogi trójkołowe</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k63,hustawki-dla-dzieci.html' title="Huśtawki dla dzieci | Artykuły dziecięce | Sklep Online Janshop.pl">Huśtawki dla dzieci</a>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k5,dom.html' class='dropbtn'  title="Wyposażenie domu, sprzęty gospodarstwa domowego">Dom</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/humberg.jpg'></div><div class='productName'>Podnośnik samochodowy 3 t Humberg HM-381</div><div class='price'><span>519,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p7242,Podnośnik-samochodowy-3-t-Humberg-HM-381.html'><img class='lazyload' data-src='galerie/p/podnosnik-samochodowy-3-t-hum_47637_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory arrow'><a href='k351,krzesla,-fotele-i-hokery.html' title="Krzesła, fotele i hokery Sofotel w ofercie - janshop.pl">Krzesła, fotele i hokery</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k38,krzesla-biurowe.html' title="">Krzesła biurowe</a></li>
+							<li><a href='k247,fotele-gamingowe.html' title="Fotele gamingowe | Stabilna Konstrukcja | Niskie Ceny | Janshop.pl">Fotele gamingowe</a></li>
+							<li><a href='k352,fotele-wypoczynkowe-z-podnozkiem.html' title="Fotele wypoczynkowe z podnóżkiem - janshop.pl">Fotele wypoczynkowe z podnóżkiem</a></li>
+							<li><a href='k366,fotele-bujane.html' title="">Fotele bujane</a></li>
+							<li><a href='k39,hokery.html' title="Hokery - janshop.pl">Hokery</a></li>
+							<li><a href='k251,krzesla-skandynawskie.html' title="Krzesła skandynawskie - sofotel.pl">Krzesła skandynawskie</a></li>
+							<li><a href='k325,czesci-do-krzesel-i-foteli.html' title="Części zamienne do krzeseł i foteli - janshop.pl">Części do krzeseł i foteli</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k353,szafy-tekstylne.html' title="Szafy tekstylne - janshop.pl">Szafy tekstylne</a>
+				</li>
+				<li class='subcategory '><a href='k418,wieszaki.html' title="">Wieszaki</a>
+				</li>
+				<li class='subcategory arrow'><a href='k425,szkatulki-i-pudelka.html' title="">Szkatułki i pudełka</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k412,szkatulki-do-bizuterii.html' title="">Szkatułki do biżuterii</a></li>
+							<li><a href='k423,pudelka-na-zegarki.html' title="">Pudełka na zegarki</a></li>
+							<li><a href='k422,kuferki-na-kosmetyki.html' title="">Kuferki na kosmetyki</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k90,wyposazenie-warsztatu.html' title="">Wyposażenie warsztatu</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k457,kable-rozruchowe-.html' title="">Kable rozruchowe </a></li>
+							<li><a href='k465,kompresory-elektryczne-.html' title="">Kompresory elektryczne </a></li>
+							<li><a href='k474,organizery-do-samochodu.html' title="">Organizery do samochodu</a></li>
+							<li><a href='k449,podnosniki-samochodowe.html' title="">Podnośniki samochodowe</a></li>
+							<li><a href='k261,regaly-metalowe.html' title="Regały Metalowe Magazynowe | Sklep Online | Tanie i wytrzymałe">Regały metalowe</a></li>
+							<li><a href='k262,wozki-narzedziowe.html' title="Wózki narzędziowe - janshop.pl">Wózki narzędziowe</a></li>
+							<li><a href='k384,wozki-transportowe.html' title="">Wózki transportowe</a></li>
+							<li><a href='k405,odkurzacze-do-warsztatu.html' title="">Odkurzacze do warsztatu</a></li>
+							<li><a href='k407,filtry-do-odkurzaczy.html' title="">Filtry do odkurzaczy</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k424,piecyki-gazowe.html' title="">Piecyki gazowe</a>
+				</li>
+				<li class='subcategory '><a href='k368,suszarki-na-pranie.html' title="">Suszarki na pranie</a>
+				</li>
+				<li class='subcategory '><a href='k429,suszarki-do-naczyn.html' title="">Suszarki do naczyń</a>
+				</li>
+				<li class='subcategory '><a href='k374,hustawki-kokony.html' title="Huśtawki i fotele kokony | Najlepsze ceny na Janshop.pl">Huśtawki kokony</a>
+				</li>
+				<li class='subcategory arrow'><a href='k432,pracownia.html' title="">Pracownia</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k433,regaly.html' title="">Regały</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k35,odplywy-liniowe.html' title="Odpływy liniowe | Nowoczesna łazienka w niskiej cenie | Janshop.pl">Odpływy liniowe</a>
+				</li>
+				<li class='subcategory '><a href='k202,skrzynki-na-listy.html' title="Skrzynki na listy - janshop.pl">Skrzynki na listy</a>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k108,elektronika.html' class='dropbtn'  title="">Elektronika</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/berdsen.jpg'></div><div class='productName'>Blender ręczny 1500 W BD-754 Berdsen</div><div class='price'><span>179,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p7558,Blender-ręczny-1500-W-BD-754-Berdsen.html'><img class='lazyload' data-src='galerie/b/blender-reczny-1500-w-bd-754_51676_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory arrow'><a href='k33,okapy-kuchenne.html' title="">Okapy kuchenne</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k400,okap-blatowy.html' title="">Okap blatowy</a></li>
+							<li><a href='k267,okap-kominowy.html' title="Okap kominowy - janshop.pl">Okap kominowy</a></li>
+							<li><a href='k265,okap-podszafkowy.html' title="Okap podszafkowy - janshop.pl">Okap podszafkowy</a></li>
+							<li><a href='k266,okap-do-zabudowy.html' title="Okap do zabudowy - janshop.pl">Okap do zabudowy</a></li>
+							<li><a href='k274,okap-wyspowy.html' title="Okap wyspowy - janshop.pl">Okap wyspowy</a></li>
+							<li><a href='k275,okap-teleskopowy.html' title="Okap teleskopowy - janshop.pl">Okap teleskopowy</a></li>
+							<li><a href='k377,filtry-do-okapow.html' title="Filtry do okapów | Sklep online z okapami | Janshop.pl">Filtry do okapów</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k346,osuszacze-i-oczyszczacze-powietrza.html' title="Osuszacze i oczyszczacze powietrza - janshop.pl">Osuszacze i oczyszczacze powietrza</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k370,nawilzacze-powietrza.html' title="Nawilżacze powietrza | Szeroki wybór wydajnych urządzeń w sklepie Janshop.pl">Nawilżacze powietrza</a></li>
+							<li><a href='k310,oczyszczacze-powietrza.html' title="Oczyszczacze powietrza - janshop.pl">Oczyszczacze powietrza</a></li>
+							<li><a href='k34,osuszacze-powietrza.html' title="Osuszacze powietrza skutecznej marki Berdsen - janshop.pl">Osuszacze powietrza</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k447,elektronarzedzia.html' title="">Elektronarzędzia</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k406,odkurzacze-warsztatowe.html' title="">Odkurzacze warsztatowe</a></li>
+							<li><a href='k448,opalarki-elektryczne.html' title="">Opalarki elektryczne</a></li>
+							<li><a href='k454,spawarki-do-plastiku.html' title="">Spawarki do plastiku</a></li>
+							<li><a href='k458,stacje-lutownicze.html' title="">Stacje lutownicze</a></li>
+							<li><a href='k437,myjki-cisnieniowe.html' title="">Myjki ciśnieniowe</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k122,male-agd.html' title="">Małe AGD</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k388,czajniki-elektryczne.html' title="">Czajniki elektryczne</a></li>
+							<li><a href='k473,ekspresy-do-kawy.html' title="">Ekspresy do kawy</a></li>
+							<li><a href='k386,frytkownice-beztluszczowe.html' title="">Frytkownice beztłuszczowe</a></li>
+							<li><a href='k462,golarki-do-ubran.html' title="">Golarki do ubrań</a></li>
+							<li><a href='k277,maszynki-do-mielenia-miesa.html' title="Maszynka do mielenia mięsa - janshop.pl">Maszynki do mielenia mięsa</a></li>
+							<li><a href='k446,parownice-.html' title="">Parownice </a></li>
+							<li><a href='k431,sokowirowki-i-blendery-.html' title="">Sokowirówki i blendery </a></li>
+							<li><a href='k399,stacje-pogodowe.html' title="">Stacje pogodowe</a></li>
+							<li><a href='k347,suszarki-do-grzybow.html' title="Suszarki do grzybów i owoców - janshop.pl">Suszarki do grzybów</a></li>
+							<li><a href='k276,wyciskarki-wolnoobrotowe.html' title="Wyciskarki wolnoobrotowe - janshop.pl">Wyciskarki wolnoobrotowe</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k309,higiena-jamy-ustnej.html' title="Higiena jamy ustnej - janshop.pl">Higiena jamy ustnej</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k36,szczoteczki-soniczne.html' title="">Szczoteczki soniczne</a></li>
+							<li><a href='k197,irygatory-do-zebow.html' title="">Irygatory do zębów</a></li>
+							<li><a href='k281,koncowki-do-szczoteczki-sonicznej.html' title="Końcówki do szczoteczki sonicznej - janshop.pl">Końcówki do szczoteczki sonicznej</a></li>
+							<li><a href='k349,koncowki-do-irygatorow.html' title="Końcówki do irygatorów w sklepie Janshop.pl">Końcówki do irygatorów</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k460,maszynki-do-strzyzenia.html' title="">Maszynki do strzyżenia</a>
+				</li>
+				<li class='subcategory arrow'><a href='k452,wagi-elektroniczne.html' title="">Wagi elektroniczne</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k453,wagi-przemyslowe.html' title="">Wagi przemysłowe</a></li>
+							<li><a href='k344,wagi-dla-niemowlat.html' title="">Wagi dla niemowląt</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k367,klimatyzatory-i-wentylatory.html' title="Wentylatory i wiatraki stojące w ofercie sklepu Janshop.pl">Klimatyzatory i wentylatory</a>
+				</li>
+				<li class='subcategory arrow'><a href='k138,laktatory.html' title="">Laktatory</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k282,laktator-elektryczny.html' title="Laktator elektryczny - janshop.pl">Laktator elektryczny</a></li>
+							<li><a href='k283,laktator-reczny.html' title="Laktator ręczny - janshop.pl">Laktator ręczny</a></li>
+							<li><a href='k363,wkladki-laktacyjne.html' title="">Wkładki laktacyjne</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k316,alkomaty.html' title="Alkomaty - Kup online i podróżuj bezpiecznie! - Sklep Janshop.pl">Alkomaty</a>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k224,hobby.html' class='dropbtn'  title="Hobby - janshop.pl">Hobby</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/neo-sport.gif'></div><div class='productName'>Drążek do dipów podciągania na ścianę NS-318</div><div class='price'><span>119,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p5532,Drążek-do-dipów-podciągania-na-ścianę-NS-318.html'><img class='lazyload' data-src='galerie/d/drazek-do-dipow-podciagania-n_26747_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory '><a href='k461,malowanie-po-numerach.html' title="">Malowanie po numerach</a>
+				</li>
+				<li class='subcategory arrow'><a href='k337,hulajnogi.html' title="Hulajnogi - janshop.pl">Hulajnogi</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k365,hulajnogi-wyczynowe.html' title="">Hulajnogi wyczynowe</a></li>
+							<li><a href='k364,hulajnogi-miejskie.html' title="Hulajnogi miejskie dla dorosłych">Hulajnogi miejskie</a></li>
+							<li><a href='k338,akcesoria-do-hulajnog.html' title="Akcesoria do hulajnóg na sklepie Janshop.pl">Akcesoria do hulajnóg</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k389,maty-do-akupresury.html' title="">Maty do akupresury</a>
+				</li>
+				<li class='subcategory arrow'><a href='k392,sprzet-sportowy-.html' title="">Sprzęt sportowy </a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k436,akcesoria-do-jogi.html' title="">Akcesoria do jogi</a></li>
+							<li><a href='k456,kijki-trekkingowe.html' title="">Kijki trekkingowe</a></li>
+							<li><a href='k427,masazery.html' title="">Masażery</a></li>
+							<li><a href='k393,pilki-do-cwiczen.html' title="">Piłki do ćwiczeń</a></li>
+							<li><a href='k394,rollery-,-walki-i-pileczki-do-masazu.html' title="">Rollery , wałki i piłeczki do masażu</a></li>
+							<li><a href='k414,skakanki.html' title="">Skakanki</a></li>
+							<li><a href='k413,stabilizatory.html' title="">Stabilizatory</a></li>
+							<li><a href='k395,stepy-do-cwiczen-.html' title="">Stepy do ćwiczeń </a></li>
+							<li><a href='k435,tasmy-i-gumy-do-cwiczen.html' title="">Taśmy i gumy do ćwiczeń</a></li>
+							<li><a href='k18,laweczki-do-cwiczen.html' title="Ławeczki do ćwiczeń - jan-shop.pl">Ławeczki do ćwiczeń</a></li>
+							<li><a href='k350,maty-fitness.html' title="Maty fitness na sklepie Janshop.pl">Maty fitness</a></li>
+							<li><a href='k93,drazki-do-podciagania.html' title="Drążki do podciągania - janshop.pl">Drążki do podciągania</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k222,bramki-pilkarskie.html' title="Bramki piłkarskie - sofotel.pl">Bramki piłkarskie</a>
+				</li>
+				<li class='subcategory arrow'><a href='k223,stoly-do-gier.html' title="Stoły do gier | Piłkarzyki, Bilard, Cymbergaj | Sklep Online">Stoły do gier</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k228,stol-do-bilarda.html' title="Stół do bilarda - janshop.pl">Stół do bilarda</a></li>
+							<li><a href='k226,stol-do-cymbergaja.html' title="Stół do cymbergaja - janshop.pl">Stół do cymbergaja</a></li>
+							<li><a href='k227,stol-do-pilkarzykow.html' title="Stół do piłkarzyków | Stoły do gry w wyjątkowych cenach | janshop.pl">Stół do piłkarzyków</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k263,stojak-motocyklowy.html' title="Stojak motocyklowy - jansho.pl">Stojak motocyklowy</a>
+				</li>
+				<li class='subcategory '><a href='k383,stojak-rowerowy.html' title="">Stojak rowerowy</a>
+				</li>
+				<li class='subcategory '><a href='k94,wykrywacze-metali.html' title="Wykrywacze metali - ręczny detektor metalu idealny dla Ciebie">Wykrywacze metali</a>
+				</li>
+				<li class='subcategory arrow'><a href='k225,dla-zwierzat.html' title="Dla zwierząt">Dla zwierząt</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k178,drapak-dla-kota.html' title="Drapak dla kota | Stabilna podstawa i dodatkowe zabawki | Janshop.pl">Drapak dla kota</a></li>
+							<li><a href='k440,klatki-dla-zwierzat.html' title="">Klatki dla zwierząt</a></li>
+						</ul>
+					</nav>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k3,trampoliny.html' class='dropbtn'  title="Trampoliny to najlepszy prezent dla dziecka do ogrodu - janshop.pl">Trampoliny</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/neo-sport.gif'></div><div class='productName'>Trampolina ogrodowa 10ft/312cm z siatką wewnętrzną i drabinką Neo-Sport</div><div class='price'><span>519,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p6969,Trampolina-ogrodowa-10ft312cm-z-siatką-wewnętrzną-i-drabinką-Neo-Sport.html'><img class='lazyload' data-src='galerie/t/trampolina-ogrodowa-10ft-312c_44236_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory '><a href='k13,trampoliny-ogrodowe.html' title="Trampoliny ogrodowe z siatką | Szeroki wybór | Sklep online Janshop">Trampoliny ogrodowe</a>
+				</li>
+				<li class='subcategory '><a href='k14,trampoliny-fitness.html' title="Trampoliny fitness doskonale wpływają na poprawę sylwetki - janshop.pl">Trampoliny fitness</a>
+				</li>
+				<li class='subcategory '><a href='k140,trampoliny-dla-dzieci.html' title="Trampoliny dla dzieci | Bezpieczne i Sprawdzone | Sklep Online Janshop.pl">Trampoliny dla dzieci</a>
+				</li>
+				<li class='subcategory '><a href='k387,akcesoria-do-trampolin.html' title="">Akcesoria do trampolin</a>
+				</li>
+				<li class='subcategory arrow'><a href='k92,czesci-do-trampolin.html' title="">Części do trampolin</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k411,laczniki-nog.html' title="">Łączniki nóg</a></li>
+							<li><a href='k372,maty-do-trampolin.html' title="Maty do trampolin | Części zamienne | Zakupy online w sklepie Janshop.pl">Maty do trampolin</a></li>
+							<li><a href='k373,oslony-na-sprezyny.html' title="Kup wytrzymałe osłony na sprężyny do trampolin | Janshop.pl">Osłony na sprężyny</a></li>
+							<li><a href='k410,pierscienie-do-siatki.html' title="">Pierścienie do siatki</a></li>
+							<li><a href='k342,siatki-do-trampoliny.html' title="Siatki do trampolin | Części zamienne Neo-Sport | Sklep online Janshop.pl">Siatki do trampoliny</a></li>
+							<li><a href='k375,slupki-do-trampolin.html' title="Słupki do trampolin | Najsolidniejsze części zamienne w ofercie sklepu Janshop.pl">Słupki do trampolin</a></li>
+							<li><a href='k398,sprezyny-do-trampolin.html' title="">Sprężyny do trampolin</a></li>
+						</ul>
+					</nav>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k442,zdrowie.html' class='dropbtn'  title="">Zdrowie</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/berdsen.jpg'></div><div class='productName'>Ciśnieniomierz naramienny BD-120 Berdsen</div><div class='price'><span>59,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p7018,Ciśnieniomierz-naramienny-BD-120-Berdsen.html'><img class='lazyload' data-src='galerie/c/cisnieniomierz-naramienny-bd_45522_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory '><a href='k444,cisnieniomierze.html' title="">Ciśnieniomierze</a>
+				</li>
+				<li class='subcategory '><a href='k455,koce-elektryczne.html' title="">Koce elektryczne</a>
+				</li>
+				<li class='subcategory '><a href='k443,termometry.html' title="">Termometry</a>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k53,materace.html' class='dropbtn'  title="Materace dmuchane welurowe | Sprawdzeni producenci | Sklep Online Janshop.pl">Materace</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/intex.gif'></div><div class='productName'>Pompka elektryczna Quick-Fill 220-240V INTEX 66640</div><div class='price'><span>59,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p2866,Pompka-elektryczna-Quick-Fill-220-240V-INTEX-66640.html'><img class='lazyload' data-src='galerie/p/pompka-elektryczna-quick-fill_7067_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory arrow'><a href='k304,materace-do-spania.html' title="Materace do spania - janshop.pl">Materace do spania</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k305,lozka-dmuchane.html' title="lozka-dmuchane">Łóżka dmuchane</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k43,materac-dmuchany.html' title="Materac dmuchany renomowanych marek Intex i Bestway - janshop.pl">Materac dmuchany</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k300,materac-dmuchany-do-spania.html' title="Materac dmuchany do spania - janshop.pl">Materac dmuchany do spania</a></li>
+							<li><a href='k302,materac-dmuchany-dwuosobowy.html' title="Materac dmuchany dwuosobowy - janshop.pl">Materac dmuchany dwuosobowy</a></li>
+							<li><a href='k301,materac-dmuchany-jednoosobowy.html' title="Materac dmuchany jednoosobowy - janshop.pl">Materac dmuchany jednoosobowy</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k313,pompki-do-materaca.html' title="Pompki do materaca | Ręczne i Elektryczne | Sklep online Janshop.pl">Pompki do materaca</a>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k6,turystyka.html' class='dropbtn'  title="">Turystyka</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/berdsen.jpg'></div><div class='productName'>Termos próżniowy 420 ml BD-782 czarny</div><div class='price'><span>27,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p6609,Termos-próżniowy-420-ml-BD-782-czarny.html'><img class='lazyload' data-src='galerie/t/termos-prozniowy-420-ml-bd-78_41721_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory '><a href='k143,lodowki-turystyczne.html' title="Lodówki turystyczne sprawdzają się w podróży - janshop.pl">Lodówki turystyczne</a>
+				</li>
+				<li class='subcategory '><a href='k434,termosy-.html' title="">Termosy </a>
+				</li>
+				<li class='subcategory '><a href='k204,wanienki-turystyczne.html' title="Wanienki turystyczne wygodne i higieniczne - janshop.pl">Wanienki turystyczne</a>
+				</li>
+				<li class='subcategory '><a href='k115,fotele-dmuchane.html' title="">Fotele dmuchane</a>
+				</li>
+				<li class='subcategory '><a href='k292,namioty-plazowe.html' title="Namioty plażowe - janshop.pl">Namioty plażowe</a>
+				</li>
+				<li class='subcategory '><a href='k293,namioty-turystyczne.html' title="Namioty turystyczne - janshop.pl">Namioty turystyczne</a>
+				</li>
+				<li class='subcategory arrow'><a href='k56,pontony.html' title="Pontony - janshop.pl">Pontony</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k290,pompki-do-pontonow.html' title="Pompki do pontonów - janshop.pl">Pompki do pontonów</a></li>
+							<li><a href='k286,pontony-dla-dzieci.html' title="Pontony dla dzieci - janshop.pl">Pontony dla dzieci</a></li>
+							<li><a href='k285,pontony-dmuchane.html' title="Pontony dmuchane - janshop.pl">Pontony dmuchane</a></li>
+							<li><a href='k291,pontony-wedkarskie.html' title="Pontony wędkarskie - janshop.pl">Pontony wędkarskie</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k289,kajaki-dmuchane.html' title="Kajaki dmuchane - janshop.pl">Kajaki dmuchane</a>
+				</li>
+				<li class='subcategory '><a href='k54,pompki-.html' title="">Pompki </a>
+				</li>
+				<li class='subcategory '><a href='k57,akcesoria-turystyczne.html' title="Akcesoria turystyczne - janshop.pl">Akcesoria turystyczne</a>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k188,baseny.html' class='dropbtn'  title="">Baseny</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/intex.gif'></div><div class='productName'>Basen ogrodowy stelażowy Prism Frame 366 x 76 cm 9w1 INTEX 26712</div><div class='price'><span>529,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p2792,Basen-ogrodowy-stelażowy-Prism-Frame-366-x-76-cm-9w1-INTEX-26712.html'><img class='lazyload' data-src='galerie/b/basen-ogrodowy-stelazowy-pris_55744_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory '><a href='k1,baseny-ogrodowe.html' title="Baseny ogrodowe najlepszych marek Intex i Bestawy - janshop.pl">Baseny ogrodowe</a>
+				</li>
+				<li class='subcategory '><a href='k7,baseny-rozporowe.html' title="Baseny rozporowe w bardzo bogatej ofercie Intex i Bestway - janshop.pl">Baseny rozporowe</a>
+				</li>
+				<li class='subcategory arrow'><a href='k8,baseny-stelazowe.html' title="Baseny stelażowe marki Intex i Bestway najlepsza oferta - janshop.pl">Baseny stelażowe</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k148,baseny-stelazowe-bestway.html' title="Baseny stelażowe od renomowanego producenta | Baseny Bestway | Janshop.pl">Baseny stelażowe Bestway</a></li>
+							<li><a href='k146,baseny-stelazowe-intex.html' title="Baseny stelażowe | Znany producent INTEX | Sklep Online Janshop.pl">Baseny stelażowe Intex</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k132,baseny-intex.html' title="Baseny INTEX bogata oferta basenów stelażowych i rozporowych | Janshop.pl">Baseny Intex</a>
+				</li>
+				<li class='subcategory '><a href='k133,baseny-bestway.html' title="Baseny Bestway to produkty najwyższej jakości - janshop.pl">Baseny Bestway</a>
+				</li>
+				<li class='subcategory '><a href='k128,zestawy-basenowe.html' title="">Zestawy basenowe</a>
+				</li>
+				<li class='subcategory arrow'><a href='k61,dmuchane-spa.html' title="Dmuchane SPA | Kup własne domowe SPA Online! | Janshop.pl">Dmuchane SPA</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k382,akcesoria-do-spa.html' title="Akcesoria do spa jacuzzi">Akcesoria do SPA</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k15,baseny-dmuchane.html' title="Baseny dmuchane i pompowane dla całej rodziny - janshop.pl">Baseny dmuchane</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k173,baseny-dmuchane-bestway.html' title="">Baseny dmuchane Bestway</a></li>
+							<li><a href='k172,baseny-dmuchane-intex.html' title="">Baseny dmuchane Intex</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k26,baseny-dla-dzieci.html' title="Baseny dla dzieci | Najlepsze oferty Sklep Online | Janshop.pl">Baseny dla dzieci</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k161,basenik-dla-niemowlaka.html' title="">Basenik dla niemowlaka</a></li>
+							<li><a href='k160,baseny-dla-dzieci-z-daszkiem.html' title="">Baseny dla dzieci z daszkiem</a></li>
+							<li><a href='k376,slizgawki-wodne.html' title="Ślizgawki wodne dla dzieci | Kup online | Janshop.pl">Ślizgawki wodne</a></li>
+							<li><a href='k62,dmuchane-place-zabaw.html' title="Dmuchane place zabaw marki Intex i Bestway - janshop.pl">Dmuchane place zabaw</a></li>
+							<li><a href='k45,suchy-basen-z-kulkami.html' title="Suchy basen z kulkami - janshop.pl">Suchy basen z kulkami</a></li>
+						</ul>
+					</nav>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k16,akcesoria-basenowe.html' class='dropbtn'  title="Akcesoria basenowe do basenów Intex i Bestway - janshop.pl">Akcesoria basenowe</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/dmuchane.gif'></div><div class='productName'>Mata piankowa pod basen puzzle 50 x 50 cm 8 szt</div><div class='price'><span>65,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p7046,Mata-piankowa-pod-basen-puzzle-50-x-50-cm-8-szt.html'><img class='lazyload' data-src='galerie/m/mata-piankowa-pod-basen-puzzl_45229_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory arrow'><a href='k17,pompy-do-basenu.html' title="Pompy do basenu zadbaj o czystość w swoim basenie - janshop.pl">Pompy do basenu</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k176,pompy-do-basenu-bestway.html' title="">Pompy do basenu Bestway</a></li>
+							<li><a href='k177,pompy-do-basenu-intex.html' title="">Pompy do basenu Intex</a></li>
+							<li><a href='k175,pompy-piaskowe-do-basenu.html' title="">Pompy piaskowe do basenu</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k21,pokrywy-na-basen.html' title="Pokrywy na basen skutecznie zabezpieczające wodę - janshop.pl">Pokrywy na basen</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k187,pokrywy-solarne.html' title="Pokrywy solarne INTEX oraz Bestway | Konkurencyjne ceny | Sklep online">Pokrywy solarne</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k415,pokrywy-termiczne-do-spa.html' title="">Pokrywy termiczne do SPA</a>
+				</li>
+				<li class='subcategory '><a href='k22,maty-pod-basen.html' title="Maty pod basen idealnym uzupełniem przygotowania podłoża - janshop.pl">Maty pod basen</a>
+				</li>
+				<li class='subcategory '><a href='k24,drabinki-do-basenu.html' title="Drabinki do basenu stabilne i gwarantujące bezpieczeństwo - janshop.pl">Drabinki do basenu</a>
+				</li>
+				<li class='subcategory '><a href='k23,czyszczenie-basenu.html' title="Czyszczenie basenu z naszymi akcesoriami to przyjemność - janshop.pl">Czyszczenie basenu</a>
+				</li>
+				<li class='subcategory '><a href='k131,odkurzacze-do-basenu.html' title="Odkurzacze do basenu wspierają utrzymanie czystości - janshop.pl">Odkurzacze do basenu</a>
+				</li>
+				<li class='subcategory '><a href='k27,chemia-basenowa.html' title="Chemia basenowa sojusznik w walce z mikroorganizmami - janshop.pl">Chemia basenowa</a>
+				</li>
+				<li class='subcategory '><a href='k28,pozostale-akcesoria.html' title="">Pozostałe akcesoria</a>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k2,ogrod.html' class='dropbtn'  title="Do ogrodu wszystko czego potrzebujesz komfort i relaks - janshop.pl">Ogród</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/humberg.jpg'></div><div class='productName'>Wózek transportowy, ręczny składany Humberg HM-508</div><div class='price'><span>159,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p6860,Wózek-transportowy,-ręczny-składany-Humberg-HM-508.html'><img class='lazyload' data-src='galerie/w/wozek-transportowy-reczny-skl_43053_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory '><a href='k438,grille.html' title="">Grille</a>
+				</li>
+				<li class='subcategory '><a href='k451,lampki-solarne.html' title="">Lampki solarne</a>
+				</li>
+				<li class='subcategory arrow'><a href='k450,meble-ogrodowe.html' title="">Meble ogrodowe</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k467,meble-skladane-i-cateringowe.html' title="">Meble składane i cateringowe</a></li>
+							<li><a href='k463,stoly-i-krzesla.html' title="">Stoły i krzesła</a></li>
+							<li><a href='k88,fotele-ogrodowe-wiszace.html' title="Fotele ogrodowe wiszące - sofotel.pl">Fotele ogrodowe wiszące</a></li>
+							<li><a href='k439,lezaki-ogrodowe.html' title="">Leżaki ogrodowe</a></li>
+							<li><a href='k124,lawki-ogrodowe.html' title="Ławki ogrodowe marki Sofotel to jakość i styl - janshop.pl">Ławki ogrodowe</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k466,pergole.html' title="">Pergole</a>
+				</li>
+				<li class='subcategory '><a href='k441,plandeki.html' title="">Plandeki</a>
+				</li>
+				<li class='subcategory '><a href='k468,siatki-cieniujace.html' title="">Siatki cieniujące</a>
+				</li>
+				<li class='subcategory '><a href='k472,zagle-przeciwsloneczne.html' title="">Żagle przeciwsłoneczne</a>
+				</li>
+				<li class='subcategory '><a href='k464,zbiorniki-na-deszczowke.html' title="">Zbiorniki na deszczówkę</a>
+				</li>
+				<li class='subcategory arrow'><a href='k340,uprawa-roslin.html' title="Uprawa roślin, zadbaj o swoje roślinki - Janshop.pl">Uprawa roślin</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k470,akcesoria.html' title="">Akcesoria</a></li>
+							<li><a href='k469,obrzeza-ogrodowe.html' title="">Obrzeża ogrodowe</a></li>
+							<li><a href='k445,opryskiwacze.html' title="">Opryskiwacze</a></li>
+							<li><a href='k471,tyczki-do-roslin.html' title="">Tyczki do roślin</a></li>
+							<li><a href='k31,tunel-foliowy.html' title="Tunele foliowe | Ceny i opinie | Janshop.pl">Tunel foliowy</a></li>
+							<li><a href='k339,agrotkanina.html' title="Agrotkanina | Popraw swoje uprawy! | Sklep Online Janshop.pl">Agrotkanina</a></li>
+							<li><a href='k134,szklarnie-ogrodowe.html' title="Szklarnie ogrodowe do uprawy roślin we własnym ogrodzie - janshop.pl">Szklarnie ogrodowe</a></li>
+							<li><a href='k135,agrowloknina.html' title="Agrowłóknina zabezpiecz swoje uprawy i popraw wyniki - janshop.pl">Agrowłóknina</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory arrow'><a href='k378,taczki-i-wozki-ogrodowe.html' title="Taczki i wózki ogrodowe | Sklep online Janshop.pl">Taczki i wózki ogrodowe</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k379,wozki-ogrodowe.html' title="">Wózki Ogrodowe</a></li>
+							<li><a href='k381,kola-do-taczek-i-wozkow.html' title="">Koła do taczek i wózków</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k129,namioty-ogrodowe.html' title="Namioty ogrodowe i pawilony | Okazyjne ceny w sklepie Janshop.pl">Namioty ogrodowe</a>
+				</li>
+				<li class='subcategory '><a href='k123,skrzynie-ogrodowe.html' title="Skrzynie ogrodowe organizują i porządkują przestrzeń - janshop.pl">Skrzynie ogrodowe</a>
+				</li>
+				<li class='subcategory '><a href='k241,parasole-ogrodowe.html' title="Parasole ogrodowe | Wybierz Parasol Ogrodowy dla Ciebie | Janshop.pl">Parasole ogrodowe</a>
+				</li>
+				<li class='subcategory '><a href='k232,hamaki-ogrodowe.html' title="Hamaki ogrodowe - ze stelażem i bez | Sklep online Janshop.pl">Hamaki ogrodowe</a>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+		<li class='dropdown'>
+			<a href='k25,plaza.html' class='dropbtn'  title="Akcesoria plażowe marki Intex i Bestway - janshop.pl">Plaża</a>
+			<div class='dropdown-content'><div class='dropdown-bestseller'><div class='dropdown-bestseller-left'><div><img src='galerie/producenci/bestway.gif'></div><div class='productName'>Okularki do pływania dla dzieci Arielka Bestway 9103C</div><div class='price'><span>18,99 zł</span></div></div><div class='dropdown-bestseller-right'><figure><a href='p6797,Okularki-do-pływania-dla-dzieci-Arielka-Bestway-9103C.html'><img class='lazyload' data-src='galerie/o/okularki-do-plywania-dla-dzie_42136_k.webp'></a></figure></div></div><nav class='category-list'>
+			<ul>
+				<li class='subcategory '><a href='k371,deski-sup.html' title="Deski Sup | Najlepsze deski do pływania w konkurencyjnych cenach Janshop.pl">Deski SUP</a>
+				</li>
+				<li class='subcategory arrow'><a href='k294,materac-plazowy.html' title="Materac plażowy - janshop.pl">Materac plażowy</a>
+					<nav class='dropdown-sub'>
+						<ul>
+							<li><a href='k295,plywajaca-wyspa.html' title="Pływająca wyspa - janshop.pl">Pływająca wyspa</a></li>
+						</ul>
+					</nav>
+				</li>
+				<li class='subcategory '><a href='k297,rekawki-do-plywania.html' title="Rękawki do pływania - janshop.pl">Rękawki do pływania</a>
+				</li>
+				<li class='subcategory '><a href='k116,zabawki-dmuchane.html' title="">Zabawki dmuchane</a>
+				</li>
+				<li class='subcategory '><a href='k96,kola-do-plywania.html' title="Koła do pływania od najlepszych producentów Intex i Bestway - janshop.pl">Koła do pływania</a>
+				</li>
+				<li class='subcategory '><a href='k136,pilki-dmuchane.html' title="Piłki dmuchane do aktywnej zabawy na plaży i w ogrodzie - janshop.pl">Piłki dmuchane</a>
+				</li>
+				<li class='subcategory '><a href='k59,akcesoria-do-plywania.html' title="Akcesoria do pływania - janshop.pl">Akcesoria do pływania</a>
+				</li>
+				<li class='subcategory '><a href='k296,sprzet-do-nurkowania.html' title="Sprzęt do nurkowania">Sprzęt do nurkowania</a>
+				</li>
+			</ul>
+			</nav></div>
+		</li>
+	</ul>
+	</nav><script>
+                $( "li.subcategory" ).hover(function() {
+                    //$(this).addClass('hovered');
+                    $('.dropdown-sub').removeClass('subVisible');
+                    $(this).find('.dropdown-sub').addClass('subVisible');
+                    $(this).first('a').addClass('dropdown-content-hovered');
+
+                });
+                $( "li.subcategory" ).mouseleave(function() {
+                    $(this).removeClass('hovered');
+                    $(this).removeClass('dropdown-content-hovered');
+                    $('.dropdown-sub').removeClass('subVisible');
+                });
+
+            </script>
+        </div>
+
+
+<div class="bgSand">
+
+<div class="wrapper">    
+<div class="breadcrumbs">
+        <div class="breadcrumbs__box "><div class="wrapper">
+                 <a href="https://janshop.pl" title="Strona główna janshop.pl" class="breadcrumbs__home">janshop.pl</a>  / <a href="/wyszukiwarka.html">Wyszukiwarka</a>
+             </div>
+        </div>
+    </div>
+</div>
+
+       <div class="wrapper">
+ 
+                <div class="layout layout--2cols">
+                     
+                    <div class="layout__left"> 
+                                                <section class="sidenav br-10 b-5 bg-white">
+                            <p class="sidenav__header n4">Kategorie</p>
+					
+
+	 <ul>
+		<li class=' '>
+			<a href='k4,dziecko.html'  title="Artykuły dla dzieci i niemowląt - Ricokids i Nukido">Dziecko</a><span class='pnumber'>205</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k205,dla-najmlodszych.html' title=""  >Dla najmłodszych</a>
+				</li>
+				<li rel='test'><a href='k359,bezpieczenstwo-dzieci.html' title="Bezpieczeństwo dzieci - janshop.pl"  >Bezpieczeństwo dzieci</a>
+				</li>
+				<li rel='test'><a href='k49,foteliki-samochodowe.html' title="Foteliki samochodowe bezpieczne i sprawdzone - janshop.pl"  >Foteliki samochodowe</a>
+				</li>
+				<li rel='test'><a href='k50,krzeselka-do-karmienia.html' title="Krzesełka do karmienia Ricokids to komfort podczas posiłku - janshop.pl"  >Krzesełka do karmienia</a>
+				</li>
+				<li rel='test'><a href='k217,namioty-dla-dzieci.html' title="Namioty dla dzieci"  >Namioty dla dzieci</a>
+				</li>
+				<li rel='test'><a href='k396,lampki-nocne.html' title=""  >Lampki nocne</a>
+				</li>
+				<li rel='test'><a href='k52,zabawki.html' title=""  >Zabawki</a>
+				</li>
+				<li rel='test'><a href='k361,pojemniki-na-zabawki.html' title="Pojemniki na zabawki Ricokids - janshop.pl"  >Pojemniki na zabawki</a>
+				</li>
+				<li rel='test'><a href='k358,pojazdy-dla-dzieci.html' title="Pojazdy dla dzieci Ricokids - janshop.pl"  >Pojazdy dla dzieci</a>
+				</li>
+				<li rel='test'><a href='k63,hustawki-dla-dzieci.html' title="Huśtawki dla dzieci | Artykuły dziecięce | Sklep Online Janshop.pl"  >Huśtawki dla dzieci</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k5,dom.html'  title="Wyposażenie domu, sprzęty gospodarstwa domowego">Dom</a><span class='pnumber'>351</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k351,krzesla,-fotele-i-hokery.html' title="Krzesła, fotele i hokery Sofotel w ofercie - janshop.pl"  >Krzesła, fotele i hokery</a>
+				</li>
+				<li rel='test'><a href='k353,szafy-tekstylne.html' title="Szafy tekstylne - janshop.pl"  >Szafy tekstylne</a>
+				</li>
+				<li rel='test'><a href='k418,wieszaki.html' title=""  >Wieszaki</a>
+				</li>
+				<li rel='test'><a href='k425,szkatulki-i-pudelka.html' title=""  >Szkatułki i pudełka</a>
+				</li>
+				<li rel='test'><a href='k90,wyposazenie-warsztatu.html' title=""  >Wyposażenie warsztatu</a>
+				</li>
+				<li rel='test'><a href='k424,piecyki-gazowe.html' title=""  >Piecyki gazowe</a>
+				</li>
+				<li rel='test'><a href='k368,suszarki-na-pranie.html' title=""  >Suszarki na pranie</a>
+				</li>
+				<li rel='test'><a href='k429,suszarki-do-naczyn.html' title=""  >Suszarki do naczyń</a>
+				</li>
+				<li rel='test'><a href='k374,hustawki-kokony.html' title="Huśtawki i fotele kokony | Najlepsze ceny na Janshop.pl"  >Huśtawki kokony</a>
+				</li>
+				<li rel='test'><a href='k432,pracownia.html' title=""  >Pracownia</a>
+				</li>
+				<li rel='test'><a href='k35,odplywy-liniowe.html' title="Odpływy liniowe | Nowoczesna łazienka w niskiej cenie | Janshop.pl"  >Odpływy liniowe</a>
+				</li>
+				<li rel='test'><a href='k202,skrzynki-na-listy.html' title="Skrzynki na listy - janshop.pl"  >Skrzynki na listy</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k108,elektronika.html'  title="">Elektronika</a><span class='pnumber'>33</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k33,okapy-kuchenne.html' title=""  >Okapy kuchenne</a>
+				</li>
+				<li rel='test'><a href='k346,osuszacze-i-oczyszczacze-powietrza.html' title="Osuszacze i oczyszczacze powietrza - janshop.pl"  >Osuszacze i oczyszczacze powietrza</a>
+				</li>
+				<li rel='test'><a href='k447,elektronarzedzia.html' title=""  >Elektronarzędzia</a>
+				</li>
+				<li rel='test'><a href='k122,male-agd.html' title=""  >Małe AGD</a>
+				</li>
+				<li rel='test'><a href='k309,higiena-jamy-ustnej.html' title="Higiena jamy ustnej - janshop.pl"  >Higiena jamy ustnej</a>
+				</li>
+				<li rel='test'><a href='k460,maszynki-do-strzyzenia.html' title=""  >Maszynki do strzyżenia</a>
+				</li>
+				<li rel='test'><a href='k452,wagi-elektroniczne.html' title=""  >Wagi elektroniczne</a>
+				</li>
+				<li rel='test'><a href='k367,klimatyzatory-i-wentylatory.html' title="Wentylatory i wiatraki stojące w ofercie sklepu Janshop.pl"  >Klimatyzatory i wentylatory</a>
+				</li>
+				<li rel='test'><a href='k138,laktatory.html' title=""  >Laktatory</a>
+				</li>
+				<li rel='test'><a href='k316,alkomaty.html' title="Alkomaty - Kup online i podróżuj bezpiecznie! - Sklep Janshop.pl"  >Alkomaty</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k224,hobby.html'  title="Hobby - janshop.pl">Hobby</a><span class='pnumber'>461</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k461,malowanie-po-numerach.html' title=""  >Malowanie po numerach</a>
+				</li>
+				<li rel='test'><a href='k337,hulajnogi.html' title="Hulajnogi - janshop.pl"  >Hulajnogi</a>
+				</li>
+				<li rel='test'><a href='k389,maty-do-akupresury.html' title=""  >Maty do akupresury</a>
+				</li>
+				<li rel='test'><a href='k392,sprzet-sportowy-.html' title=""  >Sprzęt sportowy </a>
+				</li>
+				<li rel='test'><a href='k222,bramki-pilkarskie.html' title="Bramki piłkarskie - sofotel.pl"  >Bramki piłkarskie</a>
+				</li>
+				<li rel='test'><a href='k223,stoly-do-gier.html' title="Stoły do gier | Piłkarzyki, Bilard, Cymbergaj | Sklep Online"  >Stoły do gier</a>
+				</li>
+				<li rel='test'><a href='k263,stojak-motocyklowy.html' title="Stojak motocyklowy - jansho.pl"  >Stojak motocyklowy</a>
+				</li>
+				<li rel='test'><a href='k383,stojak-rowerowy.html' title=""  >Stojak rowerowy</a>
+				</li>
+				<li rel='test'><a href='k94,wykrywacze-metali.html' title="Wykrywacze metali - ręczny detektor metalu idealny dla Ciebie"  >Wykrywacze metali</a>
+				</li>
+				<li rel='test'><a href='k225,dla-zwierzat.html' title="Dla zwierząt"  >Dla zwierząt</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k3,trampoliny.html'  title="Trampoliny to najlepszy prezent dla dziecka do ogrodu - janshop.pl">Trampoliny</a><span class='pnumber'>13</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k13,trampoliny-ogrodowe.html' title="Trampoliny ogrodowe z siatką | Szeroki wybór | Sklep online Janshop"  >Trampoliny ogrodowe</a>
+				</li>
+				<li rel='test'><a href='k14,trampoliny-fitness.html' title="Trampoliny fitness doskonale wpływają na poprawę sylwetki - janshop.pl"  >Trampoliny fitness</a>
+				</li>
+				<li rel='test'><a href='k140,trampoliny-dla-dzieci.html' title="Trampoliny dla dzieci | Bezpieczne i Sprawdzone | Sklep Online Janshop.pl"  >Trampoliny dla dzieci</a>
+				</li>
+				<li rel='test'><a href='k387,akcesoria-do-trampolin.html' title=""  >Akcesoria do trampolin</a>
+				</li>
+				<li rel='test'><a href='k92,czesci-do-trampolin.html' title=""  >Części do trampolin</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k442,zdrowie.html'  title="">Zdrowie</a><span class='pnumber'>444</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k444,cisnieniomierze.html' title=""  >Ciśnieniomierze</a>
+				</li>
+				<li rel='test'><a href='k455,koce-elektryczne.html' title=""  >Koce elektryczne</a>
+				</li>
+				<li rel='test'><a href='k443,termometry.html' title=""  >Termometry</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k53,materace.html'  title="Materace dmuchane welurowe | Sprawdzeni producenci | Sklep Online Janshop.pl">Materace</a><span class='pnumber'>304</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k304,materace-do-spania.html' title="Materace do spania - janshop.pl"  >Materace do spania</a>
+				</li>
+				<li rel='test'><a href='k43,materac-dmuchany.html' title="Materac dmuchany renomowanych marek Intex i Bestway - janshop.pl"  >Materac dmuchany</a>
+				</li>
+				<li rel='test'><a href='k313,pompki-do-materaca.html' title="Pompki do materaca | Ręczne i Elektryczne | Sklep online Janshop.pl"  >Pompki do materaca</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k6,turystyka.html'  title="">Turystyka</a><span class='pnumber'>143</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k143,lodowki-turystyczne.html' title="Lodówki turystyczne sprawdzają się w podróży - janshop.pl"  >Lodówki turystyczne</a>
+				</li>
+				<li rel='test'><a href='k434,termosy-.html' title=""  >Termosy </a>
+				</li>
+				<li rel='test'><a href='k204,wanienki-turystyczne.html' title="Wanienki turystyczne wygodne i higieniczne - janshop.pl"  >Wanienki turystyczne</a>
+				</li>
+				<li rel='test'><a href='k115,fotele-dmuchane.html' title=""  >Fotele dmuchane</a>
+				</li>
+				<li rel='test'><a href='k292,namioty-plazowe.html' title="Namioty plażowe - janshop.pl"  >Namioty plażowe</a>
+				</li>
+				<li rel='test'><a href='k293,namioty-turystyczne.html' title="Namioty turystyczne - janshop.pl"  >Namioty turystyczne</a>
+				</li>
+				<li rel='test'><a href='k56,pontony.html' title="Pontony - janshop.pl"  >Pontony</a>
+				</li>
+				<li rel='test'><a href='k289,kajaki-dmuchane.html' title="Kajaki dmuchane - janshop.pl"  >Kajaki dmuchane</a>
+				</li>
+				<li rel='test'><a href='k54,pompki-.html' title=""  >Pompki </a>
+				</li>
+				<li rel='test'><a href='k57,akcesoria-turystyczne.html' title="Akcesoria turystyczne - janshop.pl"  >Akcesoria turystyczne</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k188,baseny.html'  title="">Baseny</a><span class='pnumber'>1</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k1,baseny-ogrodowe.html' title="Baseny ogrodowe najlepszych marek Intex i Bestawy - janshop.pl"  >Baseny ogrodowe</a>
+				</li>
+				<li rel='test'><a href='k7,baseny-rozporowe.html' title="Baseny rozporowe w bardzo bogatej ofercie Intex i Bestway - janshop.pl"  >Baseny rozporowe</a>
+				</li>
+				<li rel='test'><a href='k8,baseny-stelazowe.html' title="Baseny stelażowe marki Intex i Bestway najlepsza oferta - janshop.pl"  >Baseny stelażowe</a>
+				</li>
+				<li rel='test'><a href='k132,baseny-intex.html' title="Baseny INTEX bogata oferta basenów stelażowych i rozporowych | Janshop.pl"  >Baseny Intex</a>
+				</li>
+				<li rel='test'><a href='k133,baseny-bestway.html' title="Baseny Bestway to produkty najwyższej jakości - janshop.pl"  >Baseny Bestway</a>
+				</li>
+				<li rel='test'><a href='k128,zestawy-basenowe.html' title=""  >Zestawy basenowe</a>
+				</li>
+				<li rel='test'><a href='k61,dmuchane-spa.html' title="Dmuchane SPA | Kup własne domowe SPA Online! | Janshop.pl"  >Dmuchane SPA</a>
+				</li>
+				<li rel='test'><a href='k15,baseny-dmuchane.html' title="Baseny dmuchane i pompowane dla całej rodziny - janshop.pl"  >Baseny dmuchane</a>
+				</li>
+				<li rel='test'><a href='k26,baseny-dla-dzieci.html' title="Baseny dla dzieci | Najlepsze oferty Sklep Online | Janshop.pl"  >Baseny dla dzieci</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k16,akcesoria-basenowe.html'  title="Akcesoria basenowe do basenów Intex i Bestway - janshop.pl">Akcesoria basenowe</a><span class='pnumber'>17</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k17,pompy-do-basenu.html' title="Pompy do basenu zadbaj o czystość w swoim basenie - janshop.pl"  >Pompy do basenu</a>
+				</li>
+				<li rel='test'><a href='k21,pokrywy-na-basen.html' title="Pokrywy na basen skutecznie zabezpieczające wodę - janshop.pl"  >Pokrywy na basen</a>
+				</li>
+				<li rel='test'><a href='k415,pokrywy-termiczne-do-spa.html' title=""  >Pokrywy termiczne do SPA</a>
+				</li>
+				<li rel='test'><a href='k22,maty-pod-basen.html' title="Maty pod basen idealnym uzupełniem przygotowania podłoża - janshop.pl"  >Maty pod basen</a>
+				</li>
+				<li rel='test'><a href='k24,drabinki-do-basenu.html' title="Drabinki do basenu stabilne i gwarantujące bezpieczeństwo - janshop.pl"  >Drabinki do basenu</a>
+				</li>
+				<li rel='test'><a href='k23,czyszczenie-basenu.html' title="Czyszczenie basenu z naszymi akcesoriami to przyjemność - janshop.pl"  >Czyszczenie basenu</a>
+				</li>
+				<li rel='test'><a href='k131,odkurzacze-do-basenu.html' title="Odkurzacze do basenu wspierają utrzymanie czystości - janshop.pl"  >Odkurzacze do basenu</a>
+				</li>
+				<li rel='test'><a href='k27,chemia-basenowa.html' title="Chemia basenowa sojusznik w walce z mikroorganizmami - janshop.pl"  >Chemia basenowa</a>
+				</li>
+				<li rel='test'><a href='k28,pozostale-akcesoria.html' title=""  >Pozostałe akcesoria</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k2,ogrod.html'  title="Do ogrodu wszystko czego potrzebujesz komfort i relaks - janshop.pl">Ogród</a><span class='pnumber'>438</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k438,grille.html' title=""  >Grille</a>
+				</li>
+				<li rel='test'><a href='k451,lampki-solarne.html' title=""  >Lampki solarne</a>
+				</li>
+				<li rel='test'><a href='k450,meble-ogrodowe.html' title=""  >Meble ogrodowe</a>
+				</li>
+				<li rel='test'><a href='k466,pergole.html' title=""  >Pergole</a>
+				</li>
+				<li rel='test'><a href='k441,plandeki.html' title=""  >Plandeki</a>
+				</li>
+				<li rel='test'><a href='k468,siatki-cieniujace.html' title=""  >Siatki cieniujące</a>
+				</li>
+				<li rel='test'><a href='k472,zagle-przeciwsloneczne.html' title=""  >Żagle przeciwsłoneczne</a>
+				</li>
+				<li rel='test'><a href='k464,zbiorniki-na-deszczowke.html' title=""  >Zbiorniki na deszczówkę</a>
+				</li>
+				<li rel='test'><a href='k340,uprawa-roslin.html' title="Uprawa roślin, zadbaj o swoje roślinki - Janshop.pl"  >Uprawa roślin</a>
+				</li>
+				<li rel='test'><a href='k378,taczki-i-wozki-ogrodowe.html' title="Taczki i wózki ogrodowe | Sklep online Janshop.pl"  >Taczki i wózki ogrodowe</a>
+				</li>
+				<li rel='test'><a href='k129,namioty-ogrodowe.html' title="Namioty ogrodowe i pawilony | Okazyjne ceny w sklepie Janshop.pl"  >Namioty ogrodowe</a>
+				</li>
+				<li rel='test'><a href='k123,skrzynie-ogrodowe.html' title="Skrzynie ogrodowe organizują i porządkują przestrzeń - janshop.pl"  >Skrzynie ogrodowe</a>
+				</li>
+				<li rel='test'><a href='k241,parasole-ogrodowe.html' title="Parasole ogrodowe | Wybierz Parasol Ogrodowy dla Ciebie | Janshop.pl"  >Parasole ogrodowe</a>
+				</li>
+				<li rel='test'><a href='k232,hamaki-ogrodowe.html' title="Hamaki ogrodowe - ze stelażem i bez | Sklep online Janshop.pl"  >Hamaki ogrodowe</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+		<li class=' '>
+			<a href='k25,plaza.html'  title="Akcesoria plażowe marki Intex i Bestway - janshop.pl">Plaża</a><span class='pnumber'>371</span><nav class='sidenav__sub  off'>
+			<ul>
+				<li rel='test'><a href='k371,deski-sup.html' title="Deski Sup | Najlepsze deski do pływania w konkurencyjnych cenach Janshop.pl"  >Deski SUP</a>
+				</li>
+				<li rel='test'><a href='k294,materac-plazowy.html' title="Materac plażowy - janshop.pl"  >Materac plażowy</a>
+				</li>
+				<li rel='test'><a href='k297,rekawki-do-plywania.html' title="Rękawki do pływania - janshop.pl"  >Rękawki do pływania</a>
+				</li>
+				<li rel='test'><a href='k116,zabawki-dmuchane.html' title=""  >Zabawki dmuchane</a>
+				</li>
+				<li rel='test'><a href='k96,kola-do-plywania.html' title="Koła do pływania od najlepszych producentów Intex i Bestway - janshop.pl"  >Koła do pływania</a>
+				</li>
+				<li rel='test'><a href='k136,pilki-dmuchane.html' title="Piłki dmuchane do aktywnej zabawy na plaży i w ogrodzie - janshop.pl"  >Piłki dmuchane</a>
+				</li>
+				<li rel='test'><a href='k59,akcesoria-do-plywania.html' title="Akcesoria do pływania - janshop.pl"  >Akcesoria do pływania</a>
+				</li>
+				<li rel='test'><a href='k296,sprzet-do-nurkowania.html' title="Sprzęt do nurkowania"  >Sprzęt do nurkowania</a>
+				</li>
+			</ul>
+			</nav>
+		</li>
+	</ul>
+                        </section>
+<section class="sidelinks b-5 bg-white">
+<p class="sidenav__header n4">O sklepie</p>
+<ul>
+                                <li><a href="kontakt.html" title="Dane kontaktowe">Dane kontaktowe</a></li>
+                                <li><a href="info.html" title="Informacje o sklepie">Informacje o sklepie</a></li>
+                                <li><a href="dostawa.html" title="Czas i koszty dostawy">Czas i koszty dostawy</a></li>
+                                <li><a href="kontakt.html#mapa" title="Mapa dojazdu">Mapa dojazdu</a></li>
+
+</ul>
+</section>
+
+<section class="sidelinks b-5 bg-white">
+<p class="sidenav__header n4">Informacje</p>
+<ul>
+                                <li><a href="aktualnosci.html" title="Aktualności">Aktualności</a></li>
+                                <li><a href="blog.html" title="Poradniki">Poradniki i wskazówki</a></li>
+                                <li><a href="pomoc.html" title="Częste pytania">Pomoc w zakupach</a></li>
+                                <li><a href="https://poland.payu.com/wp-content/uploads/sites/14/2021/06/Najczesciej_zadawane_pytania_o_Raty_PayU_3.pdf" target="_blank" rel="nofollow noopener">Zakupy na raty</a></li>
+                                <li><a href="wspolpraca-hurtowa.html" title="Częste pytania">Współpraca hurtowa</a></li>
+                                <li><a href="reklamacje.html" title="Formularz reklamacji">Formularz reklamacji</a></li>
+</ul>
+</section>		<section class="sidecontact br-10 b-5 bg-white">
+				<div>
+					<p class="sidenav__header n4">Kontakt</p>
+					
+					<p class="infolinia">(58) 746 37 97</p>
+					<p class="phone">info.: 0 801 000 610<br>fax: (58) 739 50 92</p>
+					<p class="mail"><a href="kontakt.html" class="button button-small" title="Formularz kontaktowy">Formularz kontaktowy</a></p>
+					<p class="zielony">Infolinia czynna:</p>
+					<p class="tx">poniedziałek 7:30-17:30<br>wtorek - piątek 7:30-15:30</p>
+					
+				</div>
+			</section>
+                    </div>
+                    <!-- layout__left -->
+                     
+                    <div class="layout__right">
+                        <div class="catalog br-10 b-5 bg-white">
+
+
+                
+                                                        <div class="catalog__header">
+                                <div class="catalog__h2"><h1>Wyszukiwarka</h1></div>
+                            </div>
+
+                            <div class="page__content" id="ext"><form method="get" action="index.php"><input type="hidden" name="d" value="szukaj"><table style="margin: 0 auto"><tr><td valign="top"><div style="margin-right: 5px; margin-top: 8px; text-align: right"><strong>Szukana fraza:</strong><br>min. liczba znaków: 2</div></td><td><div style="margin: 5px"><input class="text" type="text" name="szukaj" style="width: 270px" maxlength="200" value=""><br><input type="checkbox" name="szukajOpis" value="1" id="szukaj_op_main"> <label for="szukaj_op_main">Szukaj w opisach</label><br><input type="checkbox" name="dostepny" value="1" id="dostepny_for"> <label for="dostepny_for">Znajdź tylko dostępne produkty</label></div></td></tr><tr><td><div style="margin: 5px; text-align: right"><strong>Kategoria</strong>:</div></td><td><div style="margin: 5px"><span id="zaawKat"><select name="kategoria1" size="1" onchange="wczytajKategorie(this.value, 'zaawKat')" style="width: 270px"><option value="0">Wybierz kategorię</option><option value="4">Dziecko</option><option value="5">Dom</option><option value="108">Elektronika</option><option value="224">Hobby</option><option value="3">Trampoliny</option><option value="442">Zdrowie</option><option value="53">Materace</option><option value="6">Turystyka</option><option value="188">Baseny</option><option value="16">Akcesoria basenowe</option><option value="2">Ogród</option><option value="25">Plaża</option></select></span></div></td></tr><tr><td><div style="margin: 5px; text-align: right"><strong>Producent</strong>:</div></td><td><div style="margin: 5px"><select size="1" style="width: 270px" name="producent"><option value="">Wybierz</option><option value="16">Alcofind</option><option value="22">AlcoForce</option><option value="19">BALDR</option><option value="1">Berdsen</option><option value="15">Bestway</option><option value="25">CHEMOFORM</option><option value="13">Cobra Tector</option><option value="18">Dmuchane</option><option value="5">Edu-Play</option><option value="23">GTX</option><option value="10">Humberg</option><option value="3">Ilumen</option><option value="14">Intex</option><option value="2">Massido</option><option value="24">MSPA</option><option value="7">Neo-Sport</option><option value="20">Nukido</option><option value="4">Pethaus</option><option value="11">Plonos</option><option value="21">Promiler</option><option value="6">Ricokids</option><option value="12">Sofotel</option><option value="17">SOKE</option></select></div></td></tr><tr><td><div style="margin: 5px; text-align: right"><strong>Cena minimalna</strong>:</div></td><td><div style="margin: 5px"><input class="text" type="text" name="cenaMin" size="15" value=""></div></td></tr><tr><td><div style="margin: 5px; text-align: right"><strong>Cena maksymalna</strong>:</div></td><td><div style="margin: 5px"><input class="text" type="text" name="cenaMax" size="15" value=""></div></td></tr></table><div style="text-align: center"><input class="button" type="submit" value="Szukaj"></div></form></div>
+                            
+                            
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- layout--2cols -->
+
+            </div>   
+        
+        
+</div>
+<!-- bgSand -->
+        
+        
+<section class="callCenter">
+        <div class="wrapper">
+            <div class="callCenter__grid">
+                 <img src="dist/img/call-us.png">
+
+                <div class="callCenter__mod1">
+                    <span class="callCenter__w1">Złóż zamówienie telefonicznie!</span>
+                    <span class="callCenter__d1">poniedziałek 7:30 - 17:30</span>
+                    <span class="callCenter__d1">wtorek- piątek 7:30 - 15:30</span>
+                </div>
+
+                <div class="callCenter__mod2">
+                    <span class="callCenter__w1">(58) 746 37 97</span>
+                    <span class="callCenter__d1">z telefonu komórkowego</span>
+                </div>
+
+                <div class="callCenter__mod3">
+                    <span class="callCenter__w1">0 801 000 610</span>
+                    <span class="callCenter__d1">z telefonu stacjonarnego</span>
+                </div>
+
+                <div class="callCenter__mod4">
+                    <span class="callCenter__w1">Zamów telefonicznie!</span>
+                    <span class="callCenter__d1">poniedziałek 7:30 - 17:30</span>
+                    <span class="callCenter__d1">wtorek- piątek 7:30 - 15:30</span>
+                    <a href="tel:+48587463797" class="callCenter__call">(58) 746 37 97</a>
+                </div>
+
+            </div>
+        </div>
+</section>
+        
+        
+<footer class="footer">
+    <div class="wrapper">
+
+            <div class="footer__grid">
+                <div class="footer__mod1">
+                    <div class="footer__logos">
+                        <img src="dist/img/bottom-logos.png" alt="">
+                    </div>
+
+                    <div class="footer__smbox">
+
+                        <div class="nl">
+      <p class="nl__header">Zapisz się do newslettera:</p>
+      <form name="subskrypcjaMenu" action="index.php?d=subskrypcja" method="post"><input type="hidden" name="opcja" value="wpisz">
+          <div class="nl__form br-6">
+              <input type="text" value="" maxlength="50" name="adres_email">
+              <button type="submit"><span></span></button>
+          </div>
+      </form>
+</div>
+
+                    </div>
+
+                </div>
+                <!-- footer__mod1 -->
+
+                <div class="footer__mod2">
+                        <div class="footer__icol">
+                            <p class="footer__header">O sklepie</p>
+                            <ul>
+                                <li><a href="kontakt.html" title="Dane kontaktowe">Dane kontaktowe</a></li>
+                                <li><a href="info.html" title="Informacje o sklepie">Informacje o sklepie</a></li>
+                                <li><a href="dostawa.html" title="Informacje o sklepie">Czas i koszty dostawy</a></li>
+                                <li><a href="wspolpraca-hurtowa.html" title="Współpraca hurtowa">Hurt i dropshipping</a></li>
+                                <li><a href="kontakt.html#mapa" title="Mapa dojazdu">Mapa dojazdu</a></li>
+                            </ul>
+                        </div>
+        
+                        <div class="footer__icol footer__icol--2">
+                            <p class="footer__header">Informacje</p>
+                            <ul>
+                                <li><a href="aktualnosci.html" title="Aktualności">Aktualności</a></li>
+                                <li><a href="blog.html" title="Blog">Blog & poradniki</a></li>
+                                <li><a href="https://janshop.pl/pomoc.html" title="Pytania i odpowiedzi">Pytania i odpowiedzi</a></li>
+                                <!--<li><a href="https://poland.payu.com/wp-content/uploads/sites/14/2021/06/Najczesciej_zadawane_pytania_o_Raty_PayU_3.pdf" title="Zakupy ratalne" target="_blank">Zakupy na raty</a></li>-->
+                                <li><a href="regulamin.html" title="Regulamin zakupów">Regulamin zakupów</a></li>
+                                <li><a href="polityka-prywatnosci.html" title="Polityka Prywatności">Polityka Prywatności</a></li>
+                                <li><a href="reklamacje.html" title="Formularz reklamacji">Formularz reklamacji</a></li>
+                                <li><a href="zuzyty-sprzet.html" title="Zużyty sprzęt">Utylizacja sprzętu</a></li>
+                                <li><a href="katalog.html" title="Katalog produktów">Katalog kategorii</a></li>
+                            </ul>
+                        </div>
+        
+                        <div class="footer__icol">
+                            <p class="footer__header">Twoje konto</p>
+                            <ul>
+                                <li><a href="logowanie.html" title="Logowanie">Zaloguj się</a></li>
+                                <li><a href="rejestracja.html" title="Rejestracja">Zarejestruj się</a></li>
+                                <li><a href="index.php?d=konto" title="Historia zamówień">Historia zamówień</a></li>
+                                <li><a href="index.php?d=konto&u=adresy" title="Adresy dostawy">Twoje adresy dostawy</a></li>
+                                <li><a title="Zarządzanie Cookies" id="cookieSettingsAnchor" style="cursor:pointer;">Zarządzaj Cookies</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- footer__mod2 -->
+
+<script src="dist/js/functions.js?v-10"></script>
+<script src="dist/js/catalog.js?v=326"></script>
+<link rel="stylesheet" type="text/css" href="/dist/css/jquery.rating.css" >
+<a href="" class="mobile-GoTop"><em class="icon-up-open"></em></a>
+
+
+<script>
+	        //obsluga go to top
+	        $('.mobile-GoTop').click(function(e){
+	            e.preventDefault();
+	            $('html, body').animate({
+	                scrollTop: (0)
+	            }, 500);
+	        });
+</script>
+
+
+<!-- Messenger Wtyczka czatu Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Wtyczka czatu code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+<!--
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "574335889624931");
+      chatbox.setAttribute("attribution", "biz_inbox");
+
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v12.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/pl_PL/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>-->
+
+
+            </div>
+    </div>
+</footer>
+        
+        <div class="copyrights">
+            <div class="wrapper copyrights__grid">
+                <p class="copyrights__mod1">Copyright  janshop.pl / 2015 - <script>document.write(new Date().getFullYear());</script> wszystkie prawa zastrzeżone, Global Income sp. z o.o.</p>
+                <p class="copyrights__mod2"><a href="https://www.kqs.pl/" target="_blank" rel="nofollow">Oprogramowanie KQS Store</a></p>
+            </div>
+        </div>
+        
+        
+        </div>
+        
+       
+
+<script>
+if ($('.news__pagi').length > 0 ||  $('.blog__articles').length > 0 || $('.page__content').length > 0 ) {
+	$('.sidenav').css('display', 'none');
+	$('.sidelinks').css('display', 'block');
+}
+</script></body></html><script>
+//Zmiana wersji modalu spowoduje usunięcie zgody na cookies oraz wyświetlenie modalu
+const CURRENT_COOKIE_MODAL_VERSION = 6;
+</script>
+<div style="
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 10001;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.5;
+  "
+     id="ciachaModalBackground"></div>
+<table style="
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: fixed;
+    top: 0px;
+    line-height: normal;
+    left: 0px;
+    z-index: 10001;
+  "
+       id="ciachaModal">
+    <tbody>
+        <tr>
+            <td style="width: 100%; height: 100%; vertical-align: middle">
+                <div id="kqs-box"
+                     style="
+            width: 95%;
+            height: auto;
+            position: relative;
+            margin: auto;
+            color: rgb(0, 0, 0);
+            background-color: rgb(255, 255, 255);
+            opacity: 1;
+            border-radius: 10px;
+            border: 0px;
+            box-shadow: rgb(128, 128, 128) 0px 5px 20px;
+            max-width: 600px;
+          ">
+                    <h3 style="
+              text-align: center;
+              font-weight: bolder;
+              padding-top: 1rem;
+              font-size: large;
+            ">
+                        Informacja o plikach Cookies
+                    </h3>
+                    <div id="ciachaInfoBox"
+                         style="height: 100%; padding: 20px; display: block">
+                        <div id="ciachaInfoText">
+                            Stosujemy pliki cookie w celu zapewnienia prawidłowego
+                            funkcjonowania serwisu.
+                            <br />
+                            <br />
+                            Możemy również wykorzystywać pliki cookie Google Analytics w
+                            celach analitycznych oraz do wyświetlania reklam dopasowanych do Twoich potrzeb na innych
+                            stronach WWW.
+                            <br />
+                            <br />
+                            Korzystanie z analitycznych plików cookie wymaga Twojej zgody,
+                            którą możesz wyrazić, klikając „Zaakceptuj wszystkie i zamknij”.
+                            <br />
+                            Jeżeli nie chcesz wyrazić zgody na korzystanie z określonych
+                            kategorii plików cookie,
+                            <br />
+                            kliknij "Dostosuj wybory" i zdecyduj o swoich preferencjach.
+                            <br />
+                            Wyrażoną zgodę możesz wycofać w każdym momencie poprzez zmianę
+                            preferencji plików cookie.
+                            <br />
+                            <br />
+                            <div>
+                                Administratorem Twoich danych osobowych jest Global Income sp. z
+                                o.o.
+                                <br />
+                                W pewnych przypadkach administratorami danych mogą być również
+                                nasi partnerzy.
+                            </div>
+                        </div>
+                        <hr />
+                        <div style="text-align: center; margin-top: 10px"
+                             class="cookie_przyciski">
+                            <button type="button"
+                                    style="
+                  font-family: 'Rubik';
+                  font-size: 1rem;
+                  font-weight: 300;
+                  text-align: center;
+                  height: 40px;
+                  padding: 5px 20px;
+                  cursor: pointer;
+                  outline: 0 !important;
+                "
+                                    id="showCookieOptionsBtn">
+                                Dostosuj wybory
+                            </button>
+
+                            <button type="button"
+                                    style="
+                  background: #ff8300;
+                  font-family: 'Rubik';
+                  font-size: 1rem;
+                  font-weight: 500;
+                  text-align: center;
+                  height: 40px;
+                  color: #fff;
+                  padding: 5px 20px;
+                  cursor: pointer;
+                  outline: 0 !important;
+                "
+                                    id="acceptAllAndCloseBtn">
+                                Zaakceptuj wszystkie i zamknij
+                            </button>
+                        </div>
+                    </div>
+                    <div id="cookieSettingsBox"
+                         style="height: 100%; padding: 20px; display: none">
+                        <div id="cookieOptions">
+                            <div>
+                                <input type="checkbox"
+                                       id="required"
+                                       name="interest"
+                                       checked="true"
+                                       disabled />
+                                <label style="font-weight: bold"
+                                       for="required">
+                                    Pliki Cookies niezbędne do funkcjonowania serwisu
+                                </label>
+                                <div style="margin: 10px 0">
+                                    Zapisanie niezbędnych plików Cookies jest konieczne do
+                                    prawidłowego funkcjonowania strony internetowej.
+                                    <br />
+                                    Pliki te są instalowane w szczególności na potrzeby:
+                                    <br />
+                                    <ul style="text-align: left;
+                                    margin-left: 3rem;
+                                    list-style: outside;
+                                    ">
+                                        <li>Zapamiętania sesji logowania</li>
+                                        <li>Zapamiętania zawartości koszyka</li>
+                                        <li>Zapamiętania opcji wybranych w tym oknie</li>
+                                    </ul>
+                                    <br />
+                                    W ustawieniach przeglądarki możesz ustawić blokowanie plików
+                                    Cookies, jednak spowoduje to, że niektóre części witryny będą
+                                    działać nieprawidłowo, w szczególności mechanizm koszyka,
+                                    składania zamówień i logowania się.
+                                </div>
+                            </div>
+                            <div style="margin: 10px 0">
+                                <input type="checkbox"
+                                       id="analyticsCheckbox"
+                                       name="interest" />
+                                <label style="font-weight: bold"
+                                       for="analyticsCheckbox">
+                                    Analityczne pliki Cookies
+                                </label>
+                                <div style="margin: 10px 0">
+                                    Analityczne pliki cookie umożliwiają sprawdzenie źródeł ruchu
+                                    w naszym sklepie. Pomagają nam ustalić, które strony są
+                                    częściej lub rzadziej odwiedzane oraz zrozumieć, jak
+                                    użytkownicy poruszają się po stronie. Dodatkowo dane te pozwalają na wyświetlanie na
+                                    innych stronach WWW reklam, które mogą Ciebie zainteresować. Dzięki temu możemy
+                                    badać statystyki, znajdywać elementy, które są dla użytkowników mniej jasne w użyciu
+                                    i je poprawiać. Dostawcą narzędzia jest Google Inc. z
+                                    siedzibą w USA (Google Analytics oraz Google Ads).
+                                    <br />
+                                    <br />
+                                    W naszym sklepie dane analityczne są anonimizowane i nie
+                                    pozwalają na zidentyfikowanie konkretnego odwiedzającego.
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div style="text-align: center; margin-top: 10px"
+                             class="cookie_przyciski">
+                            <button type="button"
+                                    style="
+                  background: #ff8300;
+                  font-family: 'Rubik';
+                  font-size: 1rem;
+                  font-weight: 500;
+                  text-align: center;
+                  height: 40px;
+                  color: #fff;
+                  padding: 5px 20px;
+                  cursor: pointer;
+                  outline: 0 !important;
+                "
+                                    id="acceptSelectedAndCloseBtn">
+                                Zaakceptuj wybrane i zamknij
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+window.dataLayer = window.dataLayer || [];
+
+function gtag() {
+    dataLayer.push(arguments);
+}
+gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+});
+
+function googleConsentGranted() {
+    gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+    });
+}
+
+function googleConsentDenied() {
+    gtag('consent', 'update', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied'
+    });
+}
+
+const ciachaModal = document.querySelector("#ciachaModal");
+const ciachaModalBackground = document.querySelector(
+    "#ciachaModalBackground"
+);
+const analyticsCheckbox = document.querySelector("#analyticsCheckbox");
+if (getCookie("cookie_version") != CURRENT_COOKIE_MODAL_VERSION) {
+    let reloadRequired = false;
+    if (getCookie("cookie_zgoda") == "1") {
+        reloadRequired = true;
+    }
+    setCookie("cookie_google", 0, 365);
+    setCookie("cookie_zgoda", 0, 365);
+
+    if (reloadRequired) {
+        window.location.reload();
+    }
+
+}
+if (getCookie("cookie_zgoda") != "1") {
+    ciachaModal.style.display = "table";
+    ciachaModalBackground.style.display = "table";
+}
+if (getCookie("cookie_google") == "1") {
+    analyticsCheckbox.checked = true
+}
+
+document
+    .querySelector("#showCookieOptionsBtn")
+    .addEventListener("click", () => {
+        document.querySelector("#ciachaInfoBox").style.display = "none";
+        document.querySelector("#cookieSettingsBox").style.display = "block";
+    });
+
+analyticsCheckbox.addEventListener("change", () => {
+    if (analyticsCheckbox.checked) {
+        setCookie("cookie_google", 1, 365);
+        googleConsentGranted();
+    } else {
+        setCookie("cookie_google", 0, 365);
+        googleConsentDenied();
+    }
+});
+
+document
+    .querySelector("#acceptAllAndCloseBtn")
+    .addEventListener("click", () => {
+        setCookie("cookie_google", 1, 365);
+        setCookie("cookie_zgoda", 1, 365);
+        setCookie("cookie_version", CURRENT_COOKIE_MODAL_VERSION, 365);
+        ciachaModal.remove();
+        ciachaModalBackground.remove();
+        window.location.reload();
+    });
+document
+    .querySelector("#acceptSelectedAndCloseBtn")
+    .addEventListener("click", () => {
+        setCookie("cookie_zgoda", 1, 365);
+        setCookie("cookie_version", CURRENT_COOKIE_MODAL_VERSION, 365);
+        ciachaModal.remove();
+        ciachaModalBackground.remove();
+        window.location.reload();
+    });
+try {
+    document.querySelector("#cookieSettingsAnchor").addEventListener("click", (e) => {
+        e.preventDefault()
+        ciachaModal.style.display = "table";
+        ciachaModalBackground.style.display = "table";
+    })
+} catch (e) {
+    console.log(e)
+}
+</script>
+
+<style>
+@media (pointer: coarse) {
+    .cookie_przyciski {
+        display: flex;
+        flex-wrap: wrap-reverse;
+        gap: 1rem;
+    }
+
+    .cookie_przyciski>button {
+        width: 100%;
+    }
+}
+</style>

@@ -1050,18 +1050,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-                e.preventDefault();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                });
-            });
-        });
-    }
     
     // Obsługa zapisywania zmian w produktach
     const saveButtons = document.querySelectorAll('.save-product-changes');
@@ -1317,7 +1305,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add loader effect to button
             const originalText = applyBulkUpdateBtn.innerHTML;
-            applyBulkUpdateBtn.innerHTML = '<span class="loading-spinner mr-2"></span>Aktualizacja...';
+            applyBulkUpdateBtn.innerHTML = '<span class="loading-spinner mr-2"></span>Aktualizowanie...';
             applyBulkUpdateBtn.disabled = true;
             
             // Przygotuj dane do aktualizacji
@@ -1613,7 +1601,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             window.requestAnimationFrame(step);
         }
-        
+
         // Zakończenie procesu z dodatkową obsługą powtórzeń
         function finishProcess(success, message, isRetry = false) {
             if (success) {
@@ -1628,10 +1616,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 progressBar.className = 'bg-red-500 h-2.5 rounded-full transition-all duration-500 ease-out';
                 addLogEntry(message || 'Błąd podczas generowania opisów', 'error');
                 closeBtnText.textContent = 'Zamknij';
-                
+
                 // Pokaż przycisk retry w przypadku błędu, ale nie jeśli to już było powtórzenie
                 if (!isRetry) {
-                    retryBtn.classList.remove('hidden');
+                    retryBtn.style.display = 'inline-flex';
                 }
             }
             
@@ -1716,37 +1704,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => {
                     clearTimeout(timeoutId);
                     addLogEntry(`Otrzymano odpowiedź: status ${response.status}`);
-                    
+
                     if (!response.ok) {
-                        throw new Error(`Serwer zwrócił błąd: ${response.status} ${response.statusText}`);
+                        addLogEntry(`Błąd serwera: ${response.status} ${response.statusText}`, 'error');
+                        // Attempt to parse error message from server if available
+                        response.json().then(errorData => {
+                            finishProcess(false, errorData.message || `Błąd serwera: ${response.status}`, isRetry);
+                        }).catch(() => {
+                            finishProcess(false, `Błąd serwera: ${response.status} - nie udało się sparsować odpowiedzi`, isRetry);
+                        });
+                        throw new Error(`HTTP error! status: ${response.status}`); // Stop further .then() processing
                     }
-                    
+
                     return response.json();
                 })
                 .then(data => {
                     if (data.success) {
-                        updateProgress(productIds.length, productIds.length);
-                        addLogEntry('Operacja zakończona sukcesem!', 'success');
-                        addLogEntry(data.message || 'Opisy zostały wygenerowane poprawnie.', 'success');
                         finishProcess(true, data.message, isRetry);
                     } else {
-                        addLogEntry('Serwer zgłosił błąd podczas przetwarzania.', 'error');
-                        addLogEntry(data.message || 'Nie udało się wygenerować opisów.', 'error');
-                        finishProcess(false, data.message, isRetry);
+                        finishProcess(false, data.message || 'Nieznany błąd po stronie serwera.', isRetry);
                     }
                 })
                 .catch(error => {
                     clearTimeout(timeoutId);
                     addLogEntry(`Wystąpił błąd: ${error.message}`, 'error');
-                    
+
                     // W przypadku przerwania - specjalna obsługa
                     if (error.name === 'AbortError') {
-                        addLogEntry('Przerwano żądanie ze względu na przekroczenie czasu oczekiwania.', 'error');
                         finishProcess(false, 'Przekroczono czas oczekiwania na odpowiedź', isRetry);
                     } else {
-                        // Jeśli fetch się nie powiódł, spróbuj użyć XMLHttpRequest jako fallback
-                        addLogEntry('Próba użycia alternatywnej metody komunikacji...', 'warning');
-                        useFallbackXHR(isRetry);
+                        finishProcess(false, `Błąd sieci lub żądania: ${error.message}`, isRetry);
                     }
                 });
                 
@@ -1770,46 +1757,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Obsługa odpowiedzi serwera
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 1) { // OPENED
-                        addLogEntry('Nawiązywanie połączenia z serwerem...');
                         progressStatus.textContent = 'Łączenie...';
                     } else if (xhr.readyState === 2) { // HEADERS_RECEIVED
-                        addLogEntry('Serwer przyjął żądanie.');
                         progressStatus.textContent = 'Żądanie zaakceptowane';
                     } else if (xhr.readyState === 3) { // LOADING
                         progressStatus.textContent = 'Przetwarzanie...';
                     } else if (xhr.readyState === 4) { // DONE
-                        if (xhr.status >= 200 && xhr.status < 300) {
+                        if (xhr.status === 200) {
                             try {
-                                const response = JSON.parse(xhr.responseText);
-                                
-                                if (response.success) {
-                                    updateProgress(productIds.length, productIds.length);
-                                    addLogEntry('Operacja zakończona sukcesem!', 'success');
-                                    addLogEntry(response.message || 'Opisy zostały wygenerowane poprawnie.', 'success');
-                                    finishProcess(true, response.message, isXHRRetry);
+                                const responseData = JSON.parse(xhr.responseText);
+                                addLogEntry('Odpowiedź serwera przetworzona pomyślnie (XHR).', 'success');
+                                if (responseData.success) {
+                                    finishProcess(true, responseData.message, isXHRRetry);
                                 } else {
-                                    addLogEntry('Wystąpił błąd po stronie serwera.', 'error');
-                                    addLogEntry(response.message || 'Nie udało się wygenerować opisów.', 'error');
-                                    finishProcess(false, response.message, isXHRRetry);
+                                    finishProcess(false, responseData.message || 'Błąd serwera (XHR)', isXHRRetry);
                                 }
                             } catch (e) {
-                                addLogEntry('Błąd podczas przetwarzania odpowiedzi z serwera.', 'error');
-                                addLogEntry(e.message, 'error');
-                                finishProcess(false, 'Nie można przetworzyć odpowiedzi serwera', isXHRRetry);
+                                addLogEntry(`Błąd parsowania odpowiedzi JSON (XHR): ${e.message}`, 'error');
+                                finishProcess(false, 'Błąd przetwarzania odpowiedzi serwera (XHR)', isXHRRetry);
                             }
                         } else {
-                            addLogEntry(`Serwer zwrócił błąd: ${xhr.status} ${xhr.statusText}`, 'error');
-                            finishProcess(false, `Błąd serwera: ${xhr.status} ${xhr.statusText}`, isXHRRetry);
+                            addLogEntry(`Błąd serwera (XHR): status ${xhr.status}`, 'error');
+                            finishProcess(false, `Błąd serwera (XHR): ${xhr.status}`, isXHRRetry);
                         }
                     }
                 };
-                
+
                 // Obsługa postępu
                 xhr.upload.onprogress = function(event) {
                     if (event.lengthComputable) {
-                        const percentComplete = Math.round((event.loaded / event.total) * 100);
-                        updateProgress(Math.ceil(productIds.length * (percentComplete / 100)), productIds.length);
-                        addLogEntry(`Wysyłanie danych: ${percentComplete}%`);
+                        // This block can be used to log upload progress if needed
+                        // const percentComplete = Math.round((event.loaded / event.total) * 100);
+                        // addLogEntry(`Postęp wysyłania (XHR): ${percentComplete}%`);
                     }
                 };
                 
@@ -1878,14 +1857,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (simulationStep % 10 === 0) {
                         const randomIndex = Math.floor(Math.random() * progressMessages.length);
                         const message = progressMessages[randomIndex];
-                        
-                        // Nie powtarzaj ostatniego komunikatu
-                        if (statusLog.lastElementChild && !statusLog.lastElementChild.innerHTML.includes(message)) {
+
+                        // Nie powtarzaj ostatniego komunikatu, lub dodaj jeśli log jest pusty
+                        if (!statusLog.lastElementChild || !statusLog.lastElementChild.innerHTML.includes(message)) {
                             addLogEntry(message);
-                        } else {
-                            // Wybierz inny komunikat, jeśli powtarza się ostatni
-                            const alternativeIndex = (randomIndex + 1) % progressMessages.length;
-                            addLogEntry(progressMessages[alternativeIndex]);
                         }
                     }
                     
