@@ -7974,3 +7974,115 @@ AssertionError: write() before start_response
 2025-05-22 19:48:20,344 - INFO - 145.239.89.63 - - [22/May/2025 19:48:20] "GET /kategoria/Dziecko/Pojemniki%20na%20zabawki HTTP/1.1" 200 -
 2025-05-22 19:48:30,252 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
 2025-05-22 19:48:30,292 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:48:45,293 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:48:45,334 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:48:45,836 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 19:48:45,836 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 19:49:00,334 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:49:00,376 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:49:15,376 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:49:15,418 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:49:30,418 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:49:30,462 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:49:44,855 - INFO - 145.239.89.63 - - [22/May/2025 19:49:44] "GET /?site=sklep HTTP/1.1" 200 -
+2025-05-22 19:49:45,462 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:49:45,502 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:50:00,503 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:50:00,545 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:50:13,374 - INFO - 145.239.89.63 - - [22/May/2025 19:50:13] "GET /produkt/pompa-piaskowa-7900-lh-intex-26646 HTTP/1.1" 200 -
+2025-05-22 19:50:15,546 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:50:15,588 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:50:15,658 - INFO - 145.239.89.63 - - [22/May/2025 19:50:15] "GET /api/polecane-produkty HTTP/1.1" 200 -
+2025-05-22 19:50:30,589 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:50:30,630 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:50:41,847 - INFO - 145.239.89.63 - - [22/May/2025 19:50:41] "GET /produkt/pompa-filtrujaca-piaskowa-12000-lh-intex-26652-50-kg HTTP/1.1" 200 -
+2025-05-22 19:50:44,927 - INFO - 145.239.89.63 - - [22/May/2025 19:50:44] "GET /api/polecane-produkty HTTP/1.1" 200 -
+2025-05-22 19:50:45,631 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:50:45,675 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:51:00,676 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:51:00,717 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:51:15,718 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:51:15,760 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:51:30,760 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:51:30,801 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:51:38,119 - INFO - 145.239.89.63 - - [22/May/2025 19:51:38] "GET /produkt/pompa-filtrujaca-piaskowa-7900-lh-intex-26646-piasek-25-kg HTTP/1.1" 200 -
+2025-05-22 19:51:45,801 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:51:45,847 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:52:00,847 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:52:00,890 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:52:06,609 - INFO - 145.239.89.63 - - [22/May/2025 19:52:06] "GET /produkt/pompa-filtrujaca-piaskowa-10500-lh-intex-26648-50-kg-piasku HTTP/1.1" 200 -
+2025-05-22 19:52:10,762 - INFO - 145.239.89.63 - - [22/May/2025 19:52:10] "GET /api/polecane-produkty HTTP/1.1" 200 -
+2025-05-22 19:52:15,890 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:52:15,934 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:52:30,935 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:52:30,977 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:52:35,120 - INFO - 145.239.89.63 - - [22/May/2025 19:52:35] "GET /produkt/pompa-piaskowa-do-basenow-11355-lh-bestway-58486 HTTP/1.1" 200 -
+2025-05-22 19:52:45,978 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:52:46,020 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:53:01,020 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:53:01,062 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:53:03,609 - INFO - 145.239.89.63 - - [22/May/2025 19:53:03] "GET /produkt/pompa-filtrujaca-piaskowa-12000-lh-intex-26652 HTTP/1.1" 200 -
+2025-05-22 19:53:16,062 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:53:16,104 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:53:31,104 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:53:31,146 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:53:46,146 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:53:46,188 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:53:53,937 - INFO - 145.239.89.63 - - [22/May/2025 19:53:53] "GET /api/polecane-produkty HTTP/1.1" 200 -
+2025-05-22 19:53:59,894 - INFO - 145.239.89.63 - - [22/May/2025 19:53:59] "GET /produkt/pompa-filtrujaca-piaskowa-5700-lh-intex-26644 HTTP/1.1" 200 -
+2025-05-22 19:54:01,188 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:54:01,230 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:54:16,230 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:54:16,275 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:54:28,392 - INFO - 145.239.89.63 - - [22/May/2025 19:54:28] "GET /produkt/trampolina-ogrodowa-13ft404cm-z-siatka-wewnetrzna-i-drabinka-neo-sport HTTP/1.1" 200 -
+2025-05-22 19:54:28,829 - INFO - 145.239.89.63 - - [22/May/2025 19:54:28] "GET /produkt/pompa-filtrujaca-piaskowa-12000-lh-intex-26652-50-kg-piasku HTTP/1.1" 200 -
+2025-05-22 19:54:31,276 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:54:31,315 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:54:46,095 - INFO - 145.239.89.63 - - [22/May/2025 19:54:46] "GET /produkt/pompa-filtrujaca-piaskowa-7900-lh-intex-26646 HTTP/1.1" 200 -
+2025-05-22 19:54:46,316 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:54:46,357 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:55:01,358 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:55:01,399 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:55:16,400 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:55:16,441 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:55:21,199 - INFO - 145.239.89.63 - - [22/May/2025 19:55:21] "GET /produkt/pompa-filtrujaca-piaskowa-5700-lh-intex-26644-25-kg-piasku HTTP/1.1" 200 -
+2025-05-22 19:55:31,442 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:55:31,483 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:55:46,484 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:55:46,529 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:55:56,317 - INFO - 145.239.89.63 - - [22/May/2025 19:55:56] "GET /produkt/pompa-filtrujaca-piaskowa-10500-lh-intex-26648 HTTP/1.1" 200 -
+2025-05-22 19:56:01,529 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:56:01,572 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:56:16,572 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:56:16,620 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:56:31,431 - INFO - 145.239.89.63 - - [22/May/2025 19:56:31] "GET /produkt/fotel-biurowy-sofotel-batory-czarny-240800 HTTP/1.1" 200 -
+2025-05-22 19:56:31,620 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:56:31,662 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:56:46,662 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:56:46,703 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:57:01,703 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:57:01,751 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:57:06,564 - INFO - 145.239.89.63 - - [22/May/2025 19:57:06] "GET /produkt/fotel-biurowy-sofotel-werona-czarny-2581 HTTP/1.1" 200 -
+2025-05-22 19:57:16,752 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:57:16,795 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:57:31,795 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:57:31,839 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:57:34,301 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 19:57:34,301 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 19:57:41,682 - INFO - 145.239.89.63 - - [22/May/2025 19:57:41] "GET /produkt/fotel-biurowy-sofotel-werona-brazowy-2582 HTTP/1.1" 200 -
+2025-05-22 19:57:46,839 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:57:46,883 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:58:01,884 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:58:01,925 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:58:16,831 - INFO - 145.239.89.63 - - [22/May/2025 19:58:16] "GET /produkt/fotel-biurowy-sofotel-werona-czarny-2580 HTTP/1.1" 200 -
+2025-05-22 19:58:16,925 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:58:16,965 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:58:31,966 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:58:32,011 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:58:46,400 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 19:58:46,400 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 19:58:47,011 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:58:47,053 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:58:51,920 - INFO - 145.239.89.63 - - [22/May/2025 19:58:51] "GET /produkt/fotel-biurowy-sofotel-porto-materialowy-czarny HTTP/1.1" 200 -
+2025-05-22 19:59:02,054 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:59:02,095 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
