@@ -2,44 +2,8 @@
   "url": "https://ergo.enode.ovh/products.xml",
   "interval_minutes": 10,
   "auto_start": false,
-  "last_download": "2025-05-22T21:57:07.908845",
+  "last_download": "2025-05-22T22:14:41.940779",
   "download_history": [
-    {
-      "timestamp": "2025-05-20T22:14:55.910004",
-      "filename": "data/products_latest.xml",
-      "success": true,
-      "size_bytes": 9962140
-    },
-    {
-      "timestamp": "2025-05-20T22:17:32.789149",
-      "filename": "data/products_latest.xml",
-      "success": true,
-      "size_bytes": 9962140
-    },
-    {
-      "timestamp": "2025-05-20T22:18:27.206597",
-      "filename": "data/products_latest.xml",
-      "success": true,
-      "size_bytes": 9962140
-    },
-    {
-      "timestamp": "2025-05-20T22:19:13.177867",
-      "filename": "data/products_latest.xml",
-      "success": true,
-      "size_bytes": 9962140
-    },
-    {
-      "timestamp": "2025-05-20T22:22:01.181296",
-      "filename": "data/products_latest.xml",
-      "success": true,
-      "size_bytes": 9962140
-    },
-    {
-      "timestamp": "2025-05-20T22:24:09.898826",
-      "filename": "data/products_latest.xml",
-      "success": true,
-      "size_bytes": 9962140
-    },
     {
       "timestamp": "2025-05-20T22:24:31.161795",
       "filename": "data/products_latest.xml",
@@ -600,6 +564,42 @@
     },
     {
       "timestamp": "2025-05-22T21:57:08.331640",
+      "filename": "data/products_latest.xml",
+      "success": true,
+      "size_bytes": 9962140
+    },
+    {
+      "timestamp": "2025-05-22T22:05:55.651333",
+      "filename": "data/products_latest.xml",
+      "success": true,
+      "size_bytes": 9962140
+    },
+    {
+      "timestamp": "2025-05-22T22:06:42.582056",
+      "filename": "data/products_latest.xml",
+      "success": true,
+      "size_bytes": 9962140
+    },
+    {
+      "timestamp": "2025-05-22T22:13:14.403483",
+      "filename": "data/products_latest.xml",
+      "success": true,
+      "size_bytes": 9962140
+    },
+    {
+      "timestamp": "2025-05-22T22:13:27.237631",
+      "filename": "data/products_latest.xml",
+      "success": true,
+      "size_bytes": 9962140
+    },
+    {
+      "timestamp": "2025-05-22T22:14:04.299399",
+      "filename": "data/products_latest.xml",
+      "success": true,
+      "size_bytes": 9962140
+    },
+    {
+      "timestamp": "2025-05-22T22:14:42.389154",
       "filename": "data/products_latest.xml",
       "success": true,
       "size_bytes": 9962140

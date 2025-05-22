@@ -15,30 +15,10 @@ from backup_manager import BackupManager
 # Initialize Flask app
 app = Flask(__name__)
 app.secret_key = 'sklep-internetowy-staly-klucz-sesji'  # Stały klucz sesji
-
-# Konfiguracja SocketIO z lepszą obsługą CORS i debugowaniem
-# Opcja cors_allowed_origins="*" pozwala na połączenia z dowolnych domen (możesz to ograniczyć w środowisku produkcyjnym)
-# Dla domeny sklepergo.pl użyj cors_allowed_origins=["https://sklepergo.pl", "http://sklepergo.pl"]
-socketio = SocketIO(
-    app, 
-    cors_allowed_origins="*",
-    logger=True,  # Włącza logowanie SocketIO (opcjonalnie)
-    engineio_logger=True,  # Włącza logowanie Engine.IO (opcjonalnie)
-    ping_timeout=30,  # Zwiększony timeout dla pingów
-    ping_interval=15,  # Częstotliwość pingów
-    async_mode='threading'  # Tryb asynchroniczny (alternatywnie 'eventlet' dla lepszej wydajności)
-)
+socketio = SocketIO(app)
 
 # Ustawienie czasu trwania sesji na 24 godziny
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=24)
-
-# Dodatkowa konfiguracja aby zapobiec błędom CORS
-@app.after_request
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
-    response.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE'
-    return response
 
 # Inicjalizacja modułu pobierania XML
 xml_downloader = XmlDownloader(interval_minutes=10)
@@ -1030,18 +1010,22 @@ def add_product():
             'name': request.form.get('name'),
             'category': request.form.get('category'),
             'description': request.form.get('description', ''),
-            'price': float(request.form.get('price', 0)),
+            # 'price' (cena sprzedaży brutto) będzie teraz obliczana lub brana bezpośrednio
             'stock': int(request.form.get('stock', 0)),
             'available_for_sale': request.form.get('available_for_sale') == 'true'
         }
         
-        # Opcjonalne pola
-        if 'original_price' in request.form and request.form.get('original_price'):
-            product_data['original_price'] = float(request.form.get('original_price'))
+        # Ceny i marża
+        if request.form.get('price'): # Bezpośrednio podana cena sprzedaży brutto
+            product_data['price'] = float(request.form.get('price'))
         
-        if 'markup_percent' in request.form and request.form.get('markup_percent'):
+        if request.form.get('original_price'): # Cena netto zakupu (przemianowane z original_price w formularzu)
+            product_data['price_net_cost'] = float(request.form.get('original_price'))
+        
+        if request.form.get('markup_percent'):
             product_data['markup_percent'] = float(request.form.get('markup_percent'))
-        
+
+        # Opcjonalne pola
         if 'shipping_time' in request.form and request.form.get('shipping_time'):
             product_data['shipping_time'] = request.form.get('shipping_time')
         
@@ -1282,159 +1266,13 @@ def generate_product_descriptions():
 # Przykład emitowania powiadomienia o nowym produkcie (możesz wywołać to np. po dodaniu produktu z XML w przyszłości)
 @socketio.on('announce_new_product')
 def handle_new_product(data):
-    try:
-        print(f"[SocketIO] Announcing new product: {data.get('name')}")
-        socketio.emit('new_product', data)
-    except Exception as e:
-        print(f"[SocketIO] Error in handle_new_product: {str(e)}")
-
-# Funkcja do powiadomienia o zmianie dostępności produktu
-def notify_product_availability_change(product_id, is_available, product_name=None):
-    """
-    Powiadamia klientów o zmianie dostępności produktu
-    
-    Args:
-        product_id: ID produktu
-        is_available: True jeśli produkt jest dostępny, False w przeciwnym razie
-        product_name: Opcjonalna nazwa produktu
-    """
-    try:
-        # Znajdź klientów obserwujących ten produkt
-        clients_to_notify = []
-        for sid, product_ids in watched_products.items():
-            if product_id in product_ids:
-                clients_to_notify.append(sid)
-                
-        # Jeśli nie mamy nazwy produktu, pobierz ją z bazy danych
-        if not product_name:
-            # Pobierz dane produktu z pliku JSON
-            try:
-                with open('data/products.json', 'r') as f:
-                    products = json.load(f)
-                    for product in products:
-                        if str(product.get('id')) == str(product_id):
-                            product_name = product.get('name', 'Nieznany produkt')
-                            break
-            except:
-                product_name = f"Produkt #{product_id}"
-        
-        # Powiadom indywidualnie klientów obserwujących ten produkt
-        for sid in clients_to_notify:
-            socketio.emit('product_availability', {
-                'product_id': product_id,
-                'available': is_available,
-                'name': product_name,
-                'notify': True,
-                'timestamp': time.time()
-            }, room=sid)
-            
-        # Wyślij ogólne powiadomienie dla wszystkich (bez flagi notify)
-        socketio.emit('product_availability', {
-            'product_id': product_id,
-            'available': is_available,
-            'name': product_name,
-            'notify': False,
-            'timestamp': time.time()
-        })
-        
-        print(f"[SocketIO] Product availability notification sent: {product_id} ({product_name}) - {'Available' if is_available else 'Unavailable'} to {len(clients_to_notify)} watching clients")
-        return len(clients_to_notify)
-    except Exception as e:
-        print(f"[SocketIO] Error in notify_product_availability_change: {str(e)}")
-        return 0
+    socketio.emit('new_product', data)
 
 # WebSocket event dla aktualizacji koszyka
 @socketio.on('cart_updated')
 def handle_cart_update(data):
-    try:
-        # Zapisz informacje diagnostyczne
-        print(f"[SocketIO] Cart update from {request.sid}: {data.get('count')} items, sum: {data.get('sum')}")
-        
-        # Broadcast do wszystkich podłączonych klientów (symulacja synchronizacji koszyka)
-        socketio.emit('cart_update', data, broadcast=True)
-    except Exception as e:
-        print(f"[SocketIO] Error in handle_cart_update: {str(e)}")
-
-# Obsługa śledzenia dostępności produktów
-watched_products = {}  # { session_id: [product_ids] }
-socket_sessions = {}   # { session_id: {'user_id': user_id, 'last_activity': timestamp} }
-
-@socketio.on('watch_product')
-def handle_watch_product(data):
-    try:
-        product_id = data.get('product_id')
-        if not product_id:
-            return
-        
-        # Zapisz informację o obserwowanym produkcie
-        if request.sid not in watched_products:
-            watched_products[request.sid] = []
-        
-        if product_id not in watched_products[request.sid]:
-            watched_products[request.sid].append(product_id)
-            print(f"[SocketIO] Client {request.sid} is now watching product {product_id}")
-            
-            # Potwierdzenie dla klienta
-            socketio.emit('watch_product_confirm', {
-                'product_id': product_id,
-                'status': 'success'
-            }, room=request.sid)
-    except Exception as e:
-        print(f"[SocketIO] Error in handle_watch_product: {str(e)}")
-        socketio.emit('error', {'message': 'Nie udało się obserwować produktu'}, room=request.sid)
-
-@socketio.on('register_user')
-def handle_register_user(data):
-    try:
-        user_id = data.get('user_id')
-        if not user_id:
-            return
-            
-        socket_sessions[request.sid] = {
-            'user_id': user_id,
-            'last_activity': time.time()
-        }
-        print(f"[SocketIO] User {user_id} registered with session {request.sid}")
-    except Exception as e:
-        print(f"[SocketIO] Error in handle_register_user: {str(e)}")
-
-@socketio.on('connect')
-def handle_connect():
-    try:
-        # Pozyskanie informacji o kliencie
-        user_agent = request.headers.get('User-Agent', 'Unknown')
-        origin = request.headers.get('Origin', 'Unknown')
-        referer = request.headers.get('Referer', 'Unknown')
-        
-        print(f"[SocketIO] Client connected: {request.sid}")
-        print(f"[SocketIO] Connection details: Origin={origin}, Referer={referer}")
-        
-        # Wyślij powitalną wiadomość do klienta
-        socketio.emit('welcome', {
-            'message': 'Połączono z serwerem w czasie rzeczywistym',
-            'socket_id': request.sid,
-            'timestamp': time.time()
-        }, room=request.sid)
-    except Exception as e:
-        print(f"[SocketIO] Error in handle_connect: {str(e)}")
-
-@socketio.on('disconnect')
-def handle_disconnect():
-    try:
-        # Usuń obserwowane produkty dla tego klienta
-        if request.sid in watched_products:
-            print(f"[SocketIO] Client {request.sid} was watching products: {watched_products[request.sid]}")
-            del watched_products[request.sid]
-            
-        # Usuń informacje o sesji
-        if request.sid in socket_sessions:
-            user_id = socket_sessions[request.sid].get('user_id')
-            print(f"[SocketIO] User {user_id} disconnected from session {request.sid}")
-            del socket_sessions[request.sid]
-            
-        print(f"[SocketIO] Client disconnected: {request.sid}")
-    except Exception as e:
-        print(f"[SocketIO] Error in handle_disconnect: {str(e)}")
+    # Broadcast do wszystkich podłączonych klientów (symulacja synchronizacji koszyka)
+    socketio.emit('cart_update', data, broadcast=True)
 
 @app.route('/admin/product-list/<int:list_id>', methods=['GET'])
 @admin_auth.login_required
@@ -1726,6 +1564,10 @@ def ajax_add_to_cart():
     for item in cart:
         if item.get('id') == product_id:
             item['quantity'] = item.get('quantity', 1) + int(quantity)
+            # Aktualizuj cenę i inne dane produktu, na wypadek gdyby się zmieniły
+            item['price'] = product.get('price')
+            item['name'] = product.get('name')
+            item['image'] = product.get('image')
             product_in_cart = True
             break
     
@@ -1752,36 +1594,6 @@ def ajax_add_to_cart():
         'cart_count': len(cart),
         'cart_sum': "{:.2f}".format(total)
     })
-
-# Demo route dla testowania powiadomień WebSocket
-@app.route('/demo/toggle-availability/<int:product_id>')
-def demo_toggle_availability(product_id):
-    try:
-        # Pobierz bieżący status produktu
-        product = product_manager.get_product_by_id(product_id)
-        
-        if not product:
-            return jsonify({'error': 'Produkt nie istnieje'}), 404
-            
-        # Odwróć status
-        current_status = product.get('available_for_sale', False)
-        new_status = not current_status
-        
-        # Aktualizuj status
-        success = product_manager.set_product_availability(product_id, new_status)
-        
-        if success:
-            return jsonify({
-                'success': True,
-                'product_id': product_id,
-                'product_name': product.get('name'),
-                'new_status': 'available' if new_status else 'unavailable'
-            })
-        else:
-            return jsonify({'error': 'Nie udało się zaktualizować statusu produktu'}), 500
-            
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     # Uruchomienie pobierania XML w tle
