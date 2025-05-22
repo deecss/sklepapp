@@ -7433,3 +7433,132 @@ AssertionError: write() before start_response
 2025-05-22 18:56:06,278 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
 2025-05-22 18:56:21,278 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
 2025-05-22 18:56:21,320 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:56:36,320 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:56:36,365 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:56:51,366 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:56:51,406 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:57:06,406 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:57:06,449 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:57:21,449 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:57:21,492 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:57:31,134 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 18:57:31,134 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 18:57:36,492 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:57:36,534 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:57:51,534 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:57:51,577 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:58:06,578 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:58:06,619 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:58:21,620 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:58:21,661 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:58:36,661 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:58:36,703 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:58:43,314 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 18:58:43,315 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 18:58:51,704 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:58:51,745 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:59:06,746 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:59:06,789 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:59:21,789 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:59:21,829 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:59:36,829 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:59:36,871 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:59:51,871 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:59:51,914 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:00:06,914 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:00:06,959 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:00:20,510 - INFO - 145.239.89.63 - - [22/May/2025 19:00:20] "[33mGET /robots.txt HTTP/1.1[0m" 404 -
+2025-05-22 19:00:20,736 - INFO - 145.239.89.63 - - [22/May/2025 19:00:20] "GET /kategoria/Akcesoria%20plażowe/Materace%20do%20wody HTTP/1.1" 200 -
+2025-05-22 19:00:21,938 - INFO - 145.239.89.63 - - [22/May/2025 19:00:21] "GET /kategoria/Baseny/Zestawy%20basenowe HTTP/1.1" 200 -
+2025-05-22 19:00:21,959 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:00:22,003 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:00:22,608 - INFO - 145.239.89.63 - - [22/May/2025 19:00:22] "GET /kategoria/Higiena%20jamy%20ustnej/Szczoteczki%20soniczne HTTP/1.1" 200 -
+2025-05-22 19:00:23,046 - INFO - 145.239.89.63 - - [22/May/2025 19:00:23] "GET /kategoria/Chemia%20basenowa HTTP/1.1" 200 -
+2025-05-22 19:00:23,477 - INFO - 145.239.89.63 - - [22/May/2025 19:00:23] "GET /static/notifications.js HTTP/1.1" 200 -
+2025-05-22 19:00:23,959 - INFO - 145.239.89.63 - - [22/May/2025 19:00:23] "GET /kategoria/Dom/Suszarki%20na%20pranie HTTP/1.1" 200 -
+2025-05-22 19:00:24,409 - INFO - 145.239.89.63 - - [22/May/2025 19:00:24] "GET /static/socket-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:24,893 - INFO - 145.239.89.63 - - [22/May/2025 19:00:24] "GET /kategoria/Akcesoria%20basenowe/Pozostałe%20akcesoria HTTP/1.1" 200 -
+2025-05-22 19:00:25,365 - INFO - 145.239.89.63 - - [22/May/2025 19:00:25] "GET /?add-to-cart=48572 HTTP/1.1" 200 -
+2025-05-22 19:00:25,814 - INFO - 145.239.89.63 - - [22/May/2025 19:00:25] "GET /static/product-description.css HTTP/1.1" 200 -
+2025-05-22 19:00:26,310 - INFO - 145.239.89.63 - - [22/May/2025 19:00:26] "GET /kategoria/Materace%20dmuchane/Materace%20Bestway HTTP/1.1" 200 -
+2025-05-22 19:00:26,773 - INFO - 145.239.89.63 - - [22/May/2025 19:00:26] "GET /static/notifications.js HTTP/1.1" 200 -
+2025-05-22 19:00:27,250 - INFO - 145.239.89.63 - - [22/May/2025 19:00:27] "GET /static/product-description.css HTTP/1.1" 200 -
+2025-05-22 19:00:27,724 - INFO - 145.239.89.63 - - [22/May/2025 19:00:27] "GET /static/category-dropdown.js HTTP/1.1" 200 -
+2025-05-22 19:00:28,206 - INFO - 145.239.89.63 - - [22/May/2025 19:00:28] "GET /static/socket-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:28,688 - INFO - 145.239.89.63 - - [22/May/2025 19:00:28] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:29,170 - INFO - 145.239.89.63 - - [22/May/2025 19:00:29] "GET /static/socket-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:29,651 - INFO - 145.239.89.63 - - [22/May/2025 19:00:29] "GET /static/product-description.css HTTP/1.1" 200 -
+2025-05-22 19:00:30,354 - INFO - 145.239.89.63 - - [22/May/2025 19:00:30] "GET /static/notifications.js HTTP/1.1" 200 -
+2025-05-22 19:00:30,619 - INFO - 145.239.89.63 - - [22/May/2025 19:00:30] "GET /static/category-dropdown.js HTTP/1.1" 200 -
+2025-05-22 19:00:31,108 - INFO - 145.239.89.63 - - [22/May/2025 19:00:31] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:31,593 - INFO - 145.239.89.63 - - [22/May/2025 19:00:31] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:32,073 - INFO - 145.239.89.63 - - [22/May/2025 19:00:32] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:32,565 - INFO - 145.239.89.63 - - [22/May/2025 19:00:32] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:33,051 - INFO - 145.239.89.63 - - [22/May/2025 19:00:33] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:33,542 - INFO - 145.239.89.63 - - [22/May/2025 19:00:33] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:37,003 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:00:37,047 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:00:39,075 - INFO - 145.239.89.63 - - [22/May/2025 19:00:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-22 19:00:52,047 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:00:52,091 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:00:54,795 - INFO - 145.239.89.63 - - [22/May/2025 19:00:54] "GET /nowosci HTTP/1.1" 200 -
+2025-05-22 19:00:55,457 - INFO - 145.239.89.63 - - [22/May/2025 19:00:55] "GET /kategoria/Plaża HTTP/1.1" 200 -
+2025-05-22 19:00:55,885 - INFO - 145.239.89.63 - - [22/May/2025 19:00:55] "GET /kategoria/Ogród/Plandeki HTTP/1.1" 200 -
+2025-05-22 19:00:56,325 - INFO - 145.239.89.63 - - [22/May/2025 19:00:56] "GET /static/notifications.js HTTP/1.1" 200 -
+2025-05-22 19:00:56,815 - INFO - 145.239.89.63 - - [22/May/2025 19:00:56] "GET /kategoria/Akcesoria%20basenowe/Maty%20pod%20basen HTTP/1.1" 200 -
+2025-05-22 19:00:57,530 - INFO - 145.239.89.63 - - [22/May/2025 19:00:57] "GET /kategoria/Baseny/Dmuchane%20SPA HTTP/1.1" 200 -
+2025-05-22 19:00:57,969 - INFO - 145.239.89.63 - - [22/May/2025 19:00:57] "GET /static/category-dropdown.js HTTP/1.1" 200 -
+2025-05-22 19:00:58,438 - INFO - 145.239.89.63 - - [22/May/2025 19:00:58] "GET /kategoria/Plaża/Deski%20SUP HTTP/1.1" 200 -
+2025-05-22 19:00:58,905 - INFO - 145.239.89.63 - - [22/May/2025 19:00:58] "GET /static/product-description.css HTTP/1.1" 200 -
+2025-05-22 19:00:59,605 - INFO - 145.239.89.63 - - [22/May/2025 19:00:59] "GET /static/socket-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:00:59,890 - INFO - 145.239.89.63 - - [22/May/2025 19:00:59] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:01:00,382 - INFO - 145.239.89.63 - - [22/May/2025 19:01:00] "GET /static/search-enhanced.js HTTP/1.1" 200 -
+2025-05-22 19:01:07,092 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:01:07,135 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:01:22,135 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:01:22,182 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:01:26,909 - INFO - 145.239.89.63 - - [22/May/2025 19:01:26] "GET /kategoria/Akcesoria%20do%20basenów HTTP/1.1" 200 -
+2025-05-22 19:01:27,348 - INFO - 145.239.89.63 - - [22/May/2025 19:01:27] "GET /polityka-prywatnosci HTTP/1.1" 200 -
+2025-05-22 19:01:37,183 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:01:37,228 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:01:52,228 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:01:52,272 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:02:07,272 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:02:07,313 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:02:22,313 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:02:22,354 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:02:37,354 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:02:37,397 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:02:51,403 - INFO - 145.239.89.63 - - [22/May/2025 19:02:51] "GET /kategoria/Trampoliny/Akcesoria%20do%20trampolin HTTP/1.1" 200 -
+2025-05-22 19:02:52,397 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:02:52,437 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:03:07,438 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:03:07,487 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:03:22,487 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:03:22,527 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:03:37,527 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:03:37,571 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:03:52,571 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:03:52,617 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:04:07,618 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:04:07,676 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:04:22,677 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:04:22,717 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:04:37,718 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:04:37,759 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:04:52,759 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:04:52,801 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:05:07,801 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:05:07,842 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:05:22,842 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:05:22,883 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:05:37,883 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:05:37,927 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:05:52,927 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:05:52,968 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:06:07,969 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:06:08,013 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:06:23,013 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:06:23,059 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 19:06:38,060 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 19:06:38,104 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
