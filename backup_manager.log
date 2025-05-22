@@ -7342,3 +7342,94 @@ AssertionError: write() before start_response
 2025-05-22 18:45:34,421 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
 2025-05-22 18:45:49,421 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
 2025-05-22 18:45:49,461 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:46:04,463 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:46:04,519 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:46:19,519 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:46:19,562 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:46:34,562 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:46:34,615 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:46:49,615 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:46:49,661 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:47:04,661 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:47:04,709 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:47:11,014 - INFO - Utworzono kopię zapasową: data/backups/products_20250522_184711.json
+2025-05-22 18:47:11,016 - INFO - Usunięto starą kopię zapasową: products_20250522_124708.json
+2025-05-22 18:47:19,710 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:47:19,751 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:47:30,647 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 18:47:30,647 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 18:47:34,751 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:47:34,793 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:47:49,794 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:47:49,836 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:48:04,836 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:48:04,880 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:48:19,881 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:48:19,923 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:48:34,923 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:48:34,967 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:48:42,841 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 18:48:42,842 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 18:48:49,968 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:48:50,009 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:49:05,010 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:49:05,060 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:49:20,061 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:49:20,101 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:49:35,101 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:49:35,145 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:49:50,146 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:49:50,187 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:50:05,187 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:50:05,241 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:50:20,241 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:50:20,281 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:50:35,282 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:50:35,323 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:50:50,324 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:50:50,369 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:51:05,369 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:51:05,409 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:51:20,409 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:51:20,453 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:51:35,453 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:51:35,495 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:51:50,495 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:51:50,542 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:52:05,543 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:52:05,586 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:52:14,897 - INFO - 145.239.89.63 - - [22/May/2025 18:52:14] "GET / HTTP/1.1" 200 -
+2025-05-22 18:52:20,586 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:52:20,630 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:52:35,631 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:52:35,671 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:52:50,671 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:52:50,713 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:53:05,713 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:53:05,754 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:53:20,755 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:53:20,795 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:53:35,796 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:53:35,839 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:53:50,840 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:53:50,881 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:54:05,881 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:54:05,923 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:54:20,923 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:54:20,971 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:54:35,971 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:54:36,013 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:54:51,013 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:54:51,056 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:55:06,056 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:55:06,098 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:55:21,099 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:55:21,141 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:55:36,142 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:55:36,190 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:55:51,190 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:55:51,233 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:56:06,233 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:56:06,278 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
+2025-05-22 18:56:21,278 - INFO - CyhOhpG6m6iqis6lAAAC: Sending packet PING data None
+2025-05-22 18:56:21,320 - INFO - CyhOhpG6m6iqis6lAAAC: Received packet PONG data 
