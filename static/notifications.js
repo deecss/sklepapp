@@ -1,7 +1,6 @@
 /**
  * System powiadomień dla sklepu
  * Dodaje funkcję showNotification do globalnego obiektu window
- * @version 1.2.0 - Dodane wsparcie dla powiadomień z Socket.IO
  */
 
 document.addEventListener('DOMContentLoaded', function() {

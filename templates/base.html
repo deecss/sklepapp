@@ -358,12 +358,7 @@
         {% endwith %}
         {% block content %}{% endblock %}
     </main>
-    <footer class="bg-gray-800 text-white mt-12 relative">
-        <!-- Wskaźnik statusu połączenia WebSocket -->
-        <div class="absolute top-3 right-3 flex items-center">
-            <span id="socket-status" class="w-2 h-2 rounded-full bg-yellow-500" title="Łączenie..."></span>
-        </div>
-        
+    <footer class="bg-gray-800 text-white mt-12">
         <div class="max-w-6xl mx-auto py-8 px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
@@ -408,7 +403,7 @@
     </div>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <script src="/static/notifications.js"></script>
-    <script src="/static/socket-enhanced.js"></script>
+    <script src="/static/socket.js"></script>
     <script src="/static/category-dropdown.js"></script>
     
     <script>

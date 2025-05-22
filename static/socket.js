@@ -1,26 +1,5 @@
 // Skrypt do obsługi WebSocket (Flask-SocketIO)
-// Automatycznie wykrywamy bieżący host i protokół
-var socketUrl = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-console.log('Attempting to connect to Socket.IO server at:', socketUrl);
-
-var socket = io(socketUrl, {
-    reconnectionAttempts: 5,
-    timeout: 10000
-});
-
-// Connection event handlers for debugging
-socket.on('connect', function() {
-    console.log('Socket.IO connection established');
-});
-
-socket.on('connect_error', function(error) {
-    console.error('Socket.IO connection error:', error);
-    showNotification('Błąd połączenia WebSocket', 'error');
-});
-
-socket.on('disconnect', function(reason) {
-    console.log('Socket.IO disconnected. Reason:', reason);
-});
+var socket = io();
 
 // Przykład: powiadomienie o nowym produkcie
 socket.on('new_product', function(data) {

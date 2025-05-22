@@ -666,28 +666,15 @@ class ProductManager:
                     product['category'] = "Bez kategorii"
                     product['category_path'] = ["Bez kategorii"]
                 
-                # Obsługa cen (dodaj 23% VAT do cen netto z XML)
+                # Obsługa cen
                 try:
-                    # Pobieramy ceny netto z XML
-                    price_netto = float(self._safe_get_xml_value(product_elem, 'price', '0'))
-                    discounted_price_netto = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
-                    
-                    # Dodajemy VAT do cen netto
-                    product['price'] = self._add_vat_to_price(price_netto)
-                    product['discounted_price'] = self._add_vat_to_price(discounted_price_netto)
-                    
-                    # Jeśli brak ceny promocyjnej, użyj ceny regularnej
+                    product['price'] = float(self._safe_get_xml_value(product_elem, 'price', '0'))
+                    product['discounted_price'] = float(self._safe_get_xml_value(product_elem, 'discounted_price', '0'))
                     if product['discounted_price'] == 0:
                         product['discounted_price'] = product['price']
-                        
-                    # Zachowaj również oryginalne ceny netto
-                    product['price_netto'] = price_netto
-                    product['discounted_price_netto'] = discounted_price_netto if discounted_price_netto > 0 else price_netto
                 except ValueError:
                     product['price'] = 0
                     product['discounted_price'] = 0
-                    product['price_netto'] = 0
-                    product['discounted_price_netto'] = 0
                 
                 # Stan magazynowy
                 product['stock'] = stock
@@ -1455,95 +1442,3 @@ class ProductManager:
         except Exception as e:
             self.logger.error(f"Błąd podczas pobierania produktu z XML {product_id}: {str(e)}")
             return None
-    
-    def set_product_availability(self, product_id, is_available, emit_notification=True):
-        """
-        Ustawia dostępność produktu i emituje powiadomienie przez Socket.IO
-        
-        Args:
-            product_id: ID produktu
-            is_available (bool): Czy produkt jest dostępny
-            emit_notification (bool): Czy emitować powiadomienie WebSocket
-            
-        Returns:
-            bool: True jeśli operacja się powiodła, False w przeciwnym razie
-        """
-        try:
-            product_id = str(product_id)
-            product_found = False
-            product_name = None
-            
-            # Aktualizacja w pamięci
-            for p in self.products:
-                if str(p.get('id')) == product_id:
-                    old_status = p.get('available_for_sale', False)
-                    p['available_for_sale'] = is_available
-                    product_found = True
-                    product_name = p.get('name', f'Produkt #{product_id}')
-                    
-                    # Zapisz log zmiany
-                    status_change = "dostępny" if is_available else "niedostępny"
-                    self.logger.info(f"Zmieniono status produktu {product_id} ({product_name}) na {status_change}")
-                    break
-            
-            if not product_found:
-                self.logger.warning(f"Nie znaleziono produktu o ID {product_id} do zmiany dostępności")
-                return False
-                
-            # Zapisz zmiany do pliku JSON
-            try:
-                with open('data/products.json', 'w', encoding='utf-8') as f:
-                    json.dump(self.products, f, ensure_ascii=False, indent=4)
-            except Exception as e:
-                self.logger.error(f"Błąd podczas zapisywania pliku JSON: {str(e)}")
-                return False
-                
-            # Emituj powiadomienie przez Socket.IO
-            if emit_notification:
-                try:
-                    # Import musi być tutaj, aby uniknąć problemów z cyklicznym importem
-                    from app import notify_product_availability_change
-                    notify_product_availability_change(product_id, is_available, product_name)
-                except ImportError:
-                    self.logger.warning(f"Nie można zaimportować notify_product_availability_change z app.py")
-                except Exception as e:
-                    self.logger.error(f"Błąd podczas emitowania powiadomienia Socket.IO: {str(e)}")
-                    
-            return True
-        except Exception as e:
-            self.logger.error(f"Błąd podczas ustawiania dostępności produktu: {str(e)}")
-            return False
-    
-    def _add_vat_to_price(self, price_netto):
-        """
-        Dodaje 23% VAT do ceny netto
-        
-        Args:
-            price_netto (float): Cena netto
-            
-        Returns:
-            float: Cena brutto (z VAT)
-        """
-        if price_netto is None or not isinstance(price_netto, (int, float)):
-            return 0.0
-            
-        vat_multiplier = 1.23  # 23% VAT
-        return round(price_netto * vat_multiplier, 2)
-        
-    def _setup_logger(self):
-        """
-        Ustawia konfigurację loggera
-        """
-        # Ustawienia loggera
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.FileHandler("product_manager.log"),
-                logging.StreamHandler()
-            ]
-        )
-        
-        # Przykładowe logi
-        self.logger.info("Inicjalizacja menedżera produktów")
-        self.logger.info(f"Wczytano {len(self.products)} produktów")

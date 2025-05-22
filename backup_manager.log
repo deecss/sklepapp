@@ -8685,3 +8685,103 @@ AssertionError: write() before start_response
 2025-05-22 21:32:04,798 - INFO - 145.239.89.63 - - [22/May/2025 21:32:04] "GET /kategoria/Pompki/Pompki%20elektryczne HTTP/1.1" 200 -
 2025-05-22 21:32:05,252 - INFO - 145.239.89.63 - - [22/May/2025 21:32:05] "GET /kategoria/Akcesoria%20do%20basenów/Filtry%20do%20pomp HTTP/1.1" 200 -
 2025-05-22 21:32:06,076 - INFO - 145.239.89.63 - - [22/May/2025 21:32:06] "GET /kategoria/Trampoliny/Części%20do%20trampolin/Maty%20do%20trampolin HTTP/1.1" 200 -
+2025-05-22 21:33:48,725 - INFO - 145.239.89.63 - - [22/May/2025 21:33:48] "GET /kategoria/Elektronika/Wagi%20elektroniczne/Wagi%20dla%20niemowląt HTTP/1.1" 200 -
+2025-05-22 21:33:49,384 - INFO - 145.239.89.63 - - [22/May/2025 21:33:49] "GET /kategoria/Dom/Piecyki%20gazowe HTTP/1.1" 200 -
+2025-05-22 21:34:41,113 - INFO - 145.239.89.63 - - [22/May/2025 21:34:41] "GET /kategoria/Baseny/Baseny%20Intex HTTP/1.1" 200 -
+2025-05-22 21:36:23,830 - INFO - 145.239.89.63 - - [22/May/2025 21:36:23] "GET /kategoria/Akcesoria%20basenowe/Odkurzacze%20do%20basenu HTTP/1.1" 200 -
+2025-05-22 21:37:15,508 - INFO - 145.239.89.63 - - [22/May/2025 21:37:15] "GET /kategoria/Baseny%20ogrodowe/Baseny%20stelażowe HTTP/1.1" 200 -
+2025-05-22 21:37:39,642 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:37:39,642 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:38:03,704 - INFO - 145.239.89.63 - - [22/May/2025 21:38:03] "GET /kategoria/Hobby/Hulajnogi HTTP/1.1" 200 -
+2025-05-22 21:38:51,558 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:38:51,558 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:39:17,759 - INFO - 145.239.89.63 - - [22/May/2025 21:39:17] "GET /kategoria/Dziecko/Huśtawki%20dla%20dzieci HTTP/1.1" 200 -
+2025-05-22 21:39:38,194 - INFO - 31.179.185.98 - - [22/May/2025 21:39:38] "GET /admin/product-listing HTTP/1.1" 200 -
+2025-05-22 21:39:41,014 - INFO - 31.179.185.98 - - [22/May/2025 21:39:41] "GET /admin/products HTTP/1.1" 200 -
+2025-05-22 21:40:31,821 - INFO - 145.239.89.63 - - [22/May/2025 21:40:31] "GET /kategoria/Ogród/Parasole%20ogrodowe HTTP/1.1" 200 -
+2025-05-22 21:41:45,891 - INFO - 145.239.89.63 - - [22/May/2025 21:41:45] "GET /kategoria/Baseny%20ogrodowe/Tanie%20baseny HTTP/1.1" 200 -
+2025-05-22 21:42:11,318 - INFO -  * Detected change in '/home/dee/sklepapp/product_manager.py', reloading
+2025-05-22 21:42:11,411 - INFO -  * Restarting with stat
+2025-05-22 21:42:11,629 - INFO - Server initialized for threading.
+2025-05-22 21:42:11,629 - INFO - Załadowano konfigurację z data/xml_config.json
+2025-05-22 21:42:11,664 - INFO - Załadowano 3708 produktów z bazy danych
+2025-05-22 21:42:11,664 - INFO - Załadowano 2 płatności z bazy danych
+2025-05-22 21:42:11,664 - INFO - Załadowano konfigurację płatności z data/payment_config.json
+2025-05-22 21:42:11,664 - INFO - Uruchomiono automatyczne tworzenie kopii zapasowych co 60 minut
+2025-05-22 21:42:11,699 - INFO - Baza danych produktów zawiera 3708 produktów, w tym 68 dostępnych do sprzedaży
+2025-05-22 21:42:11,703 - INFO - Utworzono kopię zapasową: data/backups/products_20250522_214211.json
+2025-05-22 21:42:11,718 - INFO - Usunięto starą kopię zapasową: products_20250522_144710.json
+2025-05-22 21:42:11,971 - INFO - Zachowano dostępność dla 68 produktów i 36 opisów produktów
+2025-05-22 21:42:12,064 - INFO - Zapisano 3708 produktów do bazy danych
+2025-05-22 21:42:12,064 - INFO - Pomyślnie sparsowano plik XML data/products_latest.xml, znaleziono 3708 produktów
+2025-05-22 21:42:12,102 - WARNING -  * Debugger is active!
+2025-05-22 21:42:12,104 - INFO -  * Debugger PIN: 212-086-963
+2025-05-22 21:42:12,505 - INFO - Zapisano konfigurację do data/xml_config.json
+2025-05-22 21:42:12,505 - INFO - Pomyślnie pobrano i zapisano plik XML: data/products_latest.xml
+2025-05-22 21:42:12,507 - INFO - Uruchomiono harmonogram pobierania XML co 10 minut
+2025-05-22 21:42:25,604 - INFO - 145.239.89.63 - - [22/May/2025 21:42:25] "GET /kategoria/Dziecko/Krzesełka%20do%20karmienia HTTP/1.1" 200 -
+2025-05-22 21:42:27,454 - INFO - 145.239.89.63 - - [22/May/2025 21:42:27] "GET /static/socket.js HTTP/1.1" 200 -
+2025-05-22 21:42:28,092 - INFO - IgNwZvqr4OIumyVYAAAA: Sending packet OPEN data {'sid': 'IgNwZvqr4OIumyVYAAAA', 'upgrades': ['websocket'], 'pingTimeout': 30000, 'pingInterval': 15000, 'maxPayload': 1000000}
+2025-05-22 21:42:28,092 - INFO - 145.239.89.63 - - [22/May/2025 21:42:28] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYWA HTTP/1.1" 200 -
+2025-05-22 21:42:40,594 - INFO - IgNwZvqr4OIumyVYAAAA: Received packet CLOSE data 
+2025-05-22 21:42:40,595 - INFO - 145.239.89.63 - - [22/May/2025 21:42:40] "POST /socket.io/?EIO=4&transport=polling&t=PRrIYWU&sid=IgNwZvqr4OIumyVYAAAA HTTP/1.1" 200 -
+2025-05-22 21:42:40,595 - INFO - 145.239.89.63 - - [22/May/2025 21:42:40] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYWL&sid=IgNwZvqr4OIumyVYAAAA HTTP/1.1" 200 -
+2025-05-22 21:42:41,093 - INFO - EQPTW23H7Wtg1PMZAAAB: Sending packet OPEN data {'sid': 'EQPTW23H7Wtg1PMZAAAB', 'upgrades': ['websocket'], 'pingTimeout': 30000, 'pingInterval': 15000, 'maxPayload': 1000000}
+2025-05-22 21:42:41,093 - INFO - 145.239.89.63 - - [22/May/2025 21:42:41] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYtn HTTP/1.1" 200 -
+2025-05-22 21:42:53,551 - INFO - EQPTW23H7Wtg1PMZAAAB: Received packet MESSAGE data 0
+2025-05-22 21:42:53,552 - INFO - emitting event "welcome" to MmfrHaeP4tz_4z91AAAC [/]
+2025-05-22 21:42:53,552 - INFO - 145.239.89.63 - - [22/May/2025 21:42:53] "GET /socket.io/?EIO=4&transport=polling&t=PRrIYty&sid=EQPTW23H7Wtg1PMZAAAB HTTP/1.1" 200 -
+2025-05-22 21:42:53,552 - INFO - EQPTW23H7Wtg1PMZAAAB: Sending packet MESSAGE data 2["welcome",{"message":"Po\u0142\u0105czono z serwerem w czasie rzeczywistym","socket_id":"MmfrHaeP4tz_4z91AAAC","timestamp":1747942973.5523868}]
+2025-05-22 21:42:53,552 - INFO - EQPTW23H7Wtg1PMZAAAB: Sending packet MESSAGE data 0{"sid":"MmfrHaeP4tz_4z91AAAC"}
+2025-05-22 21:42:53,552 - INFO - 145.239.89.63 - - [22/May/2025 21:42:53] "POST /socket.io/?EIO=4&transport=polling&t=PRrIYtx&sid=EQPTW23H7Wtg1PMZAAAB HTTP/1.1" 200 -
+2025-05-22 21:42:53,848 - INFO - EQPTW23H7Wtg1PMZAAAB: Received packet CLOSE data 
+2025-05-22 21:42:53,849 - INFO - 145.239.89.63 - - [22/May/2025 21:42:53] "POST /socket.io/?EIO=4&transport=polling&t=PRrIYu5&sid=EQPTW23H7Wtg1PMZAAAB HTTP/1.1" 200 -
+2025-05-22 21:42:54,408 - INFO - E0Xrm_ulg4Snu9gAAAAD: Sending packet OPEN data {'sid': 'E0Xrm_ulg4Snu9gAAAAD', 'upgrades': ['websocket'], 'pingTimeout': 30000, 'pingInterval': 15000, 'maxPayload': 1000000}
+2025-05-22 21:42:54,409 - INFO - 145.239.89.63 - - [22/May/2025 21:42:54] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZ4C HTTP/1.1" 200 -
+2025-05-22 21:42:55,043 - INFO - E0Xrm_ulg4Snu9gAAAAD: Received packet MESSAGE data 0
+2025-05-22 21:42:55,044 - INFO - emitting event "welcome" to qKw4LyR76Ph8Wr_EAAAE [/]
+2025-05-22 21:42:55,044 - INFO - E0Xrm_ulg4Snu9gAAAAD: Sending packet MESSAGE data 2["welcome",{"message":"Po\u0142\u0105czono z serwerem w czasie rzeczywistym","socket_id":"qKw4LyR76Ph8Wr_EAAAE","timestamp":1747942975.0443387}]
+2025-05-22 21:42:55,044 - INFO - E0Xrm_ulg4Snu9gAAAAD: Sending packet MESSAGE data 0{"sid":"qKw4LyR76Ph8Wr_EAAAE"}
+2025-05-22 21:42:55,044 - INFO - 145.239.89.63 - - [22/May/2025 21:42:55] "POST /socket.io/?EIO=4&transport=polling&t=PRrIZ4M&sid=E0Xrm_ulg4Snu9gAAAAD HTTP/1.1" 200 -
+2025-05-22 21:42:55,884 - INFO - 145.239.89.63 - - [22/May/2025 21:42:55] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZ4N&sid=E0Xrm_ulg4Snu9gAAAAD HTTP/1.1" 200 -
+2025-05-22 21:43:08,327 - INFO - 145.239.89.63 - - [22/May/2025 21:43:08] "GET /kategoria/Materace%20dmuchane/Materac%20dmuchany%20jednoosobowy HTTP/1.1" 200 -
+2025-05-22 21:43:08,973 - INFO - E0Xrm_ulg4Snu9gAAAAD: Received packet CLOSE data 
+2025-05-22 21:43:08,973 - INFO - 145.239.89.63 - - [22/May/2025 21:43:08] "POST /socket.io/?EIO=4&transport=polling&t=PRrIZ4g&sid=E0Xrm_ulg4Snu9gAAAAD HTTP/1.1" 200 -
+2025-05-22 21:43:08,974 - INFO - 145.239.89.63 - - [22/May/2025 21:43:08] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZ4W&sid=E0Xrm_ulg4Snu9gAAAAD HTTP/1.1" 200 -
+2025-05-22 21:43:09,285 - INFO - RRGC4EY8AcJAskcBAAAF: Sending packet OPEN data {'sid': 'RRGC4EY8AcJAskcBAAAF', 'upgrades': ['websocket'], 'pingTimeout': 30000, 'pingInterval': 15000, 'maxPayload': 1000000}
+2025-05-22 21:43:09,285 - INFO - 145.239.89.63 - - [22/May/2025 21:43:09] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZRs HTTP/1.1" 200 -
+2025-05-22 21:43:19,359 - ERROR - Invalid session IgNwZvqr4OIumyVYAAAA (further occurrences of this error will be logged with level INFO)
+2025-05-22 21:43:19,359 - INFO - 145.239.89.63 - - [22/May/2025 21:43:19] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIYWK&sid=IgNwZvqr4OIumyVYAAAA HTTP/1.1[0m" 400 -
+2025-05-22 21:43:19,917 - INFO - Invalid session IgNwZvqr4OIumyVYAAAA
+2025-05-22 21:43:19,918 - INFO - 145.239.89.63 - - [22/May/2025 21:43:19] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIYWL&sid=IgNwZvqr4OIumyVYAAAA HTTP/1.1[0m" 400 -
+2025-05-22 21:43:20,519 - INFO - Invalid session EQPTW23H7Wtg1PMZAAAB
+2025-05-22 21:43:20,519 - INFO - 145.239.89.63 - - [22/May/2025 21:43:20] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIYty&sid=EQPTW23H7Wtg1PMZAAAB HTTP/1.1[0m" 400 -
+2025-05-22 21:43:21,353 - INFO - Invalid session EQPTW23H7Wtg1PMZAAAB
+2025-05-22 21:43:21,353 - INFO - 145.239.89.63 - - [22/May/2025 21:43:21] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PRrIYtx&sid=EQPTW23H7Wtg1PMZAAAB HTTP/1.1[0m" 400 -
+2025-05-22 21:43:22,338 - INFO - Invalid session E0Xrm_ulg4Snu9gAAAAD
+2025-05-22 21:43:22,338 - INFO - 145.239.89.63 - - [22/May/2025 21:43:22] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PRrIZ4W&sid=E0Xrm_ulg4Snu9gAAAAD HTTP/1.1[0m" 400 -
+2025-05-22 21:43:23,319 - INFO - RRGC4EY8AcJAskcBAAAF: Received packet MESSAGE data 0
+2025-05-22 21:43:23,320 - INFO - emitting event "welcome" to iiEIiYoBTXg9dn8QAAAG [/]
+2025-05-22 21:43:23,320 - INFO - 145.239.89.63 - - [22/May/2025 21:43:23] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZS1&sid=RRGC4EY8AcJAskcBAAAF HTTP/1.1" 200 -
+2025-05-22 21:43:23,320 - INFO - RRGC4EY8AcJAskcBAAAF: Sending packet MESSAGE data 2["welcome",{"message":"Po\u0142\u0105czono z serwerem w czasie rzeczywistym","socket_id":"iiEIiYoBTXg9dn8QAAAG","timestamp":1747943003.3200934}]
+2025-05-22 21:43:23,320 - INFO - RRGC4EY8AcJAskcBAAAF: Sending packet MESSAGE data 0{"sid":"iiEIiYoBTXg9dn8QAAAG"}
+2025-05-22 21:43:23,320 - INFO - 145.239.89.63 - - [22/May/2025 21:43:23] "POST /socket.io/?EIO=4&transport=polling&t=PRrIZS0&sid=RRGC4EY8AcJAskcBAAAF HTTP/1.1" 200 -
+2025-05-22 21:43:24,068 - INFO - 145.239.89.63 - - [22/May/2025 21:43:24] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZS1&sid=RRGC4EY8AcJAskcBAAAF HTTP/1.1" 200 -
+2025-05-22 21:43:24,285 - INFO - RRGC4EY8AcJAskcBAAAF: Sending packet PING data None
+2025-05-22 21:43:25,040 - INFO - 145.239.89.63 - - [22/May/2025 21:43:25] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZSA&sid=RRGC4EY8AcJAskcBAAAF HTTP/1.1" 200 -
+2025-05-22 21:43:26,004 - INFO - RRGC4EY8AcJAskcBAAAF: Received packet PONG data 
+2025-05-22 21:43:26,004 - INFO - 145.239.89.63 - - [22/May/2025 21:43:26] "POST /socket.io/?EIO=4&transport=polling&t=PRrIZSK&sid=RRGC4EY8AcJAskcBAAAF HTTP/1.1" 200 -
+2025-05-22 21:43:37,613 - INFO - RRGC4EY8AcJAskcBAAAF: Received packet CLOSE data 
+2025-05-22 21:43:37,614 - INFO - 145.239.89.63 - - [22/May/2025 21:43:37] "POST /socket.io/?EIO=4&transport=polling&t=PRrIZSU&sid=RRGC4EY8AcJAskcBAAAF HTTP/1.1" 200 -
+2025-05-22 21:43:37,614 - INFO - 145.239.89.63 - - [22/May/2025 21:43:37] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZSL&sid=RRGC4EY8AcJAskcBAAAF HTTP/1.1" 200 -
+2025-05-22 21:43:38,003 - INFO - 9FRBegX126-PjX70AAAH: Sending packet OPEN data {'sid': '9FRBegX126-PjX70AAAH', 'upgrades': ['websocket'], 'pingTimeout': 30000, 'pingInterval': 15000, 'maxPayload': 1000000}
+2025-05-22 21:43:38,004 - INFO - 145.239.89.63 - - [22/May/2025 21:43:38] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZbc HTTP/1.1" 200 -
+2025-05-22 21:43:38,661 - INFO - 9FRBegX126-PjX70AAAH: Received packet MESSAGE data 0
+2025-05-22 21:43:38,662 - INFO - emitting event "welcome" to qk2ZzQirIza6w1pmAAAI [/]
+2025-05-22 21:43:38,662 - INFO - 9FRBegX126-PjX70AAAH: Sending packet MESSAGE data 2["welcome",{"message":"Po\u0142\u0105czono z serwerem w czasie rzeczywistym","socket_id":"qk2ZzQirIza6w1pmAAAI","timestamp":1747943018.662493}]
+2025-05-22 21:43:38,662 - INFO - 9FRBegX126-PjX70AAAH: Sending packet MESSAGE data 0{"sid":"qk2ZzQirIza6w1pmAAAI"}
+2025-05-22 21:43:38,662 - INFO - 145.239.89.63 - - [22/May/2025 21:43:38] "POST /socket.io/?EIO=4&transport=polling&t=PRrIZbm&sid=9FRBegX126-PjX70AAAH HTTP/1.1" 200 -
+2025-05-22 21:43:39,475 - INFO - 145.239.89.63 - - [22/May/2025 21:43:39] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZbn&sid=9FRBegX126-PjX70AAAH HTTP/1.1" 200 -
+2025-05-22 21:43:51,994 - INFO - 9FRBegX126-PjX70AAAH: Received packet CLOSE data 
+2025-05-22 21:43:51,994 - INFO - 145.239.89.63 - - [22/May/2025 21:43:51] "POST /socket.io/?EIO=4&transport=polling&t=PRrIZc4&sid=9FRBegX126-PjX70AAAH HTTP/1.1" 200 -
+2025-05-22 21:43:51,994 - INFO - 145.239.89.63 - - [22/May/2025 21:43:51] "GET /socket.io/?EIO=4&transport=polling&t=PRrIZbw&sid=9FRBegX126-PjX70AAAH HTTP/1.1" 200 -
