@@ -2195,9 +2195,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Obsługa przycisku zamykania modalu
-    document.getElementById('bulkPriceUpdate').addEventListener('click', openModal);
-    document.getElementById('closeBulkUpdateModal').addEventListener('click', closeModal);
-    document.getElementById('cancelBulkUpdate').addEventListener('click', closeModal);
+    const bulkPriceUpdateBtn = document.getElementById('bulkPriceUpdate');
+    const closeBulkUpdateModalBtn = document.getElementById('closeBulkUpdateModal');
+    const cancelBulkUpdateBtn = document.getElementById('cancelBulkUpdate');
+    
+    if (bulkPriceUpdateBtn) {
+        bulkPriceUpdateBtn.addEventListener('click', openModal);
+    }
+    
+    if (closeBulkUpdateModalBtn) {
+        closeBulkUpdateModalBtn.addEventListener('click', closeModal);
+    }
+    
+    if (cancelBulkUpdateBtn) {
+        cancelBulkUpdateBtn.addEventListener('click', closeModal);
+    }
     
     // Initialize notification system 
     function initNotificationSystem() {
@@ -2210,8 +2222,16 @@ document.addEventListener('DOMContentLoaded', function() {
         window.notificationQueue = [];
         window.notificationActive = false;
         
-        // Override the showToast function to use the queue
+        // Check if showToast function already exists
+        if (typeof window.showToast !== 'function') {
+            // If not, make a reference to the local one
+            window.showToast = showToast;
+        }
+        
+        // Store reference to the original function
         const originalShowToast = window.showToast;
+        
+        // Override the showToast function to use the queue
         window.showToast = function(message, type = 'success') {
             // If we have more than 3 visible notifications, queue this one
             const visibleToasts = document.querySelectorAll('.toast-notification.show').length;
@@ -2230,12 +2250,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Function to process the queue
         function processNotificationQueue() {
-            if (window.notificationQueue.length > 0 && document.querySelectorAll('.toast-notification.show').length < 3) {
+            if (window.notificationQueue && window.notificationQueue.length > 0 && document.querySelectorAll('.toast-notification.show').length < 3) {
                 const next = window.notificationQueue.shift();
-                originalShowToast(next.message, next.type);
-                
-                // Continue processing if there are more in queue
-                setTimeout(processNotificationQueue, 500);
+                if (next && originalShowToast) {
+                    originalShowToast(next.message, next.type);
+                    
+                    // Continue processing if there are more in queue
+                    setTimeout(processNotificationQueue, 500);
+                }
             }
         }
         
