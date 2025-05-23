@@ -84,10 +84,24 @@ class ProductManager:
         """Zapisuje produkty do lokalnej bazy danych JSON"""
         with self.save_lock:  # Używamy blokady dla bezpiecznego zapisu
             try:
+                self.logger.info(f"Rozpoczynam zapis {len(self.products)} produktów do bazy danych")
                 # Najpierw zapisujemy do pliku tymczasowego
                 temp_db_path = f"{self.db_path}.tmp"
                 os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
                 
+                # Sprawdź uprawnienia do katalogu
+                data_dir = os.path.dirname(self.db_path)
+                try:
+                    perm_test_file = os.path.join(data_dir, 'perm_test.txt')
+                    with open(perm_test_file, 'w') as f:
+                        f.write('test')
+                    os.remove(perm_test_file)
+                    self.logger.info(f"Uprawnienia do zapisu w katalogu {data_dir} są poprawne")
+                except Exception as e:
+                    self.logger.error(f"Brak uprawnień do zapisu w katalogu {data_dir}: {str(e)}")
+                    return False
+                
+                self.logger.info(f"Zapisuję do pliku tymczasowego: {temp_db_path}")
                 with open(temp_db_path, 'w', encoding='utf-8') as f:
                     json.dump(self.products, f, ensure_ascii=False, indent=2)
                 
@@ -100,11 +114,13 @@ class ProductManager:
                 if os.path.exists(self.db_path):
                     backup_path = f"{self.db_path}.bak"
                     try:
+                        self.logger.info(f"Tworzę kopię zapasową: {backup_path}")
                         os.replace(self.db_path, backup_path)
                     except Exception as e:
                         self.logger.warning(f"Nie udało się utworzyć kopii zapasowej: {str(e)}")
                 
                 # Przemianowujemy plik tymczasowy na właściwy
+                self.logger.info(f"Zastępuję plik bazy danych: {self.db_path}")
                 os.replace(temp_db_path, self.db_path)
                 
                 self.logger.info(f"Zapisano {len(self.products)} produktów do bazy danych")
@@ -118,10 +134,13 @@ class ProductManager:
                 if file_size == 0:
                     self.logger.error(f"Plik bazy danych jest pusty: {self.db_path}")
                     return False
-                    
+                
+                self.logger.info(f"Zapis zakończony sukcesem, rozmiar pliku: {file_size} bajtów")
                 return True
             except Exception as e:
                 self.logger.error(f"Błąd podczas zapisywania produktów do bazy danych: {str(e)}")
+                import traceback
+                self.logger.error(traceback.format_exc())
                 return False
     
     def parse_xml(self, xml_path=None):
@@ -399,12 +418,19 @@ class ProductManager:
             product['last_modified'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             
             # Zapisz zmiany
-            self._save_to_db()
-            self.logger.info(f"Produkt {product.get('name')} (ID: {product_id}) został zaktualizowany")
-            return True
+            self.logger.info(f"Próba zapisu produktu {product.get('name')} (ID: {product_id}) do bazy danych")
+            save_result = self._save_to_db()
+            if save_result:
+                self.logger.info(f"Produkt {product.get('name')} (ID: {product_id}) został zaktualizowany")
+                return True
+            else:
+                self.logger.error(f"Nie udało się zapisać produktu {product.get('name')} (ID: {product_id}) do bazy danych")
+                return False
         
         except Exception as e:
             self.logger.error(f"Błąd podczas aktualizacji produktu (ID: {product_id}): {str(e)}")
+            import traceback
+            self.logger.error(traceback.format_exc())
             return False
         
     def update_product_description(self, product_id, description):

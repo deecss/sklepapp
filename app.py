@@ -274,7 +274,8 @@ def update_product():
             vat=vat,
             delivery_time=delivery_time,
             delivery_cost=delivery_cost,
-            markup_percent=markup_percent
+            markup_percent=markup_percent,
+            available_for_sale=True  # Ensure that updated products remain available
         )
         
         if success:
@@ -391,7 +392,8 @@ def bulk_update_products():
                         vat=update_data.get('vat'),
                         delivery_time=update_data.get('delivery_time'),
                         delivery_cost=update_data.get('delivery_cost'),
-                        markup_percent=update_data.get('markup_percent')
+                        markup_percent=update_data.get('markup_percent'),
+                        available_for_sale=True  # Ensure that updated products remain available
                     )
                     
                     if success:
