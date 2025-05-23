@@ -826,7 +826,7 @@
                                 {% else %}
                                 <div class="h-12 w-12 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 border border-gray-200">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-16m2 16l4-16M6 9h14M4 15h14" />
                                     </svg>
                                 </div>
                                 {% endif %}
@@ -1007,40 +1007,166 @@
 </div>
 
 <script>
-// Create the notification test panel dynamically if it doesn't exist
-function createNotificationTestPanel() {
-    const panelHTML = `
-        <div id="testNotificationPanel" class="fixed bottom-4 right-4 bg-white rounded-lg shadow-xl p-4 z-40 hidden transition-all duration-300 transform scale-95 opacity-0">
-            <div class="flex justify-between items-center mb-3">
-                <h3 class="text-lg font-semibold text-gray-800">Test Notifications</h3>
-                <button id="closeTestPanel" class="text-gray-500 hover:text-gray-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-                <button id="testSuccessNotification" class="bg-green-500 hover:bg-green-600 text-white py-2 px-3 rounded-md text-sm">Success</button>
-                <button id="testErrorNotification" class="bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded-md text-sm">Error</button>
-                <button id="testWarningNotification" class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-3 rounded-md text-sm">Warning</button>
-                <button id="testInfoNotification" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded-md text-sm">Info</button>
-                <button id="testMultipleNotifications" class="bg-purple-500 hover:bg-purple-600 text-white py-2 px-3 rounded-md text-sm col-span-2">Test Multiple</button>
-            </div>
-        </div>
-    `;
+// Initialize notification system 
+function initNotificationSystem() {
+    // Create the toast container once at initialization
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
     
-    // Create a temporary div to hold the HTML
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = panelHTML;
+    // Add utility to manage multiple notifications
+    window.notificationQueue = [];
+    window.notificationActive = false;
     
-    // Add the panel to the body
-    document.body.appendChild(tempDiv.firstElementChild);
+    // Check if showToast is already defined to avoid duplicate definitions
+    if (!window.originalShowToast) {
+        // Store the original showToast function if it exists
+        window.originalShowToast = window.showToast || function(message, type = 'success') {
+            // Create toast notification
+            const toast = document.createElement('div');
+            toast.className = `toast-notification ${type}`;
+            
+            // Set appropriate icon based on notification type
+            let icon = '';
+            if (type === 'success') {
+                icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>`;
+            } else if (type === 'error') {
+                icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>`;
+            } else if (type === 'warning') {
+                icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>`;
+            } else {
+                icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>`;
+            }
+            
+            // Create content structure
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <span class="toast-icon">${icon}</span>
+                    <span class="toast-message">${message}</span>
+                    <span class="toast-close">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </span>
+                </div>
+                <div class="toast-progress"></div>
+            `;
+            
+            // Add to container
+            container.appendChild(toast);
+            
+            // Show with animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Add event listener to close button
+            const closeBtn = toast.querySelector('.toast-close');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    closeToast(toast);
+                });
+            }
+            
+            // Automatically close after 5 seconds
+            const toastTimeout = setTimeout(() => {
+                closeToast(toast);
+            }, 5000);
+            
+            // Store the timeout ID on the toast element
+            toast.dataset.timeoutId = toastTimeout;
+            
+            // Pause the timeout on mouseenter
+            toast.addEventListener('mouseenter', () => {
+                clearTimeout(toast.dataset.timeoutId);
+                // Pause progress animation
+                const progressBar = toast.querySelector('.toast-progress');
+                if (progressBar) {
+                    progressBar.style.animationPlayState = 'paused';
+                }
+            });
+            
+            // Resume the timeout on mouseleave
+            toast.addEventListener('mouseleave', () => {
+                toast.dataset.timeoutId = setTimeout(() => {
+                    closeToast(toast);
+                }, 5000);
+                // Resume progress animation
+                const progressBar = toast.querySelector('.toast-progress');
+                if (progressBar) {
+                    progressBar.style.animationPlayState = 'running';
+                }
+            });
+            
+            return toast;
+        };
+    }
     
-    // Reload the initNotificationSystem function to set up event listeners
-    // This is done by using setTimeout to ensure the DOM has been updated
-    setTimeout(() => {
-        initNotificationSystem();
-    }, 100);
+    // Override the showToast function to use the queue
+    window.showToast = function(message, type = 'success') {
+        // If we have more than 3 visible notifications, queue this one
+        const visibleToasts = document.querySelectorAll('.toast-notification.show').length;
+        
+        if (visibleToasts >= 3) {
+            window.notificationQueue.push({message, type});
+            return;
+        }
+        
+        // Otherwise show it immediately
+        window.originalShowToast(message, type);
+        
+        // Process queue after this notification is shown
+        setTimeout(processNotificationQueue, 500);
+    };
+    
+    // Function to process the queue
+    function processNotificationQueue() {
+        if (window.notificationQueue && window.notificationQueue.length > 0 && document.querySelectorAll('.toast-notification.show').length < 3) {
+            const next = window.notificationQueue.shift();
+            window.originalShowToast(next.message, next.type);
+            
+            // Continue processing if there are more in queue
+            setTimeout(processNotificationQueue, 500);
+        }
+    }
+    
+    // Helper function to close a toast
+    function closeToast(toast) {
+        if (!toast) return;
+        
+        // Clear the timeout
+        if (toast.dataset.timeoutId) {
+            clearTimeout(parseInt(toast.dataset.timeoutId));
+        }
+        
+        // Hide the toast
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+        
+        // Remove from DOM after animation completes
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+            
+            // Process the queue after a toast is removed
+            processNotificationQueue();
+        }, 300);
+    }
+    
+    // Set up the notification test panel
+    setupNotificationTestPanel();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -1146,1220 +1272,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Process the queue after a toast is removed
                 processNotificationQueue();
             }, 300);
-        }
-    }
-    
-    // Filtrowanie produktów
-    const searchInput = document.getElementById('searchQuery');
-    const categorySelect = document.getElementById('categoryFilter');
-    const applyFiltersBtn = document.getElementById('applyFilters');
-    const productRows = document.querySelectorAll('.product-row');
-    
-    function filterProducts() {
-        const searchQuery = searchInput.value.toLowerCase();
-        const categoryFilter = categorySelect.value;
-        let matchCount = 0;
-        
-        productRows.forEach(row => {
-            const productName = row.getAttribute('data-name').toLowerCase();
-            const productCategory = row.getAttribute('data-category');
-            const productId = row.getAttribute('data-id');
-            
-            const matchesSearch = !searchQuery || 
-                productName.includes(searchQuery) || 
-                productId.includes(searchQuery);
-                
-            const matchesCategory = !categoryFilter || productCategory === categoryFilter;
-            
-            if (matchesSearch && matchesCategory) {
-                row.style.display = '';
-                matchCount++;
-            } else {
-                row.style.display = 'none';
-            }
-        });
-        
-        // Show a message with filter results
-        if (searchQuery || categoryFilter) {
-            showToast(`Znaleziono ${matchCount} produktów pasujących do filtrów`, 'info');
-        }
-    }
-    
-    // Dodaj obsługę filtrów, sprawdzając czy elementy istnieją
-    if (applyFiltersBtn) {
-        applyFiltersBtn.addEventListener('click', filterProducts);
-    }
-    
-    if (searchInput) {
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                filterProducts();
-            }
-        });
-    }
-    
-    // Funkcja do przeliczania ceny z narzutem w czasie rzeczywistym
-    function updatePriceWithMarkup(row) {
-        const markupInput = row.querySelector('.product-markup');
-        const priceInput = row.querySelector('.product-price');
-        const priceWithMarkupElement = row.querySelector('.price-with-markup');
-        
-        if (!markupInput || !priceInput || !priceWithMarkupElement) return;
-        
-        const originalPriceElement = row.querySelector('.original-price');
-        if (!originalPriceElement) return;
-        
-        const originalPrice = parseFloat(originalPriceElement.textContent) || 0;
-        const markup = parseFloat(markupInput.value) || 0;
-        
-        if (originalPrice > 0 && markup > 0) {
-            const calculatedPrice = (originalPrice * (1 + markup / 100)).toFixed(2);
-            priceWithMarkupElement.textContent = `Z narzutem: ${calculatedPrice} zł`;
-        } else {
-            priceWithMarkupElement.textContent = '';
-        }
-    }
-    
-    // Inicjalizuj wszystkie ceny z narzutem
-    document.querySelectorAll('.product-row').forEach(row => {
-        updatePriceWithMarkup(row);
-    });
-    
-    // Nasłuchuj zmian narzutu i aktualizuj ceny
-    document.querySelectorAll('.product-markup').forEach(input => {
-        input.addEventListener('input', function() {
-            const productId = this.getAttribute('data-id');
-            const row = document.querySelector(`.product-row[data-id="${productId}"]`);
-            updatePriceWithMarkup(row);
-        });
-    });
-    
-    // Zaznaczanie wszystkich produktów
-    const selectAllCheckbox = document.getElementById('selectAll');
-    const productCheckboxes = document.querySelectorAll('.product-checkbox');
-    
-    if (selectAllCheckbox) {
-        selectAllCheckbox.addEventListener('change', function() {
-            const isChecked = this.checked;
-            let checkedCount = 0;
-            
-            productCheckboxes.forEach(checkbox => {
-                const row = checkbox.closest('.product-row');
-                if (row.style.display !== 'none') {
-                    checkbox.checked = isChecked;
-                    if (isChecked) checkedCount++;
-                }
-            });
-            
-            if (isChecked && checkedCount > 0) {
-                showToast(`Zaznaczono ${checkedCount} produktów`, 'info');
-            }
-        });
-    }
-    
-    // Przycisk do wycofania wszystkich produktów
-    const toggleAllBtn = document.getElementById('toggleAllAvailability');
-    
-    if (toggleAllBtn) {
-        toggleAllBtn.addEventListener('click', function() {
-            if (!confirm('Czy na pewno chcesz wycofać wszystkie zaznaczone produkty ze sprzedaży?')) {
-                return;
-            }
-            
-            const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked'))
-                .map(checkbox => parseInt(checkbox.getAttribute('data-id')));
-                
-            if (selectedIds.length === 0) {
-                showToast('Nie zaznaczono żadnych produktów', 'warning');
-                return;
-            }
-            
-            // Add loader effect to button
-            const originalText = toggleAllBtn.innerHTML;
-            toggleAllBtn.innerHTML = '<span class="loading-spinner mr-2"></span>Wycofywanie...';
-            toggleAllBtn.disabled = true;
-            
-            // Wyślij żądanie do API
-            fetch('/admin/bulk-toggle-availability', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    product_ids: selectedIds,
-                    available: false
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => { // Corrected: added parentheses around 'data'
-                if (data.success) {
-                    showToast(data.message || 'Produkty zostały wycofane ze sprzedaży', 'success');
-                    setTimeout(() => location.reload(), 1500);
-                } else {
-                    showToast(data.message || 'Wystąpił błąd podczas wycofywania produktów', 'error');
-                    toggleAllBtn.innerHTML = originalText;
-                    toggleAllBtn.disabled = false;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
-                toggleAllBtn.innerHTML = originalText;
-                toggleAllBtn.disabled = false;
-            });
-        });
-    }
-    
-    // Przycisk do wycofania pojedynczego produktu
-    const toggleBtns = document.querySelectorAll('.toggle-availability');
-    
-    if (toggleBtns && toggleBtns.length > 0) {
-        toggleBtns.forEach(btn => {
-            btn.addEventListener('click', function(event) {
-                event.preventDefault();
-                
-                const productId = this.getAttribute('data-id');
-                const available = this.getAttribute('data-available') === 'true';
-                const action = available ? 'wystawić' : 'wycofać';
-                
-                if (!confirm(`Czy na pewno chcesz ${action} ten produkt ze sprzedaży?`)) {
-                    return;
-                }
-                
-                // Add loader effect to button
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<span class="loading-spinner mr-2"></span>Przetwarzanie...';
-                btn.disabled = true;
-                
-                // Wyślij żądanie do API
-                fetch('/admin/toggle-product-availability', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        product_id: productId,
-                        available: available
-                    })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        showToast(data.message || 'Status produktu został zmieniony', 'success');
-                        setTimeout(() => location.reload(), 1500);
-                    } else {
-                        showToast(data.message || 'Wystąpił błąd podczas zmiany statusu produktu', 'error');
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                });
-            });
-        });
-    }
-    
-    // Obsługa zapisywania zmian w produktach
-    const saveButtons = document.querySelectorAll('.save-product-changes');
-    
-    if (saveButtons && saveButtons.length > 0) {
-        saveButtons.forEach(btn => {
-            btn.addEventListener('click', function(event) {
-                event.preventDefault();
-                
-                const productId = this.getAttribute('data-id');
-                const productRow = document.querySelector(`.product-row[data-id="${productId}"]`);
-                
-                if (!productRow) {
-                    console.error('Nie znaleziono wiersza produktu z ID:', productId);
-                    showToast('Wystąpił błąd: nie znaleziono produktu', 'error');
-                    return;
-                }
-                
-                // Pobierz wartości z pól edycji
-                const priceInput = productRow.querySelector('.product-price');
-                const markupInput = productRow.querySelector('.product-markup');
-                const vatSelect = productRow.querySelector('.product-vat');
-                const deliveryTimeSelect = productRow.querySelector('.product-delivery-time');
-                const deliveryCostInput = productRow.querySelector('.product-delivery-cost');
-                
-                // Sprawdź czy wszystkie pola istnieją
-                if (!priceInput || !markupInput || !vatSelect || !deliveryTimeSelect || !deliveryCostInput) {
-                    console.error('Nie znaleziono wszystkich pól formularza dla produktu ID:', productId);
-                    showToast('Wystąpił błąd: nie znaleziono wszystkich pól formularza', 'error');
-                    return;
-                }
-                
-                const price = priceInput.value;
-                const markup = markupInput.value;
-                const vat = vatSelect.value;
-                const deliveryTime = deliveryTimeSelect.value;
-                const deliveryCost = deliveryCostInput.value;
-                
-                // Walidacja danych
-                if (!price || isNaN(parseFloat(price)) || parseFloat(price) < 0) {
-                    showToast('Podaj poprawną cenę!', 'error');
-                    priceInput.focus();
-                    return;
-                }
-                if (!markup || isNaN(parseFloat(markup)) || parseFloat(markup) < 0) {
-                    showToast('Podaj poprawny narzut!', 'error');
-                    markupInput.focus();
-                    return;
-                }
-                if (!deliveryCost || isNaN(parseFloat(deliveryCost)) || parseFloat(deliveryCost) < 0) {
-                    showToast('Podaj poprawny koszt dostawy!', 'error');
-                    deliveryCostInput.focus();
-                    return;
-                }
-                
-                // Add loader effect to button
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<span class="loading-spinner mr-2"></span>Zapisywanie...';
-                               btn.disabled = true;
-                
-                // Wyślij żądanie do API
-                fetch('/admin/update-product', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        product_id: productId,
-                        price: parseFloat(price),
-                        markup_percent: parseFloat(markup),
-                        vat: parseInt(vat),
-                        delivery_time: deliveryTime,
-                        delivery_cost: parseFloat(deliveryCost)
-                    })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        // Pokaż powiadomienie o powodzeniu
-                        showToast('Zmiany zostały zapisane!', 'success');
-                        
-                        // Usuń klasę wskazującą na niezapisane zmiany
-                        productRow.classList.remove('bg-yellow-50');
-                        productRow.classList.remove('unsaved-changes');
-                        
-                        // Usuń podświetlenie przycisku zapisu
-                        btn.classList.remove('font-bold');
-                        btn.classList.remove('animate-pulse');
-                        
-                        // Restore button text
-                        setTimeout(() => {
-                            btn.innerHTML = originalText;
-                            btn.disabled = false;
-                        }, 500);
-                    } else {
-                        showToast(data.message || 'Wystąpił błąd podczas zapisywania zmian', 'error');
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                });
-            });
-        });
-    }
-
-    // Podświetlanie wierszy z niezapisanymi zmianami
-    const editableInputs = document.querySelectorAll('.product-price, .product-vat, .product-delivery-time, .product-delivery-cost, .product-markup');
-    
-    if (editableInputs && editableInputs.length > 0) {
-        editableInputs.forEach(input => {
-            input.addEventListener('change', function() {
-                const productId = this.getAttribute('data-id');
-                const productRow = document.querySelector(`.product-row[data-id="${productId}"]`);
-                
-                // Dodaj klasę wskazującą na niezapisane zmiany
-                productRow.classList.add('bg-yellow-50');
-                productRow.classList.add('unsaved-changes');
-                
-                // Podświetl przycisk zapisu
-                const saveButton = productRow.querySelector('.save-product-changes');
-                if (saveButton) {
-                    saveButton.classList.add('font-bold');
-                    saveButton.classList.add('animate-pulse');
-                }
-                
-                // Show toast notification for unsaved changes
-                showToast('Pamiętaj o zapisaniu zmian!', 'warning');
-            });
-        });
-    }
-    
-    // Dodaj obsługę masowej aktualizacji cen
-    const bulkUpdateBtn = document.getElementById('bulkPriceUpdate');
-    if (bulkUpdateBtn) {
-        bulkUpdateBtn.addEventListener('click', function() {
-            const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked'))
-                .map(checkbox => checkbox.getAttribute('data-id'));
-                
-            if (selectedIds.length === 0) {
-                showToast('Zaznacz produkty do aktualizacji', 'warning');
-                return;
-            }
-            
-            // Pokaż modal z opcjami aktualizacji cen
-            openModal();
-        });
-    }
-    
-    // Obsługa zamknięcia modala
-    const closeModalBtn = document.getElementById('closeBulkUpdateModal');
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', closeModal);
-    }
-
-    // Obsługa modala masowej aktualizacji
-    const cancelBulkUpdateBtn = document.getElementById('cancelBulkUpdate');
-    if (cancelBulkUpdateBtn) {
-        cancelBulkUpdateBtn.addEventListener('click', closeModal);
-    }
-    
-    // Włączanie/wyłączanie pola wartości kosztu dostawy
-    const deliveryCostOperationSelect = document.getElementById('deliveryCostOperation');
-    const deliveryCostValueInput = document.getElementById('deliveryCostValue');
-    
-    if (deliveryCostOperationSelect && deliveryCostValueInput) {
-        deliveryCostOperationSelect.addEventListener('change', function() {
-            if (this.value === '') {
-                deliveryCostValueInput.disabled = true;
-                deliveryCostValueInput.value = '';
-            } else {
-                deliveryCostValueInput.disabled = false;
-            }
-        });
-    }
-    
-    // Włączanie/wyłączanie pola wartości narzutu
-    const markupOperationSelect = document.getElementById('markupOperation');
-    const markupValueInput = document.getElementById('markupValue');
-    
-    if (markupOperationSelect && markupValueInput) {
-        markupOperationSelect.addEventListener('change', function() {
-            if (this.value === '') {
-                markupValueInput.disabled = true;
-                markupValueInput.value = '';
-            } else {
-                markupValueInput.disabled = false;
-            }
-        });
-    }
-    
-    // Obsługa przycisku masowej aktualizacji
-    const applyBulkUpdateBtn = document.getElementById('applyBulkUpdate');
-    if (applyBulkUpdateBtn) {
-        applyBulkUpdateBtn.addEventListener('click', function() {
-            // Pobierz zaznaczone produkty
-            const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked'))
-                .map(checkbox => checkbox.getAttribute('data-id'));
-                
-            if (selectedIds.length === 0) {
-                showToast('Nie zaznaczono żadnych produktów', 'warning');
-                return;
-            }
-            
-            // Pobierz wartości z formularza
-            const priceOperation = document.getElementById('priceOperation').value;
-            const priceValue = document.getElementById('priceValue').value;
-            const markupOperation = document.getElementById('markupOperation').value;
-            const markupValue = document.getElementById('markupValue').value;
-            const vatValue = document.getElementById('bulkVat').value;
-            const deliveryTimeValue = document.getElementById('bulkDeliveryTime').value;
-            const deliveryCostOperation = document.getElementById('deliveryCostOperation').value;
-            const deliveryCostValue = document.getElementById('deliveryCostValue').value;
-            
-            // Walidacja - przynajmniej jedna operacja musi być wybrana
-            if ((!priceOperation || !priceValue) && 
-                (!markupOperation || !markupValue) && 
-                !vatValue && 
-                !deliveryTimeValue && 
-                (!deliveryCostOperation || !deliveryCostValue)) {
-                showToast('Wybierz przynajmniej jedną operację aktualizacji', 'warning');
-                return;
-            }
-            
-            if (priceOperation && !priceValue) {
-                showToast('Podaj wartość dla operacji na cenie', 'warning');
-                return;
-            }
-            
-            if (markupOperation && markupOperation !== '' && !markupValue) {
-                showToast('Podaj wartość narzutu', 'warning');
-                return;
-            }
-            
-            if (deliveryCostOperation && deliveryCostOperation !== '' && !deliveryCostValue) {
-                showToast('Podaj wartość kosztu dostawy', 'warning');
-                return;
-            }
-            
-            // Potwierdzenie
-            if (!confirm(`Czy na pewno chcesz zaktualizować ${selectedIds.length} produktów?`)) {
-                return;
-            }
-            
-            // Add loader effect to button
-            const originalText = applyBulkUpdateBtn.innerHTML;
-            applyBulkUpdateBtn.innerHTML = '<span class="loading-spinner mr-2"></span>Aktualizowanie...';
-            applyBulkUpdateBtn.disabled = true;
-            
-            // Przygotuj dane do aktualizacji
-            const updateData = {
-                product_ids: selectedIds,
-                price: {
-                    operation: priceOperation,
-                    value: priceValue ? parseFloat(priceValue) : null
-                },
-                markup: {
-                    operation: markupOperation,
-                    value: markupValue ? parseFloat(markupValue) : null
-                },
-                vat: vatValue ? parseInt(vatValue) : null,
-                delivery_time: deliveryTimeValue || null,
-                delivery_cost: {
-                    operation: deliveryCostOperation,
-                    value: deliveryCostValue ? parseFloat(deliveryCostValue) : null
-                }
-            };
-            
-            // Wyślij żądanie do API
-            fetch('/admin/bulk-update-products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updateData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showToast(data.message || 'Produkty zostały zaktualizowane', 'success');
-                    setTimeout(() => location.reload(), 1500);
-                } else {
-                    showToast(data.message || 'Wystąpił błąd podczas aktualizacji produktów', 'error');
-                    applyBulkUpdateBtn.innerHTML = originalText;
-                    applyBulkUpdateBtn.disabled = false;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showToast('Wystąpił błąd podczas komunikacji z serwerem', 'error');
-                applyBulkUpdateBtn.innerHTML = originalText;
-                applyBulkUpdateBtn.disabled = false;
-            });
-            
-            // Zamknij modal
-            closeModal();
-        });
-    }
-
-    // Obsługa przycisku aktualizacji wszystkich cen wg narzutu
-    const updateAllPricesBtn = document.getElementById('updateAllPricesWithMarkup');
-    if (updateAllPricesBtn) {
-        updateAllPricesBtn.addEventListener('click', function() {
-            if (!confirm('Czy na pewno chcesz zaktualizować ceny wszystkich produktów wg narzutu i aktualnych cen z XML?')) {
-                return;
-            }
-            
-            // Add loader effect to button
-            const originalText = updateAllPricesBtn.innerHTML;
-            updateAllPricesBtn.innerHTML = '<span class="loading-spinner mr-2"></span>Aktualizowanie...';
-            updateAllPricesBtn.disabled = true;
-            
-            fetch('/admin/update-prices-with-markup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                showToast(data.message || 'Ceny zostały zaktualizowane', 'success');
-                setTimeout(() => location.reload(), 1500);
-            })
-            .catch(error => {
-                showToast('Wystąpił błąd podczas aktualizacji cen!', 'error');
-                updateAllPricesBtn.innerHTML = originalText;
-                updateAllPricesBtn.disabled = false;
-            });
-        });
-    }
-
-    // Obsługa przycisku przeliczania ceny wg narzutu i XML dla pojedynczego produktu
-    document.querySelectorAll('.update-price-from-xml').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const productId = this.getAttribute('data-id');
-            
-            // Add loader effect to button
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<span class="loading-spinner"></span>';
-            btn.disabled = true;
-            
-            fetch('/admin/update-product-price-with-markup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ product_id: productId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                showToast(data.message || 'Cena została zaktualizowana', 'success');
-                setTimeout(() => location.reload(), 1500);
-            })
-            .catch(error => {
-                showToast('Wystąpił błąd podczas aktualizacji ceny!', 'error');
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-            });
-        });
-    });
-    
-    // Generowanie opisów masowo
-    const generateDescriptionsBulkBtn = document.getElementById('generateDescriptionsBulk');
-    if (generateDescriptionsBulkBtn) {
-        generateDescriptionsBulkBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-            const checkboxes = document.querySelectorAll('.product-checkbox:checked');
-            const ids = Array.from(checkboxes).map(cb => cb.getAttribute('data-id'));
-            if (ids.length === 0) {
-                showToast('Zaznacz produkty, dla których chcesz wygenerować opisy', 'warning');
-                return;
-            }
-            if (!confirm('Na pewno wygenerować/aktualizować opisy dla zaznaczonych produktów?')) return;
-            generateDescriptionsRequest(ids, this);
-        });
-    }
-
-    // Generowanie opisu pojedynczego produktu
-    const generateDescriptionBtns = document.querySelectorAll('.generate-description');
-    if (generateDescriptionBtns && generateDescriptionBtns.length > 0) {
-        generateDescriptionBtns.forEach(btn => {
-            btn.addEventListener('click', function(event) {
-                event.preventDefault();
-                const id = this.getAttribute('data-id');
-                if (!confirm('Na pewno wygenerować/aktualizować opis dla tego produktu?')) return;
-                generateDescriptionsRequest([id], this);
-            });
-        });
-    }
-
-    function generateDescriptionsRequest(productIds, buttonElement) {
-        // Tworzymy modal z informacją o postępie
-        const modalOverlay = document.createElement('div');
-        modalOverlay.className = 'fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50';
-        modalOverlay.id = 'description-generator-modal';
-        modalOverlay.style.opacity = '0';
-        modalOverlay.style.transition = 'opacity 0.3s ease-in-out';
-        
-        const modalContent = document.createElement('div');
-        modalContent.className = 'bg-white p-8 rounded-xl shadow-2xl max-w-md w-full transform transition-all duration-300';
-        modalContent.style.transform = 'scale(0.95)';
-        modalContent.style.opacity = '0';
-        
-        modalContent.innerHTML = `
-            <div class="flex flex-col items-center">
-                <div class="w-20 h-20 mb-6 relative">
-                    <div class="w-full h-full border-4 border-indigo-500 border-t-transparent rounded-full animate-spin absolute"></div>
-                    <div class="w-full h-full flex items-center justify-center text-indigo-600 font-bold text-xl" id="progress-percentage">0%</div>
-                </div>
-                
-                <h3 class="text-xl font-bold mb-4">Generowanie opisów produktów</h3>
-                
-                <div class="w-full mb-6">
-                    <div class="flex justify-between text-sm text-gray-600 mb-1">
-                        <span id="progress-status">Przygotowywanie...</span>
-                        <span id="progress-count">0/${productIds.length}</span>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
-                        <div class="bg-indigo-600 h-2.5 rounded-full transition-all duration-500 ease-out" id="progress-bar" style="width: 0%"></div>
-                    </div>
-                </div>
-                
-                <div class="bg-gray-50 p-4 rounded-lg w-full mb-4 max-h-40 overflow-y-auto text-left">
-                    <div class="text-sm text-gray-600" id="status-log">
-                        <div class="animate-pulse">Inicjalizacja procesu generowania opisów...</div>
-                    </div>
-                </div>
-                
-                <div class="w-full" id="action-buttons" style="display: none;">
-                    <div class="flex flex-col space-y-2">
-                        <button type="button" id="close-modal-btn" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200 flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span id="close-btn-text">OK</span>
-                        </button>
-                        <button type="button" id="retry-btn" class="hidden w-full border border-indigo-600 text-indigo-600 py-2 px-4 rounded-lg hover:bg-indigo-50 transition-colors duration-200 flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                            Ponów próbę
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        modalOverlay.appendChild(modalContent);
-        document.body.appendChild(modalOverlay);
-        
-        // Animacja pojawiania się modalu
-        setTimeout(() => {
-            modalOverlay.style.opacity = '1';
-            modalContent.style.opacity = '1';
-            modalContent.style.transform = 'scale(1)';
-        }, 10);
-        
-        // Elementy do aktualizacji statusu
-        const progressBar = document.getElementById('progress-bar');
-        const progressPercentage = document.getElementById('progress-percentage');
-        const progressStatus = document.getElementById('progress-status');
-        const progressCount = document.getElementById('progress-count');
-        const statusLog = document.getElementById('status-log');
-        const actionButtons = document.getElementById('action-buttons');
-        const retryBtn = document.getElementById('retry-btn');
-        const closeBtn = document.getElementById('close-modal-btn');
-        const closeBtnText = document.getElementById('close-btn-text');
-        
-        // Wyłącz wszystkie przyciski generowania opisów
-        const allButtons = [];
-        if (generateDescriptionsBulkBtn) allButtons.push(generateDescriptionsBulkBtn);
-        if (generateDescriptionBtns) allButtons.push(...generateDescriptionBtns);
-        
-        allButtons.forEach(btn => {
-            if (btn) {
-                btn.originalHTML = btn.innerHTML;
-                btn.innerHTML = '<span class="loading-spinner mr-2"></span>Generowanie...';
-                btn.disabled = true;
-            }
-        });
-        
-        // Funkcja dodająca wpis do logu z animacją
-        function addLogEntry(message, type = 'info') {
-            const entry = document.createElement('div');
-            entry.className = 'mb-1 opacity-0';
-            
-            let icon = '';
-            if (type === 'success') {
-                icon = '<span class="text-green-600 mr-1">✓</span>';
-                entry.className += ' text-green-600';
-            } else if (type === 'error') {
-                icon = '<span class="text-red-600 mr-1">✗</span>';
-                entry.className += ' text-red-600';
-            } else if (type === 'warning') {
-                icon = '<span class="text-yellow-600 mr-1">⚠</span>';
-                entry.className += ' text-yellow-600';
-            } else {
-                icon = '<span class="text-gray-400 mr-1">•</span>';
-            }
-            
-            entry.innerHTML = `${icon}${message}`;
-            
-            statusLog.appendChild(entry);
-            
-            // Płynna animacja pojawienia się wpisu
-            setTimeout(() => {
-                entry.style.transition = 'opacity 0.3s ease-in-out';
-                entry.style.opacity = '1';
-                statusLog.scrollTop = statusLog.scrollHeight;
-            }, 10);
-        }
-        
-        // Aktualizacja postępu z animacją
-        function updateProgress(current, total) {
-            const percent = Math.round((current / total) * 100);
-            
-            // Płynna animacja paska postępu
-            progressBar.style.transition = 'width 0.5s ease-out';
-            progressBar.style.width = `${percent}%`;
-            
-            // Aktualizacja procentów z animacją licznika
-            const currentValue = parseInt(progressPercentage.textContent.replace('%', '')) || 0;
-            animateValue(progressPercentage, currentValue, percent, 500);
-            
-            // Aktualizacja licznika produktów
-            progressCount.textContent = `${current}/${total}`;
-        }
-        
-        // Funkcja animująca wartość liczbową
-        function animateValue(element, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const value = Math.floor(progress * (end - start) + start);
-                element.textContent = `${value}%`;
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // Zakończenie procesu z dodatkową obsługą powtórzeń
-        function finishProcess(success, message, isRetry = false) {
-            if (success) {
-                progressStatus.textContent = 'Zakończono pomyślnie';
-                progressStatus.className = 'text-green-600 font-medium';
-                progressBar.className = 'bg-green-500 h-2.5 rounded-full transition-all duration-500 ease-out';
-                addLogEntry('Wszystkie opisy zostały wygenerowane poprawnie.', 'success');
-                closeBtnText.textContent = 'Zamknij i odśwież';
-            } else {
-                progressStatus.textContent = 'Wystąpił błąd';
-                progressStatus.className = 'text-red-600 font-medium';
-                progressBar.className = 'bg-red-500 h-2.5 rounded-full transition-all duration-500 ease-out';
-                addLogEntry(message || 'Błąd podczas generowania opisów', 'error');
-                closeBtnText.textContent = 'Zamknij';
-
-                // Pokaż przycisk retry w przypadku błędu, ale nie jeśli to już było powtórzenie
-                if (!isRetry) {
-                    retryBtn.style.display = 'inline-flex';
-                }
-            }
-            
-            // Pokaż przyciski akcji
-            actionButtons.style.display = 'block';
-            
-            // Obsługa przycisku zamknięcia
-            closeBtn.addEventListener('click', function() {
-                modalOverlay.style.opacity = '0';
-                modalContent.style.opacity = '0';
-                modalContent.style.transform = 'scale(0.95)';
-                
-                setTimeout(() => {
-                    modalOverlay.remove();
-                    if (success) {
-                        window.location.reload();
-                    } else {
-                        // Przywróć oryginalny wygląd przycisków
-                        allButtons.forEach(btn => {
-                            if (btn) {
-                                btn.innerHTML = btn.originalHTML;
-                                btn.disabled = false;
-                            }
-                        });
-                    }
-                }, 300);
-            });
-            
-            // Obsługa przycisku ponowienia próby
-            retryBtn.addEventListener('click', function() {
-                // Ukryj przyciski akcji
-                actionButtons.style.display = 'none';
-                
-                // Zresetuj status
-                progressStatus.textContent = 'Ponowna próba...';
-                progressStatus.className = 'text-gray-600';
-                progressBar.className = 'bg-indigo-600 h-2.5 rounded-full transition-all duration-500 ease-out';
-                
-                // Dodaj informację o ponownej próbie
-                addLogEntry('Ponowienie próby generowania opisów...', 'warning');
-                
-                // Rozpocznij wysyłanie żądania ponownie
-                sendRequest(true);
-            });
-        }
-        
-        // Funkcja wysyłająca żądanie z obsługą zarówno fetch jak i XMLHttpRequest
-        function sendRequest(isRetry = false) {
-            // Resetowanie postępu w przypadku ponownej próby
-            if (isRetry) {
-                updateProgress(0, productIds.length);
-            }
-            
-            // Dodanie wpisów początkowych do logu
-            addLogEntry(isRetry ? 'Ponawianie żądania...' : 'Inicjalizacja procesu...');
-            addLogEntry(`Produkty do przetworzenia: ${productIds.length}`);
-            
-            // Dane do wysłania
-            const requestData = { product_ids: productIds };
-            
-            // Próba użycia nowoczesnego fetch API z fallbackiem do XMLHttpRequest
-            const canUseFetch = typeof fetch === 'function';
-            
-            if (canUseFetch) {
-                // Korzystamy z nowoczesnego fetch API
-                addLogEntry('Używanie nowoczesnego API do komunikacji...');
-                
-                // Kontroler przerwania fetch - pozwala na anulowanie żądania
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 180000); // 3 minuty timeout
-                
-                addLogEntry('Wysyłanie żądania do serwera...');
-                
-                fetch('/admin/generate-product-descriptions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(requestData),
-                    signal: controller.signal
-                })
-                .then(response => {
-                    clearTimeout(timeoutId);
-                    addLogEntry(`Otrzymano odpowiedź: status ${response.status}`);
-
-                    if (!response.ok) {
-                        addLogEntry(`Błąd serwera: ${response.status} ${response.statusText}`, 'error');
-                        // Attempt to parse error message from server if available
-                        response.json().then(errorData => {
-                            finishProcess(false, errorData.message || `Błąd serwera: ${response.status}`, isRetry);
-                        }).catch(() => {
-                            finishProcess(false, `Błąd serwera: ${response.status} - nie udało się sparsować odpowiedzi`, isRetry);
-                        });
-                        throw new Error(`HTTP error! status: ${response.status}`); // Stop further .then() processing
-                    }
-
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        finishProcess(true, data.message, isRetry);
-                    } else {
-                        finishProcess(false, data.message || 'Nieznany błąd po stronie serwera.', isRetry);
-                    }
-                })
-                .catch(error => {
-                    clearTimeout(timeoutId);
-                    addLogEntry(`Wystąpił błąd: ${error.message}`, 'error');
-
-                    // W przypadku przerwania - specjalna obsługa
-                    if (error.name === 'AbortError') {
-                        finishProcess(false, 'Przekroczono czas oczekiwania na odpowiedź', isRetry);
-                    } else {
-                        finishProcess(false, `Błąd sieci lub żądania: ${error.message}`, isRetry);
-                    }
-                });
-                
-                // Symulacja postępu dla fetch - podobnie jak w XMLHttpRequest
-                startProgressSimulation(180000); // 3 minuty
-                
-            } else {
-                // Używamy XMLHttpRequest jako fallback
-                useFallbackXHR(isRetry);
-            }
-            
-            // Funkcja fallback używająca XMLHttpRequest
-            function useFallbackXHR(isXHRRetry) {
-                addLogEntry('Używanie alternatywnej metody komunikacji...', isXHRRetry ? 'warning' : 'info');
-                
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/admin/generate-product-descriptions', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.timeout = 180000; // 3 minuty timeout
-                
-                // Obsługa odpowiedzi serwera
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 1) { // OPENED
-                        progressStatus.textContent = 'Łączenie...';
-                    } else if (xhr.readyState === 2) { // HEADERS_RECEIVED
-                        progressStatus.textContent = 'Żądanie zaakceptowane';
-                    } else if (xhr.readyState === 3) { // LOADING
-                        progressStatus.textContent = 'Przetwarzanie...';
-                    } else if (xhr.readyState === 4) { // DONE
-                        if (xhr.status === 200) {
-                            try {
-                                const responseData = JSON.parse(xhr.responseText);
-                                addLogEntry('Odpowiedź serwera przetworzona pomyślnie (XHR).', 'success');
-                                if (responseData.success) {
-                                    finishProcess(true, responseData.message, isXHRRetry);
-                                } else {
-                                    finishProcess(false, responseData.message || 'Błąd serwera (XHR)', isXHRRetry);
-                                }
-                            } catch (e) {
-                                addLogEntry(`Błąd parsowania odpowiedzi JSON (XHR): ${e.message}`, 'error');
-                                finishProcess(false, 'Błąd przetwarzania odpowiedzi serwera (XHR)', isXHRRetry);
-                            }
-                        } else {
-                            addLogEntry(`Błąd serwera (XHR): status ${xhr.status}`, 'error');
-                            finishProcess(false, `Błąd serwera (XHR): ${xhr.status}`, isXHRRetry);
-                        }
-                    }
-                };
-
-                // Obsługa postępu
-                xhr.upload.onprogress = function(event) {
-                    if (event.lengthComputable) {
-                        // This block can be used to log upload progress if needed
-                        // const percentComplete = Math.round((event.loaded / event.total) * 100);
-                        // addLogEntry(`Postęp wysyłania (XHR): ${percentComplete}%`);
-                    }
-                };
-                
-                // Obsługa błędów
-                xhr.onerror = function() {
-                    addLogEntry('Błąd połączenia z serwerem.', 'error');
-                    finishProcess(false, 'Nie można połączyć się z serwerem', isXHRRetry);
-                };
-                
-                // Obsługa timeout
-                xhr.ontimeout = function() {
-                    addLogEntry('Przekroczono czas oczekiwania na odpowiedź serwera.', 'error');
-                    finishProcess(false, 'Przekroczono czas oczekiwania na odpowiedź', isXHRRetry);
-                };
-                
-                // Wysłanie żądania
-                addLogEntry('Wysyłanie żądania do serwera...');
-                xhr.send(JSON.stringify(requestData));
-                
-                // Symulacja postępu
-                if (!isXHRRetry) {
-                    startProgressSimulation(180000); // 3 minuty
-                }
-            }
-        }
-        
-        // Funkcja symulująca postęp podczas oczekiwania na odpowiedź
-        function startProgressSimulation(maxDuration) {
-            let progressSimulation = 0;
-            let simulationStep = 0;
-            const endTime = Date.now() + maxDuration;
-            
-            const progressMessages = [
-                'Pobieranie danych produktów...',
-                'Analiza parametrów produktów...',
-                'Generowanie zawartości opisu...',
-                'Optymalizacja opisów dla SEO...',
-                'Formatowanie treści opisów...',
-                'Sprawdzanie poprawności gramatycznej...',
-                'Analizowanie podobnych produktów...',
-                'Dostosowywanie stylu opisów...',
-                'Weryfikacja zgodności z regulaminem sklepu...',
-                'Sprawdzanie poprawności opisów technicznych...'
-            ];
-            
-            const progressInterval = setInterval(() => {
-                // Sprawdź czy modal jest nadal widoczny
-                if (!document.getElementById('description-generator-modal')) {
-                    clearInterval(progressInterval);
-                    return;
-                }
-                
-                // Zwiększaj postęp wolniej wraz z upływem czasu
-                const timeRemaining = Math.max(0, endTime - Date.now()) / maxDuration;
-                const increment = Math.max(0.2, timeRemaining * 1);
-                
-                progressSimulation += increment;
-                simulationStep++;
-                
-                // Aktualizuj pasek postępu, ale nie przekraczaj 90%
-                if (progressSimulation <= 90) {
-                    const simulatedProgress = Math.min(90, progressSimulation);
-                    updateProgress(Math.floor(productIds.length * (simulatedProgress / 100)), productIds.length);
-                    
-                    // Dodawaj komunikaty o postępie w strategicznych momentach
-                    if (simulationStep % 10 === 0) {
-                        const randomIndex = Math.floor(Math.random() * progressMessages.length);
-                        const message = progressMessages[randomIndex];
-
-                        // Nie powtarzaj ostatniego komunikatu, lub dodaj jeśli log jest pusty
-                        if (!statusLog.lastElementChild || !statusLog.lastElementChild.innerHTML.includes(message)) {
-                            addLogEntry(message);
-                        }
-                    }
-                    
-                    // Dodaj specjalne komunikaty w kluczowych momentach progresu
-                    if (Math.round(simulatedProgress) === 25) {
-                        addLogEntry('25% postępu - pobieranie danych produktów zakończone', 'success');
-                    } else if (Math.round(simulatedProgress) === 50) {
-                        addLogEntry('50% postępu - generowanie podstawowych opisów', 'success');
-                    } else if (Math.round(simulatedProgress) === 75) {
-                        addLogEntry('75% postępu - finalizowanie generowania opisów', 'success');
-                    }
-                }
-            }, 300);
-            
-            // Przechowaj referencję do interwału, aby można było go zatrzymać w razie potrzeby
-            window._progressInterval = progressInterval;
-        }
-        
-        // Rozpocznij proces
-        sendRequest(false);
-    }
-
-    // Dodanie animacji do modalu
-    const bulkUpdateModal = document.getElementById('bulkUpdateModal');
-    const modalContent = document.getElementById('modalContent');
-
-    // Funkcja otwierająca modal z animacją
-    function openModal() {
-        bulkUpdateModal.classList.remove('hidden');
-        // Opóźnienie animacji, aby była widoczna
-        setTimeout(() => {
-            bulkUpdateModal.classList.add('opacity-100');
-            modalContent.classList.remove('scale-95', 'opacity-0');
-            modalContent.classList.add('scale-100', 'opacity-100');
-        }, 10);
-    }
-
-    // Funkcja zamykająca modal z animacją
-    function closeModal() {
-        bulkUpdateModal.classList.remove('opacity-100');
-        modalContent.classList.remove('scale-100', 'opacity-100');
-        modalContent.classList.add('scale-95', 'opacity-0');
-        setTimeout(() => {
-            bulkUpdateModal.classList.add('hidden');
-        }, 300);
-    }
-
-    // Obsługa przycisku zamykania modalu
-    document.getElementById('bulkPriceUpdate').addEventListener('click', openModal);
-    document.getElementById('closeBulkUpdateModal').addEventListener('click', closeModal);
-    document.getElementById('cancelBulkUpdate').addEventListener('click', closeModal);
-    
-    // Initialize notification system 
-    function initNotificationSystem() {
-        // Create the toast container once at initialization
-        const container = document.createElement('div');
-        container.className = 'toast-container';
-        document.body.appendChild(container);
-        
-        // Add utility to manage multiple notifications
-        window.notificationQueue = [];
-        window.notificationActive = false;
-        
-        // Override the showToast function to use the queue
-        const originalShowToast = window.showToast;
-        window.showToast = function(message, type = 'success') {
-            // If we have more than 3 visible notifications, queue this one
-            const visibleToasts = document.querySelectorAll('.toast-notification.show').length;
-            
-            if (visibleToasts >= 3) {
-                window.notificationQueue.push({message, type});
-                return;
-            }
-            
-            // Otherwise show it immediately
-            originalShowToast(message, type);
-            
-            // Process queue after this notification is shown
-            setTimeout(processNotificationQueue, 500);
-        };
-        
-        // Function to process the queue
-        function processNotificationQueue() {
-            if (window.notificationQueue.length > 0 && document.querySelectorAll('.toast-notification.show').length < 3) {
-                const next = window.notificationQueue.shift();
-                originalShowToast(next.message, next.type);
-                
-                // Continue processing if there are more in queue
-                setTimeout(processNotificationQueue, 500);
-            }
-        }
-        
-        // Set up the notification test panel
-        setupNotificationTestPanel();
-    }
-    
-    // Set up test notification panel functionality
-    function setupNotificationTestPanel() {
-        const panel = document.getElementById('testNotificationPanel');
-        const closeBtn = document.getElementById('closeTestPanel');
-        
-        // If the panel doesn't exist, create it
-        if (!panel) {
-            createNotificationTestPanel();
-            return; // After creating the panel, we'll reload so exit the function
-        }
-        
-        // Function to toggle panel visibility
-        function toggleTestPanel() {
-            if (panel && panel.classList.contains('hidden')) {
-                panel.classList.remove('hidden');
-                setTimeout(() => {
-                    panel.classList.add('scale-100', 'opacity-100');
-                    panel.classList.remove('scale-95', 'opacity-0');
-                }, 10);
-            } else if (panel) {
-                panel.classList.remove('scale-100', 'opacity-100');
-                panel.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    panel.classList.add('hidden');
-                }, 300);
-            }
-        }
-        
-        // Keyboard shortcut (Ctrl+Shift+N) to toggle panel
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.shiftKey && e.key === 'N') {
-                toggleTestPanel();
-                e.preventDefault();
-            }
-        });
-        
-        // Only add event listeners if elements exist
-        if (closeBtn) {
-            closeBtn.addEventListener('click', toggleTestPanel);
-        }
-        
-        // Set up test buttons - with null checks to avoid errors
-        const successBtn = document.getElementById('testSuccessNotification');
-        const errorBtn = document.getElementById('testErrorNotification');
-        const warningBtn = document.getElementById('testWarningNotification');
-        const infoBtn = document.getElementById('testInfoNotification');
-        const multipleBtn = document.getElementById('testMultipleNotifications');
-        
-        if (successBtn) {
-            successBtn.addEventListener('click', () => {
-                showToast('To jest komunikat sukcesu', 'success');
-            });
-        }
-        
-        if (errorBtn) {
-            errorBtn.addEventListener('click', () => {
-                showToast('To jest komunikat błędu', 'error');
-            });
-        }
-        
-        if (warningBtn) {
-            warningBtn.addEventListener('click', () => {
-                showToast('To jest komunikat ostrzeżenia', 'warning');
-            });
-        }
-        
-        if (infoBtn) {
-            infoBtn.addEventListener('click', () => {
-                showToast('To jest komunikat informacyjny', 'info');
-            });
-        }
-        
-        if (multipleBtn) {
-            multipleBtn.addEventListener('click', () => {
-                // Send a series of notifications to test queueing
-                showToast('Pierwszy komunikat', 'success');
-                setTimeout(() => showToast('Drugi komunikat', 'info'), 200);
-                setTimeout(() => showToast('Trzeci komunikat', 'warning'), 400);
-                setTimeout(() => showToast('Czwarty komunikat', 'error'), 600);
-                setTimeout(() => showToast('Piąty komunikat', 'success'), 800);
-            });
         }
     }
     
