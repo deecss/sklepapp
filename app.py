@@ -246,7 +246,10 @@ def refresh_xml():
 @admin_auth.login_required
 def update_product():
     try:
+        app.logger.info("Otrzymano żądanie aktualizacji produktu")
         data = request.get_json()
+        app.logger.info(f"Dane żądania: {data}")
+        
         product_id = data.get('product_id')
         price = data.get('price')
         vat = data.get('vat')
@@ -254,8 +257,11 @@ def update_product():
         delivery_cost = data.get('delivery_cost')
         markup_percent = data.get('markup_percent')
         
+        app.logger.info(f"Aktualizacja produktu {product_id}: cena={price}, vat={vat}, dostawa={delivery_time}, koszt_dostawy={delivery_cost}, narzut={markup_percent}")
+        
         # Sprawdź, czy wszystkie wymagane dane są dostępne
         if not all([product_id, (price is not None or markup_percent is not None), vat is not None, delivery_time, delivery_cost is not None]):
+            app.logger.error("Brak wymaganych danych")
             return jsonify({
                 'success': False,
                 'message': 'Brak wymaganych danych'
@@ -272,11 +278,13 @@ def update_product():
         )
         
         if success:
+            app.logger.info(f"Produkt {product_id} został zaktualizowany pomyślnie")
             return jsonify({
                 'success': True,
                 'message': 'Produkt został zaktualizowany'
             })
         else:
+            app.logger.error(f"Nie udało się zaktualizować produktu {product_id}")
             return jsonify({
                 'success': False,
                 'message': 'Nie udało się zaktualizować produktu'
@@ -292,7 +300,10 @@ def update_product():
 @admin_auth.login_required
 def bulk_update_products():
     try:
+        app.logger.info("Otrzymano żądanie masowej aktualizacji produktów")
         data = request.get_json()
+        app.logger.info(f"Dane żądania: {data}")
+        
         product_ids = data.get('product_ids', [])
         price_data = data.get('price', {})
         markup_data = data.get('markup', {})
@@ -300,7 +311,15 @@ def bulk_update_products():
         delivery_time = data.get('delivery_time')
         delivery_cost_data = data.get('delivery_cost', {})
         
+        app.logger.info(f"Liczba produktów do aktualizacji: {len(product_ids)}")
+        app.logger.info(f"Dane ceny: {price_data}")
+        app.logger.info(f"Dane narzutu: {markup_data}")
+        app.logger.info(f"VAT: {vat}")
+        app.logger.info(f"Czas dostawy: {delivery_time}")
+        app.logger.info(f"Dane kosztu dostawy: {delivery_cost_data}")
+        
         if not product_ids:
+            app.logger.error("Nie wybrano produktów do aktualizacji")
             return jsonify({
                 'success': False,
                 'message': 'Nie wybrano produktów do aktualizacji'
@@ -314,6 +333,7 @@ def bulk_update_products():
             # Pobierz aktualny produkt
             product = product_manager.get_product_by_id(product_id)
             if not product:
+                app.logger.warning(f"Nie znaleziono produktu o ID: {product_id}")
                 continue
                 
             # Przygotuj dane do aktualizacji

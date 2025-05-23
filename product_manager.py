@@ -354,6 +354,9 @@ class ProductManager:
             bool: True jeśli aktualizacja się powiodła, False w przeciwnym razie
         """
         try:
+            self.logger.info(f"Rozpoczynam aktualizację produktu o ID {product_id}")
+            self.logger.info(f"Parametry aktualizacji: price={price}, markup_percent={markup_percent}, vat={vat}, delivery_time={delivery_time}, delivery_cost={delivery_cost}, available_for_sale={available_for_sale}")
+            
             # Znajdź produkt
             product = None
             for p in self.products:
