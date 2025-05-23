@@ -1061,12 +1061,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add event listener to close button
         const closeBtn = toast.querySelector('.toast-close');
-        closeBtn.addEventListener('click', () => {
-            closeToast(toast);
-        });
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                closeToast(toast);
+            });
+        }
         
         // Add the show class to trigger animation after a short delay
-        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => {
+            if (toast && document.body.contains(toast)) {
+                toast.classList.add('show');
+            }
+        }, 10);
         
         // Automatically remove the toast after 3 seconds
         const toastTimeout = setTimeout(() => {
@@ -1074,20 +1080,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
         
         // Store timeout reference on the toast element
-        toast.toastTimeout = toastTimeout;
+        if (toast) {
+            toast.toastTimeout = toastTimeout;
+        }
         
         // Pause timeout on hover and resume on mouseout
-        toast.addEventListener('mouseenter', () => {
-            clearTimeout(toast.toastTimeout);
-            // Also pause progress bar animation
-            toast.querySelector('.toast-progress').style.animationPlayState = 'paused';
-        });
-        
-        toast.addEventListener('mouseleave', () => {
-            toast.toastTimeout = setTimeout(() => closeToast(toast), 2000);
-            // Resume progress bar animation
-            toast.querySelector('.toast-progress').style.animationPlayState = 'running';
-        });
+        if (toast) {
+            toast.addEventListener('mouseenter', () => {
+                clearTimeout(toast.toastTimeout);
+                // Also pause progress bar animation
+                const progressBar = toast.querySelector('.toast-progress');
+                if (progressBar) {
+                    progressBar.style.animationPlayState = 'paused';
+                }
+            });
+            
+            toast.addEventListener('mouseleave', () => {
+                toast.toastTimeout = setTimeout(() => closeToast(toast), 2000);
+                // Resume progress bar animation
+                const progressBar = toast.querySelector('.toast-progress');
+                if (progressBar) {
+                    progressBar.style.animationPlayState = 'running';
+                }
+            });
+        }
         
         // Helper function to close a toast with animation
         function closeToast(toast) {
@@ -1104,11 +1120,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Remove from DOM after animation completes
             setTimeout(() => {
-                if (toast.parentNode) {
+                if (toast && toast.parentNode) {
                     toast.remove();
                 }
                 // Process the queue after a toast is removed
-                processNotificationQueue();
+                if (typeof processNotificationQueue === 'function') {
+                    processNotificationQueue();
+                }
             }, 300);
         }
     }
@@ -2197,7 +2215,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Obsługa przycisku zamykania modalu
     const bulkPriceUpdateBtn = document.getElementById('bulkPriceUpdate');
     const closeBulkUpdateModalBtn = document.getElementById('closeBulkUpdateModal');
-    const cancelBulkUpdateBtn = document.getElementById('cancelBulkUpdate');
+    const cancelBulkUpdateButton = document.getElementById('cancelBulkUpdate');
     
     if (bulkPriceUpdateBtn) {
         bulkPriceUpdateBtn.addEventListener('click', openModal);
@@ -2207,8 +2225,8 @@ document.addEventListener('DOMContentLoaded', function() {
         closeBulkUpdateModalBtn.addEventListener('click', closeModal);
     }
     
-    if (cancelBulkUpdateBtn) {
-        cancelBulkUpdateBtn.addEventListener('click', closeModal);
+    if (cancelBulkUpdateButton) {
+        cancelBulkUpdateButton.addEventListener('click', closeModal);
     }
     
     // Initialize notification system 
@@ -2219,7 +2237,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(container);
         
         // Add utility to manage multiple notifications
-        window.notificationQueue = [];
+        window.notificationQueue = window.notificationQueue || [];
         window.notificationActive = false;
         
         // Check if showToast function already exists
@@ -2230,6 +2248,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Store reference to the original function
         const originalShowToast = window.showToast;
+        window.originalShowToast = originalShowToast; // Save globally for reference
         
         // Override the showToast function to use the queue
         window.showToast = function(message, type = 'success') {
@@ -2242,7 +2261,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Otherwise show it immediately
-            originalShowToast(message, type);
+            if (typeof originalShowToast === 'function') {
+                originalShowToast(message, type);
+            } else if (typeof window.originalShowToast === 'function') {
+                window.originalShowToast(message, type);
+            } else if (typeof showToast === 'function') {
+                // Local fallback
+                showToast(message, type);
+            } else {
+                console.error('No showToast function available');
+            }
             
             // Process queue after this notification is shown
             setTimeout(processNotificationQueue, 500);
@@ -2250,14 +2278,36 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Function to process the queue
         function processNotificationQueue() {
-            if (window.notificationQueue && window.notificationQueue.length > 0 && document.querySelectorAll('.toast-notification.show').length < 3) {
+            if (!window.notificationQueue || !Array.isArray(window.notificationQueue)) {
+                window.notificationQueue = []; // Initialize if not exist or not an array
+                return;
+            }
+            
+            if (window.notificationQueue.length > 0 && document.querySelectorAll('.toast-notification.show').length < 3) {
                 const next = window.notificationQueue.shift();
-                if (next && originalShowToast) {
+                if (!next) return;
+                
+                // Try different ways to access the showToast function
+                if (typeof originalShowToast === 'function') {
                     originalShowToast(next.message, next.type);
-                    
-                    // Continue processing if there are more in queue
-                    setTimeout(processNotificationQueue, 500);
+                } else if (typeof window.originalShowToast === 'function') {
+                    window.originalShowToast(next.message, next.type);
+                } else if (typeof showToast === 'function') {
+                    showToast(next.message, next.type);
+                } else if (typeof window.showToast === 'function') {
+                    // Use the current (possibly overridden) version as last resort
+                    const currentShowToast = window.showToast;
+                    // Temporarily restore original behavior to avoid infinite recursion
+                    window.showToast = function(m, t) {
+                        if (typeof showToast === 'function') showToast(m, t);
+                    };
+                    currentShowToast(next.message, next.type);
+                    // Restore the overridden version
+                    window.showToast = currentShowToast;
                 }
+                
+                // Continue processing if there are more in queue
+                setTimeout(processNotificationQueue, 500);
             }
         }
         
