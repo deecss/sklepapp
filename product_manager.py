@@ -636,7 +636,7 @@ class ProductManager:
         
     def update_product_list(self, list_id, data):
         """
-        Aktualizuje istniejącą listę produktów.
+        Aktualizuje istniejącą listę produktów i produkty wystawione w sklepie.
         
         Args:
             list_id (int): ID listy produktów do aktualizacji.
@@ -650,16 +650,50 @@ class ProductManager:
             
             for i, product_list in enumerate(product_lists):
                 if product_list.get('id') == list_id:
-                    # Aktualizuj dane
+                    # Pobierz stare dane przed aktualizacją
+                    old_product_list = product_lists[i].copy()
+                    
+                    # Aktualizuj dane listy
                     for key, value in data.items():
                         if key == 'markup_percent':
                             product_lists[i][key] = float(value)
                         else:
                             product_lists[i][key] = value
                     
-                    # Zapisz do pliku
+                    # Zapisz zaktualizowaną listę do pliku
                     with open(self.PRODUCT_LISTS_FILE, 'w', encoding='utf-8') as f:
                         json.dump(product_lists, f, ensure_ascii=False, indent=2)
+                    
+                    # Aktualizuj produkty już wystawione w sklepie, jeśli zmieniono narzut
+                    if 'markup_percent' in data:
+                        new_markup = float(data['markup_percent'])
+                        product_ids = product_lists[i].get('products_ids', [])
+                        
+                        # Aktualizuj każdy produkt z listy
+                        for product_id in product_ids:
+                            # Sprawdź czy produkt jest już wystawiony w sklepie
+                            existing_product = next((p for p in self.products if str(p.get('id')) == str(product_id)), None)
+                            
+                            if existing_product:
+                                # Pobierz aktualną cenę z XML
+                                xml_product = self.get_product_from_xml(product_id)
+                                if xml_product:
+                                    # Oblicz nową cenę z nowym narzutem
+                                    base_price = xml_product.get('price', 0)
+                                    if base_price > 0:
+                                        new_price = base_price * (1 + new_markup / 100)
+                                        
+                                        # Aktualizuj produkt w sklepie
+                                        self.update_product(
+                                            product_id=product_id,
+                                            price=new_price,
+                                            markup_percent=new_markup
+                                        )
+                                        
+                                        self.logger.info(f"Zaktualizowano cenę produktu {product_id} na {new_price:.2f} zł (narzut: {new_markup}%)")
+                        
+                        # Zapisz zmiany w produktach
+                        self._save_to_db()
                     
                     self.logger.info(f"Zaktualizowano listę produktów ID: {list_id}")
                     return product_lists[i]
@@ -1244,3 +1278,144 @@ class ProductManager:
         except Exception as e:
             self.logger.error(f"Error getting last update time: {str(e)}")
             return None
+    
+    def search_xml_products(self, query='', field='any'):
+        """
+        Wyszukuje produkty w pliku XML na podstawie zapytania.
+        
+        Args:
+            query (str): Zapytanie wyszukiwania
+            field (str): Pole do wyszukiwania ('any', 'name', 'id', 'description', 'category')
+            
+        Returns:
+            list: Lista słowników z danymi produktów pasujących do zapytania
+        """
+        try:
+            if not os.path.exists(self.xml_path):
+                self.logger.error(f"Plik XML nie istnieje: {self.xml_path}")
+                return []
+                
+            tree = ET.parse(self.xml_path)
+            root = tree.getroot()
+            
+            results = []
+            query_lower = query.lower() if query else ''
+            
+            for product_elem in root.findall('.//offer'):
+                xml_id = self._safe_get_xml_value(product_elem, 'id')
+                if not xml_id:
+                    continue
+                    
+                # Pobierz dane produktu
+                product = {
+                    'xml_id': xml_id,
+                    'id': xml_id,
+                    'name': self._safe_get_xml_value(product_elem, 'name', ''),
+                    'description': self._safe_get_xml_value(product_elem, 'description', ''),
+                    'category': self._safe_get_xml_value(product_elem, 'category', ''),
+                    'price': float(self._safe_get_xml_value(product_elem, 'price', 0) or 0),
+                    'stock': int(self._safe_get_xml_value(product_elem, 'stock', 0) or 0),
+                    'ean': self._safe_get_xml_value(product_elem, 'ean', ''),
+                    'producer': self._safe_get_xml_value(product_elem, 'producer', ''),
+                    'images': []
+                }
+                
+                # Pobierz obrazy
+                pictures_elem = product_elem.find('pictures')
+                if pictures_elem is not None:
+                    for pic in pictures_elem.findall('picture'):
+                        if pic.text:
+                            product['images'].append(pic.text.strip())
+                
+                # Ustaw główny obraz
+                product['image'] = product['images'][0] if product['images'] else None
+                
+                # Sprawdź czy produkt pasuje do wyszukiwania
+                if not query:
+                    results.append(product)
+                    continue
+                    
+                match = False
+                
+                if field == 'any':
+                    # Szukaj we wszystkich polach
+                    search_fields = [
+                        product['name'],
+                        product['description'], 
+                        product['category'],
+                        str(product['id']),
+                        product['ean'],
+                        product['producer']
+                    ]
+                    match = any(query_lower in str(field_value).lower() for field_value in search_fields if field_value)
+                    
+                elif field == 'name':
+                    match = query_lower in product['name'].lower()
+                elif field == 'id':
+                    match = query_lower in str(product['id']).lower()
+                elif field == 'description':
+                    match = query_lower in product['description'].lower()
+                elif field == 'category':
+                    match = query_lower in product['category'].lower()
+                elif field == 'ean':
+                    match = query_lower in product['ean'].lower()
+                elif field == 'producer':
+                    match = query_lower in product['producer'].lower()
+                    
+                if match:
+                    results.append(product)
+            
+            self.logger.info(f"Znaleziono {len(results)} produktów dla zapytania: '{query}' w polu: '{field}'")
+            return results
+            
+        except Exception as e:
+            self.logger.error(f"Błąd podczas wyszukiwania produktów w XML: {str(e)}")
+            return []
+    
+    def find_products(self, query='', include_unavailable=True):
+        """
+        Wyszukuje produkty w bazie danych sklepu na podstawie zapytania.
+        
+        Args:
+            query (str): Zapytanie wyszukiwania
+            include_unavailable (bool): Czy uwzględnić produkty niedostępne do sprzedaży
+            
+        Returns:
+            list: Lista słowników z danymi produktów pasujących do zapytania
+        """
+        try:
+            query_lower = query.lower() if query else ''
+            results = []
+            
+            for product in self.products:
+                # Sprawdź czy produkt jest dostępny do sprzedaży (jeśli ma znaczenie)
+                if not include_unavailable and not product.get('available_for_sale', False):
+                    continue
+                    
+                # Jeśli brak zapytania, zwróć wszystkie produkty
+                if not query:
+                    results.append(product)
+                    continue
+                    
+                # Sprawdź czy produkt pasuje do wyszukiwania
+                search_fields = [
+                    product.get('name', ''),
+                    product.get('description', ''), 
+                    product.get('category', ''),
+                    str(product.get('id', '')),
+                    product.get('EAN', ''),
+                    product.get('producer', '')
+                ]
+                
+                # Szukaj we wszystkich polach
+                match = any(query_lower in str(field_value).lower() for field_value in search_fields if field_value)
+                    
+                if match:
+                    results.append(product)
+            
+            self.logger.info(f"Znaleziono {len(results)} produktów dla zapytania: '{query}'")
+            return results
+            
+        except Exception as e:
+            self.logger.error(f"Błąd podczas wyszukiwania produktów: {str(e)}")
+            return []

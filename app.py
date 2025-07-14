@@ -15,7 +15,7 @@ from backup_manager import BackupManager
 # Initialize Flask app
 app = Flask(__name__)
 app.secret_key = 'sklep-internetowy-staly-klucz-sesji'  # Stały klucz sesji
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*", engineio_logger=True, socketio_logger=True)
 
 # Ustawienie czasu trwania sesji na 24 godziny
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=24)
@@ -1544,8 +1544,8 @@ def search():
         flash('Wprowadź frazę do wyszukania', 'warning')
         return redirect(url_for('home'))
     
-    # Pobranie wyników wyszukiwania
-    products = product_manager.find_products(query, include_unavailable=not available_only)
+    # Pobranie wyników wyszukiwania - tylko produkty dostępne do sprzedaży
+    products = product_manager.find_products(query, include_unavailable=False)
     
     # Wyróżnij zapytanie w nazwach i opisach produktów
     if query:
@@ -1593,37 +1593,40 @@ def search():
 @app.route('/api/search')
 def api_search():
     """API dla podpowiedzi wyszukiwania"""
-    query = request.args.get('q', '')
-    limit = request.args.get('limit', 10, type=int)
-    available_only = request.args.get('available', 'false') == 'true'
-    
-    if not query or len(query) < 2:
-        return jsonify([])
-    
-    products = product_manager.find_products(query, include_unavailable=not available_only)
-    
-    # Sortowanie wyników - domyślnie wg. trafności
-    # Najpierw te, które mają frazę w nazwie
-    if query:
-        products.sort(key=lambda p: query.lower() not in p.get('name', '').lower())
-    
-    # Ograniczenie wyników
-    products = products[:limit]
-    
-    # Przygotowanie wyników w formacie JSON
-    results = []
-    for product in products:
-        results.append({
-            'id': product.get('id'),
-            'name': product.get('name'),
-            'price': product.get('price'),
-            'image': product.get('image'),
-            'category': product.get('category'),
-            'stock': product.get('stock', 0),
-            'available_for_sale': product.get('available_for_sale', True)
-        })
-    
-    return jsonify(results)
+    try:
+        query = request.args.get('q', '')
+        limit = request.args.get('limit', 10, type=int)
+        available_only = request.args.get('available', 'false') == 'true'
+        
+        if not query or len(query) < 2:
+            return jsonify([])
+        
+        products = product_manager.find_products(query, include_unavailable=False)
+        
+        # Sortowanie wyników - domyślnie wg. trafności
+        # Najpierw te, które mają frazę w nazwie
+        if query:
+            products.sort(key=lambda p: query.lower() not in p.get('name', '').lower())
+        
+        # Ograniczenie wyników
+        products = products[:limit]
+        
+        # Przygotowanie wyników w formacie JSON
+        results = []
+        for product in products:
+            results.append({
+                'id': product.get('id'),
+                'name': product.get('name'),
+                'price': product.get('price'),
+                'image': product.get('image'),
+                'category': product.get('category')
+            })
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        print(f"Błąd w API search: {str(e)}")
+        return jsonify({'error': 'Wystąpił błąd podczas wyszukiwania'}), 500
 
 @app.route('/add_to_cart', methods=['POST'])
 def ajax_add_to_cart():
